@@ -37,6 +37,7 @@
 	border-radius: 0;
 	border: 0px;
 	margin-left: 50px;
+	color: #FFF;
 }
 
 .global-search .btn {
@@ -50,21 +51,7 @@
 	padding: 3px 8px;
 }
 
-.navbar-op-footer {
-	background-color: #336699;
-	color: #FFF;
-}
 
-.navbar-op-footer .nav>li>a,.navbar-op-footer .nav>li>a:hover,.navbar-op-footer .nav>li>a:focus
-	{
-	padding: 10px 15px 8px 15px; color : #FFF;
-	background: none;
-	color: #FFF;
-}
-
-.navbar-op-footer .navbar-text {
-	margin: 10px 15px 8px 15px;
-}
 
 .container-op {
 	padding: 20px;
@@ -72,8 +59,6 @@
 	border: 1px solid #ccc;
 	background-color: #FFF;
 }
-.navbar-no-bg>li>a,.navbar-no-bg>li>a:hover,.navbar-no-bg>li>a:focus{
-	background:none;
-}
+
 
 

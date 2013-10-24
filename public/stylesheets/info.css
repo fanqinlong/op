@@ -13,7 +13,7 @@ html {
 .info-wrapper {
 	float: left;
 	padding: 20px 20px 50px 20px;
-	width: 750px;
+	width: 800px;
   	border:1px solid #ccc;
   	background-color: #FFF;
 }
@@ -30,6 +30,7 @@ html {
 	text-align: right;
 	padding-right: 55px;
 	color: #777;
+	list-style:none;
 }
 
 .info-nav li.selected {

@@ -6,9 +6,7 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>欢迎来到奥噗</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-#{stylesheet 'op-theme.css' /}
-#{stylesheet 'font-awesome/css/font-awesome.min.css'  /}
-#{stylesheet 'index.css' /} #{stylesheet 'media-queries.css' /}
+#{stylesheet 'op-theme.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /} #{stylesheet 'media-queries.css' /}
 </head>
 <body>
 	<header class="header">
@@ -25,23 +23,23 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="/public/images/img_1.png" alt="">
+					<img src="/public/images/slide/img_1.png" alt="">
 					<div class="carousel-caption"></div>
 				</div>
 				<div class="item">
-					<img src="/public/images/img_2.png" alt="">
+					<img src="/public/images/slide/img_2.png" alt="">
 					<div class="carousel-caption"></div>
 				</div>
 				<div class="item">
-					<img src="/public/images/img_3.png" alt="">
+					<img src="/public/images/slide/img_3.png" alt="">
 					<div class="carousel-caption"></div>
 				</div>
 				<div class="item">
-					<img src="/public/images/img_4.png" alt="">
+					<img src="/public/images/slide/img_4.png" alt="">
 					<div class="carousel-caption"></div>
 				</div>
 				<div class="item ">
-					<img src="/public/images/img_5.png" alt="">
+					<img src="/public/images/slide/img_5.png" alt="">
 					<div class="carousel-caption"></div>
 				</div>
 
@@ -56,12 +54,14 @@
 			</a>
  -->
 		</div>
-		<img src="/public/images/logo-big.png" class="logo">
-		<div id="login" class="login col-md-2">
+		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
+		<div id="login" class="login col-md-2 col-md-offset-8">
 			<form class="login-form" method="post" action="@{SimpleUsers.login}">
 				<h5 class="pull-left">登录奥噗</h5>
 				<h5 class="pull-right">
-					<a href="@{SimpleUsers.signup}" id="login-font1"> 注册<i class="icon-flag "></i></a>
+					<a href="@{SimpleUsers.signup}" id="login-font1">
+						注册<i class="icon-flag "></i>
+					</a>
 				</h5>
 				<div class="form-group">
 					<input type="email" class="form-control" id="email" placeholder="邮箱">
@@ -81,233 +81,116 @@
 
 	</header>
 
-	<div class="container">
-	
+	<div class="container hot-list">
+
 		<div class="row">
-		<div class="col-md-6">
-		<h3>新生接机<small class="text-danger">WELCOME</small></h3>
-			<div class="">
-				<a href="@{Airports.index}">
-					<span class="small-title">新生接机</span> <span class="small-title2-1">WELCOME</span>
-				</a>
-				<span class="small-title3-1"> 已有 <span class="small-title4-1">1212</span> 名同学被顺利接到
-				</span>
+			<div class="col-md-6">
+				<div class="mg-top-3">
+					<h3 class="text-primary">
+						新生接机<small class="text-danger">WELCOME</small><small class="pull-right">已顺利接到<span class="text-info">777</span>名同学
+						</small>
+					</h3>
+					<hr>
+					<h4>
+						<span class="label label-success">11</span>dddddd
+					</h4>
 
+
+					<p class="text-right">
+						<a class="btn btn-lg btn-warning " type="button" href="@{Airports.index}">
+							<i class="icon-plane"></i> 新生接机快速通道
+						</a>
+					</p>
+
+				</div>
+				<div class="mg-top-3">
+
+					<h3 class="text-primary">
+						最热话题<small class="text-warning">QUESTION</small><small class="pull-right">活跃着<span class="text-info">777</span>个话题
+						</small>
+					</h3>
+					<hr />
+					<h4>
+						<span class="label label-primary">11</span>dddddd
+					</h4>
+
+					<p class="text-right">
+						<a href="" class="btn  btn-primary">Read More</a>
+					</p>
+
+				</div>
+				<div>
+					<img src="/public/images/index-topic.png" alt="" />
+				</div>
 			</div>
-
-			<ul>
-
-				<li class="list1">
-					<a class="btn btn-large btn-warning btn-jieji" type="button" id="btn" href="@{Airports.index}">
-						<img src="/public/img/feiji.png" alt="" />
-						新生接机快速通道
-					</a>
-				</li>
-
-			</ul>
-
-		</div>
-<div class="left2">
-			<div class="high1">
-				<a href="@{QuestAnsw.searchPage}">
-					<span class="small-title">最热话题</span> <span class="small-title2-3">QUESTION</span>
-				</a>
-				<span class="small-title3-3"> <span class="small-title4-3">243</span> 个日常话题， <span class="small-title4-3">31176</span> 个精华回答
-				</span>
-			</div>
-
-			<ul>
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
+			<div class="col-md-6">
+				<div class="mg-top-3">
+					<div>
+						<img src="/public/images/index-activity.png" alt="">
 					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
+					<h3 class="text-primary">
+						最新活动<small class="text-info">ACTIVITY</small><small class="pull-right">进行着<span class="text-info">777</span>个活动
+						</small>
+					</h3>
+					<hr />
+					<h4>
+						<span class="label label-info">33</span>dddddddddd
+					</h4>
+					<p class="text-right">
+						<a href="" class="btn  btn-primary">Read More</a>
+					</p>
 
+				</div>
+				<div class="mg-top-3">
+					<h3 class="text-primary">
+						爱心公益<small class="text-success">COMMOMWEAL</small><small class="pull-right">认证过<span class="text-info">777</span>个公益行动
+						</small>
+					</h3>
+					<hr />
+					<h4>
+						<span class="label label-danger">11</span>dddddd
+					</h4>
+					<p class="text-right">
+						<a href="" class="btn btn-primary">Read More</a>
+					</p>
 
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
-
-
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
-
-				<li class="list1">
-					<button class="btn btn-info btn-1" type="button">Read More</button>
-				</li>
-
-			</ul>
-
-		</div>
-
-		<div>
-			<img src="/public/img/5.png" class="pic-5" alt="" />
-		</div>
-
-		<div class="right1">
-			<div class="high1">
-
-
-
-				<a href="@{Activities.index}">
-					<span class="small-title">最新活动</span> <span class="small-title2-2">ACTIVITY</span>
-				</a>
-				<span class="small-title3-2"> <span class="small-title4-2">188</span> 次认证活动， <span class="small-title4-2">31176</span> 次结交机会
-				</span>
-			</div>
-
-			<ul>
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title2">2</span>
-					</div>
-					<a href="#" class="student">
-						<span class="content-title2">【学生会】</span>同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧
-					</a>
-				</li>
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 2211 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
-
-
-			</ul>
-			<button class="btn btn-info btn-1" type="button">Read More</button>
-
-		</div>
-		
-
-
-		<div class="right2">
-			<div class="high1">
-
-				<a href="@{Charities.pigination(1)}">
-					<span class="small-title">爱心公益</span> <span class="small-title2-4">COMMOMWEAL</span>
-				</a>
-				<span class="small-title3-4"> <span class="small-title4-4">4</span> 个认证公益行动， <span class="small-title4-4">1</span> 份希望援助
-				</span>
-			</div>
-
-			<ul>
-
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
-
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-				</li>
-
-
-
-				<li class="list1">
-
-					<div class="test">
-						<span class="left_title"> 218 </span>
-					</div>
-					<a href="#" class="student">同学们，旧金山机场暑期接机活动正在招募中，机会难得，赶紧下手报名吧</a>
-
-
-				</li>
-				<li class="list1">
-					<button class="btn btn-info btn-1" type="button">Read More</button>
-
-				</li>
-
-
-			</ul>
-		</div>
-		<div>
-			<img src="/public/img/6.png" alt="" class="pic-6" />
-		</div>
-
-	</div>
-
-
-
-
-
-	<div class="row-fluid">
-
-		<div class="span12">
-
-
-
-			<div class="navbar navbar-inverse navbar-static-bottom">
-				<div class="navbar">
-					<div class="container-fluid">
-
-						<div class="nav-collapse collapse navbar-responsive-collapse">
-
-							<ul class="nav" id="bottom-nav">
-								<li>
-									<a href="@{Info.about}" class="list3">&copy; opporlink&nbsp; 奥噗</a>
-								</li>
-								<li>
-									<a href="@{Info.contact}" class="list3">联系我们</a>
-								</li>
-								<li>
-									<a href="@{Info.jobs}" class="list3">加入奥噗</a>
-								</li>
-								<li>
-									<img src="/public/img/share_facebook.png" class="bottom_pic" />
-								</li>
-								<li>
-									<img src="/public/img/share_google+.png" class="bottom_pic" alt="" />
-								</li>
-								<li>
-									<img src="/public/img/share_twitter.png" class="bottom_pic" alt="" />
-								</li>
-								<li>
-									<img src="/public/img/share_weibo.png" class="bottom_pic" alt="" />
-								</li>
-							</ul>
-
-
-						</div>
-
-					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+
+
+	<footer class="navbar-op-footer ">
+		<div class="container ">
+			<P class="navbar-text navbar-right">
+				<a href="#">
+					<img src="/public/images/share_facebook.png" />
+				</a>
+				<a href="#">
+					<img src="/public/images/share_google+.png" alt="" />
+				</a>
+				<a href="#">
+					<img src="/public/images/share_twitter.png" alt="" />
+				</a>
+				<a href="#">
+					<img src="/public/images/share_weibo.png" alt="" />
+				</a>
+			</p>
+			<ul class="nav navbar-nav navbar-right ">
+				<li>
+					<a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a>
+				</li>
+				<li>
+					<a href="@{Info.contact}" class="list3">联系我们</a>
+				</li>
+				<li>
+					<a href="@{Info.jobs}" class="list3">加入奥噗</a>
+				</li>
+			</ul>
+
+		</div>
+	</footer>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
