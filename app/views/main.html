@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico" mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 - #{get 'title' /}</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'main.css' /}
+#{stylesheet 'font-awesome/css/font-awesome.min.css'  /}
+#{get 'Styles' /}
+
+</head>
+<body>
+	<header class="navbar  navbar-op" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">
+					<img class="opporlinklog" src="@{'/public/images/logo.png'}">
+				</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a>
+					</li>
+					<li>
+						<a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a>
+					</li>
+					<li>
+						<a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a>
+					</li>
+					<li>
+						<a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage}">问答</a>
+					</li>
+					<li>
+						<a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a>
+					</li>
+				</ul>
+
+				<form class="navbar-form navbar-left global-search" role="search">
+					<div class="form-group">
+						<input class="form-control" type="text" placeholder="搜索感兴趣的活动、话题或人...">
+					</div>
+
+					<button type="submit" class="btn">
+						<i class=" icon-search"></i>
+					</button>
+				</form>
+
+				<ul class="nav navbar-nav navbar-right navbar-no-bg">
+					#{if connectedSimpleUser}
+					<li>
+						<a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class=" icon-envelope"></i>
+						</a>
+					</li>
+					<li>
+						<a href="@{SimpleUsers.logout}">
+							<i class=" icon-off"></i>
+						</a>
+					</li>
+					#{/if} #{elseif connectedCSSA}
+					<li>
+						<a href="@{CSSAs.infoCenter()}"> ${connectedSimpleUser.name}</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class=" icon-envelope"></i>
+						</a>
+					</li>
+					<li>
+						<a href="@{CSSAs.logout}">
+							<i class=" icon-off"></i>
+						</a>
+					</li>
+					#{/elseif} #{else}
+
+					<li>
+						<a href="@{SimpleUsers.signup}" class="cssa_1">注册</a>
+					</li>
+					<li>
+						<a href="@{SimpleUsers.login}" class="cssa_1">登录</a>
+					</li>
+					#{/else}
+
+				</ul>
+			</div>
+
+		</div>
+	</header>
+
+	<!-- container begin -->
+	<div class="container container-op clearfix">
+		#{if flash?.error}
+		<div class="alert alert-danger fade in">
+			<a class="close" data-dismiss="alert" href="#">&times;</a>
+			${flash.error}
+		</div>
+		#{/if} #{if flash?.success}
+		<div class="alert alert-success fade in">
+			<a class="close" data-dismiss="alert" href="#">&times;</a>
+			${flash.success}
+		</div>
+		#{/if} #{doLayout /}
+	</div>
+	<!-- container end -->
+	<footer class="navbar-op-footer ">
+		<div class="container ">
+			<P class="navbar-text navbar-right">
+				<a href="#">
+					<img src="/public/img/share_facebook.png" />
+				</a>
+				<a href="#">
+					<img src="/public/img/share_google+.png" alt="" />
+				</a>
+				<a href="#">
+					<img src="/public/img/share_twitter.png" alt="" />
+				</a>
+				<a href="#">
+					<img src="/public/img/share_weibo.png" alt="" />
+				</a>
+			</p>
+			<ul class="nav navbar-nav navbar-right ">
+				<li>
+					<a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a>
+				</li>
+				<li>
+					<a href="@{Info.contact}" class="list3">联系我们</a>
+				</li>
+				<li>
+					<a href="@{Info.jobs}" class="list3">加入奥噗</a>
+				</li>
+			</ul>
+
+		</div>
+	</footer>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	#{get 'Scripts' /}
+</body>
+</html>

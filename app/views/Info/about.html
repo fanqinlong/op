@@ -1,0 +1,39 @@
+#{extends 'main.html' /} #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/info.css'}" />
+#{/set}
+
+<!-- 左侧导航 -->
+<div class="info-left-nav">
+	<ul class="info-nav">
+		<a href="@{Info.about}"><li class="selected">关于奥噗</li></a>
+		<a href="@{Info.contact}"><li>联系我们</li></a>
+		<a href="@{Info.jobs}"><li>加入奥噗</li></a>
+	</ul>
+</div>
+
+<!-- 内容 -->
+<div class="info-wrapper">
+	<p class="sub-title">公司介绍</p>
+	<p class="info info-paragraph">Opporlink 奥噗，全称为 Opportunity Link。我们旨在筹建 Opporlink
+		奥噗网络平台，作为美国华人的沟通纽带，并提供各种活动和服务的机会，让在加利福尼亚州，甚至是全美国、全世界的中国留学生以及网站互动用户感受到更强的社交氛围。我们通过在中美两国的环境以及文化背景中探寻，创造出一种独特的互联网运营模式。</p>
+	<div class="info-pics">
+		<img src="/public/images/about/about_img1.png" /> <img
+			src="/public/images/about/about_img2.png" />
+	</div>
+	<div class="info-pics">
+		<img src="/public/images/about/about_img3.png" /> <img
+			src="/public/images/about/about_img4.png" />
+	</div>
+	<p class="info info-paragraph">我们围绕“留学生”这个恒久的话题，一起探索这个世界，发掘生活的种种可能。</p>
+	<p class="info-slogan">
+		<span class="info-highlight">我们的团队</span><br/>
+		我们来自<span class="info-highlight">五湖四海</span><br/>
+		我们是一群有梦想的家伙，热爱生活，<br/>
+		我们还在成长，创造无限的空间与<span class="info-highlight">可能性</span>；<br/>
+		我们不断求知，只为<span class="info-highlight">探索</span>更新的领域；<br/>
+		我们追求<span class="info-highlight">卓越</span>，怀揣梦想之心。
+	</p>
+	<div class="info-pics">
+		<img src="/public/images/about/about_team.png" />
+	</div>
+</div>

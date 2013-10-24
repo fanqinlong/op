@@ -1,0 +1,124 @@
+#{extends 'main.html' /} #{set title:'infoCenter.html' /}
+#{set 'Styles'}
+ #{stylesheet 'user.css' /}
+#{/set}
+<div class="row">
+	<div class=" col-md-2">
+
+		<a href="@{SimpleUsers.changeProfile(user.id)}">
+			<img class="img-thumbnail" src="${user.profile}">
+		</a>
+
+	</div>
+	<div class="col-md-8">
+		<h3>
+			${user.name}<small> &nbsp;更改<a href="@{SimpleUsers.ChangeEmail(user.id)}">邮箱</a>/ <a href="@{SimpleUsers.changePassword()}"> 密码</a></small>
+		</h3>
+		<h6>
+			<span>#{if user.age} <span class="text-primary"> ${user.age} </span> 岁， #{/if} #{if user.hometown} 来自 <span class="text-primary"> ${user.hometown} </span>, #{/if} #{if user.school} <span> 学校 </span> <span class="text-primary"> ${user.school} </span> , #{/if} #{if user.ralationship}<span> 感情状况 </span> <span class="text-primary"> ${user.ralationship} </span> , #{/if} #{if user.contract} <span> 手机号 </span> <span class="text-primary"> ${user.contract} </span> #{/if}
+			</span>
+		</h6>
+		<h5>
+			签名：${user.selfIntro?user.selfIntro:'无'} &nbsp;
+			<a href="@{SimpleUsers.updateProfile(user.id)}" style="color: #e2e2e2">
+				<i class="icon-edit">编辑资料</i>
+			</a>
+		</h5>
+		<p>
+			<a class="btn btn-primary " href="@{Activities.create}">
+				<i class="icon-flag"></i>
+				发起活动
+			</a>
+			<a class="btn btn-primary " href="@{QuestAnsw.QuesIndex}">
+				<i class="icon-question-sign"></i>
+				我要提问
+			</a>
+		</p>
+		
+	</div>
+</div>
+
+<div class="row mg-top-3">
+	<div class="col-md-2">
+		<ul  class="list-group">
+			<li class="list-group-item"> 
+			<a class="use-f-a16" href="@{SimpleUsers.myActivity}" onClick="activity()">
+				<i class="icon-flag"></i>
+				我的活动</a>
+			</li>
+			<li class="list-group-item">
+			<a class="use-f-a16 HD" href="@{QuestAnsw.userQues}" onClick="ques()">
+				<i class="icon-comments-alt"></i>
+				我的问答</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-8">
+
+
+		<div class="bs-docs-example XX" id="activity">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active">
+					<a href="#home" data-toggle="tab">活动消息:</a>
+				</li>
+				<li>
+					<a href="#profile" data-toggle="tab">问答消息:</a>
+				</li>
+				<li>
+					<a href="#profile1" data-toggle="tab">私信:</a>
+				</li>
+
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="home">
+
+					#{list items:postedActivity,as:'activity'}
+					<img src="${user.profile}" class="f_l img-polaroid" />
+					<span class="f_l"> 我发布了活动 </span>
+					<br />
+					<a href="@{Activities.detail(activity.id)}">
+						${activity.name}
+
+						<br />
+						<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
+					</a>
+					<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
+
+					#{/list}
+
+				</div>
+				<div class="tab-pane fade" id="profile">
+
+					#{list items:JoinedActivity,as:'activity'}
+					<p>
+						<img src="${user.profile}" class="f_l img-polaroid" />
+						<span class="f_l">我参加了活动</span>
+						<br />
+						<a href="@{Activities.detail(activity.id)}">${activity.name}</a>
+						<br />
+						<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
+					</p>
+					<p class="ac_p" style="">活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
+					#{/list}
+
+				</div>
+				<div class="tab-pane fade" id="profile1">
+					#{list items:LikedActivity,as:'activity'}
+					<p>
+						<img src="${user.profile}" class="img-polaroid" />
+						我关注了活动
+						<a href="@{Activities.detail(activity.id)}">${activity.name}</a>
+						<br />
+						<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
+					</p>
+					<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
+					#{/list}
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<div class="float-1"></div>
+

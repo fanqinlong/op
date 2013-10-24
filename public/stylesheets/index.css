@@ -1,0 +1,26 @@
+.slide {
+	position: absolute;
+}
+
+.logo {
+	position: absolute;
+	left:15%;
+	top:100px;
+	
+}
+
+.login {
+	position: absolute;
+	background-color:rgba(0,0,0,0.6);
+	height:427px;
+	left:70%;
+	color:#fff;
+	
+}
+.login form{
+	margin-top:100px;
+}
+.header{
+	
+	height:450px;
+}
