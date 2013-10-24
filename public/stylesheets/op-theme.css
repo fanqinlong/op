@@ -1,0 +1,52 @@
+body {
+	color: #000;
+	background: #f3f3f3;
+	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif
+}
+.navbar-brand {
+	padding: 5px;
+}
+
+.navbar-brand>img {
+	height: 35px;
+}
+.navbar-form {
+	padding-top: 5px;
+}
+.form-control, .btn ,.alert, .img-thumbnail{
+	border-radius:2px;
+}
+.alert{
+	padding:10px;
+}
+hr{
+	border-color:#ccc;
+}
+.navbar-op-footer {
+	background-color: #336699;
+	color: #FFF;
+}
+
+.navbar-op-footer .nav>li>a,.navbar-op-footer .nav>li>a:hover,.navbar-op-footer .nav>li>a:focus
+	{
+	padding: 10px 15px 8px 15px; color : #FFF;
+	background: none;
+	color: #FFF;
+}
+
+.navbar-op-footer .navbar-text {
+	margin: 10px 15px 8px 15px;
+}
+.navbar-no-bg>li>a,.navbar-no-bg>li>a:hover,.navbar-no-bg>li>a:focus{
+	background:none;
+}
+
+.mg-top-3{
+	margin-top:30px;
+}
+.mg-top-2{
+	margin-top:20px;
+}
