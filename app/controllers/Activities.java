@@ -178,6 +178,7 @@ public class Activities extends Application {
 	}
 
 	public static void detail(Long id) {
+		System.out.println(renderArgs.data.toString());
 		Activity a = Activity.findById(id);
 		a.views = a.views + 1;
 		a.save();
