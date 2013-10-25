@@ -2,19 +2,19 @@
 
 #{form @authenticate(),method:'POST',id:'login',class:'form-horizontal'}
 <h4 class="col-md-offset-2"> 登录奥噗</h4>
-<div class="form-group">
+<div class="form-group  ${errors.forKey('email') ? 'has-error' : ''}">
 	<label for="email" class="col-md-2 control-label">邮箱：</label>
 	<div class="col-md-3">
 		<input type="email" class="form-control" id="email" name="email" placeholder="" value="${flash.email}" />
-		<span class="error">#{error 'email' /}</span>
 	</div>
+	<span class="col-md-3">#{error 'email' /}</span>
 </div>
-<div class="form-group">
+<div class="form-group  ${errors.forKey('password') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">密码：</label>
-	<div class="col-md-3">
+	<div class="col-md-3 ">
 		<input type="password" name="password" class="form-control" id="password" placeholder="" />
-		<span class="error">#{error 'password' /}</span>
 	</div>
+	<span class="col-md-3">#{error 'email' /}</span>
 </div>
 <div class="form-group">
 	<div class="col-md-offset-2 col-md-3">
@@ -29,7 +29,8 @@
 		<a href="@{SimpleUsers.signup}" class="btn btn-success ">注册</a><button type="submit" class="btn btn-primary col-md-offset-1 ">登录</button>
 	</div>
 </div>
-#{/form} #{if flash.notconfirmed}
+#{/form}
+ #{if flash.notconfirmed}
 <p>
 	邮箱未见证，重新
 	<a class="action" href="@{SimpleUsers.resendConfirmation(flash.notconfirmed)}">发送</a>
