@@ -25,7 +25,7 @@ POST	/simple/forgetpassword							SimpleUsers.doforgetpassword
 GET		/simple/resetpassword/{uuid}					SimpleUsers.resetPasswordConfirmation
 POST	/simple/resetpassword							SimpleUsers.doResetPassword
 GET		/simple/changeprofile/{id}						SimpleUsers.changeProfile
-POST	/simple/changeprofile/{f}/{left}/{top}/{height}/{width}	SimpleUsers.doChangeProfile
+POST	/simple/changeprofile							SimpleUsers.doChangeProfile
 GET		/simple/infocenter						SimpleUsers.infoCenter
 GET		/simple/myactivity								SimpleUsers.myActivity
 
