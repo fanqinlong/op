@@ -1,0 +1,25 @@
+#Users
+users.SimpleUser(liu):
+    name: BlueApid
+    passwordHash: 6b649039a388694c7306cb4d14041a14
+    email: 285899506@qq.com
+    gender: 男
+    profile: /public/images/user_default.jpg
+users.SimpleUser(time):
+    name: timepoet
+    passwordHash: c90f1a0ed4f6c656ee37327f75cccc10
+    email: 258811627@qq.com
+    gender: 男
+    profile: /public/images/user_default.jpg
+users.SimpleUser(statm):
+    name: statm
+    passwordHash: b6895b87cfb1209203d0c4de560cbf0f
+    email: arcus.zhao@gmail.com
+    gender: 男
+    profile: /public/images/user_default.jpg
+users.SimpleUser(jessie):
+    name: playlaugh
+    passwordHash: 7fa8282ad93047a4d6fe6111c93b308a
+    email: playlaugh2011@gmail.com
+    gender: 男
+    profile: /public/images/user_default.jpg

@@ -1,1 +1,4 @@
-models.User:
+#Users
+users.SimpleUser(gavin):
+    name:   guillaume
+    
