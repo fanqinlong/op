@@ -56,8 +56,8 @@
 						<a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a>
 					</li>
 					<li>
-						<a href="#">
-							<i class=" icon-envelope"></i>
+						<a href="@{Messaging.index}">
+							<i class=" icon-envelope"> <span id="mailCount">#{if msgCount>0}${msgCount}#{/if}</span></i>
 						</a>
 					</li>
 					<li>
@@ -70,8 +70,8 @@
 						<a href="@{CSSAs.infoCenter()}"> ${connectedSimpleUser.name}</a>
 					</li>
 					<li>
-						<a href="#">
-							<i class=" icon-envelope"></i>
+						<a href="@{Messaging.index}">
+							<i class=" icon-envelope"> <span id="mailCount">#{if msgCount>0}${msgCount}#{/if}</span></i>
 						</a>
 					</li>
 					<li>
