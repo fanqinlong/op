@@ -104,7 +104,6 @@ GET		/activity/userthumb/{id}				Activities.userThumb
 GET		/activity/allJoinner/{aid}				Activities.allJoinner
 POST	/activity/join							Activities.join
 GET		/activity/like/{aid}					Activities.like
-GET		/activity/
 
 #QA
 GET		/qa										QAs.index
