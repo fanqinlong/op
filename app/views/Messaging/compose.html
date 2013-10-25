@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
+	
+	<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap-combined.no-icons.min.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/op-theme.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/font-awesome/css/font-awesome.min.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+</head>
+
+<body class="msg-mod-body">
+	<form method="POST" action="@{Messaging.send}">
+		收信人类型: <input name="userType" value="simple" type="radio" checked>simple</input> <input name="userType" value="cssa" type="radio">CSSA</input><br/>
+		收信人ID: <input name="userID"/><br/>
+		标题: <input name="title" type="text"/><br/>
+		内容: <input name="content" type="text"/><br/>
+		<input type="submit"/>
+	</form>
+</body>

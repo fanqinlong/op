@@ -141,6 +141,25 @@ GET /about											Info.about
 GET /contact										Info.contact
 GET /jobs											Info.jobs
 
+
+#Messaging
+GET /msg											Messaging.index
+GET /msg/compose									Messaging.compose
+GET /msg/compose/{userType}/{userID}				Messaging.compose
+POST /msg/send										Messaging.send
+GET /msg/mail										Messaging.mail
+GET /msg/notifications								Messaging.notifications
+GET /msg/announcements								Messaging.announcements
+GET /msg/settings									Messaging.settings
+
+
+GET /msg/ajax/inbox									Messaging.fetchInbox
+GET /msg/ajax/outbox								Messaging.fetchOutbox
+GET /msg/ajax/markRead/{msgID}						Messaging.markRead
+GET /msg/ajax/notifications							Messaging.fetchNotifications
+GET /msg/ajax/announcements							Messaging.fetchAnnouncements
+
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
  
