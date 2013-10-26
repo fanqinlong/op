@@ -10,10 +10,9 @@ public class Bootstrap extends Job {
     public void doJob() {
         if(SimpleUser.count() == 0) {
             Fixtures.loadModels("init-data-user.yml");
+            Fixtures.loadModels("init-data-activity.yml");
         }
-        if(Activity.count()==0){
-        	Fixtures.loadModels("init-data-activity.yml");
-        }
+       
     }
     
 }
