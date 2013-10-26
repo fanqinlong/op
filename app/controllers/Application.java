@@ -62,4 +62,13 @@ public class Application  extends Controller {
     	//response.cookies.get("email").value;
     	
     }
+    
+    @Before
+	static void checkMessages() {
+		String userType = session.get("usertype");
+		String userID = session.get("logged");
+		if (userID != null) {
+			renderArgs.put("msgCount", Messaging.getMessageCount(userType, Long.valueOf(userID)));
+		}
+	}
 }
