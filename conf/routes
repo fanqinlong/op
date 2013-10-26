@@ -27,7 +27,7 @@ POST        		/simple/resetpassword                                    SimpleUse
 GET                	/simple/changeprofile/{id}                               SimpleUsers.changeProfile
 POST        		/simple/changeprofile                                    SimpleUsers.doChangeProfile
 GET                	/simple/infocenter                                       SimpleUsers.infoCenter
-GET                	/simple/myactivity                                       impleUsers.myActivity
+GET                	/simple/myactivity                                       SimpleUsers.myActivity
 
 
 #CSSAs Registration/Authentication
