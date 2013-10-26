@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-import play.data.validation.Validation;
 import models.qa.Attention;
 import models.qa.Comments;
 import models.qa.FocusQues;

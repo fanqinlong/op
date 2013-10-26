@@ -1,11 +1,9 @@
 package controllers;
 
 import java.util.Date;
-import java.util.List;
 
 import models.messaging.Message;
 import play.cache.Cache;
-import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.Before;
 
 /**
