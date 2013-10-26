@@ -13,7 +13,7 @@ users.SimpleUser(time):
     profile: /public/images/user_default.jpg
 users.SimpleUser(statm):
     name: statm
-    passwordHash: b6895b87cfb1209203d0c4de560cbf0f
+    passwordHash: cff11e4a26b06ffb5a6e0db4b821a33e
     email: arcus.zhao@gmail.com
     gender: 男
     profile: /public/images/user_default.jpg
