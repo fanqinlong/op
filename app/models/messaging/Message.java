@@ -4,9 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
-import com.google.gson.annotations.Expose;
-
-import play.data.validation.Required;
 import play.db.jpa.Model;
 
 /**
