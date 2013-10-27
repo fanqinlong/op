@@ -14,12 +14,12 @@
 
 <body class="msg-mod-body">
 	#{if flash?.success}
-	<div class="msg-alert alert alert-success fade in">
+	<div class="msg-alert alert alert-success fade">
 		${flash.success}
 	</div>
 	<script type="text/javascript">
 		setTimeout(function() {
-			$(".msg-alert").removeClass("in").addClass("out");
+			$(".msg-alert").addClass("out");
 		}, 2000);
 	</script>
 	#{/if}
