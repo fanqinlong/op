@@ -47,7 +47,7 @@ public class Messaging extends Application {
 		render();
 	}
 
-	public static void send(String userType, long userID, String title, String content) {
+	public static void sendMail(String userType, long userID, String title, String content) {
 		setMessageCount(userType, userID, getMessageCount(userType, userID) + 1);
 
 		Message msg = new Message(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
@@ -55,7 +55,7 @@ public class Messaging extends Application {
 		msg.save();
 
 		flash.success("消息已发送");
-		index();
+		mail();
 	}
 	
 	public static void markRead(List<Long> selectedMails) {
@@ -76,7 +76,7 @@ public class Messaging extends Application {
 		renderJSON(pp);
 	}
 	
-	public static void trash(List<Long> selectedMails) {
+	public static void trashMail(List<Long> selectedMails) {
 		for (Long msgID: selectedMails) {
 			Message msg = Message.find("toID=? and toUserType=? and id=? and isDeleted=?", getMyID(), getMyUserType(), msgID, false).first();
 			if (msg != null

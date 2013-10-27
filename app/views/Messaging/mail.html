@@ -13,6 +13,17 @@
 </head>
 
 <body class="msg-mod-body">
+	#{if flash?.success}
+	<div class="msg-alert alert alert-success fade in">
+		${flash.success}
+	</div>
+	<script type="text/javascript">
+		setTimeout(function() {
+			$(".msg-alert").removeClass("in").addClass("out");
+		}, 2000);
+	</script>
+	#{/if}
+
 	<!-- 顶部功能区 -->
 	<div class="mail-top-bar">
 		<div class="msg-mod-title">站内信箱</div>
@@ -23,6 +34,9 @@
 		</ul>
 	</div>
 	
+	<!-- 消息列表 -->
+	<form id="mailList" class="mail-list"></form>
+	
 	<!-- 底部功能区 -->
 	<div id="mailBottomBar">
 		<span id="bottomBarControls">
@@ -31,9 +45,6 @@
 			<button id="markReadBtn" onClick="javascript:markRead();">标记为已读</button>
 		</span>
 	</div>
-	
-	<!-- 消息列表 -->
-	<form id="mailList" class="mail-list"></form>
 	
 	<!-- 模板 -->
 	<script id="inboxItemTmpl">
@@ -44,7 +55,7 @@
 			<div class="mail-title-bar {{#mail.isRead}}mail-read{{/mail.isRead}}">
 				<div class="mail-sender">{{sender.name}}</div>
 				<div class="mail-title">{{mail.title}}</div>
-				<div class="mail-date">{{mail.time}}</div>
+				<div class="mail-time">{{mail.time}}</div>
 			</div>
 			<div class="mail-content-inbox" style="display:none"></div>
 		</div>
@@ -56,7 +67,7 @@
 			<div class="mail-title-bar mail-read">
 				<div class="mail-sender">{{receiver.name}}</div>
 				<div class="mail-title">{{mail.title}}</div>
-				<div class="mail-date">{{mail.time}}</div>
+				<div class="mail-time">{{mail.time}}</div>
 			</div>
 			<div class="mail-content-outbox" style="display:none"></div>
 		</div>
@@ -64,7 +75,8 @@
 	</script>
 	
 	<!-- JS -->
-	<script type="text/javascript" src="@{'/public/javascripts/jquery.js'}"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
 	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
 </body>

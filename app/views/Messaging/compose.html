@@ -13,7 +13,7 @@
 </head>
 
 <body class="msg-mod-body">
-	<form method="POST" action="@{Messaging.send}">
+	<form method="POST" action="@{Messaging.sendMail}">
 		收信人类型: <input name="userType" value="simple" type="radio" checked>simple</input> <input name="userType" value="cssa" type="radio">CSSA</input><br/>
 		收信人ID: <input name="userID"/><br/>
 		标题: <input name="title" type="text"/><br/>

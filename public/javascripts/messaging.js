@@ -12,6 +12,7 @@ var selectedMails = [];
 function showInbox() {
 	$.getJSON("/msg/ajax/inbox", function(data) {
 		currentPage = "inbox";
+		selectedMails = []
 		updateBottomBar();
 
 		$("#inboxTabBtn").addClass("selected");
@@ -47,6 +48,7 @@ function showInbox() {
 function showOutbox() {
 	$.getJSON("/msg/ajax/outbox", function(data) {
 		currentPage = "outbox";
+		selectedMails = []
 		updateBottomBar();
 
 		$("#inboxTabBtn").removeClass("selected");
@@ -96,7 +98,7 @@ function selectAll() {
 }
 
 function trash() {
-	$.post("/msg/trash", {
+	$.post("/msg/trashMail", {
 		"selectedMails" : selectedMails
 	}, function(data) {
 		// piggyback

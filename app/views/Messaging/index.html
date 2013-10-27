@@ -36,7 +36,6 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#navMenu").children().click(function(event){
-				console.log(event.currentTarget);
 				$("#navMenu a li").removeClass("selected");
 				$(event.currentTarget).children().addClass("selected");
 			});

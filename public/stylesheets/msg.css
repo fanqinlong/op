@@ -89,12 +89,12 @@ hr {
 
 .mail-list {
 	top: 100px;
-	bottom: 40px;
+	bottom: 20px;
 	left: 0;
 	right: 0;
-	padding: 0 22px;
 	overflow-y: auto;
 	position: absolute;
+	padding: 0 22px;
 }
 
 #mailBottomBar {
@@ -171,7 +171,7 @@ hr {
 	display: inline-block;
 }
 
-.mail-date {
+.mail-time {
 	display: inline-block;
 	min-width: 100px;
 	float: right;
@@ -189,4 +189,16 @@ hr {
 
 .mail-content-outbox {
 	margin-bottom: 10px;
+}
+
+.msg-alert {
+	position: absolute;
+	width: 150px;
+	line-height: 5px;
+	margin-left: -75px;
+	padding: 10px;
+	width: 150px;
+	top: 22px;
+	left: 50%;
+	text-align: center;
 }
