@@ -1,0 +1,74 @@
+#{extends 'main.html' /}
+#{set title:'editComent.html' /}
+#{set 'Styles'}
+<link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
+<link rel="stylesheet" href="/public/stylesheets/Activity-index.css"/>
+<script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
+#{/}
+	<script language="javascript" type="text/javascript">
+		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+	</script>
+<div style="width:700px; float:left;">
+		 <div style="width:600px;">
+				#{list items:fQ,as:'findListQues'}
+				<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;"  >
+					<li  class="qatitle">	
+						<span  style="font-size:21px; color:#000000; font-weight:bold;">${findListQues.title}</span>
+						 #{if CssaQues || UserQues}
+						 	<a href="@{QuestAnsw.editQues(findListQues.id)}">修改<a><a href="@{QuestAnsw.deleteQues(findListQues.id)}">删除</a>
+						 #{/if}
+						 #{else}
+						 	<span><span>
+						 #{/else}
+					</li>
+				
+					<li class="qatitle">
+						<span class="qatitlea" >${findListQues.label}</span>
+					</li>
+					<li class="qatitle">
+						<span class="qatitlea" style="font-size:10px; color:#999999; TEXT-DECORATION:none">${findListQues.username}，${findListQues.selfIntro}</span>
+					</li>
+				
+					<li class="qatitle" style="padding-bottom:25px;">
+						<div class="qatitlea"  style="TEXT-DECORATION:none;text-indent:2em; color:#330000; line-height:25px;">${findListQues.content.raw()}</div>
+					</li>
+					<li class="qatitle"   style="border-top:1px solid #dddddd;padding-bottom:10px;">
+						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
+					</li>
+			 	</ul>
+			 	#{/list}
+		  </div>
+  			
+	  		<div style="margin-left:20px;padding-bottom:50px; width:600px;">
+					 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
+					  		${username} ,回答问题
+					 	</li>
+					 	<form id="comments" action="@{QuestAnsw.editComSuccessful}" method="post">
+						 	<input type="hidden"  id="quesid" name="c.id" value="${findCom.id}" />
+					 		<textarea rows="5" style="width:570px;" id="area1" name="c.comment">${findCom.comment}</textarea>
+						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
+						 	style="width:80px;" />
+					 	</form>
+			</div>
+</div>
+	 
+
+<div style="float:left;">
+   #{list items:fQ,as:'fidid'}
+	<div class="op-right1">
+		<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+	</div>
+	<label class="op-17">
+		<span class="op-18">${fidid.focusNum}<span>
+		<span class="op-13">人已关注</span>
+		</span></span>
+	</label>
+	#{/list}
+	 <div>
+	  #{list items:FQ,as:'fidid'}
+	 	<img  src=${fidid.userprofile} class="op2-right2" style="height:60px; width:60px;">
+	  #{/list}
+	 </div> 
+	 
+</div>
+	 <div style=" clear:both;"></div>	
