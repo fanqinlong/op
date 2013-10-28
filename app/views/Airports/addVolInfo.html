@@ -6,7 +6,7 @@
 		<div style="margin-top: 30px; margin-left: 50px;">
 			<div style="padding-top: 10px;">
 				<h1>
-					<a class="pfc"> 接机服务</a>
+					<span class="pfc"> 接机服务</span>
 				</h1>
 			</div>
 			<div style="padding-top: 20px;">
@@ -23,7 +23,7 @@
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
 				<div class="fl malf">
-					<label><b>姓名</b></label>
+					<span><b>姓名</b></span>
 				</div>
 				<div class="fl malfinput">
 					<input type="text" class="pick-inpu-text" placeholder="请输入真实姓名"
@@ -33,7 +33,7 @@
 					<input type="hidden" name="schoolId" value="${schoolId}">
 				</div>
 				<div class="fl malffont">
-					<label><a style="color: #FF0000;">*</a><a class="pfcolor">(如果可能的话请填写中文)</a></label>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(如果可能的话请填写中文)</span>
 				</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
 				<div class="fl malf">
-					<label><b>性别</b></label>
+					<span><b>性别</b></span>
 				</div>
 				<div class="fl malfinput" style="width: 140px;">
 					<div class="sexdiv" style="float: left;">
@@ -56,8 +56,6 @@
 							type="radio" class="checkboxnan" id="pkSex" name="v.gender"
 							value="女" ${flash.gender=="女" ? "checked":""}>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
@@ -66,16 +64,15 @@
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
 				<div class="fl malf">
-					<label><b>电话</b></label>
+					<span><b>电话</b></span>
 				</div>
 				<div class="fl malfinput">
 					<input type="text" class="pick-inpu-text" id="pkTelphone"
 						name="v.phone" value="${flash.pkTelphone}"
 						placeholder="请输入电话号码" maxlength="10">
 				</div>
-
 				<div class="fl malffont">
-					<label><a style="color: #FF0000;">*</a><a class="pfcolor">(请输入您的电话)</a></label>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(请输入您的电话)</span>
 				</div>
 			</div>
 		</div>
@@ -84,7 +81,7 @@
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
 				<div class="fl malf">
-					<label><b>Email</b></label>
+					<span><b>Email</b></span>
 				</div>
 				<div class="fl malfinput">
 					<input type="text" class="pick-inpu-text" id="pkEmail" type="text"
@@ -93,7 +90,7 @@
 				</div>
 
 				<div class="fl malffont">
-					<label><a style="color: #FF0000;">*</a><a class="pfcolor">(请输入您的邮箱)</a></label>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(请输入您的邮箱)</span>
 				</div>
 			</div>
 		</div>
@@ -104,7 +101,7 @@
 			<div class="pick-inpu-border"
 				style="padding-bottom: 20px; height: 80px;">
 				<div class="fl malf">
-					<label><b>车型</b></label>
+					<span><b>车型</b></span>
 				</div>
 				<div class="fl malfinput" style="width: 400px;">
 					<input type="text" class="pick-inpu-text" id="pkCar" type="text"
@@ -112,9 +109,9 @@
 						maxlength="32">
 				</div>
 				<div class="fl malffont" style="width: 480px; margin-left: 145px;">
-					<label><a style="color: #FF0000;">*</a><spanclass="pfcolor">(请务必表明车的大小，
+					<span style="color: #FF0000;">*</span><spanclass="pfcolor">(请务必表明车的大小，
 							例如SUV, SEDAN，范例 Honda Accord Sedan。
-							我们会通过车型大小为你安排单次接机可接人数。原则是小车一人，大车两人) </span></label>
+							我们会通过车型大小为你安排单次接机可接人数。原则是小车一人，大车两人) </span>
 				</div>
 			</div>
 		</div>
@@ -123,7 +120,7 @@
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
 				<div class="fl malf">
-					<label><b>可接机时间</b></label>
+					<span><b>可接机时间</b></span>
 				</div>
 				<div class="fl malfinput">
 					<input type="text" class="pick-inpu-text" id="pkDate" name="v.date"
@@ -131,7 +128,7 @@
 				</div>
 
 				<div class="fl malffont">
-					<label><a style="color: #FF0000;">*</a><span class="pfcolor">(范例：9月2日之前，周日上午除外，周五周六晚上除外)</span></label>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(范例：9月2日之前，周日上午除外，周五周六晚上除外)</span>
 				</div>
 			</div>
 		</div>
@@ -140,7 +137,7 @@
 			<div class="pick-inpu-border"
 				style="padding-bottom: 20px; height: 60px;">
 				<div class="fl malf">
-					<label><b>备忘</b></label>
+					<span><b>备忘</b></span>
 				</div>
 				<div class="fl malfinput">
 					<textarea class="pick-inpu-tarea" rows="5" cols="10" name="v.remarks" id="pkCheat" ></textarea>
@@ -152,11 +149,11 @@
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
 				<div style="margin-left: 150px; width: 500px;">
-					<label><span >再次感谢您的热心帮忙！
+					<span >再次感谢您的热心帮忙！
 							<p>任何关于接机方面的问题， 请发送邮件至
 								<a href="mailto:opporlink@gmail.com">opporlink@gmail.com</a>
 							</p>
-					</span> </label>
+					</span> 
 				</div>
  			<div style="margin-left:150px;">
 					<input type="submit" class="btn btn-info btn-large" value="提交" id="userSub" onClick="checkInfor()">

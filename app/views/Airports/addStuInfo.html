@@ -9,16 +9,17 @@
 			<form id="pickupStudentsUserinfor" action="@{Airports.doAddStuInfo(schoolId)}" class="form-horizontal"
 				method="POST">
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 姓名：</label> 
+					<span class="control-label" ><span style="color: #FF0000;"> * </span> 姓名:</span> 
 				<div class="controls">
 					<input	style="height: 20px" ; id="siUsername" type="text" name="s.name"
-						value="${flash.name}" placeholder="请输入真实姓名"> <span class="error">#{error 'a.name' /}</span>
+						value="${flash.name}" placeholder="请输入姓名"> <span class="error">#{error 'a.name' /}</span>
 						<input type="hidden" name="s.school" value="${schoolName}">
 						<input type="hidden" name="schoolId" value="${schoolId}">
-				</div>		
+						<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写真实有效的姓名)</span>
+				</div>	
 				</p>
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 性别：</label>
+					<span class="control-label" ><span style="color: #FF0000;"> * </span> 性别:</span>
 					<div class="controls">
 					 <input	type="radio" name="s.gender" id="siSex" value="男"
 						${flash.gengder== "男"?"checked":""}" />男 <input type="radio"
@@ -26,76 +27,76 @@
 						</div>
 				</p>
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 电话：</label>
+					<span class="control-label" ><span style="color: #FF0000;"> * </span> 电话:</span>
 					<div class="controls">
 					 <input	style="height: 20px" ; type="text" id="siTelphone" name="s.phone"
 						value="${flash.siTelphone}" placeholder="请输入有效的电话号码">
 					<span class="error">#{error 'a.phone' /}</span>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写真实有效的电话号码)</span>
 					</div>
 				</p>
 				<p>
-					<label class="control-label" > <a style="color: #FF0000;"> * </a>Email:
-					</label> 
+					<span class="control-label" > <span style="color: #FF0000;"> * </span>Email:
+					</span> 
 					<div class="controls">
 					<input id="email" type="text" name="s.email"
 						value="${flash.email}" placeholder="请输入邮箱" style="height: 20px";><span class="error">#{error 'a.email' /}</span>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写真实有效的Email地址)</span>
 				</div>
 				</p>
 				<p>
-					<label class="control-label" > <a style="color: #FF0000;"> * </a>专业:
-					</label>
+					<span class="control-label" > <span style="color: #FF0000;"> * </span>专业:
+					</span>
 					<div class="controls">
 					 <input id="simajor" type="text" name="s.major"
 						value="${flash.major}" placeholder="请输入你的专业" style="height: 20px";>
 					<span class="error">#{error 'a.major' /}</span>
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写你的专业课程)</span>
 					</div>
 				</p>
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 达到机场:</label>
+					<span class="control-label" ><span style="color: #FF0000;"> * </span> 达到机场:</span>
 					<div class="controls"> 
 					<input id="siAirport" type="text" name="s.airport"
 						value="${flash.airport}" placeholder="将要到达的机场"
 						style="height: 20px";><span class="error">#{error 'a.airport' /}</span>
+						<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写机票上到达的机场)</span>
 						</div>
 				</p>
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 航班:</label>
+					<span class="control-label" ><span style="color: #FF0000;"> * </span> 航班:</span>
 					<div class="controls">
 					 <input id="siAirport" type="text" name="s.flight" value="${flash.flight}"
-						placeholder="将要到达的机场" style="height: 20px" ; /><span class="error">#{error 'a.flight' /}</span>
+						placeholder="请填写航班" style="height: 20px" ; /><span class="error">#{error 'a.flight' /}</span>
+						<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写真机票上的准确航班)</span>
 				</div>
 				</p>
-				 
-				
-				
 					<div class="control-group">
-					<label class="control-label" ><a style="color: #FF0000;"> * </a>到达时间</label>
+					<span class="control-label" ><span style="color: #FF0000;"> * </span>到达时间</span>
 					<div class="controls">
-						 <div class="input-append date form_datetime" >
-						 
+						<div class="input-append date form_datetime" >
 						<input size="16" type="text"  name="s.date" value="${flash.date}" readonly style="width: 181px;">
-					 
 						<span class="add-on"><i class="icon-th"></i></span>
 						<span class="error">#{error 'a.time_from' /}</span>
 					</div>
- 	 
+					<span style="color: #FF0000;">*</span><span class="pfcolor">(请填写机票上到达的准确时间)</span> 	 
 					</div>
 				</div>
 				<p>
 					
 					<div class="controls">
-						<a>${explain}</a>
+						<span>${explain}</span>
 					</div> 
 				</p>
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 行李:</label>
+					<span class="control-label" ><span style="color: #FF0000;"> * </span> 行李:</span>
 					<div class="controls">
 					<textarea name="s.luggage" cols="36" rows="4" id="luggage"
 						placeholder="请描述行李大小，方便我们安排适当的车型.">${flash.luggage}</textarea>
 				</div> 
 				</p>
 				<p>
-					<label class="control-label" > 备忘:</label> 
+					<span class="control-label" > 备忘:</span> 
 					<div class="controls">
 					<textarea name="s.remarks" cols="36" rows="6" id="remarks"
 						placeholder="还有什么需求请留言...">${flash.remarks}</textarea>

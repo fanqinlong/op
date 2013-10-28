@@ -63,11 +63,15 @@ GET		/airport/volinfo/{id}						Airports.addVolInfo
 POST	/airport/volinfo/{schoolId}					Airports.doAddVolInfo
 GET		/airport/export								Airports.exportStu
 
-GET     /export/exportStu/{username}               ExportStuinfo.exportStu
-GET     /ExportVoiInfo/exportVoiInfo/{username}    ExportVoiInfo.exportVoiInfo
+GET     /Airports/check/{file_path}                 Airports.check
 
-GET     /airport/stuInfo/{username}                Airports.stuInfo
-GET     /airport/volInfoInfo/{username}            Airports.volInfoInfo
+
+
+GET     /export/exportStu/{username}                      ExportStuinfo.exportStu
+GET     /ExportVoiInfo/exportVoiInfo/{username}           ExportVoiInfo.exportVoiInfo
+
+GET     /Airports/stuInfo/{username}                Airports.stuInfo
+GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
 
 
 #Pickup
@@ -129,11 +133,18 @@ GET  /QuestAnsw/showQuesInfo/{id}                      QuestAnsw.showQuesInfo
 POST /QuestAnsw/searchpage               		       QuestAnsw.answerRapidly
 GET	 /QuestAnsw/{pageNum}		                       QuestAnsw.Quespaging
 GET  /QuestAnsw/deleteQues/{id}                        QuestAnsw.deleteQues
+GET  /QuestAnsw/editQues/{id}                          QuestAnsw.editQues
+GET  /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
+GET  /QuestAnsw/editComent/{comentUserid}/{comentUsertype}/{quesid}		   QuestAnsw.editComent
+POST  /QuestAnsw/editComSuccessful	                   QuestAnsw.editComSuccessful
+GET  /QuestAnsw/cancelFqcusQues/{quesid}		       QuestAnsw.cancelFqcusQues
+GET  /QuestAnsw/notAgree/{id}/{quesid}	               QuestAnsw.notAgree
+GET  /QuestAnsw/changeComent/{comentUserid}/{comentUsertype} QuestAnsw.changeComent
 GET  /QuestAnsw/fcousOnQuestion/{id}                   QuestAnsw.fcousOnQuestion
 POST /QuestAnsw/addComent                              QuestAnsw.addComent
 GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
 GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool 
-
+GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
 
 #Info and Jobs
 

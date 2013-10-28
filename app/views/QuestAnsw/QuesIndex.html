@@ -2,6 +2,7 @@
 #{set title:'QuesIndex.html'/}
 <script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
  	<script language="javascript" type="text/javascript">
  	    var school = "";
 		$(function (){
@@ -51,6 +52,9 @@
 			$("#list").hide();
 			$("#sheng").hide();
 		});
+		
+bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+		
 	</script>
 
 
@@ -67,10 +71,11 @@
 				 placeholder="请输入文章标题......" style="height:30px; width:540px;">
 			</div>
 		</div>
+		
 		<div class=" control-group input-right-w" >
 			<label class="control-label">问题说明</label>
-				<div class=" controls" style="width:546px;">
-				<textarea id="content" name="content" value="${flash.content}"  style="width:540px;" rows="10" cols="20" ></textarea>
+				<div class=" controls" style="width:550px;">
+				<textarea id="area1" name="content" value="${flash.content}"  style="width:550px;" rows="10"  ></textarea>
 	 		 </div>
 		 </div>
 		  
@@ -79,7 +84,6 @@
 			  		<div class="controls " style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
 			  			学校选填
 			  		</div>
-		  		
 		  </div>
 		   <div class="control-group input-right-w">
 		   		<div class="controls ">
