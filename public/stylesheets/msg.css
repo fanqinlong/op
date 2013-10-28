@@ -89,15 +89,15 @@ hr {
 
 .mail-list {
 	top: 100px;
-	bottom: 40px;
+	bottom: 20px;
 	left: 0;
 	right: 0;
-	padding: 0 22px;
 	overflow-y: auto;
 	position: absolute;
+	padding: 0 22px;
 }
 
-.mail-bottom-bar {
+#mailBottomBar {
 	height: 37px;
 	line-height: 37px;
 	padding: 0 22px;
@@ -121,6 +121,7 @@ hr {
 
 .mail-top-bar-tabs li {
 	display: inline-block;
+	cursor: pointer;
 	width: 70px;
 	height: 25px;
 	line-height: 27px;
@@ -133,6 +134,10 @@ hr {
 	color: #9F9F9F;
 }
 
+.mail-top-bar-tabs li:hover {
+	background-color: #F8F8F8;
+}
+
 .mail-top-bar-tabs li.selected {
 	font-weight: bold;
 	background-color: #FFFFFF;
@@ -140,17 +145,36 @@ hr {
 
 .mail-wrapper {
 	padding-left: 8px;
+	padding-right: 8px;
+	line-height: 30px;
+}
+
+.mail-controls {
+	width: 30px;
+	float: left;
+}
+
+.mail-controls input[type="checkbox"] {
+	margin-top: -1px;
 }
 
 .mail-title-bar {
-	line-height: 30px;
+	cursor: pointer;
 	font-weight: bold;
 }
 
-.mail-title {
+.mail-sender {
+	display: inline-block;
+	width: 100px;
 }
 
-.mail-date {
+.mail-title {
+	display: inline-block;
+}
+
+.mail-time {
+	display: inline-block;
+	min-width: 100px;
 	float: right;
 	color: #9F9F9F;
 }
@@ -159,7 +183,23 @@ hr {
 	font-weight: normal;
 }
 
-.mail-content {
-	padding-left: 8px;
+.mail-content-inbox {
+	margin-left: 30px;
 	margin-bottom: 10px;
+}
+
+.mail-content-outbox {
+	margin-bottom: 10px;
+}
+
+.msg-alert {
+	position: absolute;
+	width: 150px;
+	line-height: 5px;
+	margin-left: -75px;
+	padding: 10px;
+	width: 150px;
+	top: 22px;
+	left: 50%;
+	text-align: center;
 }

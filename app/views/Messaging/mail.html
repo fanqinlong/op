@@ -13,120 +13,72 @@
 </head>
 
 <body class="msg-mod-body">
+	#{if flash?.success}
+	<div class="msg-alert alert alert-success fade">
+		${flash.success}
+	</div>
+	<script type="text/javascript">
+		setTimeout(function() {
+			$(".msg-alert").addClass("out");
+		}, 2000);
+	</script>
+	#{/if}
+
 	<!-- 顶部功能区 -->
 	<div class="mail-top-bar">
 		<div class="msg-mod-title">站内信箱</div>
 		<div class="mail-compose-btn"><a href="@{Messaging.compose}">发站内信</a></div>
 		<ul class="mail-top-bar-tabs">
-			<a href="javascript:showInbox();"><li id="inboxTabBtn">收件箱</li></a>
-			<a href="javascript:showOutbox();"><li id="outboxTabBtn">发件箱</li></a>
+			<li id="inboxTabBtn" onClick="javascript:showInbox();">收件箱</li>
+			<li id="outboxTabBtn" onClick="javascript:showOutbox();">发件箱</li>
 		</ul>
 	</div>
 	
-	<!-- 底部功能区 -->
-	<div class="mail-bottom-bar">
-		<a href="javascript:void(0)">全选</a>
-		<a href="javascript:void(0)">删除</a>
-		<a href="javascript:void(0)">标记为已读</a>
-	</div>
-	
 	<!-- 消息列表 -->
-	<div id="mailList" class="mail-list"></div>
+	<form id="mailList" class="mail-list"></form>
 	
-	<!-- JS -->
-	<script type="text/javascript" src="@{'/public/javascripts/jquery.js'}"></script>
-	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
-	<script type="text/javascript">
-		$.fn.isVisible = function() {
-		    return $.expr.filters.visible(this[0]);
-		};
-	</script>
+	<!-- 底部功能区 -->
+	<div id="mailBottomBar">
+		<span id="bottomBarControls">
+			<button id="selectAllBtn" onClick="javascript:selectAll();">全选</button>
+			<button id="trashBtn" onClick="javascript:trash();">删除</button>
+			<button id="markReadBtn" onClick="javascript:markRead();">标记为已读</button>
+		</span>
+	</div>
 	
 	<!-- 模板 -->
 	<script id="inboxItemTmpl">
 		<div class="mail-wrapper">
-			<a href="javascript:void(0)">
-				<div class="mail-title-bar {{#isRead}}mail-read{{/isRead}}">
-					<span class="mail-title">{{title}}</span>
-					<span class="mail-date">{{time}}</span>
-				</div>
-			</a>
-			<div class="mail-content" style="display:none"></div>
+			<div class="mail-controls">
+				<input type="checkbox"/>
+			</div>
+			<div class="mail-title-bar {{#mail.isRead}}mail-read{{/mail.isRead}}">
+				<div class="mail-sender">{{sender.name}}</div>
+				<div class="mail-title">{{mail.title}}</div>
+				<div class="mail-time">{{mail.time}}</div>
+			</div>
+			<div class="mail-content-inbox" style="display:none"></div>
 		</div>
 		<hr/>
 	</script>
 	
 	<script id="outboxItemTmpl">
 		<div class="mail-wrapper">
-			<a href="javascript:void(0)">
-				<div class="mail-title-bar mail-read">
-					<span class="mail-title">{{title}}</span>
-					<span class="mail-date">{{time}}</span>
-				</div>
-			</a>
-			<div class="mail-content" style="display:none"></div>
+			<div class="mail-title-bar mail-read">
+				<div class="mail-sender">{{receiver.name}}</div>
+				<div class="mail-title">{{mail.title}}</div>
+				<div class="mail-time">{{mail.time}}</div>
+			</div>
+			<div class="mail-content-outbox" style="display:none"></div>
 		</div>
 		<hr/>
 	</script>
 	
-	<script type="text/javascript">
-		$(document).ready(function(){
-			showInbox();
-		});
-		
-		function showInbox() {
-			$.getJSON("@{Messaging.fetchInbox}", function(data) {
-				$("#inboxTabBtn").addClass("selected");
-				$("#outboxTabBtn").removeClass("selected");
-				$("#mailList").empty();
-				
-				data["msg"].forEach(function(mail) {
-				    var template = $("#inboxItemTmpl").html();
-				    var mailDiv = $("<div/>").html(Mustache.to_html(template, mail)).contents();
-				    mailDiv.children("a").click(function(event){
-				    	showMail(mail, mailDiv);
-				    });
-				    $("#mailList").append(mailDiv);
-				});
-				
-				window.parent.updateMessageCount(data["unread"]);
-			});
-		}
-		
-		function showOutbox() {
-			$.getJSON("@{Messaging.fetchOutbox}", function(data) {
-				$("#inboxTabBtn").removeClass("selected");
-				$("#outboxTabBtn").addClass("selected");
-				$("#mailList").empty();
-				
-				data["msg"].forEach(function(mail) {
-				    var template = $("#outboxItemTmpl").html();
-				    var mailDiv = $("<div/>").html(Mustache.to_html(template, mail)).contents();
-				    mailDiv.children("a").click(function(event){
-				    	showMail(mail, mailDiv);
-				    });
-				    $("#mailList").append(mailDiv);
-				});
-				
-				window.parent.updateMessageCount(data["unread"]);
-			});
-		}
-		
-		function showMail(mail, mailDiv) {
-			if (!$(mailDiv).children(".mail-content").isVisible()) {
-				if (mail["isRead"] == false) {
-					$(mailDiv).find(".mail-title-bar").addClass("mail-read");
-					$.get("/msg/ajax/markRead/" + mail["id"], function(data) {
-						// piggyback
-						window.parent.updateMessageCount(data["unread"]);
-					});
-				}
-				$(mailDiv).children(".mail-content").html(mail["content"]).show(100);
-			} else {
-				$(mailDiv).children(".mail-content").html(mail["content"]).hide(100);
-			}
-		}
-	</script>
+	<!-- JS -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
+	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
 </body>
 
 </html>
