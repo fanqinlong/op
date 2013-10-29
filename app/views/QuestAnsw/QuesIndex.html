@@ -3,7 +3,7 @@
 <script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
-
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 <script language="javascript" type="text/javascript">
  	    var school = "";
 		$(function (){
@@ -64,64 +64,74 @@
 		</div>
 	
 	<form class="form-horizontal"  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"  accept-charset="${_response_encoding}">
-	 	<div class="control-group input-right-w">
-			<label class="control-label">标题</label>
-			<div class="controls ">
-				<input type="text" name="title" value="${flash.title}"
-				 placeholder="请输入文章标题......" style="height:30px; width:540px;">
-			</div>
-		</div>
+<div class="form-group">
+	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>标题</label>
+	<div class="col-md-3 qaw">
+		<input type="text" name="title" value="${flash.title}"  placeholder="请输入文章标题......" class="form-control " >
+	</div>
+	 <span class="col-md-3">#{error 'name' /}</span>
+</div>
 		
-		<div class=" control-group input-right-w" >
-			<label class="control-label">问题说明</label>
-				<div class=" controls" style="width:550px;">
-				<textarea id="area1" name="content" value="${flash.content}"  style="width:550px;" rows="10"  ></textarea>
-	 		 </div>
+		
+<div class="form-group">
+	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>问题说明</label>
+	<div class="col-md-3 qaw">
+		<textarea id="area1" name="content" value="${flash.content}"  style="width:550px;" rows="10"  ></textarea>
+	</div>
+	 <span class="col-md-3">#{error 'name' /}</span>
+</div>
+		
+<div class="form-group">
+	<label for="name" class="col-md-2 control-label">选择学校</label>
+	<div class="col-md-3 qaw">
+		<div style="width:560px; overflow:hidden;">
+			<input type="text" id="txtSc" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; " 
+			name="school" value="${flash.school}" placeholder="请选择学校" />
+			<div id="gj" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
+			<div id="sheng" style="width:550px; word-break:break-all; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
+			<div id="list" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
+		</div>
+	</div>
+	 <span class="col-md-3">#{error 'name' /}</span>
+</div>	
+	
+<div class="form-group">
+	<label for="name" class="col-md-2 control-label"></label>
+	<div class="col-md-3 qaw">
+		<div class="controls" style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
+		  			<span>学校选填</span>
 		 </div>
-		  
-		  <div class="control-group input-right-w" style="margin-bottom:5px;">
-		  		<label class="control-label">选择学校</label>
-			  		<div class="controls " style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
-			  			学校选填
-			  		</div>
+	</div>
+</div>		
+
+<div class="form-group">
+	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>选择标签</label>
+	<div class="col-md-3 qaw">
+		 <div class="controls " style="width:594px;" id="ulname">
+			#{list items:t,as:'tag'}	 
+				<label class="checkbox-inline">
+		  			<input type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
+				</label>
+			#{/list}
 		  </div>
-		   <div class="control-group input-right-w">
-		   		<div class="controls ">
-			   		<div style="width:560px; overflow:hidden;">
-						<input type="text" id="txtSc" style="width:532px; border:1px #cccccc solid; padding:10px; overflow:hidden; " 
-						name="school" value="${flash.school}" placeholder="请选择学校" />
-						<div id="gj" style="width:532px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
-						<div id="sheng" style="width:532px; word-break:break-all; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
-						<div id="list" style="width:532px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
-					</div>
-				 </div>
-			</div> 
-		 
-		 <div class="control-group input-right-w" style="margin-bottom:5px;">
-			 <label class="control-label">选择标签</label>
-		 		<div class="controls" style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
-		  			标签越精细，越容易让专业人士看到你的问题
-		  		</div>
-		  </div>
-		  
-		   <div class="control-group input-right-w">
-		  		 <div class="controls " style="width:594px;" id="ulname">
-					#{list items:t,as:'tag'}
-						<label class="checkbox inline">
-					 		 <input type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
-						</label>
-					#{/list}
-			 	</div>
-			    <span class="error">#{error 'q.label' /}</span>
-		   </div>
-		  <div class="control-group input-right-w">
-		 	<div class="controls" id="ulname">
-					<input class="btn btn-large btn-primary" type="submit"/>
-					<input class="btn btn-large" type="reset" style="margin-left:30px;" />
-			 </div>
-		  </div>
-	</form>
-	<div style=" clear:both;"></div>
+	</div>
+</div>
+<div class="form-group">
+	<label for="name" class="col-md-2 control-label"></label>
+	<div class="col-md-3 qaw">
+		<div class="controls" style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
+		  			<span>标签越精细，越容易让专业人士看到你的问题</span>
+		 </div>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-md-offset-2 col-md-3">
+		<input type="submit" class="btn btn-primary" value="提交">
+		<input type="reset"  class="btn btn-primary" value="重置">
+	</div>
 </div>	
 
-
+</form>
+	<div style=" clear:both;"></div>
+</div>	
