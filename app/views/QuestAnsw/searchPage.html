@@ -2,7 +2,7 @@
 #{set title:'searchPage.html' /}
 #{set 'Styles'}
 <link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
-<link rel="stylesheet" href="/public/stylesheets/Activity-index.css"/>
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 #{/}
 <script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/jquery-1.7.2.min.js"></script>
@@ -90,45 +90,41 @@ $(document).ready(function(){
 	
 	
 </script>
-<div class="classify NO1">
-			<dl class="classify-dl clearfix">
-				<dd class="list-fy">
-					<form action="@{QuestAnsw.searchQues}" method="post" class="form-search" style="margin-left:-27px;margin-bottom:1px;">
-						<input class="span2" placeholder="输入你想知道的问题..."
-						 type="text" id="ques" name="ques"  value="${flash.ques}"  style="border:1px #5885a5 solid; width:250px;height:25px;">
-						<button type="submit" class="btn btn-info" style="border:1px #5885a5 solid; height:35px; margin-left:20px;">搜索问题</button>		
-					</form>
-				 </dd>
-				 <dd class="list-fy" style="margin-left:0px;">
-					 	<a  href="@{QuestAnsw.QuesIndex}" ><button class="btn btn-info" style="height:35px;">我要提问</button></a>
-				  </dd>
-		  </dl>
-	
-		<dl class="classify-dl clearfix">
-				<dt class="list-tit" style="margin-left:40px;">
-					<img src="/public/img/category.png">标签:
-				</dt>
-				#{list items:t,as:'tag'}
-					<dd class="list-fy on" style="margin-left:30px;">
-						<a class=" ${tag==tag.tagName?'QuestAnsw':''}    address" href="@{QuestAnsw.searchTag(tag.tagName)}">${tag.tagName}</a>
-					</dd>
-				#{/list}
-			 
-	    </dl>
-	  
-	  <dl class="classify-dl clearfix controls">
-	  		<div style="width:487px; overflow:hidden;">
-				<form action="@{QuestAnsw.searchSchool}" method="post" class="form-search" style="margin-bottom:1px;">
-					<input class="span2"  type="text" id="txtSc" style=" width:373px; height:13px; border:1px #5885a5 solid; padding:10px; overflow:hidden; " 
-				    name="school" value="${flash.school}" placeholder="单击此处以选择学校"  class="form-control" readonly/>
-				    
-				    <button type="submit" class="btn btn-info" style="border:1px #5885a5 solid; height:35px;">搜索学校</button>		
-				</from>
-				<div id="gj" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
-				<div id="sheng" style="width:373px; word-break:break-all; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
-				<div id="list" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
-			</div>
-	   </dl>
+
+
+<div class="container container-op">
+
+
+
+<form class="form-inline" role="form" action="@{QuestAnsw.searchQues}" method="post">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+    <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}" style="width:373px;">
+  </div>
+  <button type="submit" class="btn btn btn-info">搜索问题</button>
+  <a type="button" href="@{QuestAnsw.QuesIndex}" class="btn btn-info">我要提问</a>
+</form>
+
+<dl class="dl-horizontal" style="margin-top:30px;">
+  <dt style="width:30px;">标签</dt>
+  <dd style="margin-left:45px;">
+	  	#{list items:t,as:'tag'}
+			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="border-radius:20px">${tag.tagName}</a>
+	    #{/list}
+  </dd>
+</dl>
+	 
+<form class="form-inline" role="form" action="@{QuestAnsw.searchSchool}" method="post" style="margin-top:30px;">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+    <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="txtSc" name="school"  value="${flash.school}" style="width:373px;">
+  </div>
+  <button type="submit" class="btn btn btn-info">搜索学校</button>
+</form>
+<div id="gj" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
+<div id="sheng" style="width:373px; word-break:break-all; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
+<div id="list" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>	 
+
     <!-- 
 	 	 <dl class="btn-group" style="padding-left:45px; padding-bottom:10px;" data-toggle="buttons-radio">
 					  <a class="btn"  style="width:120px; height:17px;line-height:15px;font-size:12px;">默认(时间)排序<img  src="/public/images/searchpageArrow.png"/></a>
@@ -137,7 +133,9 @@ $(document).ready(function(){
 		</dl>
     -->
 </div>
-<div class="classify NO1">
+
+
+<div class="container container-op">
 		<div  class="group1">
 				#{list items:qArticles,as:'qa'}
 					<div style="border-bottom:1px solid #dddddd;margin-left:20px; padding-bottom:5px; width:600px;">
@@ -159,15 +157,14 @@ $(document).ready(function(){
 							</div>
 							
 						</label>
-						<div class="controls userinforright" style="">
-							<ul style="	margin-left:177px; width:363px;" >
+						<div class="controls userinforright">
+							<ul style="	margin-left:125px; width:400px;" >
 								<li>
-									<a class="muted"> 标签:</a>
-									<a class="keywords" style="TEXT-DECORATION:none;">${qa.ques.label}</a>
+									<span class="muted"> 标签:</span>
+									<span class="keywords" style="TEXT-DECORATION:none;">${qa.ques.label}</span>
 								</li>
 								<li ><h5>${qa.ques.username}，${qa.ques.selfIntro}</h5></li>
-								<li class="qatitlea" style="height: 44px;overflow: hidden;">	
-										
+								<li class="qatitlea" style="height: 50px;overflow: hidden;">	
 										#{if qa.comments?.comment == null}
 											<span class="qatitlea" style="color:#CC0033;" >还没人回答</span>
 										#{/if}
@@ -178,7 +175,7 @@ $(document).ready(function(){
 										#{/else}
 										
 								</li>
-								<li>
+								<li style="padding-top:14px;">
 									<a href="@{QuestAnsw.fcousOnQuestion(qa.ques.id)}" class="guanzhu-question">
 										<img src="/public/images/focus.png">
 										关注问题
@@ -211,89 +208,18 @@ $(document).ready(function(){
 						</div>
 			 	 	 #{/list}
 			 	 	 
-			 <div class="row-fluid">
+				 <div class="row-fluid">
 					<div class="span12" style="margin-left:10%;">
 						<div class="pagination">
-						<ul>
-								<li>
-									<a href="@{QuestAnsw.Quespaging(1)}" class="paging">首页</a>
-								</li>
-								<!-- 
-								<li>
-									<a href="@{QuestAnsw.Quespaging(pageNum)}" class="paging">上一页</a>
-								</li>
-								 -->
-								#{list items:1..pageCount,as:'page'}
-									<li>
-										<a href="@{QuestAnsw.Quespaging(page)}" class="paging">${page}</a>
-									</li>
-								#{/list}
-								<!--  
-								<li>
-									<a href="@{QuestAnsw.Quespaging(pageNum)}" class="paging">下一页</a>
-								</li>
-								-->
-								<li>
-									<a href="@{QuestAnsw.Quespaging(pageCount)}" class="paging">末页</a>
-								</li>
+							<ul class="pagination pagination-lg ">
+							  <li ><a href="@{QuestAnsw.Quespaging(1)}">&laquo;</a></li>
+							  #{list items:1..pageCount,as:'page'}
+							  	<li ><a href="@{QuestAnsw.Quespaging(page)}">${page}</a></li>
+							  #{/list}
+							  <li ><a href="@{QuestAnsw.Quespaging(pageCount)}">&raquo;</a></li>
 							</ul>
-						</div>
-			 	 	</div>
-			 	 </div>
-			 	 	 
-			 </div>
+				       </div>
+				   </div>
+				</div>
 </div>
-
-
-
-
-
-
-
-
-<section id="flat" class="showcase">
-            <hgroup>
-                <h3>Flat Buttons</h3>
-            </hgroup>
-
-            <section class="gallery">
-                <ul>
-                    <li><a href="#" class="button button-rounded button-flat">press me</a></li>
-                    <li><a href="#" class="button button-rounded button-flat-primary">press me</a>  </li>
-                    <li><a href="#" class="button button-rounded button-flat-action">press me</a>   </li>
-                    <li><a href="#" class="button button-rounded button-flat-highlight">press me</a></li>
-                    <li><a href="#" class="button button-rounded button-flat-caution">press me</a>  </li>
-                    <li><a href="#" class="button button-rounded button-flat-royal">press me</a>  </li>
-                </ul>
-                <ul>
-                    <li><a href="#" class="button button-pill button-flat">press me</a></li>
-                    <li><a href="#" class="button button-pill button-flat-primary">press me</a>  </li>
-                    <li><a href="#" class="button button-pill button-flat-action">press me</a>   </li>
-                    <li><a href="#" class="button button-pill button-flat-highlight">press me</a></li>
-                    <li><a href="#" class="button button-pill button-flat-caution">press me</a>  </li>
-                    <li><a href="#" class="button button-pill button-flat-royal">press me</a>  </li>
-                </ul>
-                <ul>
-                    <li><a href="#" class="button button-flat">press me</a></li>
-                    <li><a href="#" class="button button-flat-primary">press me</a>  </li>
-                    <li><a href="#" class="button button-flat-action">press me</a>   </li>
-                    <li><a href="#" class="button button-flat-highlight">press me</a></li>
-                    <li><a href="#" class="button button-flat-caution">press me</a>  </li>
-                    <li><a href="#" class="button button-flat-royal">press me</a>  </li>
-                </ul>
-                <ul>
-                    <li><a href="#" class="button button-circle button-flat">press me</a></li>
-                    <li><a href="#" class="button button-circle button-flat-primary">press me</a>  </li>
-                    <li><a href="#" class="button button-circle button-flat-action">press me</a>   </li>
-                    <li><a href="#" class="button button-circle button-flat-highlight">press me</a></li>
-                    <li><a href="#" class="button button-circle button-flat-caution">press me</a>  </li>
-                    <li><a href="#" class="button button-circle button-flat-royal">press me</a>  </li>
-                </ul>
-            </section>
-
-            <pre class="prettyprint linenums">&lt;a href="#" class="button button-rounded button-flat-primary"&gt;press me&lt;/a&gt;
-&lt;a href="#" class="button button-pill button-flat-primary"&gt;press me&lt;/a&gt;
-&lt;a href="#" class="button button-flat-primary"&gt;press me&lt;/a&gt;
-&lt;a href="#" class="button button-circle button-flat-primary"&gt;press me&lt;/a&gt;</pre>
-        </section>
-
+</div>

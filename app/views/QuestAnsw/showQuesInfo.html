@@ -1,8 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'showQuesInfo.html' /}
 #{set 'Styles'}
-<link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
-<link rel="stylesheet" href="/public/stylesheets/Activity-index.css"/>
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
 #{/}
 	<script language="javascript" type="text/javascript">
@@ -14,7 +13,7 @@
 <div style="width:700px; float:left;">
 		 <div style="width:600px;">
 				#{list items:fQ,as:'findListQues'}
-				<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;"  >
+				<ul style="padding-bottom:5px;"  >
 					<li  class="qatitle">	
 						<span  style="font-size:21px; color:#000000; font-weight:bold;">${findListQues.title}</span>
 						 #{if CssaQues || UserQues}
@@ -38,40 +37,36 @@
 					<li class="qatitle" style="padding-bottom:25px;">
 						<div class="qatitlea"  style="TEXT-DECORATION:none;text-indent:2em; color:#330000; line-height:25px;">${findListQues.content.raw()}</div>
 					</li>
-					<li class="qatitle"   style="border-top:1px solid #dddddd;padding-bottom:10px;">
+					<li class="qatitle"   style="border-top:1px solid #dddddd;  border-bottom:1px solid #dddddd; padding-bottom:15px;">
 						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
 					</li>
 			 	</ul>
 			 	#{/list}
 		  </div>
 		 
-		  <div style="  width:600px;">
+		  <div style="  width:560px; margin-left:40px;">
 		 		#{list items:listCom,as:'ac'}
 			 		<ul style="border-bottom:1px solid #dddddd; padding-bottom:15px;">
-					 		<li class="qatitle" style="margin-top:-20px;">
-                            
+					 		<li class="qatitle" style="margin-left:-40px;">
 				    			<h5>
 				    				<a id="userInfo${ac.userid}" href="@{QuestAnsw.showUserInfor(ac.usertype,ac.userid)}" style="color:#336699;">${ac.username}：</a>
 				    				<span >${ac.userSelfIntro}</span>
 				    			</h5>
 				    			 <span >
-				    			 
-				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/img/1-2.png"> ${ac.praiseNum}票 ,</a>
-				    			 
+				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/images/1-2.png"> ${ac.praiseNum}票 ,</a>
 				    			 <span style="color:#999999;font-size:10px; margin-left:10px;">${ac.date}</span>
 				    			 <div style="float:right;margin-top:-30px;">
 	 								<img  src=${ac.userprofile} class="op2-right2" style="height:40px; width:40px;">
 								 </div> 
 				    		</li>
-				    		
-				    		<li class="qatitle" style="line-height:25px; margin-top:-12px;">
+				    		<li class="qatitle" style="line-height:25px; margin-left:-40px;">
 				    			<div style="TEXT-DECORATION:none; text-indent:2em; font-size:10px ; color:#000000;  font-family:'Helvetica Neue',Helvetica,Arial,Sans-serif';" >${ac.comment.raw()}</div>
 				    		</li>
 		  	   	    </ul>
 		  	   #{/list}	
 	  	  </div> 		
   			
-	  		<div style="margin-left:20px;padding-bottom:50px; width:600px;">
+	  		<div style="margin-left:40px;padding-bottom:50px; width:600px;">
 			 		#{if UserComments || CssaComment}
 						<span style="line-height: 50px;margin-left:50px;">一个问题你只能回答一次，但你可以对      
 						#{list items:fQ,as:'findListQues'}
@@ -100,7 +95,7 @@
    #{list items:fQ,as:'fidid'}
 	<div class="op-right1">
 	#{if UserFocusQues || CSSAFocusQues}
-		<a class="btn" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
+		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
 	#{/if}
 	
 	#{else}

@@ -50,3 +50,7 @@ hr{
 .mg-top-2{
 	margin-top:20px;
 }
+
+li{
+list-style:none;
+}

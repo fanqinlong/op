@@ -1,8 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'editComent.html' /}
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 #{set 'Styles'}
-<link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
-<link rel="stylesheet" href="/public/stylesheets/Activity-index.css"/>
 <script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
 #{/}
 	<script language="javascript" type="text/javascript">
@@ -11,7 +10,7 @@
 <div style="width:700px; float:left;">
 		 <div style="width:600px;">
 				#{list items:fQ,as:'findListQues'}
-				<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;"  >
+				<ul style="padding-bottom:5px;"  >
 					<li  class="qatitle">	
 						<span  style="font-size:21px; color:#000000; font-weight:bold;">${findListQues.title}</span>
 						 #{if CssaQues || UserQues}
@@ -32,14 +31,14 @@
 					<li class="qatitle" style="padding-bottom:25px;">
 						<div class="qatitlea"  style="TEXT-DECORATION:none;text-indent:2em; color:#330000; line-height:25px;">${findListQues.content.raw()}</div>
 					</li>
-					<li class="qatitle"   style="border-top:1px solid #dddddd;padding-bottom:10px;">
+					<li class="qatitle"   style="border-top:1px solid #dddddd;padding-bottom:10px; border-bottom:1px solid #dddddd;">
 						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
 					</li>
 			 	</ul>
 			 	#{/list}
 		  </div>
   			
-	  		<div style="margin-left:20px;padding-bottom:50px; width:600px;">
+	  		<div style="margin-left:40px;padding-bottom:50px; width:600px;">
 					 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
 					  		${username} ,回答问题
 					 	</li>

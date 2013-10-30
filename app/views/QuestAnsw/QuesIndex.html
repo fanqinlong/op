@@ -107,10 +107,10 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>选择标签</label>
 	<div class="col-md-3 qaw">
-		 <div class="controls " style="width:594px;" id="ulname">
+		 <div class="controls " style="width:560px;" id="ulname">
 			#{list items:t,as:'tag'}	 
-				<label class="checkbox-inline">
-		  			<input type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
+				<label class="checkbox-inline btn btn-default" style="border-radius:20px;margin-left:0px;">
+		  			<input style="float:none;margin-left:0px;" type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
 				</label>
 			#{/list}
 		  </div>

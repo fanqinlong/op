@@ -401,8 +401,11 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
+		
+		String userType = session.get("usertype");
+		long userId = Long.parseLong(session.get("logged"));
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				pageNum);
+				pageNum,userType,userId);
 	}
 
 	public static void editQues(long id) {
