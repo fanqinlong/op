@@ -1,80 +1,80 @@
-#ActivityPeriod
-activity.ActivityPeriod(p1):
+#Period
+activity.Period(p1):
     days:     0
     period:   "今天"
     sequence: 0
 
-activity.ActivityPeriod(p2):
+activity.Period(p2):
     days:     1
     period:   "明天"
     sequence: 0
 
-activity.ActivityPeriod(p3):
+activity.Period(p3):
     days:     3
     period:   "三日内"
     sequence: 0
 
-activity.ActivityPeriod(p4):
+activity.Period(p4):
     days:     7
     period:   一周内
     sequence: 0
 
-activity.ActivityPeriod(p5):
+activity.Period(p5):
     days:     14
     period:   两周内
     sequence: 0
 
-activity.ActivityPeriod(p6):
+activity.Period(p6):
     days:     30
     period:   一月内
     sequence: 0
 
-#ActivityScope
-activity.ActivityScope(s1):
+#Scope
+activity.Scope(s1):
     scope:    1-10
     sequence: 0
 
-activity.ActivityScope(s2):
+activity.Scope(s2):
     scope:    11-20
     sequence: 0
 
-activity.ActivityScope(s3):
+activity.Scope(s3):
     scope:    21-30
     sequence: 0
 
-activity.ActivityScope(s4):
+activity.Scope(s4):
     scope:    31-50
     sequence: 0
 
-activity.ActivityScope(s5):
+activity.Scope(s5):
     scope:    51-100
     sequence: 0
 
-activity.ActivityScope(s6):
+activity.Scope(s6):
     scope:    100+
     sequence: 0
 
-#ActivityType
-activity.ActivityType(t1):
+#Type
+activity.Type(t1):
     name:     聚餐
     sequence: 0
 
-activity.ActivityType(t2):
+activity.Type(t2):
     name:     郊游
     sequence: 0
 
-activity.ActivityType(t3):
+activity.Type(t3):
     name:     同学会
     sequence: 0
 
-activity.ActivityType(t4):
+activity.Type(t4):
     name:     舞会
     sequence: 0
 
-activity.ActivityType(t5):
+activity.Type(t5):
     name:     篮球赛
     sequence: 0
 
-activity.ActivityType(t6):
+activity.Type(t6):
     name:     接机
     sequence: 0

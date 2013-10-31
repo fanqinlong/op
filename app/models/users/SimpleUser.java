@@ -24,8 +24,8 @@ public class SimpleUser extends Model {
 
 	// User Detail
 
-	public String schoolEmail;
-	public String schoolEmailConfirmation;
+	public String eduMail;
+	public String eduMailConfirmation;
 	public String contract;
 	public boolean dispContract;
 	public String signature;
@@ -87,7 +87,10 @@ public class SimpleUser extends Model {
 	}
 
 	public static boolean isEmailAvailable(String email) {
-		return findByEmail(email) == null;
+		if(findByEmail(email) == null && find("eduMail",email).fetch().isEmpty()){
+		return true;
+		}
+		return false;
 	}
 
 	public void changeEmail(String email) {

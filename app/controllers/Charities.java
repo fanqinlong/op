@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import models.*;
 import models.activity.Activity;
-import models.activity.ActivityLiker;
+import models.activity.Liker;
 import models.charity.Wel;
 import models.charity.welLiker;
 import models.users.SimpleUser;

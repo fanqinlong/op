@@ -1,0 +1,41 @@
+#{extends 'main.html' /} #{set title:'edumail.html' /} 
+#{form @authEduMail(),method:'post',class:'form-horizontal'}
+<h4 class="col-md-offset-2">
+	验证EDU邮箱 <small> <a href="#modal" data-toggle="modal">为什么？</a></small>
+</h4>
+<div class="form-group ${errors.forKey('eduMail') ? 'has-error' : ''}">
+	<label for="eduMail" class="col-md-2 control-label">EDU邮箱</label>
+	<div class="col-md-3 ">
+		<input type="email" name="eduMail" value="${flash.eduMail}" id="eduMail" class="form-control" />
+	</div>
+	<span class="col-md-3">#{error 'eduMail' /}</span>
+</div>
+<div class="form-group">
+	<div class="col-md-offset-2 col-md-3">
+		<a href="@{SimpleUsers.updateProfile}" class="btn btn-default ">跳过</a><input type="submit" class="btn btn-primary col-md-offset-1" value="验证">
+	</div>
+</div>
+
+#{/form}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title text-center" id="myModalLabel">为什么要验证EDU邮箱</h4>
+      </div>
+      <div class="modal-body">
+        <p><strong>本协议是您与opporlink网站所有者就网站服务等相关事宜鉴定的契约，请仔细阅读本注册协议，您点击"同意并继续"按钮后，本协议即构成双方有约束力的法律文件。</strong></p>
+        <p>1:请勿滥用我们的服务。举例而言，请勿干扰我们的服务或尝试使用除我们提供的界面和指示以外的方法访问这些服务。</p>
+        <p>2:为了使用我们的服务，您可能需要注册一个Opporlink帐户。您可以创建自己的Opporlink帐户。如果您使用的是由管理员分配的Opporlink帐户，可能需要遵守另外的条款或附加条款，并且您的管理员可能有权访问或停用您的帐户。我们的多项服务都要求您注册帐户。而在您注册帐户时，我们会要求您提供个人信息，例如您的姓名、电子邮件地址、电话号码或信用卡号。假如您有隐私权的困扰，您可以自主选择公开和隐藏部分信息。</p>
+        <p>3:如果您发现有人在未经授权的情况下使用了您的密码或帐户，为了防止个人信息被泄露的风险，请立即更改密码。</p>
+        <p>4:用户在Opporlink发表的内容（包括问答、活动等）仅表明其个人的立场和观点，并不代表Opporlink的立场或观点。作为内容的发表者，需自行对所发表内容负责，因所发表内容引发的一切纠纷，由该内容的发表者承担全部法律及连带责任。同时，在参与各种线下活动中发生的任何纠纷、突发事件请与活动发起方协商解决，Opporlink不承担任何法律及连带责任。</p>
+        <p>5:如果您不遵守我们的条款或政策，我们可以暂停或停止向您提供服务。</p>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">了然</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

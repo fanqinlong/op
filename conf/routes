@@ -28,6 +28,9 @@ GET                	/simple/changeprofile/{id}                               Sim
 POST        		/simple/changeprofile                                    SimpleUsers.doChangeProfile
 GET                	/simple/infocenter                                       SimpleUsers.infoCenter
 GET                	/simple/myactivity                                       SimpleUsers.myActivity
+GET					/simple/edumail											 SimpleUsers.eduMail
+POST				/simple/edumail											 SimpleUsers.authEduMail
+GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
 
 
 #CSSAs Registration/Authentication
@@ -97,16 +100,13 @@ GET                	/activity/filtertype/{name}                              Act
 GET                	/activity/filterPeriod/{days}                        	 Activities.filterPeroid
 GET               	/activity/filterPeriodWeekend                        	 Activities.filterPeroidWeekend
 GET                	/activity/filterScope/{scope}                        	 Activities.filterScope
-POST        		/activity/filterLocation                                 Activities.filterLocation
+POST        		/activity/filterZip                                 	 Activities.filterZip
 GET         		/activity/pagination/{page}                              Activities.getMore
 POST        	 	/activity/pagination/{page}                              Activities.getMore
 GET                	/activity/userthumb/{id}                                 Activities.userThumb
 GET                	/activity/allJoinner/{aid}                               Activities.allJoinner
 POST        		/activity/join                                           Activities.join
 GET                	/activity/like/{aid}                                     Activities.like
-
-#QA
-GET                /qa                                                      QAs.index
 
 
 #Charity

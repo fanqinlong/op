@@ -1,5 +1,10 @@
 #{extends 'main.html' /} #{set title:'登录' /}
+#{if flash.notconfirmed}
+<div class="alert alert-danger">
+<strong>邮箱尚未验证</strong>，<a href="@{SimpleUsers.resendConfirmation(flash.notconfirmed)}">重新发送</a>邮件。
 
+</div>
+#{/if}
 #{form @authenticate(),method:'POST',id:'login',class:'form-horizontal'}
 <h4 class="col-md-offset-2"> 登录奥噗</h4>
 <div class="form-group  ${errors.forKey('email') ? 'has-error' : ''}">
@@ -26,14 +31,10 @@
 </div>
 <div class="form-group">
 	<div class="col-md-offset-2 col-md-3">
-		<a href="@{SimpleUsers.signup}" class="btn btn-success ">注册</a><button type="submit" class="btn btn-primary col-md-offset-1 ">登录</button>
+		<a href="@{SimpleUsers.signup}" class="btn btn-primary ">注册</a><button type="submit" class="btn btn-success col-md-offset-1 ">登录</button>
 	</div>
 </div>
 #{/form}
  #{if flash.notconfirmed}
-<p>
-	邮箱未见证，重新
-	<a class="action" href="@{SimpleUsers.resendConfirmation(flash.notconfirmed)}">发送</a>
-	邮件。
-</p>
+
 #{/if}

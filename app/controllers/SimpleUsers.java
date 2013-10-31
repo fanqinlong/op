@@ -19,13 +19,13 @@ import play.libs.Files;
 import play.libs.Images;
 import play.mvc.*;
 import models.activity.Activity;
-import models.activity.ActivityJoiner;
+import models.activity.Joiner;
 import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class SimpleUsers extends Application {
 
-	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetpassword", "doforgetpassword", "resetPasswordConfirmation", "resetPassword" })
+	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetpassword", "doforgetpassword", "resetPasswordConfirmation", "resetPassword","confirmEduMail" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			login();
@@ -41,11 +41,10 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void login() {
-
 		render();
 	}
 
-	public static void register(@Required @Email String email, @Required @MinSize(7) @MaxSize(20) String password,  @Required String gender, @Required @MinSize(2) @MaxSize(20) String name) {
+	public static void register(@Required @Email String email, @Required @MinSize(7) @MaxSize(20) String password, @Required String gender, @Required @MinSize(2) @MaxSize(20) String name, @Required String agreement) {
 
 		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
@@ -58,16 +57,16 @@ public class SimpleUsers extends Application {
 			flash.error("请更正错误。");
 			signup();
 		}
-		SimpleUser user = new SimpleUser(email, password, name,gender);
+		SimpleUser user = new SimpleUser(email, password, name, gender);
 		try {
 			if (Notifier.welcomeSimpleUser(user)) {
-				flash.success("请登录注册邮箱激活帐号。");
+				flash.success("请登录 %s 激活帐号。", email);
 				login();
 			}
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("呃。。邮件发送失败，请重试。");
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",email);
 		login();
 	}
 
@@ -81,10 +80,74 @@ public class SimpleUsers extends Application {
 		SimpleUser user = SimpleUser.findByRegistrationUUID(uuid);
 		notFoundIfNull(user);
 		user.needConfirmation = null;
-		user.save();
+		
 		connectSimple(user);
-		flash.success("Welcome %s !", user.name);
-		infoCenter();
+		String email = user.email;
+		String suffix = email.substring(email.length() - 3, email.length());
+		if (suffix.equals("edu")) {
+			user.eduMail = user.email;
+			user.eduMailConfirmation = null;
+			flash.success("Welcome %s !请完善个人信息。", user.name);
+			user.save();
+			updateProfile();
+		} else {
+			user.save();
+			flash.success("Welcome %s !请验证EDU邮箱。", user.name);
+			render("@edumail");
+		}
+
+	}
+	public static void confirmEduMail(String uuid) {
+		SimpleUser user = SimpleUser.find("eduMailConfirmation", uuid).first();
+		notFoundIfNull(user);
+		user.eduMailConfirmation = null;
+		user.save();	
+		connectSimple(user);
+		flash.success("Welcome %s ! EDU邮箱验证成功，请完善个人信息。", user.name);
+		updateProfile();
+		
+	}
+
+	public static void eduMail() {
+		String  refere= request.headers.get("referer").values.get(0);
+		render(refere);
+	}
+
+	public static void authEduMail(String eduMail) {		
+		if (eduMail==null) {
+			params.flash();
+			flash.error("请填写邮箱。");
+			render("@eduMail");
+		}
+		String suffix = eduMail.substring(eduMail.length()-3,eduMail.length());
+		if(!suffix.equals("edu")){
+			params.flash();
+			flash.error("请填写EDU邮箱。");
+			render("@eduMail");
+		}
+		if ((!SimpleUser.isEmailAvailable(eduMail)) || (!CSSA.isEmailAvailable(eduMail))) {
+			params.flash();
+			flash.error("邮箱已被使用。");
+			render("@eduMail");
+		} 
+		Long uid = Long.parseLong(session.get("logged"));
+		SimpleUser user = SimpleUser.findById(uid);
+		user.eduMail = eduMail;
+		user.eduMailConfirmation = Codec.UUID();
+		user.save();
+		
+		try {
+			if (Notifier.authEduMail(user)) {
+				flash.success("请登录 %s 验证EDU邮箱", eduMail);
+				login();
+			}
+		} catch (Exception e) {
+			Logger.error(e, "Mail error");
+		}
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",eduMail);
+		session.clear();
+		login();
+
 	}
 
 	public static void authenticate(String email, String password) {
@@ -95,11 +158,10 @@ public class SimpleUsers extends Application {
 				flash.error("邮箱不存在。");
 				login();
 			} else if (!user.checkPassword(password)) {
-				flash.error("密码错误");
+				flash.error("密码错误。");
 				flash.put("email", email);
 				login();
 			} else if (user.needConfirmation != null) {
-				flash.error("账户未激活");
 				flash.put("notconfirmed", user.needConfirmation);
 				flash.put("email", email);
 				login();
@@ -130,14 +192,14 @@ public class SimpleUsers extends Application {
 		notFoundIfNull(user);
 		try {
 			if (Notifier.welcomeSimpleUser(user)) {
-				flash.success("请登陆邮箱激活帐号。");
+				flash.success("请登陆%s 激活帐号。",user.email);
 				flash.put("email", user.email);
 				login();
 			}
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("邮件未能发送。");
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",user.email);
 		flash.put("email", user.email);
 		login();
 	}
@@ -157,7 +219,7 @@ public class SimpleUsers extends Application {
 		session.put("usertype", "simple");
 	}
 
-	public static void changePassword() {		
+	public static void changePassword() {
 		render();
 	}
 
@@ -180,7 +242,8 @@ public class SimpleUsers extends Application {
 		}
 	}
 
-	public static void updateProfile(Long id) {
+	public static void updateProfile() {
+		long id = Long.parseLong(session.get("logged"));
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
 		render(user);
@@ -237,13 +300,13 @@ public class SimpleUsers extends Application {
 		user.save();
 		try {
 			if (Notifier.resetPasswordSimpleUser(user)) {
-				flash.success("请登录注册邮箱重置密码。");
+				flash.success("请登录%s重置密码。",email);
 				login();
 			}
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("呃。。邮件发送失败，请重试。");
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",email);
 		login();
 	}
 
@@ -255,22 +318,21 @@ public class SimpleUsers extends Application {
 		connectSimple(user);
 		flash.success("邮箱验证成功，请填写新密码。");
 		long id = user.id;
-		renderArgs.put("id",id);
+		renderArgs.put("id", id);
 		renderTemplate("SimpleUsers/resetPassword.html");
 	}
 
 	public static void resetPassword(Long id) {
-		renderArgs.put("id",id);
+		renderArgs.put("id", id);
 		render();
 	}
-
 
 	public static void doResetPassword(@Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
 			flash.error("请更正错误。");
-			renderArgs.put("id",id);
+			renderArgs.put("id", id);
 			renderTemplate("SimpleUsers/resetPassword.html");
 		} else {
 			((SimpleUser) SimpleUser.findById(id)).changePassword(password);
@@ -285,8 +347,7 @@ public class SimpleUsers extends Application {
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File poster, int left, int top,
-			int height, int width) {
+	public static void doChangeProfile(Long id, File poster, int left, int top, int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
 		Images.crop(poster, poster, left, top, height, width);
 		Files.copy(poster, Play.getFile(path));
@@ -297,13 +358,11 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void infoCenter() {
-		String usertype = session.get("usertype");
 		long id = Long.parseLong(session.get("logged"));
-		
-		List<ActivityJoiner> aj = ActivityJoiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?", id).fetch();
+		//List<Joiner> aj = Joiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?", id).fetch();
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		render(user, aj);
+		render(user);
 	}
 
 	public static void myActivity() {
@@ -321,5 +380,7 @@ public class SimpleUsers extends Application {
 		List<SimpleUser> s = SimpleUser.find("select s from SimpleUser s,ActivityJoiner aj where s.id = aj.jid and aid=?", aid).fetch();
 		render(s);
 	}
+
+
 
 }
