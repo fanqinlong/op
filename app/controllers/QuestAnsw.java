@@ -753,13 +753,6 @@ public class QuestAnsw extends Application {
 			comid = com.id;
 			username = com.username;
 		}
-		System.out.println("用户id:"+comentUserid);
-		System.out.println("用户类型:"+comentUsertype);
-		System.out.println("答案id:"+comid);
-		
-		System.out.println("问题id:"+Quesid);
-		System.out.println("username:"+username);
-
 		Comments findCom = Comments.findById(comid);
 		
 		Ques fQ = Ques.findById(Quesid);

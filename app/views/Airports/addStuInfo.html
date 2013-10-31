@@ -11,11 +11,11 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>姓名</label>
 	<div class="col-md-3 ">
-		<input	class="form-control"  id="siUsername" type="text" name="s.name" value="${flash.name}" placeholder="请输入姓名">
+		<input	class="form-control"  id="siUsername" type="text" name="s.name" value="${flash.name}" placeholder="请输入姓名" maxlength="24">
 		<input type="hidden" name="s.school" value="${schoolName}">
 		<input type="hidden" name="schoolId" value="${schoolId}">
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写真实有效的姓名)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写有效的中文姓名)</span><span class="col-md-3">#{error 'name' /}</span>
 </div>
 				
 				
@@ -30,34 +30,34 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>电话</label>
 	<div class="col-md-3 ">
-		 <input	class="form-control" type="text" id="siTelphone" name="s.phone" value="${flash.siTelphone}" placeholder="请输入有效的电话号码">
+		 <input	class="form-control" maxlength="16" type="text" id="siTelphone" name="s.phone" value="${flash.siTelphone}" placeholder="请输入有效的电话号码">
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写真实有效的联系电话)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:600px;">(请填写真实有效的联系电话，如:<span style="color:#428bca;"> +1(213)777-7777，+86-13777777777</span>)</div></span><span class="col-md-3">#{error 'siTelphone' /}</span>
 </div>		
 
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>Email</label>
 	<div class="col-md-3 ">
-		<input id="email" type="text" name="s.email" value="${flash.email}" placeholder="请输入邮箱" class="form-control" ><span class="error">#{error 'a.email' /}</span>
+		<input id="email" maxlength="36" type="text" name="s.email" value="${flash.email}" placeholder="请输入邮箱" class="form-control" ><span class="error">#{error 'a.email' /}</span>
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写真实有效的Email)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">(请填写真实有效的Email,如:<span style="color:#428bca;">opporlink@gmail.com</span>)</div></span><span class="col-md-3">#{error 'email' /}</span>
 </div>
 
 
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>专业</label>
 	<div class="col-md-3 ">
-		<input id="simajor" type="text" name="s.major" value="${flash.major}" placeholder="请输入你的专业" class="form-control" >
+		<input id="simajor" type="text" name="s.major" value="${flash.major}" maxlength="32" placeholder="请输入你的专业" class="form-control" >
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写专业课程)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写你的专业课程，一般为大类，如"Biology")</span><span class="col-md-3">#{error 'major' /}</span>
 </div>
 
 <div class="form-group">
-	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>到达机场</label>
+	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>目的地</label>
 	<div class="col-md-3 ">
-		<input id="siAirport" type="text" name="s.airport" value="${flash.airport}" placeholder="将要到达的机场" class="form-control" >
+		<input id="siAirport" type="text" name="s.airport" value="${flash.airport}" placeholder="将要到达的机场" class="form-control" maxlength="32">
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写机票上的到达机场)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">(请完整填写机票上到达的目的地，一般为城市名或机场+城市，如:<span style="color:#428bca;">"Los Angeles"."JFK，NY city" </span>)</div></span><span class="col-md-3">#{error 'airport' /}</span>
 </div>
 
 
@@ -66,7 +66,7 @@
 	<div class="col-md-3 ">
 		<input id="siAirport" type="text" name="s.flight" value="${flash.flight}" placeholder="请填写机票上的准确航班" class="form-control" />
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写真实有效的姓名)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">(请填写机票上准确航班,如:<span style="color:#428bca;">UA858</span>)</div></span><span class="col-md-3">#{error 'flight' /}</span>
 </div>
 
 
@@ -74,11 +74,11 @@
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>到达时间</label>
 	<div class="col-md-3 ">
 		<div class="input-append date form_datetime" >
-			<input size="16" type="text"  name="s.date" value="${flash.date}" readonly style="width: 241px; height:34px;">
+			<input size="16" type="text"  name="s.date" value="${flash.date}" readonly style="width: 241px; height:34px;" placeholder="点击选择达到时间">
 			<span class="add-on"><i class="icon-th"></i></span>
 		</div>
 	</div>
-	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写机票上的到达时间)</span><span class="col-md-3">#{error 'name' /}</span>
+	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">(请选择一个有效的到达时间，可咨询机票提供方。如果出现航班延误等特殊情况，接机人会和你联系。)</div></span><span class="col-md-3">#{error 'name' /}</span>
 </div>
 
 
@@ -86,7 +86,7 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"></label>
 	<div class="col-md-3 ">
-		<span>${explain}</span>
+		<span style="color: #FF0000;"> ${explain} </span>
 	</div>
 </div>
 
@@ -95,15 +95,16 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>行李</label>
 	<div class="col-md-3 ">
-		<textarea name="s.luggage" cols="36" rows="4" id="luggage" placeholder="请描述行李大小，方便我们安排适当的车型.">${flash.luggage}</textarea>
+		<textarea name="s.luggage" cols="34" rows="4" id="luggage" placeholder="请描述行李大小，方便我们安排适当的车型">${flash.luggage}</textarea>
 	</div>
+	<span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">请描述行李大小，方便我们安排适当的车型.行李:(如:<span style="color:#428bca;">32寸旅行箱一个</span>)</div></span><span class="col-md-3">#{error 'name' /}</span>
 </div>
 
 
 <div class="form-group">
-	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>备注</label>
+	<label for="name" class="col-md-2 control-label">备注</label>
 	<div class="col-md-3 ">
-		<textarea name="s.remarks" cols="36" rows="6" id="remarks" placeholder="还有什么需求请留言...">${flash.remarks}</textarea>
+		<textarea name="s.remarks" cols="34" rows="6" id="remarks" placeholder="还有什么需求请留言...">${flash.remarks}</textarea>
 	</div>
 </div>
 
