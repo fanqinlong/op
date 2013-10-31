@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
+	
+	<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap-combined.no-icons.min.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/op-theme.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/font-awesome/css/font-awesome.min.css'}" />
+	<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+</head>
+
+<body class="msg-mod-body">
+	#{if flash?.success}
+	<div class="msg-alert alert alert-success fade">
+		${flash.success}
+	</div>
+	<script type="text/javascript">
+		setTimeout(function() {
+			$(".msg-alert").addClass("out");
+		}, 2000);
+	</script>
+	#{/if}
+
+	<!-- 顶部功能区 -->
+	<div class="mail-top-bar">
+		<div class="msg-mod-title">站内信箱</div>
+		<div class="mail-compose-btn"><a href="@{Messaging.compose}">发站内信</a></div>
+		<ul class="mail-top-bar-tabs">
+			<li id="inboxTabBtn" onClick="javascript:showInbox();">收件箱</li>
+			<li id="outboxTabBtn" onClick="javascript:showOutbox();">发件箱</li>
+		</ul>
+	</div>
+	
+	<!-- 消息列表 -->
+	<form id="mailList" class="mail-list"></form>
+	
+	<!-- 底部功能区 -->
+	<div id="mailBottomBar">
+		<span id="bottomBarControls">
+			<button id="selectAllBtn" onClick="javascript:selectAll();">全选</button>
+			<button id="trashBtn" onClick="javascript:trash();">删除</button>
+			<button id="markReadBtn" onClick="javascript:markRead();">标记为已读</button>
+		</span>
+	</div>
+	
+	<!-- 模板 -->
+	<script id="inboxItemTmpl">
+		<div class="mail-wrapper">
+			<div class="mail-controls">
+				<input type="checkbox"/>
+			</div>
+			<div class="mail-title-bar {{#mail.isRead}}mail-read{{/mail.isRead}}">
+				<div class="mail-sender">{{sender.name}}</div>
+				<div class="mail-title">{{mail.title}}</div>
+				<div class="mail-time">{{mail.time}}</div>
+			</div>
+			<div class="mail-content-inbox" style="display:none"></div>
+		</div>
+		<hr/>
+	</script>
+	
+	<script id="outboxItemTmpl">
+		<div class="mail-wrapper">
+			<div class="mail-title-bar mail-read">
+				<div class="mail-sender">{{receiver.name}}</div>
+				<div class="mail-title">{{mail.title}}</div>
+				<div class="mail-time">{{mail.time}}</div>
+			</div>
+			<div class="mail-content-outbox" style="display:none"></div>
+		</div>
+		<hr/>
+	</script>
+	
+	<!-- JS -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
+	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+hr {
+	margin: 0px;
+	border-bottom: none;
+}
+
+/* 布局 */
+.msg-left-nav {
+	width: 185px;
+	height: 245px;
+	float:left;
+	border-bottom: 1px solid #CCC;
+}
+
+.msg-content-wrapper {
+	height: 100%;
+	margin-left: 185px;
+	margin-right: 201px;
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+}
+
+.msg-content-container {
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+.msg-ad-wrapper {
+	width: 201px;
+	float: right;
+}
+
+.container-op {
+	clear: both;
+	padding: 0px;
+}
+
+/* 导航 */
+.msg-nav-title {
+	font-size: 18px;
+	margin-top: 24px;
+	margin-bottom: 47px;
+	text-align: center;
+}
+
+.msg-nav-list {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.msg-nav-list li {
+	height: 30px;
+	line-height: 30px;
+	padding-left: 48px;
+	color: #808080;
+	list-style-type: none;
+}
+
+.msg-nav-list li:hover {
+	background-color: #F0F4F6;
+}
+
+.msg-nav-list a:hover {
+	text-decoration: none;
+}
+
+.msg-nav-list li.selected {
+	background-color: #DBE3E9;
+	color: #434343;
+	font-weight: bold;
+}
+
+/* 内容模块公用 */
+.msg-mod-body {
+	background: #FFFFFF  !important;
+	margin-top: 24px;
+}
+
+.msg-mod-title {
+	display:inline;
+	font-size: 18px;
+	color: #369;
+}
+
+/* 模块: 站内信 */
+.mail-top-bar {
+	padding: 0 22px;
+}
+
+.mail-list {
+	top: 100px;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+	position: absolute;
+	padding: 0 22px;
+}
+
+#mailBottomBar {
+	height: 37px;
+	line-height: 37px;
+	padding: 0 22px;
+	background-color: #DBE3E9;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+}
+
+.mail-compose-btn {
+	float: right;
+}
+
+.mail-top-bar-tabs {
+	margin-left: 0;
+	margin-top: 23px;
+	padding-left: 8px;
+	border-bottom: 1px solid #CCC;
+}
+
+.mail-top-bar-tabs li {
+	display: inline-block;
+	cursor: pointer;
+	width: 70px;
+	height: 25px;
+	line-height: 27px;
+	text-align: center;	
+	border: 1px solid #CCC;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-width: 0;
+	background-color: #F2F2F2;
+	color: #9F9F9F;
+}
+
+.mail-top-bar-tabs li:hover {
+	background-color: #F8F8F8;
+}
+
+.mail-top-bar-tabs li.selected {
+	font-weight: bold;
+	background-color: #FFFFFF;
+}
+
+.mail-wrapper {
+	padding-left: 8px;
+	padding-right: 8px;
+	line-height: 30px;
+}
+
+.mail-controls {
+	width: 30px;
+	float: left;
+}
+
+.mail-controls input[type="checkbox"] {
+	margin-top: -1px;
+}
+
+.mail-title-bar {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.mail-sender {
+	display: inline-block;
+	width: 100px;
+}
+
+.mail-title {
+	display: inline-block;
+}
+
+.mail-time {
+	display: inline-block;
+	min-width: 100px;
+	float: right;
+	color: #9F9F9F;
+}
+
+.mail-read {
+	font-weight: normal;
+}
+
+.mail-content-inbox {
+	margin-left: 30px;
+	margin-bottom: 10px;
+}
+
+.mail-content-outbox {
+	margin-bottom: 10px;
+}
+
+.msg-alert {
+	position: absolute;
+	width: 150px;
+	line-height: 5px;
+	margin-left: -75px;
+	padding: 10px;
+	width: 150px;
+	top: 22px;
+	left: 50%;
+	text-align: center;
+}

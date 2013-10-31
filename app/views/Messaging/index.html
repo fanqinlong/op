@@ -1,0 +1,58 @@
+#{extends 'main.html' /} #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+#{/set}
+
+<!-- 左侧导航 -->
+<div class="msg-left-nav">
+	<div class="msg-nav-title">消息中心</div>
+	<ul id="navMenu" class="msg-nav-list">
+		<a id="mailBtn" href="@{Messaging.mail}" target="msg-iframe"><li>
+			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if msgCount>0}(${msgCount})#{/if}</span></span>
+		</li></a>
+		<a id="notificationsBtn" href="@{Messaging.notifications}" target="msg-iframe"><li>
+			<img src="/public/images/msg/msg_icon_notification.png"/><span> 系统通知</span>
+		</li></a>
+		<a id="announcementBtn" href="@{Messaging.announcements}" target="msg-iframe"><li>
+			<img src="/public/images/msg/msg_icon_announcement.png"/><span> 奥噗公告</span>
+		</li></a>
+		<a id="settingsBtn" href="@{Messaging.settings}" target="msg-iframe"><li>
+			<img src="/public/images/msg/msg_icon_setting.png"/><span> 消息设置</span>
+		</li></a>
+	</ul>
+</div>
+
+<!-- 右侧广告 -->
+<div class="msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png"/>
+</div>
+
+<!-- 内容 -->
+<div class="msg-content-wrapper">
+	<iframe id="contentFrame" class="msg-content-container" name="msg-iframe" src="@{Messaging.mail}"></iframe>
+</div>
+
+
+#{set 'Scripts'}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#navMenu").children().click(function(event){
+				$("#navMenu a li").removeClass("selected");
+				$(event.currentTarget).children().addClass("selected");
+			});
+			
+			$("#mailBtn li").addClass("selected");
+		});
+		
+		function updateMessageCount(count) {
+			if (count > 0) {
+				$("#navMailCount").html("(" + count + ")");
+				$("#mailCount").html(count);
+			} else {
+				$("#navMailCount").html("");
+				$("#mailCount").html("");
+			}
+			
+		}
+		
+	</script>
+#{/set}

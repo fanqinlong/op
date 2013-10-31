@@ -16,25 +16,37 @@ public class SimpleUser extends Model {
 	public String passwordHash;
 	public String needConfirmation;
 	public String passwordConfirmation;
-	public String profile;
-	
-	// User Detail
-
+	public String profile; // 头像
 	public String name;
-	public String contract;
-	public String selfIntro;
-	
+	public String realName;
+	public boolean dispRealName;
+	public String gender;
+
 	// User Detail
 
+	public String schoolEmail;
+	public String schoolEmailConfirmation;
+	public String contract;
+	public boolean dispContract;
+	public String signature;
+	public short age;
+	public String birthday;
+	public boolean dispBirthday;
+	public String qq;
+	public boolean dispQQ;
+	public String ralationship;
+
+	public String admissionTime; // 入学时间
+	public String major;
 	public String school;
 	public String hometown;
-	public String gender;
-	public int age;
-	public String ralationship;
+	public String homeNow;
+
+	public String selfIntro;
 	public boolean isAdmin;
+	public String signupDate; //注册时间
 
-
-	public SimpleUser(String email, String password, String name,String gender) {
+	public SimpleUser(String email, String password, String name, String gender) {
 		this.email = email;
 		this.name = name;
 		this.gender = gender;
@@ -43,13 +55,15 @@ public class SimpleUser extends Model {
 		this.profile = "/public/images/user_default.jpg";
 		create();
 	}
-	
+
 	public boolean isAdmin() {
-        return  email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
-    }
+		return email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
+	}
+
 	public static SimpleUser findByRegistrationUUID(String uuid) {
 		return find("needConfirmation", uuid).first();
 	}
+
 	public static SimpleUser findByResetPasswordUUID(String uuid) {
 		return find("passwordConfirmation", uuid).first();
 	}
@@ -57,14 +71,17 @@ public class SimpleUser extends Model {
 	public boolean checkPassword(String password) {
 		return passwordHash.equals(Codec.hexMD5(password));
 	}
-	public void  changePassword(String password){
+
+	public void changePassword(String password) {
 		this.passwordHash = Codec.hexMD5(password);
 		save();
 	}
-	public void changeProfile(String path){
+
+	public void changeProfile(String path) {
 		this.profile = path;
 		save();
 	}
+
 	public static SimpleUser findByEmail(String email) {
 		return find("email", email).first();
 	}
@@ -72,10 +89,10 @@ public class SimpleUser extends Model {
 	public static boolean isEmailAvailable(String email) {
 		return findByEmail(email) == null;
 	}
-	public  void changeEmail(String email){
+
+	public void changeEmail(String email) {
 		this.email = email;
 		save();
 	}
-
 
 }
