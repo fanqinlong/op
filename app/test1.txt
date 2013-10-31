@@ -1,1 +1,1 @@
-test
+# rpm -qa|grep   gcj
