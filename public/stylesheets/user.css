@@ -1,0 +1,59 @@
+.suffix{
+	width:1%;
+	color: #FF0000;
+	float:left;
+}
+.sfont{
+	padding-left:2px;
+}
+.qaw{
+width:70%;
+}
+.woqu{
+	 width:auto;
+	 margin-left:-15%; 
+}
+	 .qatitle{
+	 	padding-top:15px;
+	 }
+.userinforleft {
+	float: left;
+	width: 88px;
+	padding-top: 50px;
+	text-align: right;
+}
+ 
+	.userinforright{
+	 text-align:left; width:426px; font-size:8px; margin-left:-11%;
+	
+	
+	}
+	.guanzhu-question{
+	 color:#999999;font-size:12px;
+	
+	}
+	
+		.guanzhu-num{
+			background-color:#FFFFFF;
+			height:40px; 
+			width:60px;
+			text-align:center;
+			border-left:1px solid  #000000; 
+			border-top:1px solid  #000000; 
+			border-right:1px solid  #000000;
+			border-bottom:0px solid #000000;
+		}
+		.huida-num{
+			background-color:#4b7390; 
+			height:40px; 
+			width:60px; 
+			text-align:center; 
+			border-left:1px solid  #000000;
+			border-top:1px solid  #000000; 
+			border-right:1px solid  #000000;
+			border-bottom:0px solid #000000;
+		
+}
+ul {	
+list-style:none;
+}

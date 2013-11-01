@@ -46,13 +46,16 @@ public class SimpleUser extends Model {
 	public boolean isAdmin;
 	public String signupDate; //注册时间
 
-	public SimpleUser(String email, String password, String name, String gender) {
+	public SimpleUser(String email, String password, String name, String gender,String signupDate,
+			String profile) {
 		this.email = email;
 		this.name = name;
 		this.gender = gender;
 		this.passwordHash = Codec.hexMD5(password);
 		this.needConfirmation = Codec.UUID();
-		this.profile = "/public/images/user_default.jpg";
+		//this.profile = "/public/images/user_default.jpg";
+		this.profile = profile;
+		this.signupDate = signupDate;
 		create();
 	}
 

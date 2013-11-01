@@ -16,7 +16,7 @@ GET                	/simple/confirmation/{uuid}                              Sim
 GET                	/simple/show/{id}                                        SimpleUsers.show
 GET               	/simple/changepassword                                   SimpleUsers.changePassword
 POST       			/simple/changepassword                                   SimpleUsers.doChangePassword
-GET                	/simple/updateprofile/{id}                               SimpleUsers.updateProfile
+#GET                	/simple/updateprofile/{id}                               SimpleUsers.updateProfile
 POST        		/simple/updateprofile                                    SimpleUsers.doUpdateProfile
 GET                	/simple/changeemail/{id}                                 SimpleUsers.changeEmail
 POST       			/simple/changeemail                                      SimpleUsers.dochangeEmail
@@ -28,7 +28,7 @@ GET                	/simple/changeprofile/{id}                               Sim
 POST        		/simple/changeprofile                                    SimpleUsers.doChangeProfile
 GET                	/simple/infocenter                                       SimpleUsers.infoCenter
 GET                	/simple/myactivity                                       SimpleUsers.myActivity
-GET					/simple/edumail											 SimpleUsers.eduMail
+GET					/simple/edumail									 SimpleUsers.eduMail
 POST				/simple/edumail											 SimpleUsers.authEduMail
 GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
 

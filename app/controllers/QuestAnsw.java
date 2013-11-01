@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Before;
+
 import models.qa.Attention;
 import models.qa.Comments;
 import models.qa.FocusQues;
@@ -17,7 +19,6 @@ import models.users.SimpleUser;
 
 public class QuestAnsw extends Application {
 	private static String label;
-
 	public static void index() {
 		render();
 	}

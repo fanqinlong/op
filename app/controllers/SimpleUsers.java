@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import com.mysql.jdbc.log.Log;
@@ -20,6 +22,7 @@ import play.libs.Images;
 import play.mvc.*;
 import models.activity.Activity;
 import models.activity.Joiner;
+import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
 
@@ -44,7 +47,12 @@ public class SimpleUsers extends Application {
 		render();
 	}
 
-	public static void register(@Required @Email String email, @Required @MinSize(7) @MaxSize(20) String password, @Required String gender, @Required @MinSize(2) @MaxSize(20) String name, @Required String agreement) {
+	public static void register(@Required @Email String email,
+			@Required @MinSize(7) @MaxSize(20) String password,
+			@Required String gender, 
+			@Required @MinSize(2) @MaxSize(20) String name, 
+			@Required String agreement,@Required String signupDate,
+			String profile) {
 
 		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
@@ -57,7 +65,14 @@ public class SimpleUsers extends Application {
 			flash.error("请更正错误。");
 			signup();
 		}
-		SimpleUser user = new SimpleUser(email, password, name, gender);
+		if(gender.equals("男")){
+			profile = "/public/images/morentouxiang_nan.png";
+		}else if(gender.equals("女")){
+			profile = "/public/images/morentouxiang_nv.png";
+		}
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
+		signupDate = (df.format(Calendar.getInstance().getTime()));
+		SimpleUser user = new SimpleUser(email, password, name, gender,signupDate,profile);
 		try {
 			if (Notifier.welcomeSimpleUser(user)) {
 				flash.success("请登录 %s 激活帐号。", email);
@@ -109,8 +124,13 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void eduMail() {
+		long userid = Long.parseLong(session.get("logged"));
+		String edumail;
+		SimpleUser simp = SimpleUser.findById(userid);
+		edumail = simp.eduMail;
+		
 		String  refere= request.headers.get("referer").values.get(0);
-		render(refere);
+		render(refere,edumail);
 	}
 
 	public static void authEduMail(String eduMail) {		
@@ -361,8 +381,9 @@ public class SimpleUsers extends Application {
 		long id = Long.parseLong(session.get("logged"));
 		//List<Joiner> aj = Joiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?", id).fetch();
 		SimpleUser user = SimpleUser.findById(id);
+		List<Ques> ques = Ques.find("userid = ?", id).fetch();
 		notFoundIfNull(user);
-		render(user);
+		render(user,ques);
 	}
 
 	public static void myActivity() {

@@ -1,4 +1,9 @@
-#{extends 'main.html' /} #{set title:'infoCenter.html' /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set}
+#{extends 'main.html' /}
+#{set title:'infoCenter.html' /} 
+#{set 'Styles'} 
+#{stylesheet 'user.css' /}
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
+#{/set}
 <div class="row">
 	<div class=" col-md-2">
 
@@ -10,15 +15,69 @@
 	<div class="col-md-8">
 		<h3>
 			${user.name}
-			<small> &nbsp;<a href="@{SimpleUsers.eduMail}">EDU邮箱</a> / <a href="@{SimpleUsers.ChangeEmail(user.id)}"> 登陆邮箱 </a>/ <a href="@{SimpleUsers.changePassword()}"> 密码</a></small>
+			<small> &nbsp; <a href="@{SimpleUsers.ChangeEmail(user.id)}"> 登陆邮箱 </a>/ <a href="@{SimpleUsers.changePassword()}"> 密码</a></small>
 		</h3>
 		<h6>
-			<span>#{if user.age} <span class="text-primary"> ${user.age} </span> 岁， #{/if} #{if user.hometown} 来自 <span class="text-primary"> ${user.hometown} </span>, #{/if} #{if user.school} <span> 学校 </span> <span class="text-primary"> ${user.school} </span> , #{/if} #{if user.ralationship}<span> 感情状况 </span> <span class="text-primary"> ${user.ralationship} </span> , #{/if} #{if user.contract} <span> 手机号 </span> <span class="text-primary"> ${user.contract} </span> #{/if}
+			<span>
+				#{if user.age}
+					<span class="text-primary"> ${user.age} </span>
+					 岁，
+				 #{/if}
+			    
+			    #{if user.birthday}
+			    	#{if user.dispBirthday}
+					生日是<span class="text-primary"> ${user.birthday} </span>
+					#{/if}
+				 #{/if}
+			    
+			    #{if user.hometown}
+			    	 来自 <span class="text-primary"> ${user.hometown} </span>, 
+			    #{/if} 
+			    
+			    #{if user.homeNow}
+			    	现居住<span class="text-primary"> ${user.homeNow} </span>, 
+			    #{/if} 
+			    
+			    #{if user.school}
+			     <span> 学校 </span>
+			    	 <span class="text-primary"> ${user.school} </span> ,
+			    #{/if} 
+			    
+			    #{if user.major}
+			     <span>专业 </span>
+			    	 <span class="text-primary"> ${user.major} </span> ,
+			    #{/if} 
+			    
+			    #{if user.admissionTime}
+			     <span>入学时间 </span>
+			    	 <span class="text-primary"> ${user.admissionTime} </span> ,
+			    #{/if} 
+			    
+			    #{if user.qq}
+			    	#{if user.dispQQ}
+			    	
+			     <span>QQ </span>
+			    	 <span class="text-primary"> ${user.qq} </span> ,
+			    	 #{/ if}
+			    #{/if} 
+			    
+			    #{if user.ralationship}
+			    	<span> 感情状况 </span> 
+			    	<span class="text-primary"> ${user.ralationship} </span> , 
+			    #{/if} 
+			    
+			    #{if user.contract} 
+			    	#{if user.dispContract}
+			    	<span> 手机号 </span> 
+			    	<span class="text-primary"> ${user.contract} </span>
+			    	#{/if} 
+			    #{/if}
+			    
 			</span>
 		</h6>
 		<h5>
 			签名：${user.selfIntro?user.selfIntro:'无'} &nbsp;
-			<a href="@{SimpleUsers.updateProfile}" style="color: #e2e2e2">
+			<a href="@{SimpleUsers.eduMail}" style="color: #e2e2e2">
 				<i class="icon-edit">完善资料</i>
 			</a>
 		</h5>
@@ -67,7 +126,6 @@
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade in active" id="home">
-
 					#{list items:postedActivity,as:'activity'}
 					<img src="${user.profile}" class="f_l img-polaroid" />
 					<span class="f_l"> 我发布了活动 </span>
@@ -83,20 +141,13 @@
 					#{/list}
 
 				</div>
+				
 				<div class="tab-pane fade" id="profile">
-
-					#{list items:JoinedActivity,as:'activity'}
-					<p>
-						<img src="${user.profile}" class="f_l img-polaroid" />
-						<span class="f_l">我参加了活动</span>
-						<br />
-						<a href="@{Activities.detail(activity.id)}">${activity.name}</a>
-						<br />
-						<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
-					</p>
-					<p class="ac_p" style="">活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-					#{/list}
-
+					#{list items:ques,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
+						</li>
+					#{/list}		
 				</div>
 				<div class="tab-pane fade" id="profile1">
 					#{list items:LikedActivity,as:'activity'}
