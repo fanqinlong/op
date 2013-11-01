@@ -18,7 +18,7 @@
 		<input type="text" name="user.realName" value="${user.realName}" class="form-control" maxlength="24"/> 
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		 <input name="user.dispRealName" value="true" type="checkbox" ${flash['user.dispRealName']=="true"?"checked":""}>是否公开
+		 <input name="user.dispRealName" value="flase" type="checkbox" ${flash['user.dispRealName']=="flase"?"checked":""}>隐藏
 	</span>
 	<span class="col-md-3">#{error 'realName' /}</span>
 </div>
@@ -62,7 +62,7 @@
 		<input type="text" name="user.birthday" value="${user.birthday}"  class="form-control" maxlength="32"/> 
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		 <input name="user.dispBirthday" value="true" type="checkbox" ${flash['user.dispBirthday']=="true"?"checked":""}>是否公开
+		 <input name="user.dispBirthday" value="flase" type="checkbox" ${flash['user.dispBirthday']=="flase"?"checked":""}>隐藏
 	</span>
 	<span class="col-md-3">#{error 'birthday' /}</span>
 </div>
@@ -134,7 +134,7 @@
 		<input type="text" name="user.qq" value="${user.qq}"  class="form-control" maxlength="11"/> 
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		 <input name="user.dispQQ" value="true" type="checkbox" ${flash['user.dispQQ']=="true"?"checked":""}>是否公开
+		 <input name="user.dispQQ" value="false" type="checkbox" ${flash['user.dispQQ']=="false"?"checked":""}>隐藏
 	</span>
 	<span class="col-md-3">#{error 'qq' /}</span>
 </div>
@@ -146,7 +146,7 @@
 		<input type="text" name="user.contract" value="${user.contract}"  class="form-control" maxlength="11"/>  
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		<input name="user.dispContract" value="true" type="checkbox" ${flash['user.dispContract']=="true"?"checked":""}>是否公开
+		<input name="user.dispContract" value="false" type="checkbox" ${flash['user.dispContract']=="false"?"checked":""}>隐藏
 	</span>
 	<span class="col-md-3">#{error 'contract' /}</span>
 </div>

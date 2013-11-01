@@ -146,6 +146,8 @@ POST /QuestAnsw/addComent                              QuestAnsw.addComent
 GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
 GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool 
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
+
+GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 =======
 POST 				/QuestAnsw/QuesIndex 									QuestAnsw.dispAddQues
 GET         		/QuestAnsw/dispAddQues                  				QuestAnsw.comments
