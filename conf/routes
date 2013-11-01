@@ -127,7 +127,7 @@ GET                	/charity/{pageNo}                                           
  
 
 #Question and answer
-<<<<<<< HEAD
+
 POST /QuestAnsw/QuesIndex                              QuestAnsw.dispAddQues
 GET	 /QuestAnsw/dispAddQues               		       QuestAnsw.comments
 GET  /QuestAnsw/showQuesInfo/{id}                      QuestAnsw.showQuesInfo
@@ -148,19 +148,7 @@ GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
 
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
-=======
-POST 				/QuestAnsw/QuesIndex 									QuestAnsw.dispAddQues
-GET         		/QuestAnsw/dispAddQues                  				QuestAnsw.comments
-GET 				/QuestAnsw/showQuesInfo/{id} 							QuestAnsw.showQuesInfo
-POST				/QuestAnsw/searchpage                  					QuestAnsw.answerRapidly
-GET         		/QuestAnsw/{pageNum}                 					QuestAnsw.Quespaging
-GET 				/QuestAnsw/deleteQues/{id} 								QuestAnsw.deleteQues
-GET 				/QuestAnsw/fcousOnQuestion/{id}		 					QuestAnsw.fcousOnQuestion
-POST 				/QuestAnsw/addComent 									QuestAnsw.addComent
-GET 				/QuestAnsw/SearchAnswNum 								QuestAnsw.SearchAnswNum
-GET 				/QuestAnsw/searchSchool 								QuestAnsw.searchSchool
 
->>>>>>> master
 
 #Info and Jobs
 

@@ -110,23 +110,9 @@
 		#{/if} #{doLayout /}
 	</div>
 	<!-- container end -->
-	<footer class="navbar-op-footer " style="position:fixed; bottom:0px; width:100%; margin-top:30px;">
-		<div class="container " >
-			<ul class="nav navbar-nav " style="margin-left:25%;">
-				<li>
-					<a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a>
-				</li>
-				<li>
-					<a href="@{Info.contact}" class="list3">联系我们</a>
-				</li>
-				<li>
-					<a href="@{Info.jobs}" class="list3">加入奥噗</a>
-				</li>
-				
-				
-			</ul>
-
-				<P class="navbar-text ">
+	<footer class="navbar-op-footer ">
+		<div class="container row" >
+		<P class="navbar-text col-md-4 pull-right">
 					<a href="#">
 						<img src="/public/images/share_facebook.png" />
 					</a>
@@ -140,6 +126,21 @@
 						<img src="/public/images/share_weibo.png" alt="" />
 					</a>
 				</p>
+			<ul class="nav navbar-nav pull-right col-md-4">
+				<li>
+					<a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a>
+				</li>
+				<li>
+					<a href="@{Info.contact}" class="list3">联系我们</a>
+				</li>
+				<li>
+					<a href="@{Info.jobs}" class="list3">加入奥噗</a>
+				</li>
+				
+				
+			</ul>
+
+				
 
 
 		</div>

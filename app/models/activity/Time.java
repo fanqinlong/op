@@ -13,5 +13,6 @@ public class Time extends Model {
     public String date;
     public String timeFrom;
     public String timeTo;
+    public boolean isWeekend;
     
 }

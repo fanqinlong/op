@@ -54,19 +54,10 @@ public class Activity extends Model {
 	@Column(columnDefinition = "TEXT")
 	public String intro;
 	
-	public boolean isWeekend;
 	public boolean isOpen; // 是否公开活动
 	public boolean isTop;
 	public long views; //浏览量
+	public String postAt;//发布日期
 
-	public void savePoster(String path) {
-		this.poster = path;
-		this.isChecked = false;
-		save();
-	}
-
-	public static List<Activity> filterType(Long id) {
-		return find("type", id).fetch();
-	}
 
 }

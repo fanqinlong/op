@@ -30,7 +30,7 @@
 	<span class="tag-title pull-left"><i class=" icon-map-marker"></i>地点</span>
 
 	<form method="post" action="@{Activities.filterZip}" class="pull-left">
-		<input type="text" name="location" value="${location}" id="" />
+		<input type="text" name="zip" value="${zip}" id="" placeholder="请输入邮编" />
 		<input type="submit" class="btn btn-info btn-sm" value="查询">
 		<input type="reset" class="btn btn-sm" value="清空" id="reset" />
 	</form>
@@ -50,28 +50,23 @@
 	<button type="button" class="btn btn-idefault btn-sm">
 		距离远近<i class=" icon-arrow-down"></i>
 	</button>
-	
+
 </div>
 <a href="@{Activities.Create}" class="btn btn-success btn-lg pull-right">发起活动</a>
 </div>
 
 <!-- cssa activity -->
-<div class="container container-op">
-
-</div>
+<div class="container container-op"></div>
 <!-- ./ cssa activity -->
 
 
 
 <div class="container list">
 
-<!-- users activity -->
-
-	<div class="row pull-left ">
+	<!-- users activity -->
+	<div class="row ">
 		<!--下面部分-->
-		#{if a.isEmpty()} 暂无活动 #{/if} #{else} #{list items:a,as:'a'}
-
-
+		%{int row=0}% #{if !a.isEmpty()} #{list items:a,as:'a'} %{row++;}%
 		<div class="col-md-3 activity-item">
 			<div class="thumbnail">
 				<a href="@{Activities.detail(a.id)}">
@@ -80,15 +75,10 @@
 				<div class="caption">
 					<h4>${a.name}</h4>
 					<p>
-						<img src="${a.publisher_profile}" class="img-polaroid">
-						${a.publisher_name}
+						<img src="${a.publisherSU.profile}" class="img-polaroid">
+						${a.publisherSU.name}
 					</p>
-					<p>
-						<span>${a.distances==""?"":"距离："+a.distances}</span> <span>${a.duration==""?"":"驾车："+a.duration}</span> <span>${a.timeFrom}</span> 至 <span>${a.timeTo}</span><span> </span>
-					</p>
-					<p class="detail text-primary">
-						${a.summary} 
-					</p>
+					<p class="detail text-primary">${a.summary}</p>
 					<p>
 						<a href="#" class="btn btn-primary" role="button">Button</a>
 						<a href="#" class="btn btn-default" role="button">Button</a>
@@ -96,10 +86,12 @@
 				</div>
 			</div>
 		</div>
-		
-
-		#{/list} #{/else}
+		#{if row%4==0}
 	</div>
-	
-	
-	<!-- users activity -->
+		<div class="row ">
+	#{/if} #{/list} #{/if} #{if row%4!=0}
+</div>
+#{/if}
+
+
+<!-- users activity -->
