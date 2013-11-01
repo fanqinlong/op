@@ -51,8 +51,7 @@ public class SimpleUsers extends Application {
 			@Required @MinSize(7) @MaxSize(20) String password,
 			@Required String gender, 
 			@Required @MinSize(2) @MaxSize(20) String name, 
-			@Required String agreement,@Required String signupDate,
-			String profile) {
+			@Required String agreement) {
 
 		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
@@ -65,13 +64,14 @@ public class SimpleUsers extends Application {
 			flash.error("请更正错误。");
 			signup();
 		}
+		String profile = "";
 		if(gender.equals("男")){
 			profile = "/public/images/morentouxiang_nan.png";
 		}else if(gender.equals("女")){
 			profile = "/public/images/morentouxiang_nv.png";
 		}
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
-		signupDate = (df.format(Calendar.getInstance().getTime()));
+		String signupDate = (df.format(Calendar.getInstance().getTime()));
 		SimpleUser user = new SimpleUser(email, password, name, gender,signupDate,profile);
 		try {
 			if (Notifier.welcomeSimpleUser(user)) {
