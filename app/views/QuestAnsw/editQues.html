@@ -1,10 +1,10 @@
 #{extends 'main.html' /}
-#{set title:'QuesIndex.html'/}
+#{set title:'editQues.html' /}
 <script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
 <link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
-<script language="javascript" type="text/javascript">
+ 	<script language="javascript" type="text/javascript">
  	    var school = "";
 		$(function (){
 			$.each(allUnivList,function (j,m){		
@@ -55,7 +55,12 @@
 		});
 		
 	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-</script>
+		
+	</script>
+
+
+
+
 
 
 <div style="width:800px; border-right:1px solid #f4f4f4;">
@@ -63,11 +68,11 @@
 			<p class="lead" style="padding-left:30px; padding-top:20px;">提问</p>
 		</div>
 	
-	<form class="form-horizontal"  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"  accept-charset="${_response_encoding}">
+	<form class="form-horizontal"  id="QuesIndex" action="@{QuestAnsw.editSuccessful}"  method="post"  accept-charset="${_response_encoding}">
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>标题</label>
 	<div class="col-md-3 qaw">
-		<input type="text" name="title" value="${flash.title}"  placeholder="请输入文章标题......" class="form-control " >
+		<input type="text" name="q.title" value="${eQues.title}"  placeholder="请输入文章标题......" class="form-control ">
 	</div>
 	 <span class="col-md-3">#{error 'name' /}</span>
 </div>
@@ -76,7 +81,7 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>问题说明</label>
 	<div class="col-md-3 qaw">
-		<textarea id="area1" name="content" value="${flash.content}"  style="width:550px;" rows="10"  ></textarea>
+		<textarea id="area1" name="q.content"   style="width:550px;" rows="10" style="width:550px;" >${eQues.content}</textarea>
 	</div>
 	 <span class="col-md-3">#{error 'name' /}</span>
 </div>
@@ -85,8 +90,7 @@
 	<label for="name" class="col-md-2 control-label">选择学校</label>
 	<div class="col-md-3 qaw">
 		<div style="width:560px; overflow:hidden;">
-			<input type="text" id="txtSc" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; " 
-			name="school" value="${flash.school}" placeholder="请选择学校" />
+			<input type="text" id="txtSc" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; " name="q.school" value="${eQues.school}" placeholder="请选择学校" />
 			<div id="gj" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
 			<div id="sheng" style="width:550px; word-break:break-all; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
 			<div id="list" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
@@ -107,10 +111,10 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>选择标签</label>
 	<div class="col-md-3 qaw">
-		 <div class="controls " style="width:560px;" id="ulname">
+		 <div class="controls " style="width:550px;" id="ulname">
 			#{list items:t,as:'tag'}	 
 				<label class="checkbox-inline btn btn-default" style="border-radius:20px;margin-left:0px;">
-		  			<input style="float:none;margin-left:0px;" type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
+		  			 <input type="checkbox" style="float:none;margin-left:0px;" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
 				</label>
 			#{/list}
 		  </div>
@@ -124,7 +128,6 @@
 		 </div>
 	</div>
 </div>
-
 <div class="form-group">
 	<div class="col-md-offset-2 col-md-3">
 		<input type="submit" class="btn btn-primary" value="提交">
@@ -135,3 +138,4 @@
 </form>
 	<div style=" clear:both;"></div>
 </div>	
+

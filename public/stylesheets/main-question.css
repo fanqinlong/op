@@ -1,17 +1,12 @@
+
 @charset "utf-8";
-
-
 	.ww{
 	 
 	background:#f3f3f3;
 	 
 	}
- 
- 
 	 .qatitle{
 	 	padding-top:15px;
-	 	 
-	 
 	 }
 	  
  	.list-fy{
@@ -629,4 +624,3 @@ padding: 3 29px 9 8;
 		.btn-info{
 		background-image: linear-gradient(to bottom, #2684A0, #2f96b4);
 		}
- 

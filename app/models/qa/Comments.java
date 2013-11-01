@@ -11,6 +11,7 @@ public class Comments extends Model {
 	public long quesid;
 	public String comment;
 	public long praiseNum;
+	public long hateNum;
 	public long userid;
 	public String usertype;
 	public String username;
@@ -21,7 +22,7 @@ public class Comments extends Model {
 
 	public Comments(long quesid, String comment, long praiseNum, long userid,
 			String usertype, String username, String userprofile,
-			String userSelfIntro, String date, String quesTitle) {
+			String userSelfIntro, String date, String quesTitle,long hateNum) {
 		this.comment = comment;
 		this.praiseNum = praiseNum;
 		this.quesid = quesid;
@@ -32,6 +33,7 @@ public class Comments extends Model {
 		this.userSelfIntro = userSelfIntro;
 		this.date = date;
 		this.quesTitle = quesTitle;
+		this.hateNum = hateNum;
 		create();
 	}
 }

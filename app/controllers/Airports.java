@@ -52,7 +52,6 @@ public class Airports extends Application {
 	}
 
 	public static void addStuInfo(Long id) {
-
 		School sch = School.findById(id);
 		String explain = sch.synopsis;
 		Long schoolId = sch.id;
@@ -62,6 +61,7 @@ public class Airports extends Application {
 
 	public static void doAddStuInfo(StuInfo s, Long schoolId) {
 		Long sid = schoolId;
+
 		final Validation.ValidationResult validationResult = validation
 				.valid(s);
 		if (!validationResult.ok) {
@@ -99,12 +99,13 @@ public class Airports extends Application {
 		List<StuInfo> stu = StuInfo.find(
 				"SELECT a FROM StuInfo a WHERE school LIKE ?",
 				"%" + username + "%").fetch();
-		render(stu,username);
+		render(stu, username);
 	}
+
 	public static void volInfoInfo(String username) {
 		List<VolInfo> vol = VolInfo.find(
 				"SELECT a FROM VolInfo a WHERE school LIKE ?",
 				"%" + username + "%").fetch();
-		render(vol,username);
+		render(vol, username);
 	}
 }
