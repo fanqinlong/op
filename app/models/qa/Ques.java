@@ -48,7 +48,6 @@ public class Ques extends Model {
 	public static Ques findByTitle(String title) {
 		return find("title", title).first();
 	}
-
 	public static boolean isTitle(String title) {
 		return findByTitle(title) == null;
 	}
