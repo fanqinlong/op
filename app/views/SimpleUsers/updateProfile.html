@@ -1,12 +1,37 @@
-#{extends 'main.html' /} #{set title:'updateProfile.html' /}
+#{extends 'main.html' /}
+#{set title:'updateProfile.html' /}
+
 #{form @doUpdateProfile(),method:'post',class:'form-horizontal'}
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
+
 <div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">当前密码：</label>
+	<label for="name" class="col-md-2 control-label">当前昵称</label>
 	<div class="col-md-3 ">
-		<input  type="text" name="user.name" value="${user.name}" placeholder="请输入真实姓名"><span class="error">#{error 'name' /}</span>
+		<input  type="text" name="user.name" value="${user.name}" placeholder="请输入真实姓名" class="form-control" maxlength="24">
 	</div>
 	<span class="col-md-3">#{error 'name' /}</span>
 </div>
+
+<div class="form-group ${errors.forKey('realName') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">真实姓名</label>
+	<div class="col-md-3 ">
+		<input type="text" name="user.realName" value="${user.realName}" class="form-control" maxlength="24"/> 
+	</div>
+	<span class="suffix"></span><span class="col-md-3 sfont">
+		 <input name="user.dispRealName" value="true" type="checkbox" ${flash['user.dispRealName']=="true"?"checked":""}>是否公开
+	</span>
+	<span class="col-md-3">#{error 'realName' /}</span>
+</div>
+
+
+<div class="form-group ${errors.forKey('signature') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">个性签名</label>
+	<div class="col-md-3 ">
+		<input type="text" name="user.signature" value="${user.signature}"  class="form-control" maxlength="128"/> 
+	</div>
+	<span class="col-md-3">#{error 'signature' /}</span>
+</div>
+
 
 
 <div class="form-group ${errors.forKey('gender') ? 'has-error' : ''}">
@@ -31,6 +56,16 @@
 	<span class="col-md-3">#{error 'age' /}</span>
 </div>
 
+<div class="form-group ${errors.forKey('birthday') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">生日</label>
+	<div class="col-md-3 ">
+		<input type="text" name="user.birthday" value="${user.birthday}"  class="form-control" maxlength="32"/> 
+	</div>
+	<span class="suffix"></span><span class="col-md-3 sfont">
+		 <input name="user.dispBirthday" value="true" type="checkbox" ${flash['user.dispBirthday']=="true"?"checked":""}>是否公开
+	</span>
+	<span class="col-md-3">#{error 'birthday' /}</span>
+</div>
 
 <div class="form-group ${errors.forKey('ralationship') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">感情状况</label>
@@ -51,36 +86,77 @@
 <div class="form-group ${errors.forKey('hometown') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">家乡</label>
 	<div class="col-md-3 ">
-		 <input type="text" name="user.hometown" value="${user.hometown}" /> 
+		 <input type="text" name="user.hometown" value="${user.hometown}" class="form-control" maxlength="36" /> 
 	</div>
 	<span class="col-md-3">#{error 'hometown' /}</span>
 </div>
+
+<div class="form-group ${errors.forKey('homeNow') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">现居地</label>
+	<div class="col-md-3 ">
+		 <input type="text" name="user.homeNow" value="${user.homeNow}" class="form-control" maxlength="32" /> 
+	</div>
+	<span class="col-md-3">#{error 'homeNow' /}</span>
+</div>
+
 
 
 <div class="form-group ${errors.forKey('school') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">学校</label>
 	<div class="col-md-3 ">
-		<input type="text" name="user.school" value="${user.school}" /> 
+		<input type="text" name="user.school" value="${user.school}" class="form-control" maxlength="36" /> 
 	</div>
 	<span class="col-md-3">#{error 'school' /}</span>
 </div>
 
+<div class="form-group ${errors.forKey('major') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">专业</label>
+	<div class="col-md-3 ">
+		<input type="text" name="user.major" value="${user.major}"  class="form-control" maxlength="32"/> 
+	</div>
+	<span class="col-md-3">#{error 'major' /}</span>
+</div>
+
+
+<div class="form-group ${errors.forKey('admissionTime') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">入学时间</label>
+	<div class="col-md-3 ">
+		<input type="text" name="user.admissionTime" value="${user.admissionTime}"  class="form-control" maxlength="11"/> 
+	</div>
+	<span class="col-md-3">#{error 'admissionTime' /}</span>
+</div>
+
+
+
+<div class="form-group ${errors.forKey('qq') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">QQ</label>
+	<div class="col-md-3 ">
+		<input type="text" name="user.qq" value="${user.qq}"  class="form-control" maxlength="11"/> 
+	</div>
+	<span class="suffix"></span><span class="col-md-3 sfont">
+		 <input name="user.dispQQ" value="true" type="checkbox" ${flash['user.dispQQ']=="true"?"checked":""}>是否公开
+	</span>
+	<span class="col-md-3">#{error 'qq' /}</span>
+</div>
 
 
 <div class="form-group ${errors.forKey('contract') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">联系方式</label>
 	<div class="col-md-3 ">
-		<input type="text" name="user.contract" value="${user.contract}" />  
+		<input type="text" name="user.contract" value="${user.contract}"  class="form-control" maxlength="11"/>  
 	</div>
+	<span class="suffix"></span><span class="col-md-3 sfont">
+		<input name="user.dispContract" value="true" type="checkbox" ${flash['user.dispContract']=="true"?"checked":""}>是否公开
+	</span>
 	<span class="col-md-3">#{error 'contract' /}</span>
 </div>
 
 
 
 <div class="form-group ${errors.forKey('selfIntro') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">一句话介绍自己</label>
+	<label for="password" class="col-md-2 control-label">个人简介</label>
 	<div class="col-md-3 ">
-		 <input type="text" name="user.selfIntro" value="${user.selfIntro}" /> 
+		 <textarea  name="user.selfIntro" cols="34" rows="4" value="" maxlength="128">${user.selfIntro}</textarea> 
 	</div>
 	<span class="col-md-3">#{error 'selfIntro' /}</span>
 </div>
@@ -91,7 +167,7 @@
 
 <div class="form-group">
 	<div class="col-md-offset-2 col-md-3">
-		<input type="submit" class="btn btn-primary" value="更新">
+		<a href="@{SimpleUsers.infoCenter}" class="btn btn-default">跳过</a><input type="submit" class="btn btn-primary col-md-offset-1" value="保存">
 	</div>
 </div>
 #{/form}

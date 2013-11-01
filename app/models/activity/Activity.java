@@ -6,57 +6,62 @@ import play.db.jpa.*;
 
 import javax.persistence.*;
 
+import models.users.CSSA;
+import models.users.SimpleUser;
+
 import java.util.*;
 
 @Entity
 public class Activity extends Model {
-	public long publisher_id;
-	public String publisher_type;
-	public String publisher_name;
-	public String publisher_profile;
-	@Required
-	public String type;
+	@ManyToOne
+	public SimpleUser publisherSU;
+	@ManyToOne
+	public CSSA publisherCSSA;
+	
+	@ManyToOne
+	public Type type;
+	@ManyToOne
+	public Scope scope;
+	@ManyToOne
+	public Period period;
+	
+	@OneToMany(mappedBy="activity", cascade=CascadeType.ALL)
+	public List<Joiner> joiner;
+	@OneToMany(mappedBy="activity", cascade=CascadeType.ALL)
+	public List<Liker> liker;
+	@OneToMany(mappedBy="activity",cascade=CascadeType.ALL)
+	public List<Comment> comment;
+	
 	@Required
 	@MaxSize(40)
 	public String name;
-	@Required
-	public String timeFrom;
-	@Required
-	public String timeTo;
-
-	public boolean isWeekend;
-	public boolean isOpen; // 是否公开活动
+	
+	@OneToMany(mappedBy="activity", cascade=CascadeType.ALL)
+	public List<Time> time;
 	@Required
 	public String location;
 	@Required
 	public String zip;
-
-	public String poster;
-	@Required
-	public String scope;
+	public String poster;	
 	@Required
 	public float money;
 	@Required
 	public String contract;
-	public boolean is_checked;
+	public boolean isChecked;
 	public boolean isHot;
 	public String summary;
 	@Required
 	@Column(columnDefinition = "TEXT")
 	public String intro;
-	public long distance;
-	public String distances;
-	public String duration;
-	public int joinerCount;
-	public int likerCount;
-	public long views;
-	// 这里是男女
-	public int manNumber;
-	public int womanNumber;
+	
+	public boolean isWeekend;
+	public boolean isOpen; // 是否公开活动
+	public boolean isTop;
+	public long views; //浏览量
 
 	public void savePoster(String path) {
 		this.poster = path;
-		this.is_checked = false;
+		this.isChecked = false;
 		save();
 	}
 

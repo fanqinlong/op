@@ -27,7 +27,6 @@ public class ExcelControllerHelper extends Controller {
         if (RenderExcel.async()) {
             Promise<RenderExcel> render = RenderExcel.renderAsync(file.relativePath(), Scope.RenderArgs.current().data, null);
             await(render, new F.Action<RenderExcel>() {
-                @Override
                 public void invoke(RenderExcel result) {
                     RenderArgs renderArgs = RenderArgs.current();
                     if (!renderArgs.data.containsKey(RenderExcel.RA_FILENAME)) {

@@ -59,6 +59,15 @@
 	border: 1px solid #ccc;
 	background-color: #FFF;
 }
+img.profile-lg{
+	height:150px;
+}
+img.profile-md{
+	height:90px;
+}
+img.profile-sm{
+	height:30px;
+}
 
 
 

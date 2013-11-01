@@ -56,7 +56,7 @@
 		</div>
 		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
 		<div id="login" class="login col-md-2 col-md-offset-8">
-			<form class="login-form" method="post" action="@{SimpleUsers.login}">
+			<form class="login-form" method="post" action="@{SimpleUsers.authenticate}">
 				<h5 class="pull-left">登录奥噗</h5>
 				<h5 class="pull-right">
 					<a href="@{SimpleUsers.signup}" id="login-font1">
@@ -64,10 +64,10 @@
 					</a>
 				</h5>
 				<div class="form-group">
-					<input type="email" class="form-control" id="email" placeholder="邮箱">
+					<input type="email" class="form-control" id="email" name="email" placeholder="邮箱">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" id="password" placeholder="邮箱">
+					<input type="password" class="form-control" id="password" name="password" placeholder="密码">
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-block">登录</button>
