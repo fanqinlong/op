@@ -148,6 +148,7 @@ public class Charities extends Application{
 		
 		if(pageNo < 1) {
 			pageNo =  1;
+			
 		} else if(pageNo >= pageCount) {
 			pageNo =  (int) pageCount;
 		}
