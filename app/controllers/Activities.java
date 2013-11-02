@@ -6,16 +6,21 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import com.mysql.jdbc.Util;
+
 import play.Play;
 import play.libs.Codec;
 import play.libs.Files;
 import play.libs.Images;
 import play.mvc.Before;
 import models.activity.Activity;
+import models.activity.Joiner;
+import models.activity.Liker;
 import models.activity.Period;
 import models.activity.Scope;
 import models.activity.Time;
 import models.activity.Type;
+import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class Activities extends Application {
@@ -23,7 +28,7 @@ public class Activities extends Application {
 	@Before(unless = { "index", "detail", "filterType", "filterPeriod",
 			"filterPeriodWeekend", "filterScope", "filterLocation" })
 	public static void isLogged() {
-		if (session.get("usertype") == null) {
+		if (Utils.getUserType() == null) {
 			SimpleUsers.login();
 		}
 	}
@@ -31,28 +36,38 @@ public class Activities extends Application {
 	public static void index() {
 		String type = session.get("type") == null ? "" : session.get("type");
 		String scope = session.get("scope") == null ? "" : session.get("scope");
-		String zip = session.get("zip") == null ? "" : session
-				.get("location");
-		String deadline ="";
-		int days = session.get("days") == null ? -1 : Integer.parseInt(session.get("days"));
-		if(days==-1)
-			deadline="7777-77-77";
-		else{
+		String zip = session.get("zip") == null ? "" : session.get("location");
+		String deadline = "";
+		int days = session.get("days") == null ? -1 : Integer.parseInt(session
+				.get("days"));
+		if (days == -1)
+			deadline = "7777-77-77";
+		else {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DAY_OF_MONTH, +days);
 			deadline = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
 		}
 		boolean isWeekend = false;
-		if(days==-2)
+		if (days == -2)
 			isWeekend = true;
-		List<Activity> a = Activity.find(
-				"select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=? and  a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",deadline,isWeekend,"%"+type+"%","%"+scope+"%")
-				.fetch();
+		List<Activity> a;
+		if (isWeekend) {
+			a = Activity
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",
+							deadline, isWeekend, "%" + type + "%",
+							"%" + scope + "%").fetch();
+		} else {
+			a = Activity
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and   a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",
+							deadline, "%" + type + "%", "%" + scope + "%")
+					.fetch();
+		}
 
 		List<Type> t = Type.find("order by sequence asc").fetch();
 		List<Scope> s = Scope.find("order by sequence asc").fetch();
 		List<Period> p = Period.find("order by sequence asc").fetch();
-		render(a, t, s, p,days,type,scope);
+
+		render(a, t, s, p, days, type, scope);
 	}
 
 	public static void create() {
@@ -87,7 +102,8 @@ public class Activities extends Application {
 		}
 		Type t = Type.findById(type);
 		Scope s = Scope.findById(scope);
-		String postAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+		String postAt = new SimpleDateFormat("yyyy-MM-dd HH:mm")
+				.format(Calendar.getInstance().getTime());
 		a.postAt = postAt;
 		a.type = t;
 		a.scope = s;
@@ -98,11 +114,12 @@ public class Activities extends Application {
 					Integer.parseInt(time1.date.substring(5, 6)),
 					Integer.parseInt(time1.date.substring(8, 9)));
 			if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-					|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+					|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
 				time1.isWeekend = true;
-			else 
-				time3.isWeekend = false;
-			
+			} else {
+				time1.isWeekend = false;
+			}
+
 			time1.activity = a;
 			time1.save();
 		}
@@ -113,8 +130,8 @@ public class Activities extends Application {
 			if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
 					|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
 				time2.isWeekend = true;
-			else 
-				time3.isWeekend = false;
+			else
+				time2.isWeekend = false;
 			time2.activity = a;
 			time2.save();
 		}
@@ -125,7 +142,7 @@ public class Activities extends Application {
 			if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
 					|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
 				time3.isWeekend = true;
-			else 
+			else
 				time3.isWeekend = false;
 			time3.activity = a;
 			time3.save();
@@ -142,8 +159,7 @@ public class Activities extends Application {
 
 	public static void filterPeriod(short days) {
 		session.put("days", days);
-		
-		
+
 		index();
 	}
 
@@ -161,12 +177,38 @@ public class Activities extends Application {
 		session.put("zip", zip);
 		index();
 	}
-	public static void detail(long id){
+
+	public static void detail(long id) {
 		Activity a = Activity.findById(id);
 		a.views = a.views + 1;
 		a.save();
-		System.out.println(a.time.isEmpty());
 		render(a);
+	}
+
+	public static void allJoinner(long aid) {
+		List<Joiner> joiner = Joiner
+				.find("select distinct j from Joiner j join j.activity as a where a.id=?",
+						aid).fetch();
+		render(joiner);
+	}
+
+	public static void like(long aid) {
+		Activity a = Activity.findById(aid);
+		Liker l = new Liker();
+		l.activity = a;
+		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar
+				.getInstance().getTime());
+		if (Utils.getUserType().equals("cssa")) {
+			l.likerCSSA = CSSA.findById(Utils.getUserId());
+		} else {
+			l.likerSU = SimpleUser.findById(Utils.getUserId());
+		}
+		l.save();
+		detail(aid);
+	}
+
+	public static void join(long aid) {
+
 	}
 
 }

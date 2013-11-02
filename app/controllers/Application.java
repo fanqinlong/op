@@ -26,26 +26,21 @@ public class Application  extends Controller {
 		
 	}
     public static void index() {
-    	String userId = session.get("logged");
-    	if(userId!=null){
-    		String userType = session.get("usertype");
-    		if(userType.equals("simple")){		
-    			SimpleUsers.infoCenter();
-    		}else if(userType.equals("cssa") ){
-    			CSSAs.infoCenter(Long.parseLong(userId));
-    		}
+    	String userType = Utils.getUserType();
+    	if(userType==null){
+    		render();
+    	}else if(userType.equals("simple")){
+    		SimpleUsers.infoCenter();
+    	}else{
+    		CSSAs.infoCenter();
     	}
-        render();
     }
     static SimpleUser connectedSimple() {
-    	String userId = session.get("logged");
-		return userId == null ? null : (SimpleUser) SimpleUser.findById(Long
-				.parseLong(userId));
+    	System.out.println(Utils.getUserId()+"ddddddddddddd");
+		return SimpleUser.findById(Utils.getUserId());
 	}
     static CSSA connectedCSSA() {
-    	String userId = session.get("logged");
-		return userId == null ? null : (CSSA) CSSA.findById(Long
-				.parseLong(userId));
+		return CSSA.findById(Utils.getUserId());
 	}
 	@Before
 	static void checkSecure() {

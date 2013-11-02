@@ -1,5 +1,7 @@
 #{extends 'main.html' /} #{set title:'detail.html' /}
-<link rel="stylesheet" href="/public/stylesheets/activity-detail.css" />
+#{set 'Styles'}
+#{stylesheet 'activity.css' /}
+#{/set}
 <div>
 <div class="left-div">
 <div class="activity-pic">
@@ -11,7 +13,9 @@
 <span>${a.name}</span>
 <div class="detail">
 <a class="pic-leftTitle">时间：</a>
-<a> ${a.timeFrom}-${a.timeTo}</a>
+#{list items:a.time,as:'time'}
+<a> ${time.date}:${time.timeFrom}-${time.timeTo}</a>
+#{/list}
 </div>
 
 #{if isAllown}
@@ -25,20 +29,24 @@
 <a>${a.money}$</a>
 </div>
 <div class="detail">
-<a class="pic-leftTitle">男女比例</a>
-<a>${a.manNumber}</a>:<a>${a.womanNumber}</a>
+<a class="pic-leftTitle">参加者男女比例</a>
+%{int female=0;int male=0;}%
+#{list items:a.joiner,as:'joiner'}
+%{joiner.joiner.gender=="女"?female++:male++;}%
+#{/list}
+<a>${female}</a>:<a>${male}</a>
 </div>
 <div class="detail">
 <a class="pic-leftTitle">人数：</a>
-<a>${a.scope}</a>
+<a>${a.scope.scope}</a>
 </div>
 <div class="detail">
 <a class="pic-leftTitle">类型：</a>
-<a>${a.type}</a>
+<a>${a.type.name}</a>
 </div>
 <div class="detail">
 <a class="pic-leftTitle">发起人：</a>
-<a>${publisher_name}</a>
+<a>${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.name}</a>
 </div>
 #{if isAllown}
 <div class="detail">
@@ -48,13 +56,13 @@
 #{/if}
 <div class="detail">
 <a class="pic-leftTitle">是否通过审核：</a>
-<a>${a.is_checked?"是":"否"}</a>
+<a>${a.isChecked?"是":"否"}</a>
 </div>
-#{if a.publisher_type=='simple' && connectedSimpleUser?.name==publisher_name } #{if a.isOpen!=true}
+#{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true} 
 <div>
 <a class="btn btn-success" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
 </div>
-#{/if} #{/if} #{else }
+ #{/if} #{else }
 <div>
 #{if a.isOpen!=true}
 <a href="#myModal" role="button" data-toggle="modal" class="btn btn-success">报名参加</a>
@@ -110,7 +118,7 @@
 <div class="person">
 <h4 class="activity-title3">活动组织者</h4>
 <div class="activity-userpic">
-<img src=${publisher_profile} alt="" style="height: 60px; width: 60px;">
+<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.CSSA.profile} alt="" style="height: 60px; width: 60px;">
 </div>
 <div>
 <small class="name">${publisher_name}</small>
@@ -119,10 +127,10 @@
 <br />
 <div class="numbers">
 <h4 class="activity-title4">活动成员</h4>
-<span class="canyuNO">${a.joinerCount}</span><span class="canyu1">人报名;</span><span class="guanzhuNO">${joiners==null?"0":joiners.size}</span> <span class="canyu1">人已通过;</span><span class="guanzhuNO">${a.likerCount}</span><span class="canyu1">人已关注;</span>
+<span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="guanzhuNO">${joiners==null?"0":joiners.size}</span> <span class="canyu1">人已通过;</span><span class="guanzhuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
 <br>
-#{list items:joiners,as:'joiner'}
-<img src="${joiner.jprofile}" style="width: 50px;" alt="${joiner.jname}">
+#{list items:a.joiner,as:'joiner'}
+<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}">
 #{/list}
 </div>
 </div>

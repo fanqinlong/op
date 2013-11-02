@@ -28,7 +28,10 @@ import models.users.SimpleUser;
 
 public class SimpleUsers extends Application {
 
-	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetpassword", "doforgetpassword", "resetPasswordConfirmation", "resetPassword","confirmEduMail" })
+	@Before(unless = { "login", "signup", "register", "confirmRegistration",
+			"authenticate", "resendConfirmation", "forgetpassword",
+			"doforgetpassword", "resetPasswordConfirmation", "resetPassword",
+			"confirmEduMail" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			login();
@@ -49,12 +52,13 @@ public class SimpleUsers extends Application {
 
 	public static void register(@Required @Email String email,
 			@Required @MinSize(7) @MaxSize(20) String password,
-			@Required String gender, 
-			@Required @MinSize(2) @MaxSize(20) String name, 
-			@Required String agreement,@Required String signupDate,
-			String profile) {
-
-		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
+			@Required String gender,
+			@Required @MinSize(2) @MaxSize(20) String name,
+			@Required String agreement) {
+		String signupDate;
+		String profile = "";
+		if ((!SimpleUser.isEmailAvailable(email))
+				|| (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
 			params.flash();
 			flash.error("邮箱已存在。");
@@ -65,14 +69,15 @@ public class SimpleUsers extends Application {
 			flash.error("请更正错误。");
 			signup();
 		}
-		if(gender.equals("男")){
+		if (gender.equals("男")) {
 			profile = "/public/images/morentouxiang_nan.png";
-		}else if(gender.equals("女")){
+		} else if (gender.equals("女")) {
 			profile = "/public/images/morentouxiang_nv.png";
 		}
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		signupDate = (df.format(Calendar.getInstance().getTime()));
-		SimpleUser user = new SimpleUser(email, password, name, gender,signupDate,profile);
+		SimpleUser user = new SimpleUser(email, password, name, gender,
+				signupDate, profile);
 		try {
 			if (Notifier.welcomeSimpleUser(user)) {
 				flash.success("请登录 %s 激活帐号。", email);
@@ -81,7 +86,7 @@ public class SimpleUsers extends Application {
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",email);
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。", email);
 		login();
 	}
 
@@ -95,7 +100,7 @@ public class SimpleUsers extends Application {
 		SimpleUser user = SimpleUser.findByRegistrationUUID(uuid);
 		notFoundIfNull(user);
 		user.needConfirmation = null;
-		
+
 		connectSimple(user);
 		String email = user.email;
 		String suffix = email.substring(email.length() - 3, email.length());
@@ -112,15 +117,16 @@ public class SimpleUsers extends Application {
 		}
 
 	}
+
 	public static void confirmEduMail(String uuid) {
 		SimpleUser user = SimpleUser.find("eduMailConfirmation", uuid).first();
 		notFoundIfNull(user);
 		user.eduMailConfirmation = null;
-		user.save();	
+		user.save();
 		connectSimple(user);
 		flash.success("Welcome %s ! EDU邮箱验证成功，请完善个人信息。", user.name);
 		updateProfile();
-		
+
 	}
 
 	public static void eduMail() {
@@ -128,34 +134,36 @@ public class SimpleUsers extends Application {
 		String edumail;
 		SimpleUser simp = SimpleUser.findById(userid);
 		edumail = simp.eduMail;
-		
-		String  refere= request.headers.get("referer").values.get(0);
-		render(refere,edumail);
+
+		String refere = request.headers.get("referer").values.get(0);
+		render(refere, edumail);
 	}
 
-	public static void authEduMail(String eduMail) {		
-		if (eduMail==null) {
+	public static void authEduMail(String eduMail) {
+		if (eduMail == null) {
 			params.flash();
 			flash.error("请填写邮箱。");
 			render("@eduMail");
 		}
-		String suffix = eduMail.substring(eduMail.length()-3,eduMail.length());
-		if(!suffix.equals("edu")){
+		String suffix = eduMail.substring(eduMail.length() - 3,
+				eduMail.length());
+		if (!suffix.equals("edu")) {
 			params.flash();
 			flash.error("请填写EDU邮箱。");
 			render("@eduMail");
 		}
-		if ((!SimpleUser.isEmailAvailable(eduMail)) || (!CSSA.isEmailAvailable(eduMail))) {
+		if ((!SimpleUser.isEmailAvailable(eduMail))
+				|| (!CSSA.isEmailAvailable(eduMail))) {
 			params.flash();
 			flash.error("邮箱已被使用。");
 			render("@eduMail");
-		} 
+		}
 		Long uid = Long.parseLong(session.get("logged"));
 		SimpleUser user = SimpleUser.findById(uid);
 		user.eduMail = eduMail;
 		user.eduMailConfirmation = Codec.UUID();
 		user.save();
-		
+
 		try {
 			if (Notifier.authEduMail(user)) {
 				flash.success("请登录 %s 验证EDU邮箱", eduMail);
@@ -164,7 +172,7 @@ public class SimpleUsers extends Application {
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",eduMail);
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。", eduMail);
 		session.clear();
 		login();
 
@@ -202,7 +210,7 @@ public class SimpleUsers extends Application {
 		} else {
 			CSSAs.connectCSSA(cssa);
 			flash.success("欢迎回来， %s !", cssa.name);
-			CSSAs.infoCenter(cssa.id);
+			CSSAs.infoCenter();
 		}
 
 	}
@@ -212,14 +220,14 @@ public class SimpleUsers extends Application {
 		notFoundIfNull(user);
 		try {
 			if (Notifier.welcomeSimpleUser(user)) {
-				flash.success("请登陆%s 激活帐号。",user.email);
+				flash.success("请登陆%s 激活帐号。", user.email);
 				flash.put("email", user.email);
 				login();
 			}
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",user.email);
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。", user.email);
 		flash.put("email", user.email);
 		login();
 	}
@@ -243,14 +251,18 @@ public class SimpleUsers extends Application {
 		render();
 	}
 
-	public static void doChangePassword(@Required @MinSize(7) @MaxSize(20) String password, @Required @MinSize(7) @MaxSize(20) String password1, @Required @Equals("password") String password2) {
+	public static void doChangePassword(
+			@Required @MinSize(7) @MaxSize(20) String password,
+			@Required @MinSize(7) @MaxSize(20) String password1,
+			@Required @Equals("password") String password2) {
 		long id = Long.parseLong(session.get("logged"));
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
 			flash.error("请更正错误。");
 			changePassword();
-		} else if (!((SimpleUser) SimpleUser.findById(id)).checkPassword(password)) {
+		} else if (!((SimpleUser) SimpleUser.findById(id))
+				.checkPassword(password)) {
 			validation.keep();
 			params.flash();
 			flash.error("原密码不正确！");
@@ -320,13 +332,13 @@ public class SimpleUsers extends Application {
 		user.save();
 		try {
 			if (Notifier.resetPasswordSimpleUser(user)) {
-				flash.success("请登录%s重置密码。",email);
+				flash.success("请登录%s重置密码。", email);
 				login();
 			}
 		} catch (Exception e) {
 			Logger.error(e, "Mail error");
 		}
-		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。",email);
+		flash.error("向$s 发送邮件失败，请查看邮箱是否正确。", email);
 		login();
 	}
 
@@ -347,7 +359,9 @@ public class SimpleUsers extends Application {
 		render();
 	}
 
-	public static void doResetPassword(@Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
+	public static void doResetPassword(
+			@Required @MinSize(7) @MaxSize(20) String password,
+			@Required @Equals("password") String password2, Long id) {
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
@@ -367,7 +381,8 @@ public class SimpleUsers extends Application {
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File poster, int left, int top, int height, int width) {
+	public static void doChangeProfile(Long id, File poster, int left, int top,
+			int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
 		Images.crop(poster, poster, left, top, height, width);
 		Files.copy(poster, Play.getFile(path));
@@ -379,29 +394,37 @@ public class SimpleUsers extends Application {
 
 	public static void infoCenter() {
 		long id = Long.parseLong(session.get("logged"));
-		//List<Joiner> aj = Joiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?", id).fetch();
+		// List<Joiner> aj =
+		// Joiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?",
+		// id).fetch();
 		SimpleUser user = SimpleUser.findById(id);
 		List<Ques> ques = Ques.find("userid = ?", id).fetch();
 		notFoundIfNull(user);
-		render(user,ques);
+		render(user, ques);
 	}
 
 	public static void myActivity() {
 		long userId = Long.parseLong(session.get("logged"));
 		SimpleUser user = SimpleUser.findById(userId);
-		List<Activity> postedActivity = Activity.find("publisher_id=? and publisher_type=? order by id desc", userId, "simple").fetch();
-		List<Activity> JoinedActivity = Activity.find("select a from  ActivityJoiner aj,Activity a where  aj.jid= ? and aj.aid = a.id order by a.id desc ", userId).fetch();
-		List<Activity> LikedActivity = Activity.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ", userId, "simple").fetch();
+		List<Activity> postedActivity = Activity.find(
+				"publisher_id=? and publisher_type=? order by id desc", userId,
+				"simple").fetch();
+		List<Activity> JoinedActivity = Activity
+				.find("select a from  ActivityJoiner aj,Activity a where  aj.jid= ? and aj.aid = a.id order by a.id desc ",
+						userId).fetch();
+		List<Activity> LikedActivity = Activity
+				.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ",
+						userId, "simple").fetch();
 		notFoundIfNull(user);
 		render(user, postedActivity, JoinedActivity, LikedActivity);
 	}
 
 	public static void getActivityJoiner(long aid) {
 
-		List<SimpleUser> s = SimpleUser.find("select s from SimpleUser s,ActivityJoiner aj where s.id = aj.jid and aid=?", aid).fetch();
+		List<SimpleUser> s = SimpleUser
+				.find("select s from SimpleUser s,ActivityJoiner aj where s.id = aj.jid and aid=?",
+						aid).fetch();
 		render(s);
 	}
-
-
 
 }

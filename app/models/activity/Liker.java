@@ -16,9 +16,9 @@ import java.util.*;
 public class Liker extends Model {
 	@ManyToOne
 	public Activity activity;
-	public SimpleUser joinerSU;
-	public CSSA joineCSSA;
-	@Required @As("yyyy-MM-dd HH:mm")
-	public Date likedAt;
+	public SimpleUser likerSU;
+	public CSSA likerCSSA;
+	@Required 
+	public String likedAt;
 	public boolean isNotified;
 }

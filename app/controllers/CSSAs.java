@@ -80,7 +80,7 @@ public class CSSAs extends Application {
 		user.save();
 		connectCSSA(user);
 		flash.success("Welcome %s !", user.name);
-		infoCenter(user.id);
+		infoCenter();
 	}
 
 	public static void authenticate(String email, String password) {
@@ -97,7 +97,7 @@ public class CSSAs extends Application {
 		}
 		connectCSSA(user);
 		flash.success("欢迎回来， %s !", user.name);
-		infoCenter(user.id);
+		infoCenter();
 	}
 
 	public static void resendConfirmation(String uuid) {
@@ -154,7 +154,7 @@ public class CSSAs extends Application {
 		} else {
 			((CSSA) CSSA.findById(id)).changePassword(password);
 			flash.success("密码更改成功。");
-			infoCenter(id);
+			infoCenter();
 		}
 	}
 
@@ -167,7 +167,7 @@ public class CSSAs extends Application {
 	public static void doUpdateProfile(CSSA user) {
 		user.save();
 		flash.success("资料更新成功");
-		infoCenter(user.id);
+		infoCenter();
 	}
 
 	public static void changeEmail(Long id) {
@@ -247,7 +247,7 @@ public class CSSAs extends Application {
 		} else {
 			((CSSA) CSSA.findById(id)).changePassword(password);
 			flash.success("密码更改成功。");
-			infoCenter(id);
+			infoCenter();
 		}
 	}
 
@@ -262,17 +262,11 @@ public class CSSAs extends Application {
 		Files.copy(profile, Play.getFile(path));
 		((CSSA) CSSA.findById(id)).changeProfile(path);
 		flash.success("头像更改成功");
-		infoCenter(id);
+		infoCenter();
 	}
 
-	public static void infoCenter(long id) {
-		String usertype = session.get("usertype");
-		long userId = Long.parseLong(session.get("logged"));
-		if (!usertype.equals("cssa")) {
-			SimpleUsers.infoCenter();
-		} else if (userId != id) {
-			id = userId;
-		}
+	public static void infoCenter() {
+		long id = Utils.getUserId();
 		CSSA user = CSSA.findById(id);
 		notFoundIfNull(user);
 		render(user);

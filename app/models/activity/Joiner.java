@@ -19,8 +19,8 @@ public class Joiner extends Model {
 	
 	public String selfIntro;
 	public boolean isAllown;
-	@Required @As("yyyy-MM-dd HH:mm")
-	public Date joinedAt;
+	@Required
+	public String joinedAt;
 	public boolean isNotified;
 
 }
