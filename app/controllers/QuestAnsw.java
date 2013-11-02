@@ -580,7 +580,7 @@ public class QuestAnsw extends Application {
 					"userid = ? and userType = ? order by id desc", userid,
 					"simple").fetch(5);
 			notFoundIfNull(user);
-			renderTemplate("SimpleUsers/infoCenter.html", user, UQues,
+			renderTemplate("QuestAnsw/simpleUserinfo.html", user, UQues,
 					UComment, FQues);
 		} else if (usertype.equals("cssa")) {
 			CSSA user = CSSA.findById(userid);

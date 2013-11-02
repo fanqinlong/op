@@ -72,21 +72,29 @@
 		<!--下面部分-->
 		%{int row=0}% #{if !a.isEmpty()} #{list items:a,as:'a'} %{row++;}%
 		<div class="col-md-3 activity-item">
-			<div class="thumbnail">
-				<div>
-					<img src="../public/images/active_detailed_tag.png">
-				</div>
-				<a href="@{Activities.detail(a.id)}">
-					<img alt="${a.name}" src="${a.poster}">
-				</a>
+				
+			<div style="width:100px;height:100px;">
+				#{if isTop}
+				<img src="../public/images/active_detailed_tag.png">
+				#{/if}
+				#{if isHot}
+				<img src="../public/images/active_detailed_tag1.png">
+				#{/if}
+				<img src="../public/images/active_detailed_tag2.png">
+			</div>
+			<div class="thumbnail" style="margin-top:-100px; float:left;">
+					<a href="@{Activities.detail(a.id)}" >
+						<img alt="${a.name}" src="${a.poster}">
+					</a>
 				<div class="caption">
 					<h4>${a.name}</h4>
 					<p class="detail text-primary">${a.summary}</p>
-					<p style="padding-top:20px;">
+					<p style="padding-top:30px;">
 						<span>
 							<a >
 								<img src="${a.publisherSU.profile}" class="img-polaroid"> </a>
-								<span  style="padding-top:500px;">${a.publisherSU.name}</span>
+								<span ><a >
+								${a.publisherSU.name}</a></span>
 							<a href="@{Activities.detail(a.id)}" class="btn btn-primary" role="button" style="margin-left:40px;">去看看</a>
 						<span>
 					</p>

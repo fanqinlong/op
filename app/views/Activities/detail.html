@@ -1,14 +1,19 @@
-#{extends 'main.html' /} #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
+#{extends 'main.html' /} 
+#{set title:'detail.html' /} 
+#{set 'Styles'} 
+#{stylesheet 'activity.css' /} 
+#{/set}
 <div>
-	<div class="left-div">
-		<div class="activity-pic">
+	<div class="left-div" style="width:70%; float:left;">
+	
+		<div class="activity-pic" style="width:300px; height:300px; float:left;">
 			<img src="${a.poster}">
 		</div>
 
-		<div class="activity">
-			<div class="activity-weight">
-				<span>${a.name}</span>
-				<div class="detail">
+		<div class="activity ">
+			<div class="activity-weight acpading">
+				<h4>${a.name}</h4>
+				<div class="detail ">
 					<a class="pic-leftTitle">时间：</a>
 					#{list items:a.time,as:'time'}
 					<a> ${time.date}:${time.timeFrom}-${time.timeTo}</a>
@@ -16,7 +21,7 @@
 				</div>
 
 				#{if isAllown || isOwner}
-				<div class="detail">
+				<div class="detail ">
 					<a class="pic-leftTitle">地点：</a>
 					<a>${a.location}</a>
 				</div>
@@ -58,7 +63,8 @@
 				<div>
 					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
 				</div>
-				#{/if} #{else }
+				#{/if} 
+				#{else }
 				<div>
 					#{if a.isOpen!=true}
 					<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
@@ -94,12 +100,11 @@
 			</div>
 			#{/else}
 		</div>
-
 	</div>
 	<div style="clear: both"></div>
-	<div class="activity-introduction">
+	<div class="activity-introduction ac_wid" >
 		<h3>活动介绍</h3>
-		<p>${a.intro}</p>
+		<p style="text-indent:2em;">${a.intro}</p>
 	</div>
 
 

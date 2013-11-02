@@ -19,5 +19,18 @@ a.detailed{
 	font-size:12px;
 }
 .detail{
-	height:50px;
+	height:26px;
+}
+.acpading{
+padding-left:320px;
+}
+.ac_wid{
+	width:600px;
+}
+.map{
+	
+	height:210px;
+}
+a{
+text-decoration:none !important;
 }
