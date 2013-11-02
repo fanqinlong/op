@@ -43,6 +43,14 @@ public class Charities extends Application{
 	}
 	
 	public static void fabu() {
+		if(session.get("logged") == null) {
+                        Charities.pigination(1);
+                }
+                SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
+                if(su.isAdmin == false){
+                        Charities.pigination(1);
+                        
+                }
 		render();
 	 }	
  
