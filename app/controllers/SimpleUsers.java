@@ -385,6 +385,7 @@ public class SimpleUsers extends Application {
 			int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
 		Images.crop(poster, poster, left, top, height, width);
+		Images.resize(poster, poster, 150, 150,true);
 		Files.copy(poster, Play.getFile(path));
 
 		((SimpleUser) SimpleUser.findById(id)).changeProfile(path);

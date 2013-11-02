@@ -182,15 +182,59 @@ public class Activities extends Application {
 		Activity a = Activity.findById(id);
 		a.views = a.views + 1;
 		a.save();
-		render(a);
+		boolean hasLiked = false;
+		boolean hasJoined = false;
+		boolean isAllown = false;
+		boolean isOwner = false;
+		if(Utils.getUserType().equals("simple")){
+			List<Liker> likerExist =  Liker.find("likerSU.id = ? and activity.id = ?", Utils.getUserId(),id).fetch();
+			hasLiked = likerExist.isEmpty()?false:true;
+			List<Joiner> joinerExist =  Joiner.find("joiner.id = ? and activity.id = ?", Utils.getUserId(),id).fetch();
+			hasJoined = joinerExist.isEmpty()?false:true;
+			List<Joiner> allowner = Joiner.find("isAllown = ? and joiner.id = ? and activity.id = ?", true,Utils.getUserId(),id).fetch();
+			isAllown = allowner.isEmpty()?false:true;
+			if(a.publisherSU!=null && a.publisherSU.id == Utils.getUserId())
+				isOwner = true;
+		}else{
+			List<Liker> likerExist =  Liker.find("likerCSSA.id = ? and activity.id = ?", Utils.getUserId(),id).fetch();
+			hasLiked = likerExist.isEmpty()?false:true;
+			hasJoined = true;
+			if(a.publisherCSSA!=null && a.publisherCSSA.id == Utils.getUserId())
+				isOwner = true;
+		}
+		List<Joiner> allownJoiner = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?", id,true).fetch();
+		
+		
+		render(a,hasLiked,hasJoined,isAllown,isOwner,allownJoiner);
 		
 	}
 
 	public static void allJoinner(long aid) {
-		List<Joiner> joiner = Joiner
+		boolean isOwner = false;
+		List<Joiner> joiners = Joiner
 				.find("select distinct j from Joiner j join j.activity as a where a.id=?",
 						aid).fetch();
-		render(joiner);
+		Activity a = Activity.findById(aid);
+		notFoundIfNull(a);
+		if(Utils.getUserType().equals("simple") && a.publisherSU!=null && a.publisherSU.id == Utils.getUserId())
+			isOwner = true;
+		else if(a.publisherCSSA!=null && a.publisherCSSA.id == Utils.getUserId())
+			isOwner = true;
+		int allownCount =  Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?", aid,true).fetch().size();
+		render(joiners,isOwner,allownCount);
+	}
+	public static void allownJoiner(long jid) {
+		Joiner j = Joiner.findById(jid);
+		j.isAllown = true;
+		j.save();
+		allJoinner(j.activity.id);
+	}
+
+	public static void disAllownJoiner(long jid) {
+		Joiner j = Joiner.findById(jid);
+		j.isAllown = false;
+		j.save();
+		allJoinner(j.activity.id);
 	}
 
 	public static void like(long aid) {
@@ -218,8 +262,27 @@ public class Activities extends Application {
 		detail(aid);
 	}
 
-	public static void join(long aid) {
-
+	public static void join(long aid,String selfIntro) {
+		Joiner j = new Joiner();
+		if(Utils.getUserType().equals("cssa")){
+			flash.error("抱歉，CSSA用户不可参加。");
+			detail(aid);
+		}else{
+			List<Joiner> joinerExist = Joiner.find("joiner.id = ? and activity.id = ?",Utils.getUserId(),aid).fetch();
+			if(!joinerExist.isEmpty()){
+				flash.error("您已关注。");
+				detail(aid);
+			}
+			j.activity = Activity.findById(aid);
+			j.joiner = SimpleUser.findById(Utils.getUserId());
+			j.selfIntro = selfIntro;
+			j.isAllown = false;
+			j.joinedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar
+					.getInstance().getTime());
+			j.save();
+			flash.success("您申请参加成功，请静候审核结果。");
+			detail(aid);
+		}
 	}
 
 }

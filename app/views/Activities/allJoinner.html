@@ -7,7 +7,7 @@
 $(function() {
 	$('a[rel="popoverx"]').popoverx({
 		fire_on : 'hover',
-		hover_delay_close : 2000
+		hover_delay_close : 0
 	});
 })
 	
@@ -23,40 +23,40 @@ $(function() {
 </p>
 
 <p class="sh_content">
-	<span>${jonnerCount}</span><span class="sh_4">人已报名</span><span>${allownCount}</span><span class="sh_4">人已通过审核</span>
+	<span>${joiners?.size()}</span><span class="sh_4">人已报名 </span><span>${allownCount}</span><span class="sh_4">人已通过审核</span>
 </p>
 <div class="sh_width">
 	#{if isOwner} #{list items:joiners,as:'joiner'}
 	<div class="sh_head">
 		#{if joiner.isAllown}
-		<img src="@{'/public/img/active_detailed_shenhe.png'}" class="sh_bottom">
-		<a href="@{Activities.disAllownJoiner(joiner.id)}" rel="popoverx" data-content="> ${joiner.selfIntro}"  title="" data-original-title="申请者介绍">
-			<img src="${joiner.jprofile}" class="img-rounded sh_head_pic">
+		<img src="@{'/public/images/active_detailed_shenhe.png'}" class="sh_bottom">
+		<a href="@{Activities.disAllownJoiner(joiner.id)}" rel="popoverx" data-content="> ${joiner.selfIntro}"  title="" data-original-title="申请者自我介绍">
+			<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
 		</a>
 		<br />
 		#{/if} #{else}
 		<a href="@{Activities.allownJoiner(joiner.id)}" rel="popoverx" data-content="> ${joiner.selfIntro}"  title="" data-original-title="申请者介绍">
-			<img src="${joiner.jprofile}" class="img-rounded sh_head_pic">
+			<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
 		</a>
 		<br />
-		#{/else} #{if joiner.jgender!=null && joiner.jgender.equals("女")}
-		<img src="@{'/public/img/active_detailed_gender-proportion_female.png'}" class="male">
-		#{/if} #{elseif joiner.jgender!=null}
-		<img src="../../../public/img/active_detailed_gender-proportion_male.png" class="male">
-		#{/elseif} <span class="sh_name">${joiner.jname}</span>
+		#{/else} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")}
+		<img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male">
+		#{/if} #{elseif joiner.joiner.gender!=null}
+		<img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male">
+		#{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
 	</div>
 	#{/list} #{/if} #{else} #{list items:joiners,as:'joiner'}
 	<div class="sh_head">
 		#{if joiner.isAllown}
-		<img src="@{'/public/img/active_detailed_shenhe.png'}" class="sh_bottom">
+		<img src="@{'/public/images/active_detailed_shenhe.png'}" class="sh_bottom">
 		#{/if}
-		<img src="${joiner.jprofile}" class="img-rounded sh_head_pic">
+		<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
 		<br />
-		#{if joiner.jgender!=null && joiner.jgender.equals("女")}
-		<img src="@{'/public/img/active_detailed_gender-proportion_female.png'}" class="male">
-		#{/if} #{elseif joiner.jgender!=null}
-		<img src="../../../public/img/active_detailed_gender-proportion_male.png" class="male">
-		#{/elseif} <span class="sh_name">${joiner.jname}</span>
+		#{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")}
+		<img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male">
+		#{/if} #{elseif joiner.joiner.gender!=null}
+		<img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male">
+		#{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
 	</div>
 	#{/list} #{/else}
 
