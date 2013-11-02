@@ -283,8 +283,6 @@ public class Activities extends Application {
 			flash.success("您申请参加成功，请静候审核结果。");
 			detail(aid);
 		}
-		
-
 	}
 
 }

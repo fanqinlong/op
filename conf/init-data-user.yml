@@ -4,22 +4,22 @@ users.SimpleUser(liu):
     passwordHash: 6b649039a388694c7306cb4d14041a14
     email: 285899506@qq.com
     gender: 男
-    profile: /public/images/user_default.jpg
+    profile: /public/images/morentouxiang_nan.png
 users.SimpleUser(time):
     name: timepoet
     passwordHash: c90f1a0ed4f6c656ee37327f75cccc10
     email: 258811627@qq.com
     gender: 男
-    profile: /public/images/user_default.jpg
+    profile: /public/images/morentouxiang_nan.png
 users.SimpleUser(statm):
     name: statm
     passwordHash: cff11e4a26b06ffb5a6e0db4b821a33e
     email: arcus.zhao@gmail.com
     gender: 男
-    profile: /public/images/user_default.jpg
+    profile: /public/images/morentouxiang_nan.png
 users.SimpleUser(jessie):
     name: playlaugh
     passwordHash: 7fa8282ad93047a4d6fe6111c93b308a
     email: playlaugh2011@gmail.com
     gender: 男
-    profile: /public/images/user_default.jpg
+    profile: /public/images/morentouxiang_nan.png
