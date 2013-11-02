@@ -56,32 +56,39 @@
 </div>
 
 <!-- cssa activity -->
-<div class="container container-op"></div>
+<div class="container container-op">
+
+
+
+</div>
 <!-- ./ cssa activity -->
 
 
 
-<div class="container list">
+<div class="container container-op">
 
 	<!-- users activity -->
-	<div class="row ">
+<div class="row ">
 		<!--下面部分-->
 		%{int row=0}% #{if !a.isEmpty()} #{list items:a,as:'a'} %{row++;}%
 		<div class="col-md-3 activity-item">
 			<div class="thumbnail">
+				<div>
+					<img src="../public/images/active_detailed_tag.png">
+				</div>
 				<a href="@{Activities.detail(a.id)}">
 					<img alt="${a.name}" src="${a.poster}">
 				</a>
 				<div class="caption">
 					<h4>${a.name}</h4>
-					<p>
-						<img src="${a.publisherSU.profile}" class="img-polaroid">
-						${a.publisherSU.name}
-					</p>
 					<p class="detail text-primary">${a.summary}</p>
-					<p>
-						<a href="#" class="btn btn-primary" role="button">Button</a>
-						<a href="#" class="btn btn-default" role="button">Button</a>
+					<p style="padding-top:20px;">
+						<span>
+							<a >
+								<img src="${a.publisherSU.profile}" class="img-polaroid"> </a>
+								<span  style="padding-top:500px;">${a.publisherSU.name}</span>
+							<a href="@{Activities.detail(a.id)}" class="btn btn-primary" role="button" style="margin-left:40px;">去看看</a>
+						<span>
 					</p>
 				</div>
 			</div>

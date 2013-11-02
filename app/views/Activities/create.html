@@ -6,15 +6,15 @@
 <input type="hidden" id="x2" name="height">
 <input type="hidden" id="y2" name="width">
 <input type="hidden" name="id" value="${id}" />
-<h4>第一步:请选择海报</h4>
+<h5>第一步:请选择海报</h5>
 <div>
-	<input type="file" name="poster" id="image_file" onchange="fileSelectHandler()">
+	<input type="file" class="btn btn-primary " style="width:97px; height:37px;" name="poster" id="image_file" onchange="fileSelectHandler()">
 </div>
 
 <div class="error"></div>
 
 
-<h4>第二步:请对海报进行剪切</h4>
+<h5>第二步:请对海报进行剪切</h5>
 <img id="preview">
 
 <div class="info hide">
@@ -31,6 +31,6 @@
 </div>
 <br />
 
-<input type="submit" value="上传">
+<input type="submit" class="btn btn-primary " value="上传">
 
 #{/form} #{set 'Scripts'} #{script 'jquery.Jcrop.script.js' /} #{script 'jquery.Jcrop.min.js' /} #{/set}

@@ -1,165 +1,183 @@
 #{extends 'main.html' /} #{set title:'create' /} #{set 'Styles'} #{stylesheet 'bootstrap-datepicker.css' /} #{/set}
-<form action="@{Activities.post}" method="post" accept-charset="${_response_encoding}" class="form-horizontal " name="form1" id="form-activity">
-	<div class="control-group">
-		<label class="control-label">名称</label>
-		<div class="controls">
-			<input id="inputEmail" type="text" name="a.name" value="${flash['a.name']}" />
-			<span class="error">#{error 'a.name' /}</span>
-		</div>
-	</div>
 
-	<div class="control-group ">
-		<label class="control-label">类型</label>
-		<div class="controls">
-			<select name="type">
+<form action="@{Activities.post}" method="post" accept-charset="${_response_encoding}" class="form-horizontal " name="form1" id="form-activity">
+<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">活动名称</label>
+	<div class="col-md-3 ">
+		<input id="inputEmail" type="text" name="a.name" value="${flash['a.name']}"  class="form-control"/>
+	</div>
+	<span class="col-md-3">#{error 'a.name' /}</span>
+</div>
+
+<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">活动类型</label>
+	<div class="col-md-3 ">
+		<select name="type">
 				#{list items:t,as:'at'}
 				<option value="${at.id}">${at.name}</option>
 				#{/list}
-			</select>
-			<span class="error">#{error 'a.type' /}</span>
-		</div>
+		</select>
 	</div>
-	<div class="control-group ">
-		<label class="control-label">人数范围</label>
-		<div class="controls">
-			<select name="scope">
+	<span class="col-md-3">#{error 'at.name' /}</span>
+</div>
+
+
+
+<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">人数范围</label>
+	<div class="col-md-3 ">
+		<select name="scope">
 				#{list items:s,as:'s'}
 				<option value="${s.id}" >${s.scope}</option>
 				#{/list}
 			</select>
-			<span class="error">#{error 'a.scope' /}</span>
-		</div>
 	</div>
+	<span class="col-md-3">#{error 's.scope' /}</span>
+</div>
 
-	<div class="control-group">
-		<label class="control-label">活动时间</label>
-		<div class="controls">
-			<div class="input-append date ">
-				日期:
+
+<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}" id="time1">
+	<label for="password" class="col-md-2 control-label">第二场活动时间</label>
+	<div class="col-md-3 " style="width:360px;">
+		<div class="input-append date ">
 				<input size="16" type="text" class="datepicker" name="time1.date" readonly />
-				<span class="add-on"><i class="icon-th"></i></span> <span class="error"></span>
+				<span class="add-on"><i class="icon-th hide"></i></span>
 
-				<label class="control-label">时间</label>
+				<label class="control-label">
 				#{select 'time1.timeFrom'} 
-				#{option '18:00'}18:00#{/option} 
-				#{option '19:00'}19:00#{/option} 
+				#{option '开始时间'}开始时间#{/option} 
+			    #{option '19:00'}19:00#{/option} 
 				#{/select}
 				至
 				#{select 'time1.timeTo'} 
-				#{option '18:00'}18:00#{/option} 
-				#{option '19:00'}19:00#{/option} 
+				#{option '结束时间'}结束时间#{/option} 
+			    #{option '19:00'}19:00#{/option}
+			    #{option '20:00'}20:00#{/option}
 				#{/select}
-			</div>
-		</div>
+				</label>
+		 </div>
 	</div>
-	<div id="">添加活动时间</div>
-<div class="control-group">
-		<label class="control-label">活动时间</label>
-		<div class="controls">
-			<div class="input-append date ">
-				日期:
-				<input size="16" type="text" class="datepicker" name="time2.date" readonly />
-				<span class="add-on"><i class="icon-th"></i></span> <span class="error"></span>
+	<span class="col-md-3" id="time1_1">
+				如果活动是多场次的请点击<a onClick="addtime2()">添加时间</a>
+	</span>
+</div>
 
-				<label class="control-label">时间</label>
+<div class="form-group ${errors.forKey('name') ? 'has-error' : ''} hide" id="time2">
+	<label for="password" class="col-md-2 control-label">第三次活动时间</label>
+	<div class="col-md-3 " style="width:360px;">
+		<div class="input-append date ">
+				<input size="16" type="text" class="datepicker" name="time2.date" readonly />
+				<span class="add-on"><i class="icon-th hide"></i></span>
+				<label class="control-label">
 				#{select 'time2.timeFrom'} 
-				#{option '18:00'}18:00#{/option} 
-				#{option '19:00'}19:00#{/option} 
+				#{option '开始时间'}开始时间#{/option} 
+			    #{option '19:00'}19:00#{/option} 
 				#{/select}
 				至
 				#{select 'time2.timeTo'} 
-				#{option '18:00'}18:00#{/option} 
-				#{option '19:00'}19:00#{/option} 
+				#{option '结束时间'}结束时间#{/option} 
+			    #{option '19:00'}19:00#{/option} 
 				#{/select}
+				</label>
 			</div>
-		</div>
 	</div>
-	<div class="control-group">
-		<label class="control-label">活动时间</label>
-		<div class="controls">
-			<div class="input-append date ">
-				日期:
-				<input size="16" type="text" class="datepicker" name="time3.date" readonly />
-				<span class="add-on"><i class="icon-th"></i></span> <span class="error"></span>
+	<span class="col-md-3" id="time2_1">
+			还可以再添加一场哦，<a onClick="addtime3()">添加时间</a>
+	</span>
+</div>
 
-				<label class="control-label">时间</label>
+
+<div class="form-group ${errors.forKey('name') ? 'has-error' : ''} hide" id="time3">
+	<label for="password" class="col-md-2 control-label">活动时间</label>
+	<div class="col-md-3 " style="width:360px;">
+		<div class="input-append date ">
+				<input size="16" type="text" class="datepicker" name="time3.date" readonly />
+				<span class="add-on"><i class="icon-th hide"></i></span>
+				<label class="control-label">
 				#{select 'time3.timeFrom'} 
-				#{option '18:00'}18:00#{/option} 
-				#{option '19:00'}19:00#{/option} 
+					#{option '开始时间'}开始时间#{/option} 
+					#{option '19:00'}19:00#{/option} 
 				#{/select}
 				至
-				#{select 'time3.timeTo'} 
-				#{option '18:00'}18:00#{/option} 
-				#{option '19:00'}19:00#{/option} 
-				#{/select}
+			#{select 'time3.timeTo'} 
+					#{option '结束时间'}结束时间#{/option} 
+					#{option '19:00'}19:00#{/option} 
+			#{/select}
+				</label>
 			</div>
-		</div>
 	</div>
+	<span class="col-md-3" id="time3_1">
+			最多只能办三场活动哦
+	</span>
+</div>
 
-	<div class="control-group">
-		<label class="control-label">费用</label>
-		<div class="controls">
-			<div class="input-prepend input-append">
 
-				<input class="form-control" name="a.money" value="${flash['a.money']}" id="appendedPrependedInput" type="text">
-				<span class="add-on">$</span><span class="error">#{error 'a.money' /}</span>
-			</div>
-		</div>
+<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">费用</label>
+	<div class="col-md-3 ">
+		<input class="form-control" name="a.money" value="${flash['a.money']}" id="appendedPrependedInput" type="text">
 	</div>
+	<span class="col-md-3">#{error 's.money' /}</span>
+</div>
 
-	<div class="control-group">
-		<label class="control-label">是否公开：</label>
-		<div class="controls">
-			<input name="a.isOpen" value="true" type="checkbox" ${flash['a.isOpen']=="true"?"checked":""}>
-			是 <span class="error"></span>
-		</div>
-	</div>
 
-	<div class="control-group">
-		<label class="control-label">联系方式</label>
-		<div class="controls">
-			<input id="inputEmail" type="text" name="a.contract" value="${flash['a.contract']}" />
-			<span class="error">#{error 'a.contract' /}</span>
-		</div>
+<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">是否公开</label>
+	<div class="col-md-3 ">
+		<input name="a.isOpen" value="true"  type="checkbox" ${flash['a.isOpen']=="true"?"checked":""}>
+			是
 	</div>
-	<div class="control-group">
-		<label class="control-label">地点</label>
-		<div class="controls">
-			<input id="inputEmail" type="text" name="a.location" value="${flash['a.location']}" />
-			<span class="error">#{error 'a.location' /}</span>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label">邮编</label>
-		<div class="controls">
-			<input id="inputEmail" type="text" name="a.zip" value="${flash['a.zip']}" />
-			<span class="error">#{error 'a.zip' /}</span>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label"> 活动概要</label>
-		<div class="controls">
+	<span class="col-md-3">#{error 's.money' /}</span>
+</div>
 
-			<textarea name="a.summary" cols="36" rows="3" id="luggage" maxlength="40">${flash['a.summary']}</textarea>
-			<span class="error">#{error 'a.summary' /}</span>
-			<p>
-				<span id="progressbar1">0</span>/40
-			</p>
+<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">联系电话</label>
+	<div class="col-md-3 ">
+		<input class="form-control" type="text" name="a.contract" value="${flash['a.contract']}" />
+	</div>
+	<span class="col-md-3">#{error 'a.contract' /}</span>
+</div>
+
+<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">地点</label>
+	<div class="col-md-3 ">
+		<input class="form-control"  type="text" name="a.location" value="${flash['a.location']}" />
+	</div>
+	<span class="col-md-3">#{error 'a.contract' /}</span>
+</div>
+
+<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">邮编</label>
+	<div class="col-md-3 ">
+		<input class="form-control"  type="text" name="a.zip" value="${flash['a.zip']}" />
+	</div>
+	<span class="col-md-3">#{error 'a.contract' /}</span>
+</div>
+
+<div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">活动概要</label>
+	<div class="col-md-3 ">
+		<textarea name="a.summary" cols="36" rows="3" id="luggage" maxlength="40">${flash['a.summary']}</textarea>
+	</div>
+	<span class="col-md-3">#{error 'a.summary' /}</span>
+</div>
+
+<div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">活动介绍</label>
+	<div class="col-md-3 ">
+		<textarea name="a.intro" cols="36" rows="6" id="remarks">${flash['a.intro']}</textarea>
+	</div>
+	<span class="col-md-3">#{error 'a.contract' /}</span>
+</div>
+
+	
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-3">
+			<input type="submit" class="btn btn-primary" value="提交">
+			<input type="reset" class="btn " value="重置">
 		</div>
 	</div>
-	<div class="control-group">
-		<label class="control-label">活动介绍</label>
-		<div class="controls">
-			<textarea name="a.intro" cols="36" rows="6" id="remarks">${flash['a.intro']}</textarea>
-			<span class="error">#{error 'a.intro' /}</span>
-		</div>
-	</div>
-	<div class="control-group">
-		<div class="controls">
-			<input type="submit" class="btn btn-info" value="提交">
-			<input type="reset" class="btn" value="重置">
-		</div>
-	</div>
+	
 </form>
 <div class="clearfix"></div>
 #{set 'Scripts'} #{script 'bootstrap-datepicker.js' /}
@@ -172,6 +190,16 @@
 		language : "zh-CN",
 		forceParse : false
 	});
+	
+	function addtime2(){
+		$("#time2").removeClass("hide");
+		$("#time1_1").addClass("hide");
+	}
+	function addtime3(){
+		$("#time3").removeClass("hide");
+		$("#time2_1").addClass("hide");
+	}
+	
 </script>
 #{/set}
 
