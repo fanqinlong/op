@@ -16,6 +16,7 @@ import java.util.*;
 public class Comment extends Model {
 	@ManyToOne
 	public Activity activity;
+	@ManyToOne
 	public SimpleUser publisher;
 	@MaxSize(1000)
 	public static String comment;

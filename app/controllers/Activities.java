@@ -183,6 +183,7 @@ public class Activities extends Application {
 		a.views = a.views + 1;
 		a.save();
 		render(a);
+		
 	}
 
 	public static void allJoinner(long aid) {
@@ -193,16 +194,26 @@ public class Activities extends Application {
 	}
 
 	public static void like(long aid) {
-		Activity a = Activity.findById(aid);
 		Liker l = new Liker();
+		if (Utils.getUserType().equals("cssa")) {
+			List<Liker> likerExist =  Liker.find("likerCSSA.id = ? and activity.id = ?", Utils.getUserId(),aid).fetch();
+			if(!likerExist.isEmpty()){
+				flash.error("您已关注。");
+				detail(aid);
+			}
+			l.likerCSSA = CSSA.findById(Utils.getUserId());
+		} else {
+			List<Liker> likerExist =  Liker.find("likerSU.id = ? and activity.id = ?", Utils.getUserId(),aid).fetch();
+			if(!likerExist.isEmpty()){
+				flash.error("您已关注。");
+				detail(aid);
+			}
+			l.likerSU = SimpleUser.findById(Utils.getUserId());
+		}
+		Activity a = Activity.findById(aid);
 		l.activity = a;
 		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar
 				.getInstance().getTime());
-		if (Utils.getUserType().equals("cssa")) {
-			l.likerCSSA = CSSA.findById(Utils.getUserId());
-		} else {
-			l.likerSU = SimpleUser.findById(Utils.getUserId());
-		}
 		l.save();
 		detail(aid);
 	}

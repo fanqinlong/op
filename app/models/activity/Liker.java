@@ -16,7 +16,9 @@ import java.util.*;
 public class Liker extends Model {
 	@ManyToOne
 	public Activity activity;
+	@ManyToOne
 	public SimpleUser likerSU;
+	@ManyToOne
 	public CSSA likerCSSA;
 	@Required 
 	public String likedAt;

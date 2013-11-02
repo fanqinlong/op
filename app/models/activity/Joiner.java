@@ -15,6 +15,7 @@ import java.util.*;
 public class Joiner extends Model {
 	@ManyToOne
 	public Activity activity;
+	@ManyToOne
 	public SimpleUser joiner;
 	
 	public String selfIntro;
