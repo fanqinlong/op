@@ -36,7 +36,6 @@ public class Application  extends Controller {
     	}
     }
     static SimpleUser connectedSimple() {
-    	System.out.println(Utils.getUserId()+"ddddddddddddd");
 		return SimpleUser.findById(Utils.getUserId());
 	}
     static CSSA connectedCSSA() {

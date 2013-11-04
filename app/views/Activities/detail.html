@@ -47,7 +47,7 @@
 				</div>
 				<div class="detail">
 					<a class="pic-leftTitle">发起人：</a>
-					<a>${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.name}</a>
+					<a>${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</a>
 				</div>
 				#{if isAllown || isOwner}
 				<div class="detail">
@@ -61,7 +61,7 @@
 				</div>
 				#{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
 				<div>
-					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
+					<a class="btn btn-success" target="_bank" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
 				</div>
 				#{/if} 
 				#{else }
@@ -112,7 +112,7 @@
 <div class="right">
 	<div class="right-top">
 		<a href="@{Activities.Create}" class="btn btn-info faqi">
-			<i class=" icon-flag">发起活动</i> 
+			<i class="icon-flag"></i> 发起活动
 		</a>
 	</div>
 	<div class="map">
@@ -127,12 +127,13 @@
 	<div class="person">
 		<h4 class="activity-title3">活动组织者</h4>
 		<div class="activity-userpic">
-			<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.CSSA.profile} alt="" style="height: 60px; width: 60px;">
+			<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
 		</div>
 		<div>
 			<small class="name">${publisher_name}</small>
 		</div>
 	</div>
+	<br />
 	<div class="numbers">
 		<h4 class="activity-title4">活动成员</h4>
 		#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="guanzhuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="guanzhuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>

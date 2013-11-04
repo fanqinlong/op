@@ -113,7 +113,7 @@ public class SimpleUsers extends Application {
 		} else {
 			user.save();
 			flash.success("Welcome %s !请验证EDU邮箱。", user.name);
-			render("@eduMail");
+			render("@edumail");
 		}
 
 	}
@@ -134,6 +134,7 @@ public class SimpleUsers extends Application {
 		String edumail;
 		SimpleUser simp = SimpleUser.findById(userid);
 		edumail = simp.eduMail;
+
 		String refere = request.headers.get("referer").values.get(0);
 		render(refere, edumail);
 	}
@@ -208,7 +209,7 @@ public class SimpleUsers extends Application {
 			CSSAs.login();
 		} else {
 			CSSAs.connectCSSA(cssa);
-			flash.success("欢迎回来， %s !", cssa.name);
+			flash.success("欢迎回来， %s CSSA!", cssa.school.name);
 			CSSAs.infoCenter();
 		}
 

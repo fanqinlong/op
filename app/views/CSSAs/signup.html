@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'signup.html' /}
 
+ 
 <h4 id="title">CSSA注册</h4>
 
 
@@ -8,57 +9,57 @@
 	
 	 
 	<p>
-	<div class="control-group">
-		<label  class="control-label">组织名称</label>
+	<div class="form-group">
+		<label  class="col-md-2 control-label">组织名称</label>
 		
-		<div class="controls">
-			<select name="name"  >
+		<div class="col-md-3">
+			<select name="school"  >
 					<option selected>请选择：</option> 
 					#{list items:schools,as:'school'}
-						<option value="${school.name}">${school.name}</option>
+						<option value="${school.id}" >${school.name}</option>
 					 #{/list}
 			</select> 
 		</div>
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">联系邮箱</label>
-		<div class="controls">
+	<div class="form-group">
+		<label  class="col-md-2 control-label">联系邮箱</label>
+		<div class="col-md-3">
 		<input type="text" name="email" value="${flash.email}" id="email" />
 		<span class="error">#{error 'email' /}</span>
 		</div>
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">密码</label>
-			<div class="controls">
-			<input type="password" name="password" value="${flash.password}" id="password" />不少于7个字符 <span class="error">#{error 'password' /}</span>
+	<div class="form-group">
+		<label  class="col-md-2 control-label">密码</label>
+			<div class="col-md-3">
+			<input type="password" name="password" value="${flash.password}" id="password" /> <span class="error">#{error 'password' /}</span>
 			</div>
 		 </div>
 		</p>
 		<p>
-		<div class="control-group">
-		<label  class="control-label">密码重复</label>
-			<div class="controls">
+		<div class="form-group">
+		<label  class="col-md-2 control-label">密码重复</label>
+			<div class="col-md-3">
 			<input type="password" name="password2" value="${flash.password2}" id="password2" /> <span class="error">#{error 'password2' /}</span>
 			</div>
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">官方主页</label>
-		<div class="controls">
+	<div class="form-group">
+		<label  class="col-md-2 control-label">官方主页</label>
+		<div class="col-md-3">
 		<input type="text" name="homepage" value="${flash.homepage}"  />
 		<span class="error">#{error 'homepage' /}</span>
 		</div>
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">成员人数</label>
-		<div class="controls">
+	<div class="form-group">
+		<label  class="col-md-2 control-label">成员人数</label>
+		<div class="col-md-3">
 		<select name="peopleNumber">
 		<option selected="selected"value="1-20">1-20</option>
 		<option value="20-50">20-50</option>
@@ -72,36 +73,37 @@
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">组织简介</label>
-		<div class="controls">
-		<input type="text" name="selfIntro" value="${flash.selfIntro}" />
+	<div class="form-group">
+		<label  class="col-md-2 control-label">组织简介</label>
+		<div class="col-md-3">
+		<input type="text" name="selfIntro" value="${flash.selfIntro}" class="form-control" />
 		<span class="error">#{error 'selfIntro' /}</span>
 		</div>
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">申请人</label> 
-		<div class="controls">
-		<input type="text" name="applicant" value="${flash.applicant}" />
-		<span class="error">#{error 'applicant' /}</span>
+	<div class="form-group">
+		<label  class="col-md-2 control-label">申请人</label> 
+		<div class="col-md-3">
+		<input type="text" name="applicant" value="${flash.applicant}" class="form-control" />
+		
 		</div>
+		<span class="error">#{error 'applicant' /}</span>
 		</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">申请人职称</label>
-		<div class="controls">
+	<div class="form-group">
+		<label  class="col-md-2 control-label">申请人职称</label>
+		<div class="col-md-3">
 		<input type="text" name="applicantTitle" value="${flash.applicantTitle}"/>
 		<span class="error">#{error 'applicantTitle' /}</span>
 		</div>
 	</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label  class="control-label">联系方式</label>
-		<div class="controls">
+	<div class="form-group">
+		<label  class="col-md-2 control-label">联系方式</label>
+		<div class="col-md-3">
 		<input type="text" name="contract" value="${flash.contract}"  />
 		<span class="error">#{error 'contract' /}</span>
 		</div>

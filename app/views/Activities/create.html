@@ -1,5 +1,7 @@
 #{extends 'main.html' /} #{set title:'发布海报' /} 
 #{set 'Styles'} #{stylesheet 'jquery.Jcrop.min.css' /} #{/set}
+ 
+ 
 <h3>上传海报：</h3>
 #{form @next(),method:'POST',enctype:'multipart/form-data'}
 <input type="hidden" id="x1" name="left">
@@ -7,6 +9,10 @@
 <input type="hidden" id="x2" name="height">
 <input type="hidden" id="y2" name="width">
 <input type="hidden" name="id" value="${id}" />
+
+
+
+
 <h5>第一步:请选择海报</h5>
 <div>
 	<input type="file" class="btn btn-primary " style="width:97px; height:37px;" name="poster" id="image_file" onchange="fileSelectHandler()">
@@ -34,4 +40,6 @@
 
 <input type="submit" class="btn btn-primary " value="上传">
 
-#{/form} #{set 'Scripts'} #{script 'jquery.Jcrop.script.js' /} #{script 'jquery.Jcrop.min.js' /} #{/set}
+#{/form} #{set 'Scripts'} 
+#{script 'jquery.Jcrop.script.js' /} 
+#{script 'jquery.Jcrop.min.js' /} #{/set}

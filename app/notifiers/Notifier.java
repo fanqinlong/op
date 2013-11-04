@@ -19,7 +19,7 @@ public class Notifier extends Mailer {
 	}
 
 	public static boolean welcomeCSSA(CSSA user) throws Exception {
-		setSubject("Welcome %s", user.name);
+		setSubject("Welcome %s CSSA", user.school.name);
 		addRecipient(user.email);
 		setFrom("Opporlink <Account@opporlink.com>");
 		return sendAndWait(user);

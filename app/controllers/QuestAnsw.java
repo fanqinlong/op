@@ -44,7 +44,7 @@ public class QuestAnsw extends Application {
 			userselfIntro = simp.selfIntro;
 		} else {
 			CSSA cssa = CSSA.findById(userid);
-			username = cssa.name;
+			username = cssa.school.name;
 			userprofile = cssa.profile;
 			userselfIntro = cssa.selfIntro;
 		}
@@ -86,7 +86,7 @@ public class QuestAnsw extends Application {
 			comentUserSelfIntro = simp.selfIntro;
 		} else {
 			CSSA cssa = CSSA.findById(comentUserid);
-			comentUsername = cssa.name;
+			comentUsername = cssa.school.name;
 			comentUserprofile = cssa.profile;
 			comentUserSelfIntro = cssa.selfIntro;
 		}
@@ -120,7 +120,7 @@ public class QuestAnsw extends Application {
 			uid = simp.id;
 		} else {
 			CSSA cssa = CSSA.findById(comentUserid);
-			comentUsername = cssa.name;
+			comentUsername = cssa.school.name;
 			comentUserprofile = cssa.profile;
 			comentUserSelfIntro = cssa.selfIntro;
 			uid = cssa.id;
@@ -284,7 +284,7 @@ public class QuestAnsw extends Application {
 			userid = su.id;
 		} else {
 			CSSA cssa = CSSA.findById(comentUserid);
-			comentUsername = cssa.name;
+			comentUsername = cssa.school.name;
 			userprofile = cssa.profile;
 			userSelfIntro = cssa.selfIntro;
 			userid = cssa.id;

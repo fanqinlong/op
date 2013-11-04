@@ -17,7 +17,7 @@ public class Airports extends Application {
 		if (session.get("logged") != null
 				&& !session.get("usertype").equals("simple")) {
 			CSSA cssa = CSSA.findById(Long.parseLong(session.get("logged")));
-			if (cssa.name != null == true)
+			if (cssa.school.name != null == true)
 				renderArgs.put("isCSSA", true);
 		}
 	}
@@ -45,7 +45,7 @@ public class Airports extends Application {
 		String username = null;
 		if (!usertype.equals("simple")) {
 			CSSA cssa = CSSA.findById(Long.parseLong(session.get("logged")));
-			username = cssa.name;
+			username = cssa.school.name;
 		}
 		List ls = School.findAll();
 		render(ls, username);

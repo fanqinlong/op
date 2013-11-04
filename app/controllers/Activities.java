@@ -53,12 +53,12 @@ public class Activities extends Application {
 		List<Activity> a;
 		if (isWeekend) {
 			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? order by isTop desc,isHot desc,isChecked desc,views desc",
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",
 							deadline, isWeekend, "%" + type + "%",
 							"%" + scope + "%").fetch();
 		} else {
 			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and   a.type.name like ? and a.scope.scope like ? order by isTop desc,isHot desc,isChecked desc,views desc",
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and   a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",
 							deadline, "%" + type + "%", "%" + scope + "%")
 					.fetch();
 		}
@@ -98,7 +98,7 @@ public class Activities extends Application {
 			a.publisherSU = SimpleUser.findById(Utils.getUserId());
 		}
 		if (Utils.getUserType().equals("cssa")) {
-			a.publisherCSSA = SimpleUser.findById(Utils.getUserId());
+			a.publisherCSSA = CSSA.findById(Utils.getUserId());
 		}
 		Type t = Type.findById(type);
 		Scope s = Scope.findById(scope);
@@ -186,7 +186,9 @@ public class Activities extends Application {
 		boolean hasJoined = false;
 		boolean isAllown = false;
 		boolean isOwner = false;
-		if(Utils.getUserType().equals("simple")){
+		if(Utils.getUserType()==null){
+			hasJoined = true;
+		}else if(Utils.getUserType()!=null && Utils.getUserType().equals("simple")){
 			List<Liker> likerExist =  Liker.find("likerSU.id = ? and activity.id = ?", Utils.getUserId(),id).fetch();
 			hasLiked = likerExist.isEmpty()?false:true;
 			List<Joiner> joinerExist =  Joiner.find("joiner.id = ? and activity.id = ?", Utils.getUserId(),id).fetch();

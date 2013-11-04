@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import java.util.*;
 
+import models.airport.School;
+
 @Entity
 public class CSSA extends Model {
 	// Register Info
@@ -23,8 +25,8 @@ public class CSSA extends Model {
 	public String profile;
 	
 	// User Detail
-	@Required @MinSize(2) 
-	public String name;
+	@OneToOne(cascade=CascadeType.ALL)
+	public School school ;
 	@Required
 	public String contract;
 	@Required @MaxSize(200)
@@ -39,9 +41,8 @@ public class CSSA extends Model {
 	public String peopleNumber;
 	public boolean isApproved;
 	
-	public CSSA(String email,String password,String name,String contract,String selfIntro,String homepage,String applicant,String applicantTitle,String peopleNumber) {
+	public CSSA(String email,String password,String contract,String selfIntro,String homepage,String applicant,String applicantTitle,String peopleNumber) {
 		this.email = email;
-		this.name = name;
 		this.contract = contract;
 		this.selfIntro = selfIntro;
 		this.homepage = homepage;
@@ -51,7 +52,7 @@ public class CSSA extends Model {
 		this.peopleNumber = peopleNumber;
 		this.needConfirmation = Codec.UUID();
 		this.isApproved = false;
-		this.profile = "/public/images/user_default.jpg";
+		this.profile = "/public/images/cssa_default.png";
 		create();
 	}
 	

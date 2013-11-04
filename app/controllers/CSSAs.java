@@ -19,6 +19,7 @@ import play.mvc.*;
 import models.activity.Activity;
 import models.users.CSSA;
 import models.users.SimpleUser;
+import models.airport.School;
 
 public class CSSAs extends Application {
 
@@ -35,14 +36,15 @@ public class CSSAs extends Application {
 	}
 
 	public static void signup() {
-		render();
+		List<School> schools = School.findAll();
+		render(schools);
 	}
 
 	public static void login() {
 		render();
 	}
 
-	public static void register(@Email @Required String email, @Required @MinSize(7) @MaxSize(20) String password, @Required @MinSize(1) @MaxSize(40) String name, @Required String contract, @Required @MaxSize(200) String selfIntro, @Required @URL String homepage, @Required @MinSize(7) @MaxSize(40) String applicant, @Required @MinSize(7) @MaxSize(100) String applicantTitle, @Required String peopleNumber, @Equals("password") String password2) {
+	public static void register(@Email @Required String email, @Required  @MaxSize(20) String password, @Required long school, @Required String contract, @Required @MaxSize(200) String selfIntro, @Required @URL String homepage, @Required @MinSize(7) @MaxSize(40) String applicant, @Required @MinSize(7) @MaxSize(100) String applicantTitle, @Required String peopleNumber, @Equals("password") String password2) {
 		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
 			params.flash();
@@ -54,7 +56,10 @@ public class CSSAs extends Application {
 			flash.error("请更正错误。");
 			signup();
 		}
-		CSSA user = new CSSA(email, password, name, contract, selfIntro, homepage, applicant, applicantTitle, peopleNumber);
+		CSSA user = new CSSA(email, password,  contract, selfIntro, homepage, applicant, applicantTitle, peopleNumber);
+		School s = School.findById(school);
+		user.school = s;
+		user.save();
 		try {
 			if (Notifier.welcomeCSSA(user)) {
 				flash.success("请登录注册邮箱激活帐号。");
@@ -79,7 +84,7 @@ public class CSSAs extends Application {
 		user.needConfirmation = null;
 		user.save();
 		connectCSSA(user);
-		flash.success("Welcome %s !", user.name);
+		flash.success("Welcome %s CSSA!", user.school.name);
 		infoCenter();
 	}
 
@@ -96,7 +101,7 @@ public class CSSAs extends Application {
 			login();
 		}
 		connectCSSA(user);
-		flash.success("欢迎回来， %s !", user.name);
+		flash.success("欢迎回来， %s CSSA!", user.school.name);
 		infoCenter();
 	}
 
@@ -230,7 +235,7 @@ public class CSSAs extends Application {
 		user.passwordConfirmation = null;
 		user.save();
 		connectCSSA(user);
-		flash.success("Welcome %s !", user.name);
+		flash.success("Welcome %s CSSA!", user.school.name);
 		resetPassword(user.id);
 	}
 
