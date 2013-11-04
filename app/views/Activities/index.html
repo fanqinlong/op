@@ -74,39 +74,37 @@
 		<div class="col-md-3 activity-item">
 				
 			<div style="width:100px;height:100px;">
-				#{if isTop}
+				#{if a.isTop}
 				<img src="../public/images/active_detailed_tag.png">
 				#{/if}
-				#{if isHot}
+				#{elseif a.isHot}
 				<img src="../public/images/active_detailed_tag1.png">
-				#{/if}
+				#{/elseif}
+				#{elseif a.isChecked}
 				<img src="../public/images/active_detailed_tag2.png">
+				#{/elseif}
 			</div>
 			<div class="thumbnail" style="margin-top:-100px; float:left;">
 					<a href="@{Activities.detail(a.id)}" >
 						<img alt="${a.name}" src="${a.poster}">
 					</a>
 				<div class="caption">
-					<h4>${a.name}</h4>
-					<p class="detail text-primary">${a.summary}</p>
+					<h4><a href="@{Activities.detail(a.id)}">${a.name}</a> </h4>
+					<p class="detail text-primary"><a href="@{Activities.detail(a.id)}">${a.summary}</a> </p>
 					<p style="padding-top:30px;">
-						<span>
-							<a >
-								<img src="${a.publisherSU.profile}" class="img-polaroid" style="width:45px; height:45px;"> </a>
-								<span ><a >
-								${a.publisherSU.name}</a></span>
-							<a href="@{Activities.detail(a.id)}" class="btn btn-primary" role="button" style="margin-left:45px;">去看看</a>
-						<span>
+							<a href="">
+								<img src="${a.publisherSU.profile}" class="img-polaroid" style="width:45px; height:45px;"> 
+								<span >${a.publisherSU.name}</a></span>
 					</p>
 				</div>
 			</div>
 		</div>
 		#{if row%4==0}
 	</div>
-		<div class="row ">
+		<div class="row mg-top-2">
 	#{/if} #{/list} #{/if} #{if row%4!=0}
 </div>
 #{/if}
 
-
+</div>
 <!-- users activity -->
