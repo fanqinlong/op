@@ -52,7 +52,7 @@
 			<div class="mail-controls">
 				<input type="checkbox"/>
 			</div>
-			<div class="mail-title-bar {{#mail.isRead}}mail-read{{/mail.isRead}}">
+			<div class="mail-title-bar {{^mail.isRead}}mail-unread{{/mail.isRead}}">
 				<div class="mail-sender">{{sender.name}}</div>
 				<div class="mail-title">{{mail.title}}</div>
 				<div class="mail-time">{{mail.time}}</div>
@@ -79,6 +79,11 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
 	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			showInbox();
+		});
+	</script>
 </body>
 
 </html>

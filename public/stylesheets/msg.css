@@ -84,7 +84,7 @@ hr {
 
 /* 模块: 站内信 */
 .mail-top-bar {
-	padding: 0 22px;
+	margin: 0 22px;
 }
 
 .mail-list {
@@ -160,7 +160,6 @@ hr {
 
 .mail-title-bar {
 	cursor: pointer;
-	font-weight: bold;
 }
 
 .mail-sender {
@@ -179,8 +178,8 @@ hr {
 	color: #9F9F9F;
 }
 
-.mail-read {
-	font-weight: normal;
+.mail-unread {
+	font-weight: bold;
 }
 
 .mail-content-inbox {
@@ -202,4 +201,43 @@ hr {
 	top: 22px;
 	left: 50%;
 	text-align: center;
+}
+
+/* 模块: 系统通知 */
+.notification-top-bar {
+	margin: 0 22px;
+	height: 45px;
+	border-bottom: 1px solid #CCC;
+}
+
+#notificationList {
+	top: 70px;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+	margin: 0 22px;
+	position: absolute;
+}
+
+.notification-wrapper {
+	padding: 18px 0;
+}
+
+.notification-unread {
+	background-color: #F8F8F8;
+}
+
+.notification-title {
+	font-weight: bold;
+}
+
+.notification-content {
+	margin: 20px 0;
+	color: #7C7C7C;
+}
+
+.notification-time {
+	color: #AAA;
+	font-size: 12px;
 }

@@ -1,4 +1,5 @@
 import play.test.*;
+import play.i18n.Lang;
 import play.jobs.*;
 import models.*;
 import models.activity.Activity;
@@ -14,6 +15,7 @@ public class Bootstrap extends Job {
 			Fixtures.loadModels("init-data-activity.yml");
 		}
 
+		Lang.set("zh");
 	}
 
 }

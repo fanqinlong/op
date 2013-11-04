@@ -10,7 +10,7 @@ import play.db.jpa.Model;
  * 用户私信
  */
 @Entity
-public class Message extends Model {
+public class Mail extends Model {
 
 	public long toID;
 	public String toUserType;
@@ -21,14 +21,14 @@ public class Message extends Model {
 	public Date time;
 
 	// 消息属性
-	public Boolean isSystemMessage;
+	public Boolean isSystemMail;
 	public Boolean isStarred;
 	public Boolean isRead;
 	public Boolean isDeleted;
 
-	public Message(long toID, String toUserType, long fromID,
+	public Mail(long toID, String toUserType, long fromID,
 			String fromUserType, String title, String content, Date time,
-			Boolean isSystemMessage, Boolean isStarred, Boolean isRead,
+			Boolean isSystemMail, Boolean isStarred, Boolean isRead,
 			Boolean isDeleted) {
 		super();
 		this.toID = toID;
@@ -38,7 +38,7 @@ public class Message extends Model {
 		this.title = title;
 		this.content = content;
 		this.time = time;
-		this.isSystemMessage = isSystemMessage;
+		this.isSystemMail = isSystemMail;
 		this.isStarred = isStarred;
 		this.isRead = isRead;
 		this.isDeleted = isDeleted;

@@ -1,0 +1,9 @@
+# 系统通知模板
+# NT_TITLE_<tmpl_id>=通知标题
+# NT_CONTENT_<tmpl_id>=通知内容
+# 
+# tmpl_id 为 Notification 模型中的模板 ID
+
+# 这是一个栗子
+NT_TITLE_test=测试通知
+NT_CONTENT_test=测试测试 <a href="%s">%s</a>
