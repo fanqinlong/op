@@ -1,36 +1,30 @@
 #{extends 'main.html' /}
 #{set title:'changeProfile.html' /}
 
-      <link href=" @{'public/HeadPortrait/main.css'}" rel="stylesheet" type="text/css">
-        <link href="  @{'public/HeadPortrait/jquery.Jcrop.min.css'}" rel="stylesheet" type="text/css">
+      <link href=" @{'public/jcrop/css/main.css'}" rel="stylesheet" type="text/css">
+        <link href="  @{'public/jcrop/css/jquery.Jcrop.min.css'}" rel="stylesheet" type="text/css">
 
         <!-- add scripts -->
-        <script src="  @{'public/HeadPortrait/jquery.min.js'}"></script>
-        <script src=" @{'public/HeadPortrait/jquery.Jcrop.min.js'}"></script>
-        <script src="  @{'public/HeadPortrait/script.js'}"></script>
+        <script src="  @{'public/jcrop/js/jquery.min.js'}"></script>
+        <script src=" @{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
+        <script src="  @{'public/jcrop/js/script.js'}"></script>
  
 
 <div> 
 <div class="row" >
-<div class="span2"> 
+<div class="col-md-4"> 
 <h3>当前形象：</h3>
 </div>   
-<div class="span6"> 
+<div class="col-md-6"> 
 <img  src="${user.profile}" style="width:148px;" class="img-polaroid" />
 </div>
 </div>
-  
  
-<!--  <form action="@{SimpleUsers.doChangeProfile}" enctype = "multipart/form-data" method="post"	 > 
-<input type="file" name="profile" />
-<input type="hidden" name="id" value="${user.id}" />
-<input type="submit" value="上传" />
-</form>   -->
   <div class="row" >
-		<div class="span2">  
+		<div class="col-md-2">  
 		<h3>更换形象：</h3>
 		</div>   
-		<div class="span6">  
+		<div class="col-md-4">  
         <div class="demo">
          
  
@@ -69,15 +63,3 @@
         </div>
         </div>
      <div class="clearfix"></div>
-
-
-
-
-<!-- <div>
-当前形象：<img src="${user.profile}" style="width:48px;height:48px;" />更换：
-<form action="@{CSSAs.doChangeProfile}" enctype = "multipart/form-data" method="post"	 > 
-<input type="file" name="profile" /><span>#{error 'profile' /}</span>
-<input type="hidden" name="id" value="${user.id}" />
-<input type="submit" value="上传" />
-</form>
-</div> -->

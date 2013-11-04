@@ -1,18 +1,18 @@
 #{extends 'main.html' /}
 #{set title:'changeEmail.html' /}
 <div>
- 
+  <h4 id="title" >修改邮箱</h4>
 <form method="post" action="@{CSSAs.doChangeEmail}" class="form-horizontal "  accept-charset="${_response_encoding}">
-<div class="control-group">
+<div class="form-group">
  
- <label class="control-label">新邮箱</label>
- 	<div class="controls">
-<input type="text" name="email" value="${flash.email}" /><span>#{error 'email' /}</span>
+ <label class="col-sm-2 control-label">新邮箱</label>
+ 	<div class="col-sm-4">
+<input type="text" name="email" value="${flash.email}"  class=" form-control"/><span>#{error 'email' /}</span>
 </div>
 </div>
 <input type="hidden" name="id" value="${id}"  />
 <div class="control-group">
-   <div class="controls">
+   <div class="col-sm-offset-2 col-sm-10">
 <input type="submit" class="btn btn-info" value="更改"> 
 </div>
 </div>

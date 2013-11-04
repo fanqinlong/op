@@ -25,7 +25,7 @@ POST        		/simple/forgetpassword                                   SimpleUse
 GET                	/simple/resetpassword/{uuid}                             SimpleUsers.resetPasswordConfirmation
 POST        		/simple/resetpassword                                    SimpleUsers.doResetPassword
 GET                	/simple/changeprofile/{id}                               SimpleUsers.changeProfile
-POST        		/simple/changeprofile                                    SimpleUsers.doChangeProfile
+POST        		/simple/changeprofile/{id}/{f}/{left}/{top}/{height}/{width}                                    SimpleUsers.doChangeProfile
 GET                	/simple/infocenter                                       SimpleUsers.infoCenter
 GET                	/simple/myactivity                                       SimpleUsers.myActivity
 GET					/simple/edumail									 SimpleUsers.eduMail
@@ -53,7 +53,7 @@ POST        		/cssa/forgetpassword                                     CSSAs.dof
 GET                	/cssa/resetpassword/{uuid}                               CSSAs.resetPasswordConfirmation
 POST        		/cssa/resetpassword                                      CSSAs.doResetPassword
 GET                	/cssa/changeprofile/{id}                                 CSSAs.changeProfile
-POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
+POST        		/cssa/changeprofile/{id}/{f}/{left}/{top}/{height}/{width}										 CSSAs.doChangeProfile
 GET                	/cssa/infocenter/{id}                                    CSSAs.infoCenter
 GET                	/cssa/myactivity                                         CSSAs.myActivity
 
@@ -98,7 +98,7 @@ POST         		/pickup/updateStuSuccess								Pickup.updateStuSuccess
 #Activities
 GET                	/activity                                                Activities.index
 GET                	/activity/create                                         Activities.create
-POST        		/activity/next                                           Activities.next
+POST        		/activity/next/{id}/{f}/{left}/{top}/{height}/{width}	                                           Activities.next
 POST        		/activity/post                                           Activities.post
 GET                	/activity/detail/{id}                                    Activities.detail
 GET                	/activity/filtertype/{name}                              Activities.filterType

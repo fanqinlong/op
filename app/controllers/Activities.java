@@ -74,13 +74,14 @@ public class Activities extends Application {
 		render();
 	}
 
-	public static void next(File poster, int left, int top, int height,
-			int width) {
+	public static void next(File f, int left, int top, int height,Long id ,int width) {
+	 
+		
 		String path = "public/images/poster/" + Codec.UUID()
-				+ poster.getName().substring(poster.getName().lastIndexOf("."));
-		Images.crop(poster, poster, left, top, height, width);
-		Images.resize(poster, poster, 300, 300, true);
-		Files.copy(poster, Play.getFile(path));
+				+ f.getName().substring(f.getName().lastIndexOf("."));
+		Images.crop(f, f, left, top, height, width);
+		Images.resize(f, f, 300, 300, true);
+		Files.copy(f, Play.getFile(path));
 		session.put("posterPath", path);
 		flash.success("请填写活动详情。");
 		List<Type> t = Type.find("order by sequence asc").fetch();

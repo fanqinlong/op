@@ -1,45 +1,36 @@
 #{extends 'main.html' /} #{set title:'发布海报' /} 
-#{set 'Styles'} #{stylesheet 'jquery.Jcrop.min.css' /} #{/set}
- 
+  
+      <link href=" @{'public/jcrop/css/main.css'}" rel="stylesheet" type="text/css">
+        <link href="  @{'public/jcrop/css/jquery.Jcrop.min.css'}" rel="stylesheet" type="text/css">
+
+       
  
 <h3>上传海报：</h3>
 #{form @next(),method:'POST',enctype:'multipart/form-data'}
-<input type="hidden" id="x1" name="left">
-<input type="hidden" id="y1" name="top">
-<input type="hidden" id="x2" name="height">
-<input type="hidden" id="y2" name="width">
-<input type="hidden" name="id" value="${id}" />
+  <input type="hidden" id="x1" name="left">
+                    <input type="hidden" id="y1" name="top">
+                    <input type="hidden" id="x2" name="height">
+                    <input type="hidden" id="y2" name="width">
+					<input type="hidden" name="id" value="${id}" />
+                        <h4>第一步:请选择海报</h4>
+                    <div><input type="file"  name="f" id="image_file" onchange="fileSelectHandler()"></div>
 
+                    <div class="error"></div>
 
-
-
-<h5>第一步:请选择海报</h5>
-<div>
-	<input type="file" class="btn btn-primary " style="width:97px; height:37px;" name="poster" id="image_file" onchange="fileSelectHandler()">
-</div>
-
-<div class="error"></div>
-
-
-<h5>第二步:请对海报进行剪切</h5>
-<img id="preview">
-
-<div class="info hide">
-	<label>File size</label>
-	<input type="text" id="filesize" name="filesize">
-	<label>Type</label>
-	<input type="text" id="filetype" name="filetype">
-	<label>Image dimension</label>
-	<input type="text" id="filedim" name="filedim">
-	<label>W</label>
-	<input type="text" id="w" name="w">
-	<label>H</label>
-	<input type="text" id="h" name="h">
-</div>
-<br />
-
-<input type="submit" class="btn btn-primary " value="上传">
-
-#{/form} #{set 'Scripts'} 
-#{script 'jquery.Jcrop.script.js' /} 
-#{script 'jquery.Jcrop.min.js' /} #{/set}
+                    <div class="step2">
+                      <h4>第二步:请对海报进行剪切</h4>
+                        <img id="preview" >
+ 				
+                        <div class="info hide" >
+                            <label>File size</label> <input type="text" id="filesize" name="filesize">
+                            <label>Type</label> <input type="text" id="filetype" name="filetype">
+                            <label>Image dimension</label> <input type="text" id="filedim" name="filedim">
+                            <label>W</label> <input type="text" id="w" name="w">
+                            <label>H</label> <input type="text" id="h" name="h">
+                        </div>
+						<br/>
+						 
+                        <input type="submit" value="上传">
+                    </div>
+               
+#{/form}  

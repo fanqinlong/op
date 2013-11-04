@@ -381,12 +381,12 @@ public class SimpleUsers extends Application {
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File poster, int left, int top,
+	public static void doChangeProfile(Long id, File f, int left, int top,
 			int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
-		Images.crop(poster, poster, left, top, height, width);
-		Images.resize(poster, poster, 150, 150,true);
-		Files.copy(poster, Play.getFile(path));
+		Images.crop(f,f, left, top, height, width);
+		Images.resize(f, f, 150, 150,true);
+		Files.copy(f, Play.getFile(path));
 
 		((SimpleUser) SimpleUser.findById(id)).changeProfile(path);
 		flash.success("头像更改成功");

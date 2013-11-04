@@ -20,6 +20,9 @@ public class Bootstrap extends Job {
 		if(School.count() == 0){
 			Fixtures.loadModels("init-data-school.yml");
 		}
+		if(Wel.count() == 0){
+			Fixtures.loadModels("init-data-charity.yml");
+		}
 
 		Lang.set("zh");
 	}

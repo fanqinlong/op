@@ -4,19 +4,19 @@
 <form action="@{CSSAs.doUpdateProfile}" method="POST" class="form-horizontal " accept-charset="${_response_encoding}">
 	
 	<p>
-	<div class="control-group">
-		<label class="control-label">官方主页</label>
-		<div class="controls">
-		<input type="text" name="user.homepage" value="${user.homepage}"  />
+	<div class="form-group">
+		<label class="col-sm-2 control-label">官方主页</label>
+		<div class="col-sm-4">
+		<input type="text" name="user.homepage" value="${user.homepage}" class=" form-control" />
 		 <span class="error">#{error 'homepage' /}</span>
 		</div>
 	</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label class="control-label">成员人数</label>
-		<div class="controls">
-		<select name="user.peopleNumber">
+	<div class="form-group">
+		<label class="col-sm-2 control-label">成员人数</label>
+		<div class="col-sm-4">
+		<select name="user.peopleNumber" class=" form-control">
 		<option ${user.peopleNumber=="1-20"?"selected":""} value="1-20">1-20</option>
 		
 		<option ${user.peopleNumber=="20-50"?"selected":""} value="20-50">20-50</option>
@@ -30,10 +30,10 @@
 	</div>
 	</p>
 	<p>
-	<div class="control-group">
-		<label class="control-label">组织简介</label>
-		<div class="controls">
-		<input type="text" name="user.selfIntro" value="${user.selfIntro}" />
+	<div class="form-group">
+		<label class="col-sm-2 control-label">组织简介</label>
+		<div class="col-sm-4">
+		<input type="text" name="user.selfIntro" value="${user.selfIntro}" class=" form-control" />
 		<span class="error">#{error 'selfIntro' /}</span>
 		</div>
 	</div>
@@ -41,22 +41,23 @@
 
 
 	<p>
-	<div class="control-group">
-		<label class="control-label">联系方式</label>
-		<div class="controls">
-		<input type="text" name="user.contract" value="${user.contract}"  />
+	<div class="form-group">
+		<label class="col-sm-2 control-label">联系方式</label>
+		<div class="col-sm-4">
+		<input type="text" name="user.contract" value="${user.contract}"  class=" form-control" />
 		<span class="error">#{error 'contract' /}</span>
 		</div>
 	</div>
 	</p>
 	<input type="hidden" name="user.id" value="${user.id}" />
-	<p class="buttons">
-	<div class="control-group">
-	<div class="controls">
+ 
+	<div class="form-group">
+	<label class="col-sm-2 control-label"> </label>
+	<div class="col-sm-6">
 		<input type="submit" class="btn btn-info" value="更新" />
 		 </div>
 		 </div>
-	</p>
+ 
 		
 </form>
 </div>

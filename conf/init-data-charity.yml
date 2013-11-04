@@ -1,7 +1,6 @@
 #WEL
 charity.Wel(liu):
     title: There is no public welfare activities
-    time: 2013-11-11
     generalize: There is no public welfare activities
     f: public/images/user_default.jpg
     content: There is no public welfare activities
