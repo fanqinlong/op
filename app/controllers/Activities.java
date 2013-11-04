@@ -53,12 +53,12 @@ public class Activities extends Application {
 		List<Activity> a;
 		if (isWeekend) {
 			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? order by isTop desc,isHot desc,isChecked desc,views desc",
 							deadline, isWeekend, "%" + type + "%",
 							"%" + scope + "%").fetch();
 		} else {
 			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and   a.type.name like ? and a.scope.scope like ? order by postAt,isTop,isHot,views desc",
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and   a.type.name like ? and a.scope.scope like ? order by isTop desc,isHot desc,isChecked desc,views desc",
 							deadline, "%" + type + "%", "%" + scope + "%")
 					.fetch();
 		}

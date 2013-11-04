@@ -112,7 +112,7 @@
 <div class="right">
 	<div class="right-top">
 		<a href="@{Activities.Create}" class="btn btn-info faqi">
-			<img src="/public/img/guoqi.png"> 发起活动
+			<i class=" icon-flag">发起活动</i> 
 		</a>
 	</div>
 	<div class="map">
@@ -133,7 +133,6 @@
 			<small class="name">${publisher_name}</small>
 		</div>
 	</div>
-	<br />
 	<div class="numbers">
 		<h4 class="activity-title4">活动成员</h4>
 		#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="guanzhuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="guanzhuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>

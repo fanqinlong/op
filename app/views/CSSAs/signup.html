@@ -14,8 +14,8 @@
 		<div class="controls">
 			<select name="name"  >
 					<option selected>请选择：</option> 
-					#{list items:sch,as:'at'}
-						<option value="${at.name}" ${flash.name==at.name?"selected":""}>${at.name}</option>
+					#{list items:schools,as:'school'}
+						<option value="${school.name}">${school.name}</option>
 					 #{/list}
 			</select> 
 		</div>
