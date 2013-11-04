@@ -108,10 +108,6 @@ public class Messaging extends Application {
 		render();
 	}
 
-	public static void deleteNotification(Long notificationID) {
-
-	}
-
 	public static void announcements() {
 		// TODO-zhao: NYI
 		render();

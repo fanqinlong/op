@@ -169,7 +169,6 @@ GET 			/msg/settings                                           Messaging.setting
 POST 			/msg/sendMail                                           Messaging.sendMail
 POST			/msg/markRead											Messaging.markRead
 POST			/msg/trashMail											Messaging.trashMail
-POST			/msg/deleteNotification									Messaging.deleteNotification
 
 GET 			/msg/ajax/inbox                                         Messaging.fetchInbox
 GET 			/msg/ajax/outbox                                        Messaging.fetchOutbox
