@@ -63,7 +63,8 @@ public class Application  extends Controller {
 		String userType = session.get("usertype");
 		String userID = session.get("logged");
 		if (userID != null) {
-			renderArgs.put("msgCount", Messaging.getMessageCount(userType, Long.valueOf(userID)));
+			renderArgs.put("mailCount", Messaging.getMailCount(userType, Long.valueOf(userID)));
+			renderArgs.put("notificationCount", Messaging.getNotificationCount(userType, Long.valueOf(userID)));
 		}
 	}
 }

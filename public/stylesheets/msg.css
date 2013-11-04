@@ -84,7 +84,7 @@ hr {
 
 /* 模块: 站内信 */
 .mail-top-bar {
-	padding: 0 22px;
+	margin: 0 22px;
 }
 
 .mail-list {
@@ -202,4 +202,21 @@ hr {
 	top: 22px;
 	left: 50%;
 	text-align: center;
+}
+
+/* 模块: 系统通知 */
+.notification-top-bar {
+	margin: 0 22px;
+	height: 45px;
+	border-bottom: 1px solid #CCC;
+}
+
+#notificationList {
+	top: 70px;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+	position: absolute;
+	padding: 0 22px;
 }

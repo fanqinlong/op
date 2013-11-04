@@ -2,10 +2,6 @@ $.fn.isVisible = function() {
 	return $.expr.filters.visible(this[0]);
 };
 
-$(document).ready(function() {
-	showInbox();
-});
-
 var currentPage;
 var selectedMails = [];
 
@@ -19,7 +15,7 @@ function showInbox() {
 		$("#outboxTabBtn").removeClass("selected");
 		$("#mailList").empty();
 
-		data.msg.forEach(function(mail) {
+		data.payload.forEach(function(mail) {
 			var template = $("#inboxItemTmpl").html();
 			var mailObj = {
 				"mail" : mail[0],
@@ -41,7 +37,7 @@ function showInbox() {
 			$("#mailList").append(mailDiv);
 		});
 
-		window.parent.updateMessageCount(data.unread);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 	});
 }
 
@@ -55,7 +51,7 @@ function showOutbox() {
 		$("#outboxTabBtn").addClass("selected");
 		$("#mailList").empty();
 
-		data.msg.forEach(function(mail) {
+		data.payload.forEach(function(mail) {
 			var template = $("#outboxItemTmpl").html();
 			var mailObj = {
 				"mail" : mail[0],
@@ -68,7 +64,7 @@ function showOutbox() {
 			$("#mailList").append(mailDiv);
 		});
 
-		window.parent.updateMessageCount(data.unread);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 	});
 }
 
@@ -80,7 +76,7 @@ function showMail(mailObj, mailDiv) {
 				"selectedMails" : [ mailObj.mail.id ]
 			}, function(data) {
 				// piggyback
-				window.parent.updateMessageCount(data.unread);
+				window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 			});
 		}
 		$(mailDiv).children(".mail-content-inbox, .mail-content-outbox").html(mailObj.mail.content).show(100);
@@ -102,7 +98,7 @@ function trash() {
 		"selectedMails" : selectedMails
 	}, function(data) {
 		// piggyback
-		window.parent.updateMessageCount(data.unread);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 		showInbox();
 	});
 }
@@ -112,7 +108,7 @@ function markRead() {
 		"selectedMails" : selectedMails
 	}, function(data) {
 		// piggyback
-		window.parent.updateMessageCount(data.unread);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 		showInbox();
 	});
 }
@@ -120,4 +116,16 @@ function markRead() {
 function updateBottomBar() {
 	currentPage == "inbox" ? $("#bottomBarControls").show() : $("#bottomBarControls").hide();
 	$("#trashBtn, #markReadBtn").prop("disabled", selectedMails.length == 0);
+}
+
+function showNotifications() {
+	$.getJSON("/msg/ajax/notifications", function(data) {
+		data.payload.forEach(function(notification) {
+			var template = $("#notificationTmpl").html();
+			var notificationDiv = $("<div/>").html(Mustache.to_html(template, notification)).contents();
+			$("#notificationList").append(notificationDiv);
+		});
+
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
+	});
 }

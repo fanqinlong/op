@@ -1,11 +1,13 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
 
-import models.messaging.Message;
+import models.messaging.Mail;
+import models.messaging.Notification;
 import models.users.SimpleUser;
 import play.cache.Cache;
 import play.db.jpa.JPA;
@@ -48,51 +50,52 @@ public class Messaging extends Application {
 	}
 
 	public static void sendMail(String userType, long userID, String title, String content) {
-		setMessageCount(userType, userID, getMessageCount(userType, userID) + 1);
+		setMailCount(userType, userID, getMailCount(userType, userID) + 1);
 
-		Message msg = new Message(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
+		Mail mail = new Mail(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
 			false, false, false);
-		msg.save();
+		mail.save();
 
 		flash.success("消息已发送");
 		mail();
 	}
-	
+
 	public static void markRead(List<Long> selectedMails) {
-		for (Long msgID: selectedMails) {
-			Message msg = Message.find("toID=? and toUserType=? and id=?", getMyID(), getMyUserType(), msgID).first();
-			if (msg != null
-				&& !msg.isRead) {
-				setMessageCount(getMyUserType(), getMyID(), getMessageCount(getMyUserType(), getMyID()) - 1);
-				msg.isRead = true;
-				msg.save();
+		for (Long mailID : selectedMails) {
+			Mail mail = Mail.find("toID=? and toUserType=? and id=?", getMyID(), getMyUserType(), mailID).first();
+			if (mail != null
+				&& !mail.isRead) {
+				setMailCount(getMyUserType(), getMyID(), getMailCount(getMyUserType(), getMyID()) - 1);
+				mail.isRead = true;
+				mail.save();
 			}
 		}
-		long msgCount = getMessageCount(getMyUserType(), getMyID());
-		if (msgCount < 0) {
-			msgCount = 0;
+		long mailCount = getMailCount(getMyUserType(), getMyID());
+		if (mailCount < 0) {
+			mailCount = 0;
 		}
-		PiggybackPacket pp = new PiggybackPacket(null, msgCount);
+		PiggybackPacket pp = new PiggybackPacket(null, mailCount, getNotificationCount(getMyUserType(), getMyID()));
 		renderJSON(pp);
 	}
-	
+
 	public static void trashMail(List<Long> selectedMails) {
-		for (Long msgID: selectedMails) {
-			Message msg = Message.find("toID=? and toUserType=? and id=? and isDeleted=?", getMyID(), getMyUserType(), msgID, false).first();
-			if (msg != null
-				&& !msg.isDeleted) {
-				if (!msg.isRead) {
-					setMessageCount(getMyUserType(), getMyID(), getMessageCount(getMyUserType(), getMyID()) - 1);
+		for (Long mailID : selectedMails) {
+			Mail mail = Mail.find("toID=? and toUserType=? and id=? and isDeleted=?", getMyID(), getMyUserType(),
+				mailID, false).first();
+			if (mail != null
+				&& !mail.isDeleted) {
+				if (!mail.isRead) {
+					setMailCount(getMyUserType(), getMyID(), getMailCount(getMyUserType(), getMyID()) - 1);
 				}
-				msg.isDeleted = true;
-				msg.save();
+				mail.isDeleted = true;
+				mail.save();
 			}
 		}
-		long msgCount = getMessageCount(getMyUserType(), getMyID());
-		if (msgCount < 0) {
-			msgCount = 0;
+		long mailCount = getMailCount(getMyUserType(), getMyID());
+		if (mailCount < 0) {
+			mailCount = 0;
 		}
-		PiggybackPacket pp = new PiggybackPacket(null, msgCount);
+		PiggybackPacket pp = new PiggybackPacket(null, mailCount, getNotificationCount(getMyUserType(), getMyID()));
 		renderJSON(pp);
 	}
 
@@ -104,11 +107,17 @@ public class Messaging extends Application {
 		render();
 	}
 
+	public static void deleteNotification(Long notificationID) {
+
+	}
+
 	public static void announcements() {
+		// TODO-zhao: NYI
 		render();
 	}
 
 	public static void settings() {
+		// TODO-zhao: NYI
 		render();
 	}
 
@@ -117,14 +126,15 @@ public class Messaging extends Application {
 		Query query = JPA
 			.em()
 			.createQuery(
-				"from Message m, SimpleUser u where m.toID=(:toID) and m.toUserType=(:toUserType) and m.isDeleted=(:isDeleted) and u.id=m.fromID order by m.time desc")
+				"from Mail m, SimpleUser u where m.toID=(:toID) and m.toUserType=(:toUserType) and m.isDeleted=(:isDeleted) and u.id=m.fromID order by m.time desc")
 			.setParameter("toID", getMyID())
 			.setParameter("toUserType", getMyUserType())
 			.setParameter("isDeleted", false);
 
 		PiggybackPacket pp = new PiggybackPacket(
 			query.getResultList(),
-			getMessageCount(getMyUserType(), getMyID()));
+			getMailCount(getMyUserType(), getMyID()),
+			getNotificationCount(getMyUserType(), getMyID()));
 
 		renderText(inboxJSONSerializer.toJson(pp));
 	}
@@ -133,56 +143,110 @@ public class Messaging extends Application {
 		Query query = JPA
 			.em()
 			.createQuery(
-				"from Message m, SimpleUser u where m.fromID=(:fromID) and m.toUserType=(:fromUserType) and u.id=m.toID order by m.time desc")
+				"from Mail m, SimpleUser u where m.fromID=(:fromID) and m.toUserType=(:fromUserType) and u.id=m.toID order by m.time desc")
 			.setParameter("fromID", getMyID())
 			.setParameter("fromUserType", getMyUserType());
 
 		PiggybackPacket pp = new PiggybackPacket(
 			query.getResultList(),
-			getMessageCount(getMyUserType(), getMyID()));
+			getMailCount(getMyUserType(), getMyID()),
+			getNotificationCount(getMyUserType(), getMyID()));
 
 		renderText(outboxJSONSerializer.toJson(pp));
 	}
 
+	public static void test() {
+		addNotification(getMyUserType(), getMyID(), "test", new ArrayList<String>());
+	}
+	
+	public static void kc() {
+		Cache.clear();
+	}
+
+	static void addNotification(String userType, long userID, String notificationTmplID, ArrayList<String> params) {
+		Notification notification = new Notification(userID, userType, notificationTmplID, params, new Date(), false,
+			false);
+		notification.create();
+		setNotificationCount(getMyUserType(), getMyID(), getNotificationCount(getMyUserType(), getMyID()) + 1);
+	}
+
 	public static void fetchNotifications() {
-		renderJSON(Message.find("toID=? and toUserType=? and isSystemMessage=1", getMyID(), getMyUserType()).fetch());
+		List<Notification> notifications = Notification.find(
+			"userID=? and userType=? and isDeleted=? order by time desc", getMyID(), getMyUserType(), false).fetch();
+
+		for (Notification n : notifications) {
+			if (!n.isRead) {
+				n.isRead = true;
+				n.save();
+				setNotificationCount(getMyUserType(), getMyID(), getNotificationCount(getMyUserType(), getMyID()) - 1);
+			}
+		}
+
+		PiggybackPacket pp = new PiggybackPacket(notifications,
+			getMailCount(getMyUserType(), getMyID()),
+			getNotificationCount(getMyUserType(), getMyID()));
+
+		renderText(notificationJSONSerializer.toJson(pp));
 	}
 
 	public static void fetchAnnouncements() {
+		// TODO-zhao: NYI
 	}
 
 	// 缓存
 	// TODO-zhao: CAS？
-	private static final String MSG_CACHE_PREFIX = "msgCount_";
+	private static final String MAIL_CACHE_PREFIX = "mailCount_";
+	private static final String NOTIFICATION_CACHE_PREFIX = "notificationCount_";
 
-	static long getMessageCount(String userType, long userID) {
+	static long getMailCount(String userType, long userID) {
 		long count;
 
-		if (Cache.get(MSG_CACHE_PREFIX + userType + "_" + userID) == null) {
-			count = Message.count("toID = ? and toUserType=? and isRead=? and isDeleted=?", userID, userType, false, false);
-
-			Cache.set(MSG_CACHE_PREFIX + userType + "_" + userID, count);
+		if (Cache.get(MAIL_CACHE_PREFIX + userType + "_" + userID) == null) {
+			count = Mail.count("toID=? and toUserType=? and isRead=? and isDeleted=?", userID, userType, false,
+				false);
+			Cache.set(MAIL_CACHE_PREFIX + userType + "_" + userID, count);
 		} else {
-			count = Cache.get(MSG_CACHE_PREFIX + userType + "_" + userID, Long.class);
+			count = Cache.get(MAIL_CACHE_PREFIX + userType + "_" + userID, Long.class);
 		}
 
 		return count;
 	}
 
-	static void setMessageCount(String userType, long userID, long count) {
-		Cache.set(MSG_CACHE_PREFIX + userType + "_" + userID, count);
+	static void setMailCount(String userType, long userID, long count) {
+		Cache.set(MAIL_CACHE_PREFIX + userType + "_" + userID, count);
+	}
+
+	static long getNotificationCount(String userType, long userID) {
+		long count;
+
+		if (Cache.get(NOTIFICATION_CACHE_PREFIX + userType + "_" + userID) == null) {
+			count = Notification.count("userID=? and userType=? and isRead=? and isDeleted=?", userID, userType, false,
+				false);
+			Cache.set(NOTIFICATION_CACHE_PREFIX + userType + "_" + userID, count);
+		} else {
+			count = Cache.get(NOTIFICATION_CACHE_PREFIX + userType + "_" + userID, Long.class);
+		}
+
+		return count;
+	}
+
+	static void setNotificationCount(String userType, long userID, long count) {
+		Cache.set(NOTIFICATION_CACHE_PREFIX + userType + "_" + userID, count);
 	}
 
 	// 捎带更新消息数
 	private static class PiggybackPacket {
 		@SuppressWarnings("unused")
-		private Object msg;
+		private Object payload;
 		@SuppressWarnings("unused")
-		private long unread;
+		private long unreadMail;
+		@SuppressWarnings("unused")
+		private long unreadNotification;
 
-		public PiggybackPacket(Object msg, long unread) {
-			this.msg = msg;
-			this.unread = unread;
+		public PiggybackPacket(Object payload, long unreadMail, long unreadNotification) {
+			this.payload = payload;
+			this.unreadMail = unreadMail;
+			this.unreadNotification = unreadNotification;
 		}
 	}
 
@@ -200,13 +264,15 @@ public class Messaging extends Application {
 	private static Gson outboxJSONSerializer = new GsonBuilder().setExclusionStrategies(new ExclusionStrategy() {
 		public boolean shouldSkipField(FieldAttributes f) {
 			return (f.getDeclaringClass() == SimpleUser.class && !f.getName().equals("name"))
-				|| (f.getDeclaringClass() == Message.class && f.getName().equals("isRead"))
-				|| (f.getDeclaringClass() == Message.class && f.getName().equals("isStarred"))
-				|| (f.getDeclaringClass() == Message.class && f.getName().equals("isDeleted"));
+				|| (f.getDeclaringClass() == Mail.class && f.getName().equals("isRead"))
+				|| (f.getDeclaringClass() == Mail.class && f.getName().equals("isStarred"))
+				|| (f.getDeclaringClass() == Mail.class && f.getName().equals("isDeleted"));
 		}
 
 		public boolean shouldSkipClass(Class<?> c) {
 			return false;
 		}
 	}).create();
+
+	private static Gson notificationJSONSerializer = new GsonBuilder().create();
 }
