@@ -176,9 +176,6 @@ GET 			/msg/ajax/outbox                                        Messaging.fetchOu
 GET 			/msg/ajax/notifications                                 Messaging.fetchNotifications
 GET 			/msg/ajax/announcements                                 Messaging.fetchAnnouncements
 
-GET		/msg/test				Messaging.test
-GET		/msg/kc					Messaging.kc
-
 
 # Ignore favicon requests
 GET 			/favicon.ico 											404

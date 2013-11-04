@@ -22,8 +22,10 @@
 	
 	<!-- 模板 -->
 	<script id="notificationTmpl">
-		<div class="notification-wrapper">
-			{{tmplID}}
+		<div class="notification-wrapper {{^isRead}}notification-unread{{/isRead}}">
+			<div class="notification-title">{{title}}</div>
+			<div class="notification-content">{{{content}}}</div>
+			<div class="notification-time">{{time}}</div>
 		</div>
 		<hr/>
 	</script>

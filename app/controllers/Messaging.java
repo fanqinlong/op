@@ -11,6 +11,7 @@ import models.messaging.Notification;
 import models.users.SimpleUser;
 import play.cache.Cache;
 import play.db.jpa.JPA;
+import play.i18n.Messages;
 import play.mvc.Before;
 
 import com.google.gson.ExclusionStrategy;
@@ -155,14 +156,6 @@ public class Messaging extends Application {
 		renderText(outboxJSONSerializer.toJson(pp));
 	}
 
-	public static void test() {
-		addNotification(getMyUserType(), getMyID(), "test", new ArrayList<String>());
-	}
-	
-	public static void kc() {
-		Cache.clear();
-	}
-
 	static void addNotification(String userType, long userID, String notificationTmplID, ArrayList<String> params) {
 		Notification notification = new Notification(userID, userType, notificationTmplID, params, new Date(), false,
 			false);
@@ -173,20 +166,28 @@ public class Messaging extends Application {
 	public static void fetchNotifications() {
 		List<Notification> notifications = Notification.find(
 			"userID=? and userType=? and isDeleted=? order by time desc", getMyID(), getMyUserType(), false).fetch();
+		
+		for (Notification n : notifications) {
+			// 取模板内容
+			n.title = Messages.get("NT_TITLE_" + n.tmplID);
+			n.content = Messages.get("NT_CONTENT_" + n.tmplID, n.params.toArray());
+		}
+		
+		PiggybackPacket pp = new PiggybackPacket(notifications,
+			getMailCount(getMyUserType(), getMyID()), 0);
 
+		setNotificationCount(getMyUserType(), getMyID(), 0);
+		
+		String response = notificationJSONSerializer.toJson(pp); 
+		
 		for (Notification n : notifications) {
 			if (!n.isRead) {
 				n.isRead = true;
 				n.save();
-				setNotificationCount(getMyUserType(), getMyID(), getNotificationCount(getMyUserType(), getMyID()) - 1);
 			}
 		}
-
-		PiggybackPacket pp = new PiggybackPacket(notifications,
-			getMailCount(getMyUserType(), getMyID()),
-			getNotificationCount(getMyUserType(), getMyID()));
-
-		renderText(notificationJSONSerializer.toJson(pp));
+		
+		renderText(response);
 	}
 
 	public static void fetchAnnouncements() {

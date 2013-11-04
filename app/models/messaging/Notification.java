@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import play.db.jpa.Model;
 
@@ -34,4 +35,10 @@ public class Notification extends Model {
 		this.isRead = isRead;
 		this.isDeleted = isDeleted;
 	}
+	
+	// 运行时参数
+	@Transient
+	public String title;
+	@Transient
+	public String content;
 }

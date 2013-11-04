@@ -71,7 +71,7 @@ function showOutbox() {
 function showMail(mailObj, mailDiv) {
 	if (!$(mailDiv).children(".mail-content-inbox, .mail-content-outbox").isVisible()) {
 		if (mailObj.mail.isRead == false) {
-			$(mailDiv).find(".mail-title-bar").addClass("mail-read");
+			$(mailDiv).find(".mail-title-bar").removeClass("mail-unread");
 			$.post("/msg/markRead", {
 				"selectedMails" : [ mailObj.mail.id ]
 			}, function(data) {
