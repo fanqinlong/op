@@ -114,7 +114,7 @@ public class SimpleUsers extends Application {
 		} else {
 			user.save();
 			flash.success("Welcome %s !请验证EDU邮箱。", user.name);
-			render("@edumail");
+			render("@eduMail");
 		}
 
 	}
@@ -396,11 +396,10 @@ public class SimpleUsers extends Application {
 
 	public static void infoCenter() {
 		long id = Long.parseLong(session.get("logged"));
-		
+		//List<Activity> activities = Activity.find("select a from Activity a join a.joiner as j join a.liker as l join a.comment as c where a. order by j.joinedAt desc,l.likedAt desc, c.publishedAt desc").fetch();
 		SimpleUser user = SimpleUser.findById(id);
-		List<Ques> ques = Ques.find("userid = ?", id).fetch();
 		notFoundIfNull(user);
-		render(user, ques);
+		render(user);
 	}
 
 	public static void publishedActivity() {

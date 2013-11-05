@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -31,6 +32,10 @@ public class Activities extends Application {
 	public static void isLogged() {
 		if (Utils.getUserType() == null) {
 			SimpleUsers.login();
+		}else{
+			SimpleUser user = SimpleUser.findById(Utils.getUserId());
+			if(user==null)
+				SimpleUsers.login();
 		}
 	}
 
@@ -240,6 +245,14 @@ public class Activities extends Application {
 		l.activity = a;
 		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 		l.save();
+		ArrayList<String> s = new ArrayList();
+		s.add("11");
+		s.add("22");
+		if(a.publisherCSSA==null){
+			Messaging.addNotification("simple", a.publisherSU.id, "ddd", s);
+			}else{
+				Messaging.addNotification("cssa", a.publisherCSSA.id, "ddd", s);
+			}
 		detail(aid);
 	}
 
@@ -272,6 +285,15 @@ public class Activities extends Application {
 		c.publisher = user;
 		c.publishedAt = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		c.save();
+		ArrayList<String> s = new ArrayList();
+		s.add("11");
+		s.add("22");
+		
+		if(a.publisherCSSA==null){
+		Messaging.addNotification("simple", a.publisherSU.id, "ddd", s);
+		}else{
+			Messaging.addNotification("cssa", a.publisherCSSA.id, "ddd", s);
+		}
 		detail(activity);
 	}
 
