@@ -1,8 +1,8 @@
 #{extends 'main.html' /} #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
-<div>
-	<div class="left-div" style="width: 70%; float: left;">
+<div class="row">
+	<div class="left-div col-md-8" >
 
-		<div class="activity-pic" style="width: 300px; height: 300px; float: left;">
+		<div class="activity-pic" style="width: 300px;float: left;margin-right: 20px;">
 			<img src="${a.poster}">
 		</div>
 
@@ -17,41 +17,41 @@
 				#{if isAllown || isOwner}
 				<div class="detail ">
 					<a class="pic-leftTitle">地点：</a>
-					<a>${a.location}</a>
+					<span>${a.location}</span>
 				</div>
 				#{/if}
 				<div class="detail">
 					<a class="pic-leftTitle">费用：</a>
-					<a>${a.money}$</a>
+					<span>${a.money}$</a>
 				</div>
 				<div class="detail">
 					<a class="pic-leftTitle">参加者男女比例</a>
 					%{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list}
-					<a>${female}</a>
+					<span>${female}</span>
 					:
-					<a>${male}</a>
+					<span>${male}</span>
 				</div>
 				<div class="detail">
 					<a class="pic-leftTitle">人数：</a>
-					<a>${a.scope.scope}</a>
+					<span>${a.scope.scope}</span>
 				</div>
 				<div class="detail">
 					<a class="pic-leftTitle">类型：</a>
-					<a>${a.type.name}</a>
+					<span>${a.type.name}</span>
 				</div>
 				<div class="detail">
 					<a class="pic-leftTitle">发起人：</a>
-					<a>${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</a>
+					<span>${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</span>
 				</div>
 				#{if isAllown || isOwner}
 				<div class="detail">
 					<a class="pic-leftTitle">联系方式：</a>
-					<a>${a.contract}</a>
+					<span>${a.contract}</span>
 				</div>
 				#{/if}
 				<div class="detail">
 					<a class="pic-leftTitle">是否通过审核：</a>
-					<a>${a.isChecked?"是":"否"}</a>
+					<span>${a.isChecked?"是":"否"}</span>
 				</div>
 				#{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
 				<div>
@@ -66,6 +66,8 @@
 					#{if a.isOpen!=true}
 					<a class="btn " href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 					#{/if}
+					
+					
 					
 					
 					
@@ -85,58 +87,25 @@
 										<input type="submit" value="提交" class="btn btn-success" />
 									</form>
 								</div>
-		</div>
+							</div>
 							<!-- /.modal-content -->
 						</div>
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
 					
-				</div>
+				 
 				
 			</div>
 			#{/else}
 		
 		</div>
+			<h3>活动介绍</h3><p style="text-indent:2em;width:500px;">${a.intro}</p>
+									 
 	</div>
-
-	<div class="activity-introduction ac_wid" >
-										<h3>活动介绍</h3>
-										<p style="text-indent:2em;">${a.intro}</p>
-									</div>
-
-</div>
-<div class="" style="">
-
-	<hr />
-	%{String date = new Date().format("yyyy-MM-dd")}%
-	#{if date > a.time.last().date}
-	<div id="comment">
-	<div>
-		#{form @comment(), method:'get',class:'form-horizontal'} 参加了一次神奇的活动之后，我想说：
-		<br />
-		标签：
-		<input type="text" name="c.tag" placeholder="好玩、热闹..." />
-		<br />
-		评论：
-		<input type="hidden" name="activity" value="${a.id}" />
-		<textarea rows="5" cols="30" name="c.comment"></textarea>
-		<br />
-		<input type="submit" value="晒晒">
-		#{/form}
-		</div>
-<div>
-
-<div>
-#{list items:a.comment,as:'comment'}
-<img src=${comment.publisher.profile} />${comment.publisher.name}${comment.comment}${comment.tag}${comment.publishedAt}
-#{/list}
-</div>
-	</div>
-
-</div>
-#{/if}
-<div class="right">
+ </div>	
+ 
+<div class="col-md-4">
 
 	<div class="right-top">
 		<a href="@{Activities.Create}" class="btn btn-info faqi">
@@ -173,5 +142,43 @@
 
 	</div>
 </div>
-<div style="clear: both"></div>
+ 
 </div>
+ 
+	
+</div>
+
+<div>
+
+ 	 
+					
+	%{String date = new Date().format("yyyy-MM-dd")}%
+	#{if date > a.time.last().date}
+	<div id="comment">
+	<div>
+		#{form @comment(), method:'get',class:'form-horizontal'} 参加了一次神奇的活动之后，我想说：
+		<br />
+		标签：
+		<input type="text" name="c.tag" placeholder="好玩、热闹..." />
+		<br />
+		评论：
+		<input type="hidden" name="activity" value="${a.id}" />
+		<textarea rows="5" cols="30" name="c.comment"></textarea>
+		<br />
+		<input type="submit" value="晒晒">
+		#{/form}
+		</div>
+<div>
+
+<div>
+#{list items:a.comment,as:'comment'}
+<img src=${comment.publisher.profile} />${comment.publisher.name}${comment.comment}${comment.tag}${comment.publishedAt}
+#{/list}
+</div>
+	</div>
+
+</div>
+#{/if}
+ 
+ </div>
+ 
