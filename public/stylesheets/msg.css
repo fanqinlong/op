@@ -241,3 +241,32 @@ hr {
 	color: #AAA;
 	font-size: 12px;
 }
+
+/* 模块: 写站内信 */
+#composeForm {
+	margin: 0 22px;
+}
+
+#composeForm label {
+	display: inline-block;
+	width: 70px;
+	cursor: default;
+}
+
+#composeForm input[type='text'] {
+	width: 400px;
+}
+
+#composeForm textarea {
+	width: 400px;
+	height: 170px;
+}
+
+.compose-form-field {
+	line-height: 40px;
+	margin: 10px 0;
+}
+
+#sendMailButton {
+	margin-left: 70px;
+} 

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import play.data.validation.Validation;
+import models.activity.Activity;
 import models.qa.AgreeComment;
 import models.qa.Attention;
 import models.qa.Comments;
@@ -207,9 +208,20 @@ public class QuestAnsw extends Application {
 				.count() / 5 + 1);
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
+		List<Comments> comm = null;
+		Object com1 = null;
 		while (iterator.hasNext()) {
 			Ques ques = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", ques.id).fetch();
+			List<Comments> comments = Comments.find("quesid = ?", ques.id).fetch();
+			comm = comments;
+			
+			for(Object obj : comments){
+				System.out.println("看看遍历出来的是什么"+obj);
+				com1 = obj;
+				
+			}
+			System.out.println("每个问题答案里面的"+comments);
+			System.out.println("看看转换后的是什么样子的"+com1);
 			Comments comment = comments.isEmpty() ? null : (Comments) comments
 					.get(0);
 			QuestionArticle qa = new QuestionArticle(ques, comment);
@@ -218,7 +230,11 @@ public class QuestAnsw extends Application {
 		String userType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 		
-		render(t, qArticles, pageCount,userType,userId);
+		List<Comments> com = Comments.findAll();
+		
+		System.out.println("comments"+com);
+		
+		render(t, qArticles, pageCount,userType,userId,comm);
 	}
 
 	public static void searchQues(String ques) {
@@ -542,8 +558,9 @@ public class QuestAnsw extends Application {
 				"userid = ? and userType = ? order by id desc", userId,
 				"simple").fetch();
 		notFoundIfNull(user);
-		renderTemplate("SimpleUsers/infoCenter.html", user, UQues, UComment,
-				FQues);
+//		renderTemplate("SimpleUsers/infoCenter.html", user, UQues, UComment,
+//				FQues);
+		render(user, UQues, UComment,FQues);
 	}
 
 	public static void cssaQues() {
@@ -579,6 +596,11 @@ public class QuestAnsw extends Application {
 			List<FocusQues> FQues = FocusQues.find(
 					"userid = ? and userType = ? order by id desc", userid,
 					"simple").fetch(5);
+			
+//			List<Activity> UActivity = Activity.find(
+//					"userid = ? and userType = ? order by id desc", userid,
+//					"simple").fetch(5);
+			
 			notFoundIfNull(user);
 			renderTemplate("QuestAnsw/simpleUserinfo.html", user, UQues,
 					UComment, FQues);

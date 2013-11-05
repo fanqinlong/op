@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import models.messaging.Mail;
 import models.messaging.Notification;
+import models.users.CSSA;
 import models.users.SimpleUser;
 import play.cache.Cache;
 import play.db.jpa.JPA;
@@ -43,10 +44,22 @@ public class Messaging extends Application {
 	public static void index() {
 		render();
 	}
+	
+	public static void sendTo(String userType, long userID) {
+		String frameSrc = "/msg/compose/" + userType + "/" + userID;
+		renderTemplate("Messaging/index.html", frameSrc);
+	}
 
 	public static void compose(String userType, long userID) {
 		renderArgs.put("userType", userType);
 		renderArgs.put("userID", userID);
+		String userName = ""; 
+		if (userType.equals("simple")) {
+			userName = ((SimpleUser)SimpleUser.find("id=?", userID).first()).name;
+		} else if (userType.equals("cssa")) {
+			userName = ((CSSA)CSSA.find("id=?", userID).first()).school.name;
+		}
+		renderArgs.put("userName", userName);
 		render();
 	}
 

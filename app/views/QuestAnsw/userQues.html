@@ -1,12 +1,11 @@
 #{extends 'main.html' /}
-#{set title:'simpUserInfo.html' /}
-
-
+#{set title:'userQues.html' /}
 <link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 
 <div class="row">
 	<div class=" col-md-2">
-		<a >
+
+		<a href="@{SimpleUsers.changeProfile(user.id)}">
 			<img class="img-thumbnail profile-lg" src="${user.profile}">
 		</a>
 
@@ -14,6 +13,7 @@
 	<div class="col-md-8">
 		<h3>
 			${user.name}
+			<small> &nbsp; <a href="@{SimpleUsers.ChangeEmail(user.id)}"> 登陆邮箱 </a>/ <a href="@{SimpleUsers.changePassword()}"> 密码</a></small>
 		</h3>
 		<h6>
 			<span>
@@ -73,22 +73,54 @@
 			    
 			</span>
 		</h6>
+		<h5>
+			签名：${user.selfIntro?user.selfIntro:'无'} &nbsp;
+			<a href="@{SimpleUsers.eduMail}" >
+				<i class="icon-edit">完善资料</i>
+			</a>
+		</h5>
+		<p>
+			<a class="btn btn-primary " href="@{Activities.create}">
+				<i class="icon-flag"></i> 发起活动
+			</a>
+			<a class="btn btn-primary " href="@{QuestAnsw.QuesIndex}">
+				<i class="icon-question-sign"></i> 我要提问
+			</a>
+		</p>
+
 	</div>
 </div>
 
 <div class="row mg-top-3">
-	
+	<div class="col-md-2">
+		<ul class="list-group">
+			<li class="list-group-item">
+				<a class="use-f-a16" href="" onClick="activity()">
+					<i class="icon-flag"></i> 我的活动
+				</a>
+			</li>
+			<li class="list-group-item">
+				<a class="use-f-a16 HD" href="@{QuestAnsw.userQues}" onClick="ques()">
+					<i class="icon-comments-alt"></i> 我的问答
+				</a>
+			</li>
+		</ul>
+	</div>
 	<div class="col-md-8">
 
 
 		<div class="bs-docs-example XX" id="activity">
 			<ul id="myTab" class="nav nav-tabs">
 				<li class="active">
-					<a href="#home" data-toggle="tab">他的问答信息:</a>
+					<a href="#home" data-toggle="tab">我发布的问题</a>
 				</li>
 				<li>
-					<a href="#profile" data-toggle="tab">他的活动信息:</a>
+					<a href="#profile" data-toggle="tab">我回答的问题</a>
 				</li>
+				<li>
+					<a href="#profile1" data-toggle="tab">我关注的问题</a>
+				</li>
+
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade in active" id="home">
@@ -96,11 +128,22 @@
 						<li style="list-style:none; margin-top:10px;">
 							<lable><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
 						</li>
-					#{/list}	
+					#{/list}
 				</div>
 				
 				<div class="tab-pane fade" id="profile">
-						
+					#{list items:UComment,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.quesid)}">${q.quesTitle}</a></lable>
+						</li>
+					#{/list}		
+				</div>
+				<div class="tab-pane fade" id="profile1">
+					#{list items:FQues,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.quesId)}">${q.quesTitle}</a></lable>
+						</li>
+					#{/list}
 				</div>
 			</div>
 		</div>

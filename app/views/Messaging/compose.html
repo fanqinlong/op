@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
 	<meta name="viewport" content="width=device-width initial-scale=1.0">
 	
-	<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap-combined.no-icons.min.css'}" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="@{'/public/stylesheets/op-theme.css'}" />
 	<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" />
 	<link rel="stylesheet" href="@{'/public/stylesheets/font-awesome/css/font-awesome.min.css'}" />
@@ -13,11 +13,22 @@
 </head>
 
 <body class="msg-mod-body">
-	<form method="POST" action="@{Messaging.sendMail}">
-		收信人类型: <input name="userType" value="simple" type="radio" checked>simple</input> <input name="userType" value="cssa" type="radio">CSSA</input><br/>
-		收信人ID: <input name="userID"/><br/>
-		标题: <input name="title" type="text"/><br/>
-		内容: <input name="content" type="text"/><br/>
-		<input type="submit"/>
+	<div class="notification-top-bar">
+		<div class="msg-mod-title">发站内信</div>
+	</div>
+
+	<form id="composeForm" method="POST" action="@{Messaging.sendMail}">
+		<div class="compose-form-field">
+			<label>收信人 </label>${userName}<br/>
+		</div>
+		<div class="compose-form-field">
+			<label>标题 </label><input name="title" type="text"/><br/>
+		</div>
+		<div class="compose-form-field">
+			<label>内容 </label><textarea id="content"></textarea>
+		</div>
+		<input name="userType" value="${userType}" type="hidden"/>
+		<input name="userID" value="${userID}" type="hidden"/>
+		<button id="sendMailButton" class="btn btn-primary">发送</button>
 	</form>
 </body>
