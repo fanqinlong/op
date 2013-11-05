@@ -128,7 +128,9 @@ public class Charities extends Application{
 	
 	public static void welfare(long id){
 	  Wel w = Wel.findById(id);
-		render(w);
+	  w.views = w.views+1;
+	  w.save();
+	  render(w);
  	
 	}
 

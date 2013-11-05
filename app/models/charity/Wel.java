@@ -18,6 +18,7 @@ public class Wel extends Model {
 	public String f;
 	public String generalize;
     public int likerCount;
+    public long views;
 	 
 	public Wel(String title,String content,String time,String f,String generalize, int likerCount) {
 		
@@ -27,7 +28,6 @@ public class Wel extends Model {
 		this.f=f;
 		this.generalize = generalize;
 		this.likerCount = likerCount;
-		 
 	 	create();
 	}
   

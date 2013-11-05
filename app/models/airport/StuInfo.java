@@ -30,4 +30,5 @@ public class StuInfo extends Model {
 	@Required
 	public String luggage;
 	public String remarks;
+	public String hometown;
 }

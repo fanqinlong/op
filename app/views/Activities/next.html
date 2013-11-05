@@ -1,6 +1,5 @@
 #{extends 'main.html' /} #{set title:'create' /} 
-#{set 'Styles'} #{stylesheet 'bootstrap-datepicker.css' /}
-#{stylesheet 'bootstrap-timepicker.min.css' /} #{/set}
+#{set 'Styles'} #{stylesheet 'bootstrap-datepicker.css' /} #{stylesheet 'bootstrap-timepicker.min.css' /} #{/set}
 
 <form action="@{Activities.post}" method="post" accept-charset="${_response_encoding}" class="form-horizontal " name="form1" id="form-activity">
 <div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
@@ -122,7 +121,7 @@
 	
 </form>
 <div class="clearfix"></div>
-#{set 'Scripts'}
+#{set 'Scripts'} 
 #{script 'bootstrap-datepicker.js' /}
 #{script 'bootstrap-timepicker.min.js' /}
 <script type="text/javascript">

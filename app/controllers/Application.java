@@ -6,6 +6,10 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import models.activity.Activity;
+import models.airport.StuInfo;
+import models.charity.Wel;
+import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
 
@@ -26,14 +30,35 @@ public class Application  extends Controller {
 		
 	}
     public static void index() {
-    	String userType = Utils.getUserType();
-    	if(userType==null){
-    		render();
-    	}else if(userType.equals("simple")){
-    		SimpleUsers.infoCenter();
-    	}else{
-    		CSSAs.infoCenter();
-    	}
+    	List<Ques> ques = Ques.find("order by views desc").fetch(5);
+    	int QuesNum;
+    	List<Ques> qNumber = Ques.findAll();
+    	QuesNum = qNumber.size();
+    	
+    	List<Wel> wel = Wel.find("order by views desc").fetch(5);
+    	int WelNum;
+    	List<Wel> wNumber = Wel.findAll();
+    	WelNum = wNumber.size();
+    	
+    	List<Activity> activity = Activity.find("order by views desc").fetch(5);
+    	int AcNum;
+    	List<Activity> acNumber = Activity.findAll();
+    	AcNum = acNumber.size();
+    	
+    	List<StuInfo> stu = StuInfo.find("order by id desc").fetch(5);
+    	int StuNum;
+    	List<StuInfo> stuNumber = StuInfo.findAll();
+    	StuNum = stuNumber.size();
+//    	String userType = Utils.getUserType();
+//    	if(userType==null){
+//    		render();
+//    	}else if(userType.equals("simple")){
+//    		SimpleUsers.infoCenter();
+//    	}else{
+//    		CSSAs.infoCenter();
+//    	}
+    	
+    	render(ques,wel,activity,stu,QuesNum,WelNum,AcNum,StuNum);
     }
     static SimpleUser connectedSimple() {
 		return SimpleUser.findById(Utils.getUserId());

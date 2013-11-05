@@ -26,6 +26,7 @@ public class Ques extends Model {
 	public long  answerNum;
 	public long  focusNum;
 	public String selfIntro;
+	public long views;
 
 	public Ques(String title, String Theme, String school, String content,
 			String date, long userid, String usertype, String username,

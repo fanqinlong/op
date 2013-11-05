@@ -56,12 +56,20 @@ public class Airports extends Application {
 		String explain = sch.synopsis;
 		Long schoolId = sch.id;
 		String schoolName = sch.name;
-		render(schoolId, explain, schoolName);
+		
+		String stuName;
+		String stuhometown;
+		SimpleUser simp = SimpleUser.findById(Long.parseLong(session
+				.get("logged")));
+		stuName=simp.name;
+		stuhometown = simp.hometown;
+		
+		render(schoolId, explain, schoolName,stuName,stuhometown);
 	}
 
 	public static void doAddStuInfo(StuInfo s, Long schoolId) {
 		Long sid = schoolId;
-
+		
 		final Validation.ValidationResult validationResult = validation
 				.valid(s);
 		if (!validationResult.ok) {

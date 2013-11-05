@@ -15,6 +15,8 @@
 		<input	class="form-control"  id="name" type="text" name="s.name" value="${flash.name}" placeholder="请输入姓名" maxlength="24">
 		<input type="hidden" name="s.school" value="${schoolName}">
 		<input type="hidden" name="schoolId" value="${schoolId}">
+		<input type="hidden" name="s.username" value="${stuName}">
+		<input type="hidden" name="s.hometown" value="${stuhometown}">
 	</div>
 	 <span class="suffix">*</span><span class="col-md-3 sfont">(请填写有效的中文姓名)</span><span class="col-md-3">#{error 'name' /}</span>
 </div>
@@ -120,11 +122,16 @@
 		</fieldset>
 	</div>
 </div>
-#{set 'Scripts'}
-#{script 'bootstrap-datepicker.js' /}
-#{script 'bootstrap-timepicker.min.js' /}
+
+<script type="text/javascript" src=" ../../public/javascripts/jquery-1.8.3.min.js" charset="UTF-8"></script>
+ 
+<script type="text/javascript" src=" ../../public/javascripts/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../../public/javascripts/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 <script type="text/javascript">
+ 
+ 
    $(".form_datetime").datetimepicker({
+   
         format: "yyyy-mm-dd  hh:ii",
 		autoclose: true, 
 		todayBtn: true,
@@ -132,4 +139,4 @@
         pickerPosition: "bottom-left",
     });
 </script>            
-#{/set}
+ 
