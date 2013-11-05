@@ -134,6 +134,12 @@ $(document).ready(function(){
     -->
 </div>
 
+									#{list items:com1,as:'qa'}
+										<a>${qa.userid}</a>
+										<br />
+										<a>${qa.usertype}</a>
+									#{/list}
+
 
 <div class="container container-op">
 		<div  class="group1">
@@ -164,29 +170,35 @@ $(document).ready(function(){
 									<span class="keywords" style="TEXT-DECORATION:none;">${qa.ques.label}</span>
 								</li>
 								<li ><h5>${qa.ques.username}，${qa.ques.selfIntro}</h5></li>
-								<li class="qatitlea" style="height: 50px;overflow: hidden;">	
-										#{if qa.comments?.comment == null}
-											<span class="qatitlea" style="color:#CC0033;" >还没人回答</span>
-										#{/if}
-										#{else}
-											<span class="qatitlea"  >
-												${qa.comments?.comment.raw()}
-											</span>
-										#{/else}
-										
+								<li class="qatitlea" style="height: 50px;overflow: hidden;">
+										<span class="qatitlea">${qa.ques.content.raw()}</span>
 								</li>
 								<li style="padding-top:14px;">
 									<a href="@{QuestAnsw.fcousOnQuestion(qa.ques.id)}" class="guanzhu-question">
 										<img src="/public/images/focus.png">
 										关注问题
 									</a>
+									<!-- 
+									<br />
+									<a>当前答案里面的用户id${qa.comments?.userid}<a>
+									<br />
+									<a>当前登录人的用户id${userId}<a>
+									<br />
+									<a>当前答案里面的用户类型${qa.comments?.usertype}<a>
+									<br />
+									<a>当前登录人的用户类型${userType}<a>
+									-->
 									
-									#{if qa.comments?.userid == userId || qa.comments?.usertype == userType}
+								
+									
+									
+									
+									#{if qa.comments?.userid == userId  &&  qa.comments?.usertype == userType}
 										<a href="@{QuestAnsw.editComent(userId, userType,qa.ques.id)}">
 											<i class="icon-edit"></i>修改答案
 										</a>
-									#{/if}
-									#{else}						
+									#{/if} 
+									#{else}			
 									<a class="guanzhu-question" idnum="${qa.comments?.quesid}">
 										<img src="/public/images/answer.png">
 										我来回答${qa.comments?.id}
@@ -221,5 +233,6 @@ $(document).ready(function(){
 				       </div>
 				   </div>
 				</div>
+				
 </div>
 </div>

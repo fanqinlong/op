@@ -111,7 +111,7 @@
 	#{/list}
 	 <div>
 	  #{list items:FQ,as:'fidid'}
-	 	<img  src=${fidid.userprofile} class="op2-right2" style="height:60px; width:60px;">
+	 	<a href="@{QuestAnsw.showUserInfor(fidid.userType,fidid.userid)}"><img  src=${fidid.userprofile} class="op2-right2" style="height:60px; width:60px;"></a>
 	  #{/list}
 	 </div> 
 	 
