@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 					#{list items:stu,as:'s'}
 					<h4>
-							<span >
+							<a >
 								#{if s.hometown==null}
 									<a>来自奥噗社区的</a>
 								#{/if}
@@ -112,7 +112,7 @@ $(document).ready(function(){
 								来自${s.hometown}的
 								#{/else}
 								${s.username}向美国${s.school}大学提交了需要接机服务
-							</span>
+							</a>
 					</h4>
 					#{/list}
 
@@ -169,7 +169,6 @@ $(document).ready(function(){
 					<p class="text-right">
 						<a href="@{Activities.index}" class="btn  btn-primary">Read More</a>
 					</p>
-
 				</div>
 				<div class="mg-top-3">
 					<h3 class="text-primary">

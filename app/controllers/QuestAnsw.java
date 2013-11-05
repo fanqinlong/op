@@ -20,33 +20,7 @@ import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class QuestAnsw extends Application {
-	@Before
-	public static void isCSSA() {
-		if (session.get("logged") != null
-				&& !session.get("usertype").equals("simple")) {
-			CSSA cssa = CSSA.findById(Long.parseLong(session.get("logged")));
-			if (cssa.school.name != null == true)
-				renderArgs.put("isCSSA", true);
-		}
-	}
-
-	@Before
-	public static void isSimpleUser() {
-		if (session.get("logged") != null
-				&& session.get("usertype").equals("simple")) {
-			SimpleUser simp = SimpleUser.findById(Long.parseLong(session
-					.get("logged")));
-			if (simp.name != null == true)
-				renderArgs.put("isSimpleUser", true);
-		}
-	}
-
-	@Before
-	public static void isLogged() {
-		if (session.get("usertype") == null) {
-			SimpleUsers.login();
-		}
-	}
+	
 
 	private static String label;
 
@@ -136,6 +110,12 @@ public class QuestAnsw extends Application {
 	public static void addComent(long quesid, String comment, long praiseNum,
 			long userid, String usertype, String username, String userprofile,
 			String userSelfIntro, String date) {
+		if (session.get("logged") == null) {
+			flash.error("请登录后回答!");
+			SimpleUsers.login();
+    	}
+		
+		
 		Long uid;
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsertype = session.get("usertype");
@@ -232,9 +212,9 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchPage(long id, long question_id) {
-		if (session.get("logged") == null) {
-			SimpleUsers.login();
-		} 
+//		if (session.get("logged") == null) {
+//			SimpleUsers.login();
+//		} 
 			List<Tag> t = Tag.findAll();
 			List<Ques> aQues = Ques.find("order by date desc").fetch(5);
 			long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
@@ -261,14 +241,14 @@ public class QuestAnsw extends Application {
 				QuestionArticle qa = new QuestionArticle(ques, comment);
 				qArticles.add(qa);
 			}
-			String userType = session.get("usertype");
-			long userId = Long.parseLong(session.get("logged"));
+//			String userType = session.get("usertype");
+//			long userId = Long.parseLong(session.get("logged"));
 
 			List<Comments> com = Comments.findAll();
 
 			System.out.println("comments" + com);
 
-			render(t, qArticles, pageCount, userType, userId, comm);
+			render(t, qArticles, pageCount, comm);
 		
 	}
 
@@ -325,6 +305,12 @@ public class QuestAnsw extends Application {
 		Ques qw = Ques.findById(id);
 		qw.views = qw.views+1;
 		qw.save();
+		if (session.get("logged") == null) {
+			Ques fQ = Ques.findById(id);
+			List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
+			List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
+			render(fQ,FQ,listCom);
+	    } else {
 		String comentUsertype = session.get("usertype");
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsername;
@@ -408,6 +394,7 @@ public class QuestAnsw extends Application {
 		render(fQ, listCom, comentUsername, FQ, UserQues, CssaQues,
 				UserComments, CssaComment, userid, comentUsertype,
 				UserFocusQues, CSSAFocusQues, comentUserid);
+	    }
 	}
 
 	public static void AttentionQues(long userId, long quesId) {
