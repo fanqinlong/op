@@ -1,0 +1,88 @@
+<div class="row">
+	<div class=" col-md-2">
+
+		<a href="@{SimpleUsers.changeProfile(user.id)}">
+			<img class="img-thumbnail profile-lg" src="${user.profile}">
+		</a>
+
+	</div>
+	<div class="col-md-8">
+		<h3>
+			${user.name}
+			<small> &nbsp; <a href="@{SimpleUsers.ChangeEmail(user.id)}"> 登陆邮箱 </a>/ <a href="@{SimpleUsers.changePassword()}"> 密码</a></small>
+		</h3>
+		<h6>
+			<span>
+				#{if user.age}
+					<span class="text-primary"> ${user.age} </span>
+					 岁，
+				 #{/if}
+			    
+			    #{if user.birthday}
+			    	#{if user.dispBirthday}
+					生日是<span class="text-primary"> ${user.birthday} </span>
+					#{/if}
+				 #{/if}
+			    
+			    #{if user.hometown}
+			    	 来自 <span class="text-primary"> ${user.hometown} </span>, 
+			    #{/if} 
+			    
+			    #{if user.homeNow}
+			    	现居住<span class="text-primary"> ${user.homeNow} </span>, 
+			    #{/if} 
+			    
+			    #{if user.school}
+			     <span> 学校 </span>
+			    	 <span class="text-primary"> ${user.school} </span> ,
+			    #{/if} 
+			    
+			    #{if user.major}
+			     <span>专业 </span>
+			    	 <span class="text-primary"> ${user.major} </span> ,
+			    #{/if} 
+			    
+			    #{if user.admissionTime}
+			     <span>入学时间 </span>
+			    	 <span class="text-primary"> ${user.admissionTime} </span> ,
+			    #{/if} 
+			    
+			    #{if user.qq}
+			    	#{if user.dispQQ}
+			    	
+			     <span>QQ </span>
+			    	 <span class="text-primary"> ${user.qq} </span> ,
+			    	 #{/ if}
+			    #{/if} 
+			    
+			    #{if user.ralationship}
+			    	<span> 感情状况 </span> 
+			    	<span class="text-primary"> ${user.ralationship} </span> , 
+			    #{/if} 
+			    
+			    #{if user.contract} 
+			    	#{if user.dispContract}
+			    	<span> 手机号 </span> 
+			    	<span class="text-primary"> ${user.contract} </span>
+			    	#{/if} 
+			    #{/if}
+			    
+			</span>
+		</h6>
+		<h5>
+			签名：${user.selfIntro?user.selfIntro:'无'} &nbsp;
+			<a href="@{SimpleUsers.eduMail}" >
+				<i class="icon-edit">完善资料</i>
+			</a>
+		</h5>
+		<p>
+			<a class="btn btn-primary " href="@{Activities.create}">
+				<i class="icon-flag"></i> 发起活动
+			</a>
+			<a class="btn btn-primary " href="@{QuestAnsw.QuesIndex}">
+				<i class="icon-question-sign"></i> 我要提问
+			</a>
+		</p>
+
+	</div>
+</div>

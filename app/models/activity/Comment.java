@@ -18,10 +18,11 @@ public class Comment extends Model {
 	public Activity activity;
 	@ManyToOne
 	public SimpleUser publisher;
+	
+	public  String tag;
 	@MaxSize(1000)
-	public static String comment;
-	@Required @As("yyyy-MM-dd HH:mm")
-	public static Date publishedAt;
-	public static boolean isNotified;
+	public  String comment;
+	public  String publishedAt;
+	public  boolean isNotified;
     
 }

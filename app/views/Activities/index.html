@@ -1,5 +1,6 @@
 #{extends 'main.html' /} #{set title:'index.html' /} #{set 'Styles'}
 <link rel="stylesheet" href="/public/stylesheets/activity.css" />
+
 #{/set}
 <!-- tags -->
 
@@ -27,9 +28,10 @@
 
 </p>
 <div class="clearfix tags">
-	<span class="tag-title pull-left"><i class=" icon-map-marker"></i>地点</span>
+		<span class="tag-title pull-left"><i class=" icon-map-marker"></i>地点</span>
 
 	<form method="post" action="@{Activities.filterZip}" class="pull-left">
+
 		<input type="text" name="zip" value="${zip}" id="" placeholder="请输入邮编" />
 		<input type="submit" class="btn btn-info btn-sm" value="查询">
 		<input type="reset" class="btn btn-sm" value="清空" id="reset" />
@@ -61,21 +63,22 @@
 
 
 
-<div class="container container-op">
+<div class="container ">
 
 	<!-- users activity -->
 	<div class="row ">
 		<!--下面部分-->
 		%{int row=0}% #{if !a.isEmpty()} #{list items:a,as:'a'} %{row++;}%
-		<div class="col-md-3 activity-item">
+		<div class="col-md-3 activity-item mg-top-2">
 
 			<div style="width: 100px; height: 100px;">
-				#{if isTop}
-				<img src="../public/images/active_detailed_tag.png">
-				#{/if} #{if isHot}
-				<img src="../public/images/active_detailed_tag1.png">
-				#{/if}
-				<img src="../public/images/active_detailed_tag2.png">
+				#{if a.isTop}
+				<img src="@{'/public/images/active_detailed_tag.png'}">
+				#{/if} #{elseif a.isHot}
+				<img src="@{'/public/images/active_detailed_tag1.png'}">
+				#{/elseif}#{elseif a.isChecked}
+				<img src="@{'/public/images/active_detailed_tag2.png'}">
+				#{/elseif}
 			</div>
 			<div class="thumbnail" style="margin-top: -100px; float: left;">
 				<a href="@{Activities.detail(a.id)}">
@@ -83,6 +86,7 @@
 				</a>
 				<div class="caption">
 					<h4>${a.name}</h4>
+					<small>${a.time.first().date}至${a.time.last().date} </small>
 					<p class="detail text-primary">${a.summary}</p>
 					<p style="padding-top: 30px;">
 
@@ -100,4 +104,3 @@
 	#{/if}
 </div>
 
-<!-- users activity -->
