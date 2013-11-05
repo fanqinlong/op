@@ -17,7 +17,6 @@
 
 				#{if isAllown || isOwner}
 				<div class="detail ">
-<<<<<<< HEAD
 					<span class="pic-leftTitle">地点：</span>
 					<span class="At_info">${a.location}</span>
 				</div>
@@ -25,29 +24,13 @@
 				<div class="detail">
 					<span class="pic-leftTitle">费用：</span>
 					<span class="At_info">$ ${a.money}</span>
-=======
-					<a class="pic-leftTitle">地点：</a>
-					<span>${a.location}</span>
-				</div>
-				#{/if}
-				<div class="detail">
-					<a class="pic-leftTitle">费用：</a>
-					<span>${a.money}$</a>
-				</div>
-				<div class="detail">
-					<a class="pic-leftTitle">参加者男女比例</a>
-					%{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list}
-					<span>${female}</span>
-					:
-					<span>${male}</span>
->>>>>>> d2ac50db861ce51b711507c7a87fe97d3fa27380
+
 				</div>
 				
 				
 				
 				
 				<div class="detail">
-<<<<<<< HEAD
 					<span class="pic-leftTitle">人数：</span>
 					<span class="At_info">${a.scope.scope}</span>
 				</div>
@@ -76,28 +59,7 @@
 					  <span class="At_info">${male}</span>
 					:
 					<span class="At_info">${female}</span>
-=======
-					<a class="pic-leftTitle">人数：</a>
-					<span>${a.scope.scope}</span>
-				</div>
-				<div class="detail">
-					<a class="pic-leftTitle">类型：</a>
-					<span>${a.type.name}</span>
-				</div>
-				<div class="detail">
-					<a class="pic-leftTitle">发起人：</a>
-					<span>${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</span>
-				</div>
-				#{if isAllown || isOwner}
-				<div class="detail">
-					<a class="pic-leftTitle">联系方式：</a>
-					<span>${a.contract}</span>
-				</div>
-				#{/if}
-				<div class="detail">
-					<a class="pic-leftTitle">是否通过审核：</a>
-					<span>${a.isChecked?"是":"否"}</span>
->>>>>>> d2ac50db861ce51b711507c7a87fe97d3fa27380
+
 				</div>
 				 
 				%{int man = male*100/(male+female+0.0001)}%
@@ -210,7 +172,6 @@
 	</div>
 </div>
  
-<<<<<<< HEAD
 </div>
  
 	
