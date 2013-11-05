@@ -73,6 +73,9 @@
 					#{if a.isOpen!=true}
 					<a class="btn " href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 					#{/if}
+					
+					
+					
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -82,34 +85,38 @@
 								</div>
 								<div class="modal-body">
 									<form action="@{Activities.join}" method="POST">
-										<textarea rows="5" class="span6" name="selfIntro"></textarea>
-										<br />
+										<textarea rows="5" class="col-md-6" name="selfIntro"></textarea>
+									
 										<input type="hidden" name="aid" value="${a.id}">
 										<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
 										<input type="submit" value="提交" class="btn btn-success" />
 									</form>
 								</div>
-								
+									
+																
+																
 							</div>
 							<!-- /.modal-content -->
 						</div>
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
+					
 				</div>
+				
 			</div>
 			#{/else}
+		
 		</div>
 	</div>
-	<div style="clear: both"></div>
-	<div class="activity-introduction ac_wid" >
-		<h3>活动介绍</h3>
-		<p style="text-indent:2em;">${a.intro}</p>
-	</div>
 
+	<div class="activity-introduction ac_wid" >
+										<h3>活动介绍</h3>
+										<p style="text-indent:2em;">${a.intro}</p>
+									</div>
 
 </div>
-<div class="right">
+<div class="" style="">
 	<div class="right-top">
 		<a href="@{Activities.Create}" class="btn btn-info faqi">
 			<i class="icon-flag"></i> 发起活动
@@ -136,8 +143,8 @@
 	<br />
 	<div class="numbers">
 		<h4 class="activity-title4">活动成员</h4>
-		#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="guanzhuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="guanzhuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
-		<br>
+		<lable class="pull-right " style="margin-right: 141px;">#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="guanzhuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="guanzhuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span></lable>
+		 
 		#{list items:allownJoiner,as:'joiner'} <img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
 	</div>
 </div>

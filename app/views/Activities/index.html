@@ -27,9 +27,10 @@
 
 </p>
 <div class="clearfix tags">
-	<span class="tag-title pull-left"><i class=" icon-map-marker"></i>地点</span>
+		<span class="tag-title pull-left"><i class=" icon-map-marker"></i>地点</span>
 
 	<form method="post" action="@{Activities.filterZip}" class="pull-left">
+
 		<input type="text" name="zip" value="${zip}" id="" placeholder="请输入邮编" />
 		<input type="submit" class="btn btn-info btn-sm" value="查询">
 		<input type="reset" class="btn btn-sm" value="清空" id="reset" />
