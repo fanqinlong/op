@@ -2,11 +2,17 @@
   
       <link href=" @{'public/jcrop/css/main.css'}" rel="stylesheet" type="text/css">
         <link href="  @{'public/jcrop/css/jquery.Jcrop.min.css'}" rel="stylesheet" type="text/css">
-
-       
+  <script src="  @{'public/jcrop/js/jquery.min.js'}"></script>
+        <script src=" @{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
+        <script src="  @{'public/jcrop/js/script.js'}"></script>
  
+       
+ <div class="row" >
+		<div class="col-md-2">  
 <h3>上传海报：</h3>
-#{form @next(),method:'POST',enctype:'multipart/form-data'}
+</div>   
+		<div class="col-md-8">  
+#{form @next(),method:'POST',enctype:'multipart/form-data',onsubmit:'return checkForm()'}
   <input type="hidden" id="x1" name="left">
                     <input type="hidden" id="y1" name="top">
                     <input type="hidden" id="x2" name="height">
@@ -34,3 +40,5 @@
                     </div>
                
 #{/form}  
+</div>
+</div>

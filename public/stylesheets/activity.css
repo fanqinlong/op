@@ -21,9 +21,7 @@ a.detailed{
 .detail{
 	height:26px;
 }
-.acpading{
-padding-left:320px;
-}
+ 
 .ac_wid{
 	width:600px;
 }
@@ -33,4 +31,11 @@ padding-left:320px;
 }
 a{
 text-decoration:none !important;
+}
+ 
+.pic-leftTitle{
+color:#C0B9B9;
+}
+.canyuNO{
+	color:#336699;
 }
