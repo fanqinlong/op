@@ -28,7 +28,7 @@
 
 <!-- 内容 -->
 <div class="msg-content-wrapper">
-	<iframe id="contentFrame" class="msg-content-container" name="msg-iframe" src="@{Messaging.mail}"></iframe>
+	<iframe id="contentFrame" class="msg-content-container" name="msg-iframe"></iframe>
 </div>
 
 
@@ -39,8 +39,14 @@
 				$("#navMenu a li").removeClass("selected");
 				$(event.currentTarget).children().addClass("selected");
 			});
-			
 			$("#mailBtn li").addClass("selected");
+			
+			#{if frameSrc}
+				$("#contentFrame").attr("src", "${frameSrc}");
+			#{/if}
+			#{else}
+				$("#contentFrame").attr("src", "@{Messaging.mail}");
+			#{/else}
 		});
 		
 		function updateMessageCounts(mailCount, notificationCount) {
