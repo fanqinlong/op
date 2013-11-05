@@ -36,6 +36,7 @@ public class Activity extends Model {
 	@MaxSize(40)
 	public String name;
 	
+	public String timeType;//时间类型，连续时间，或者自定义时间。
 	@OneToMany(mappedBy="activity", cascade=CascadeType.ALL)
 	public List<Time> time;
 	@Required
