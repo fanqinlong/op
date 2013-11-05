@@ -28,6 +28,10 @@ public class CSSAs extends Application {
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			CSSAs.login();
+		}else{
+			CSSA user = CSSA.findById(Utils.getUserId());
+			if(user==null)
+				SimpleUsers.login();
 		}
 
 	}

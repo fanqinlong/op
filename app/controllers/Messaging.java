@@ -65,11 +65,9 @@ public class Messaging extends Application {
 
 	public static void sendMail(String userType, long userID, String title, String content) {
 		setMailCount(userType, userID, getMailCount(userType, userID) + 1);
-
 		Mail mail = new Mail(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
 			false, false, false);
 		mail.save();
-
 		flash.success("消息已发送");
 		mail();
 	}

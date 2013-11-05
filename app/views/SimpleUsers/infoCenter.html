@@ -1,35 +1,30 @@
-#{extends 'main.html' /} #{set title:'个人中心' /} 
-#{set 'Styles'} #{stylesheet 'user.css' /} #{/set}
- #{include 'SimpleUsers/infoCenterTop.html' /}
+#{extends 'main.html' /} #{set title:'个人中心' /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} #{include 'SimpleUsers/infoCenterTop.html' /}
 
 <div class="row mg-top-3">
 	#{include 'SimpleUsers/infoCenterNav.html' /}
 	<div class="col-md-8">
 		<ul id="myTab" class="nav nav-tabs">
 			<li class="active">
-				<a href="#home" data-toggle="tab">活动消息:</a>
+				<a href="#home" data-toggle="tab">活动消息</a>
 			</li>
 			<li>
-				<a href="#profile" data-toggle="tab">问答消息:</a>
+				<a href="#profile" data-toggle="tab">问答消息</a>
 			</li>
 			<li>
-				<a href="#profile1" data-toggle="tab">私信:</a>
+				<a href="#profile1" data-toggle="tab">私信&通知</a>
 			</li>
 		</ul>
 		<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade in active" id="home">
-				#{list items:postedActivity,as:'activity'}
-				<img src="${user.profile}" class="f_l img-polaroid" />
-				<span class="f_l"> 我发布了活动 </span>
-				<br />
-				<a href="@{Activities.detail(activity.id)}">
-					${activity.name}
-
-					<br />
-					<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
-				</a>
-				<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-
+				#{list items:activities,as:'activity'}
+				<div>
+					<a href="@{Activities.detail(activity.id)}" target="_bank">
+						${activity.name}
+						<br />
+						<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
+					</a>
+				</div>
+				<hr/>
 				#{/list}
 
 			</div>
@@ -37,8 +32,7 @@
 			<div class="tab-pane fade" id="profile">
 				#{list items:ques,as:'q'}
 				<li style="list-style: none; margin-top: 10px;">
-					<lable>
-					<a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
+					<lable> <a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
 				</li>
 				#{/list}
 			</div>
