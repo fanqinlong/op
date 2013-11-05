@@ -211,44 +211,4 @@
  
  </div>
  
-=======
-</div>
  
-	
-</div>
-
-<div>
-
- 	 
-					
-	%{String date = new Date().format("yyyy-MM-dd")}%
-	#{if date > a.time.last().date}
-	<div id="comment">
-	<div>
-		#{form @comment(), method:'get',class:'form-horizontal'} 参加了一次神奇的活动之后，我想说：
-		<br />
-		标签：
-		<input type="text" name="c.tag" placeholder="好玩、热闹..." />
-		<br />
-		评论：
-		<input type="hidden" name="activity" value="${a.id}" />
-		<textarea rows="5" cols="30" name="c.comment"></textarea>
-		<br />
-		<input type="submit" value="晒晒">
-		#{/form}
-		</div>
-<div>
-
-<div>
-#{list items:a.comment,as:'comment'}
-<img src=${comment.publisher.profile} />${comment.publisher.name}${comment.comment}${comment.tag}${comment.publishedAt}
-#{/list}
-</div>
-	</div>
-
-</div>
-#{/if}
- 
- </div>
- 
->>>>>>> d2ac50db861ce51b711507c7a87fe97d3fa27380
