@@ -22,6 +22,7 @@ import play.libs.Images;
 import play.mvc.*;
 import models.activity.Activity;
 import models.activity.Joiner;
+import models.activity.Liker;
 import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
@@ -395,29 +396,33 @@ public class SimpleUsers extends Application {
 
 	public static void infoCenter() {
 		long id = Long.parseLong(session.get("logged"));
-		// List<Joiner> aj =
-		// Joiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?",
-		// id).fetch();
+		
 		SimpleUser user = SimpleUser.findById(id);
 		List<Ques> ques = Ques.find("userid = ?", id).fetch();
 		notFoundIfNull(user);
 		render(user, ques);
 	}
 
-	public static void myActivity() {
-		long userId = Long.parseLong(session.get("logged"));
+	public static void publishedActivity() {
+		long userId = Utils.getUserId();
+		List<Activity> activities = Activity.find("publisherSU.id = ?",userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
-		List<Activity> postedActivity = Activity.find(
-				"publisher_id=? and publisher_type=? order by id desc", userId,
-				"simple").fetch();
-		List<Activity> JoinedActivity = Activity
-				.find("select a from  ActivityJoiner aj,Activity a where  aj.jid= ? and aj.aid = a.id order by a.id desc ",
-						userId).fetch();
-		List<Activity> LikedActivity = Activity
-				.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ",
-						userId, "simple").fetch();
-		notFoundIfNull(user);
-		render(user, postedActivity, JoinedActivity, LikedActivity);
+		String tag = "publish";
+		render(user,activities,tag);
+	}
+	public static void joinedActivity(){
+		long userId = Utils.getUserId();
+		List<Joiner> activities = Joiner.find("joiner.id = ?",userId).fetch();
+		SimpleUser user = SimpleUser.findById(userId);
+		String tag = "join";
+		render(user,activities,tag);
+	}
+	public static void likedActivity() {
+		long userId = Utils.getUserId();
+		List<Liker> activities = Liker.find("likerSU.id = ?",userId).fetch();
+		SimpleUser user = SimpleUser.findById(userId);
+		String tag = "like";
+		render(user,activities,tag);
 	}
 
 	public static void getActivityJoiner(long aid) {
@@ -427,5 +432,9 @@ public class SimpleUsers extends Application {
 						aid).fetch();
 		render(s);
 	}
+
+	
+
+	
 
 }
