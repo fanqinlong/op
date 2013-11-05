@@ -264,6 +264,7 @@ hr {
 
 .compose-form-field {
 	line-height: 40px;
+	margin: 10px 0;
 }
 
 #sendMailButton {
