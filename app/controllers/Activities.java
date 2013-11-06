@@ -245,6 +245,7 @@ public class Activities extends Application {
 		l.activity = a;
 		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 		l.save();
+		
 		ArrayList<String> s = new ArrayList();
 		s.add("11");
 		s.add("22");

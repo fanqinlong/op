@@ -205,6 +205,28 @@ public class QuestAnsw extends Application {
 				CSSAFocusQues = true;
 			}
 		}
+		/***
+		 *通知，回答了用户的问题
+		 * 
+		 * **/
+		
+		Long noticeid;
+		String noticName;
+		if(comentUsertype.equals("simple")){
+			SimpleUser sUser =SimpleUser.findById(comentUserid);
+			noticeid = sUser.id;
+			noticName = sUser.name;
+		}else{
+			CSSA cssa = CSSA.findById(comentUserid);
+			noticeid = cssa.id;
+			noticName =cssa.email;
+		}	
+		ArrayList<String> s = new ArrayList();
+		if(comentUsertype.equals("simple")){
+			Messaging.addNotification("simple", noticeid, noticName+"回答了您的问题"+QuesTitle, s);
+			}else{
+				Messaging.addNotification("cssa", noticeid, noticName+"回答了您的问题"+QuesTitle, s);
+			}
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
 				CssaComment, userid, UserFocusQues, CSSAFocusQues,
@@ -523,6 +545,28 @@ public class QuestAnsw extends Application {
 
 		new FocusQues(fquserType, fquserid, fquserprofile, id, QuesTitle);
 
+		/**
+		 * 通知关注了用户的问题
+		 * 
+		**/
+		Long noticeid;
+		String noticName;
+		if(fquserType.equals("simple")){
+			SimpleUser sUser =SimpleUser.findById(userId);
+			noticeid = sUser.id;
+			noticName = sUser.name;
+		}else{
+			CSSA cssa = CSSA.findById(userId);
+			noticeid = cssa.id;
+			noticName =cssa.email;
+		}	
+		
+		ArrayList<String> s = new ArrayList();
+		if(fquserType.equals("simple")){
+			Messaging.addNotification("simple", noticeid, noticName+"关注了您的问题"+QuesTitle, s);
+			}else{
+				Messaging.addNotification("cssa", noticeid, noticName+"关注了您的问题"+QuesTitle, s);
+			}
 		showQuesInfo(id);
 	}
 
@@ -707,10 +751,29 @@ public class QuestAnsw extends Application {
 		}
 		FocusQues fques = FocusQues.findById(cfq);
 		fques.delete();
-
+		
 		Ques q = Ques.findById(quesid);
 		q.focusNum = q.focusNum - 1;
 		q.save();
+		
+		Long noticeid;
+		String noticName;
+		if(fquserType.equals("simple")){
+			SimpleUser sUser =SimpleUser.findById(userId);
+			noticeid = sUser.id;
+			noticName = sUser.name;
+		}else{
+			CSSA cssa = CSSA.findById(userId);
+			noticeid = cssa.id;
+			noticName =cssa.email;
+		}		
+		ArrayList<String> s = new ArrayList();
+		
+		if(fquserType.equals("simple")){
+			Messaging.addNotification("simple", noticeid, noticName+"取消了关注您的问题"+q.title, s);
+			}else{
+				Messaging.addNotification("cssa", noticeid, noticName+"取消了关注您的问题"+q.title, s);
+			}
 		showQuesInfo(quesid);
 	}
 
@@ -728,11 +791,7 @@ public class QuestAnsw extends Application {
 		System.out.println(agreeCom);
 		String quesTitle;
 
-		boolean notEmpty = false;
-
 		if (!agreeCom.isEmpty()) {
-			notEmpty = true;
-			System.out.println("不为空");
 			Iterator iterator = agreeCom.iterator();
 			Long Acid = null;
 			while (iterator.hasNext()) {
@@ -749,7 +808,6 @@ public class QuestAnsw extends Application {
 			flash.error("您取消了对这条回答的赞同");
 			showQuesInfo(quesid);
 		} else {
-			System.out.println("数据库里面是空，走到这是添加了站台");
 			flash.error("您赞同了这条回答！");
 			Comments com = Comments.findById(id);
 			com.praiseNum = com.praiseNum + 1;

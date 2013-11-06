@@ -1,7 +1,6 @@
 #{extends 'main.html' /} #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
 	<div class="left-div col-md-8" >
-
 		<div class="activity-pic" style="width: 300px;float: left;margin-right: 20px;">
 			<img src="${a.poster}">
 		</div>
@@ -26,10 +25,6 @@
 					<span class="At_info">$ ${a.money}</span>
 
 				</div>
-				
-				
-				
-				
 				<div class="detail">
 					<span class="pic-leftTitle">人数：</span>
 					<span class="At_info">${a.scope.scope}</span>
@@ -91,9 +86,6 @@
 					#{/if}
 					
 					
-					
-					
-					
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -107,13 +99,8 @@
 									 
 										<input type="hidden" name="aid" value="${a.id}">
 										<br/>
-										
-										 
 										        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 										        <button type="submit" class="btn btn-info">提交</button>
-										      
-										
-									 
 									</form>
 								</div>
 							</div>
@@ -122,93 +109,106 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
-					
-				 
-				
 			</div>
 			#{/else}
-		
 		</div>
-			<h3>活动介绍</h3><p style="text-indent:2em;width:500px;">${a.intro}</p>
-									 
+			<h3>活动介绍</h3>
+			<p style="text-indent:2em;width:500px;">${a.intro}</p>
 	</div>
+
+%{String date = new Date().format("yyyy-MM-dd")}%
+#{if date > a.time.last().date}
+	
+<div id="comment" style="padding-top:30px;">	
+	<div>
+		#{form @comment(), method:'get',class:'form-horizontal'} 
+		<h4 class="col-md-offset-2" style="margin-left:-3px;">参加了一次神奇的活动之后，我想说：</h4>
+				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left:-100px;">
+				        <label for="email" class="col-md-2 control-label">标签</label>
+				        <div class="col-md-3 " style="width:40%;">
+				                <input type="text" placeholder="好玩、热闹..." class="form-control" name="c.tag"  />
+				        </div>
+				        <span class="col-md-3">#{error 'tag' /}</span>
+				</div>
+				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left:-100px;">
+				        <label for="email" class="col-md-2 control-label">评论</label>
+				        <div class="col-md-3 " style="width:40%;">
+				                <textarea  rows="5" cols="30" class="form-control" name="c.comment"  /></textarea>
+				                <input type="hidden" name="activity" value="${a.id}" />
+				        </div>
+				        <span class="col-md-3">#{error 'comment' /}</span>
+				</div>
+				<div class="form-group" style="margin-left:-100px;">
+				        <div class="col-md-offset-2 col-md-3">
+				                <input type="submit" class="btn btn-primary" value="晒晒">
+				        </div>
+				</div>		
+		#{/form}
+	</div>
+</div>
+	
+	
+
+#{list items:a.comment,as:'comment'}
+<div style="width:70%; padding-top:15px;  border-top:1px solid #dddddd; padding-bottom:10px;">
+	<img style="width:40px;height:40px;" src=${comment.publisher.profile} />
+	<span>${comment.publisher.name}:</span>
+	<span>${comment.tag}</span><span style="float:right;">${comment.publishedAt}</span>
+	<br/>
+	<span style="padding-left:40px;">${comment.comment}</span>
+</div>
+#{/list}
+#{/if}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
  </div>	
  
+ 
+ <!--  地图  -->
 <div class="col-md-4">
 
-	<div class="right-top">
-		<a href="@{Activities.Create}" class="btn btn-info faqi">
-			<i class="icon-flag"></i> 发起活动
-		</a>
-	</div>
-	<div class="map">
-		<h4 class="activity-title3">
-			活动地图 #{if isAllown || isOwner}
-			<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
-			#{/if}
-		</h4>
+		<div class="right-top">
+			<a href="@{Activities.Create}" class="btn btn-info faqi">
+				<i class="icon-flag"></i> 发起活动
+			</a>
+		</div>
 
-		<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
-	</div>
-	<div class="person">
-		<h4 class="activity-title3">活动组织者</h4>
-		<div class="activity-userpic">
-			<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+		<div class="map">
+			<h4 class="activity-title3">
+				活动地图 #{if isAllown || isOwner}
+					<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
+					 #{/if}
+			</h4>
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
 		</div>
-		<div>
-			<small class="name">${publisher_name}</small>
+
+		<div class="person">
+				<h4 class="activity-title3">活动组织者</h4>
+			<div class="activity-userpic">
+				<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+			</div>
+			<div>
+				<small class="name">${publisher_name}</small>
+			</div>
 		</div>
-	</div>
-	<br />
-	<div class="numbers">
+		<br />
+
+		<div class="numbers">
 		<h4 class="activity-title4">活动成员</h4>
-
 		#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
 		<br>
 		#{list items:allownJoiner,as:'joiner'}
 		<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}">
 		#{/list}
-
 	</div>
 </div>
- 
 </div>
- 
-	
 </div>
-
-<div>
-
- 	 
-					
-	%{String date = new Date().format("yyyy-MM-dd")}%
-	#{if date > a.time.last().date}
-	<div id="comment">
-	<div>
-		#{form @comment(), method:'get',class:'form-horizontal'} 参加了一次神奇的活动之后，我想说：
-		<br />
-		标签：
-		<input type="text" name="c.tag" placeholder="好玩、热闹..." />
-		<br />
-		评论：
-		<input type="hidden" name="activity" value="${a.id}" />
-		<textarea rows="5" cols="30" name="c.comment"></textarea>
-		<br />
-		<input type="submit" value="晒晒">
-		#{/form}
-		</div>
-<div>
-
-<div>
-#{list items:a.comment,as:'comment'}
-<img src=${comment.publisher.profile} />${comment.publisher.name}${comment.comment}${comment.tag}${comment.publishedAt}
-#{/list}
-</div>
-	</div>
-
-</div>
-#{/if}
- 
- </div>
- 
- 
