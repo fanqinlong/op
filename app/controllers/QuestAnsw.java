@@ -589,7 +589,6 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchSchool(String school) {
-		System.out.println("查找 学校:" + school);
 		List<Tag> t = Tag.findAll();
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE school LIKE ?",
 				"%" + school + "%").fetch(5);
@@ -709,16 +708,10 @@ public class QuestAnsw extends Application {
 			comid = com.id;
 			username = com.username;
 		}
-		System.out.println("用户id:" + userid);
-		System.out.println("用户类型:" + userType);
-		System.out.println("答案id:" + comid);
-
 		Comments findCom = Comments.findById(comid);
 
 		Ques fQ = Ques.findById(Quesid);
-		System.out.println("看看找到的是什么：" + fQ);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
-		System.out.println("关注的问题：" + FQ);
 		render(findCom, fQ, FQ, username);
 	}
 
@@ -788,7 +781,6 @@ public class QuestAnsw extends Application {
 		List<AgreeComment> agreeCom = AgreeComment
 				.find("userid = ? and quesId =? and commentsid = ? and  userType = ?",
 						userId, quesid, id, fquserType).fetch();
-		System.out.println(agreeCom);
 		String quesTitle;
 
 		if (!agreeCom.isEmpty()) {
