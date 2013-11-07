@@ -41,11 +41,10 @@ public class Application extends Controller {
 		List<Wel> wNumber = Wel.findAll();
 		WelNum = wNumber.size();
 
-		List<Activity> activity = Activity.find("order by views desc").fetch(6);
+		List<Activity> activities = Activity.find("order by views desc").fetch(6);
 		long AcNum;
 		AcNum = Activity.count();
 
-		render(ques, wel, activity, QuesNum, WelNum, AcNum);
 
 		List<StuInfo> stu = StuInfo.find("order by id desc").fetch(5);
 		int StuNum;
@@ -70,11 +69,11 @@ public class Application extends Controller {
 				userprofile = cssa.profile;
 
 			}
-			render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,
+			render(ques, wel, activities, stu, QuesNum, WelNum, AcNum, StuNum,
 					isNotLogin, userprofile);
 
 		}
-		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,
+		render(ques, wel, activities, stu, QuesNum, WelNum, AcNum, StuNum,
 				isNotLogin);
 	}
 

@@ -111,22 +111,23 @@
 	</header>
 
 	<div class="container hot-list">
-
-
 		<div class="mg-top-3">
-
 			<h3 class="text-primary">
 				最新活动<small class="text-info">ACTIVITY</small><small
 					class="pull-right">进行着<span class="text-info">${AcNum}</span>个活动
 				</small>
 			</h3>
 			<hr />
-			<div class="row">
-				#{list items:activity,as:'a'}
-				<div class="col-md-2 activity">
-				<img alt="" src="${a.poster}">
-					
+			<div class="row ">
+				#{list items:activities,as:'a'}
+				<div class="col-md-2 activity">		
+				<div class="poster">	
+				<img alt="" src="${a.poster}">	
+				<div class="titles"></div>
+				<div class="detail"></div>
+				</div>									
 				</div>
+				
 				#{/list}
 			</div>
 			<p class="text-right">
@@ -137,8 +138,6 @@
 
 		<div class="row">
 			<div class="col-md-6 ">
-
-
 				<h3 class="text-primary">
 					最热话题<small class="text-warning">QUESTION</small><small
 						class="pull-right">活跃着<span class="text-info">${QuesNum}</span>个话题
@@ -175,13 +174,9 @@
 					<a href="@{Charities.pigination(1)}" class="btn btn-primary">Read
 						More</a>
 				</p>
-
-
 			</div>
 		</div>
 	</div>
-
-
 	<footer class="navbar-op-footer ">
 		<div class="container ">
 			<P class="navbar-text navbar-right">

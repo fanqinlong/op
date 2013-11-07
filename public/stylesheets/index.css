@@ -32,6 +32,19 @@ body{
 	padding:5px 0;
 }
 
-.activity img{
+.activity .poster img{
 	width:100%;
+}
+.activity .poster{
+	position: relative;
+}
+.activity .titles{
+	position: relative;
+	background:#000;
+	opacity:0.5;
+	height:30px;
+}
+.activity .detail{
+	position: relative;
+	background:#336699;
 }
