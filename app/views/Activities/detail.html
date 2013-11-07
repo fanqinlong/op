@@ -11,38 +11,38 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 		<div class="activity ">
 			<div class="activity-weight acpading">
 				<h4>${a.name}</h4>
-				<div class="detail ">
+				<div class="details ">
 					<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date}
 						${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 				</div>
 				#{if isAllown || isOwner}
-				<div class="detail ">
+				<div class="details ">
 					<span class="pic-leftTitle">地点：</span> <span class="At_info">${a.location}</span>
 				</div>
 				#{/if}
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">费用：</span> <span class="At_info">$
 						${a.money}</span>
 				</div>
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
 				</div>
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
 				</div>
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</span>
 				</div>
 				#{if isAllown || isOwner}
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
 				</div>
 				#{/if}
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
 				</div>
 
-				<div class="detail">
+				<div class="details">
 					<span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int
 					male=0;}% #{list items:a.joiner,as:'joiner'}
 					%{joiner.joiner.gender=="女"?female++:male++;}% #{/list} <span
@@ -115,7 +115,7 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 			<p style="text-indent: 2em; width: 500px;">${a.intro}</p>
 		</div>
 		
-		#{if date > a.time.last().date}
+		#{if date > a.time.last().date && (isAllown || isOwner)}
 		<div id="comment" style="padding-top: 30px;">
 			<div>
 				#{form @comment(), method:'get',class:'form-horizontal'}

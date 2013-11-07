@@ -20,3 +20,4 @@ server.pid
 *.iml
 *.eml
 conf/application.conf
+public/images/poster

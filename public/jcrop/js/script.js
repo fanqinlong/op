@@ -96,7 +96,5 @@ function fileSelectHandler() {
             });
         };
     };
-	// Download by http://www.codefans.net	
-    // read selected file as DataURL
     oReader.readAsDataURL(oFile);
 }

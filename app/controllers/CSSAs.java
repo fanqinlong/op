@@ -25,7 +25,7 @@ import models.airport.School;
 
 public class CSSAs extends Application {
 
-	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetpassword", "doforgetpassword", "resetPasswordConfirmation", "resetPassword" })
+	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetPassword", "doForgetPassword", "resetPasswordConfirmation", "resetPassword" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			CSSAs.login();
@@ -203,23 +203,23 @@ public class CSSAs extends Application {
 		login();
 	}
 
-	public static void forgetpassword() {
+	public static void forgetPassword() {
 		render();
 	}
 
-	public static void doforgetpassword(@Required @Email String email) {
+	public static void doForgetPassword(@Required @Email String email) {
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
 			flash.error("请更正错误。");
-			forgetpassword();
+			forgetPassword();
 		} else if (CSSA.isEmailAvailable(email)) {
 			validation.keep();
 			params.flash();
 			flash.error("邮箱不存在。");
-			forgetpassword();
+			forgetPassword();
 		}
-
+		
 		CSSA user = CSSA.findByEmail(email);
 		user.passwordConfirmation = Codec.UUID();
 		user.save();

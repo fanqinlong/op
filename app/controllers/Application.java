@@ -41,7 +41,7 @@ public class Application extends Controller {
 		List<Wel> wNumber = Wel.findAll();
 		WelNum = wNumber.size();
 
-		List<Activity> activities = Activity.find("order by views desc").fetch(6);
+		List<Activity> activities = Activity.find("isFrontPage = true order by views desc").fetch(6);
 		long AcNum;
 		AcNum = Activity.count();
 

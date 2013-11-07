@@ -35,8 +35,8 @@ import models.users.SimpleUser;
 public class SimpleUsers extends Application {
 
 	@Before(unless = { "login", "signup", "register", "confirmRegistration",
-			"authenticate", "resendConfirmation", "forgetpassword",
-			"doforgetpassword", "resetPasswordConfirmation", "resetPassword",
+			"authenticate", "resendConfirmation", "forgetPassword",
+			"doForgetPassword", "resetPasswordConfirmation", "resetPassword",
 			"confirmEduMail" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
@@ -315,22 +315,22 @@ public class SimpleUsers extends Application {
 		login();
 	}
 
-	public static void forgetpassword() {
+	public static void forgetPassword() {
 		render();
 	}
 
-	public static void doforgetpassword(@Required @Email String email) {
+	public static void doForgetPassword(@Required @Email String email) {
 		System.out.println("here");
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
 			flash.error("请更正错误。");
-			forgetpassword();
+			forgetPassword();
 		} else if (SimpleUser.isEmailAvailable(email)) {
 			validation.keep();
 			params.flash();
 			flash.error("邮箱不存在。");
-			forgetpassword();
+			forgetPassword();
 		}
 
 		SimpleUser user = SimpleUser.findByEmail(email);

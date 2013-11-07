@@ -20,8 +20,8 @@ POST       			/simple/changepassword                                   SimpleUse
 POST        		/simple/updateprofile                                    SimpleUsers.doUpdateProfile
 GET                	/simple/changeemail/{id}                                 SimpleUsers.changeEmail
 POST       			/simple/changeemail                                      SimpleUsers.dochangeEmail
-GET                 /simple/forgetpassword                                   SimpleUsers.forgetpassword
-POST        		/simple/forgetpassword                                   SimpleUsers.doforgetpassword
+GET                 /simple/forgetpassword                                   SimpleUsers.forgetPassword
+POST        		/simple/forgetpassword                                   SimpleUsers.doForgetPassword
 GET                	/simple/resetpassword/{uuid}                             SimpleUsers.resetPasswordConfirmation
 POST        		/simple/resetpassword                                    SimpleUsers.doResetPassword
 GET                	/simple/changeprofile/{id}                               SimpleUsers.changeProfile
@@ -51,8 +51,8 @@ GET                	/cssa/updateprofile/{id}                                 CSS
 POST        		/cssa/updateprofile                                      CSSAs.doUpdateProfile
 GET                	/cssa/changeemail/{id}                                   CSSAs.changeEmail
 POST        		/cssa/changeemail                                        CSSAs.dochangeEmail
-GET                	/cssa/forgetpassword                                     CSSAs.forgetpassword
-POST        		/cssa/forgetpassword                                     CSSAs.doforgetpassword
+GET                	/cssa/forgetpassword                                     CSSAs.forgetPassword
+POST        		/cssa/forgetpassword                                     CSSAs.doForgetPassword
 GET                	/cssa/resetpassword/{uuid}                               CSSAs.resetPasswordConfirmation
 POST        		/cssa/resetpassword                                      CSSAs.doResetPassword
 GET                	/cssa/changeprofile/{id}                                 CSSAs.changeProfile

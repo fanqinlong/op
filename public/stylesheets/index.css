@@ -31,20 +31,36 @@ body{
 .hot-list p{
 	padding:5px 0;
 }
-
+.activity{
+	 position: relative;height:165px;
+	 overflow:hidden;
+	 font-size:12px;
+}
 .activity .poster img{
 	width:100%;
 }
 .activity .poster{
 	position: relative;
+	top:0px;
 }
 .activity .titles{
-	position: relative;
+	position: absolute;
 	background:#000;
 	opacity:0.5;
-	height:30px;
+	height:24px;
+	bottom:0px;
+	color:#FFF;
+	width:165px;
 }
 .activity .detail{
-	position: relative;
-	background:#336699;
+	position: absolute;
+	background:#428bca;
+	width:165px;
+	height:165px;
+	top:165px;
+	color:#FFF;
+	cursor:pointer
+}
+.activity .detail p{
+	padding:5px 10px 0 10px;
 }

@@ -11,10 +11,7 @@
 #{stylesheet 'op-theme.css' /} #{stylesheet
 'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /}
 #{stylesheet 'media-queries.css' /}
-<script type="text/javascript">
-	$(document).ready(function() {
-	});
-</script>
+
 </head>
 <body>
 	<header class="header">
@@ -64,11 +61,12 @@
 		</div>
 		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
 
-		
+
 		<div id="login" class="login col-md-2 col-md-offset-8">
 
 			#{if isNotLogin}
-			<form class="login-form" method="post" action="@{SimpleUsers.authenticate}">
+			<form class="login-form" method="post"
+				action="@{SimpleUsers.authenticate}">
 
 				<h5 class="pull-left">登录奥噗</h5>
 				<h5 class="pull-right">
@@ -92,19 +90,18 @@
 					</label>
 				</div>
 			</form>
-			#{/if}
-			#{else}
-				<li>
-					<div style="margin-left:20px; margin-top:50px;">
-						<img src="${userprofile}" class="img-circle">
-					</div>
-				</li>
-				<li style="margin-left:27px;margin-top:45px;">
-					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a>
-					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
-				</li>
-			#{/else}
-		  </div>
+			#{/if} #{else}
+			<li>
+				<div style="margin-left: 20px; margin-top: 50px;">
+					<img src="${userprofile}" class="img-circle">
+				</div>
+			</li>
+			<li style="margin-left: 27px; margin-top: 45px;"><a
+				type="button" class="btn btn-default btn-sm"
+				href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button"
+				class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
+			</li> #{/else}
+		</div>
 
 
 
@@ -120,15 +117,28 @@
 			<hr />
 			<div class="row ">
 				#{list items:activities,as:'a'}
-				<div class="col-md-2 activity">		
-				<div class="poster">	
-				<img alt="" src="${a.poster}">	
-				<div class="titles"></div>
-				<div class="detail"></div>
-				</div>									
+				<div class="col-md-2 activity">
+					<div class="poster">
+					<a href="@{Activities.detail(a.id)}">
+						<img alt="" src="${a.poster}">
+						</a>
+					</div>
+					<div class="titles text-center">${a.name}</div>
+					<div class="detail " onclick="window.location.href='/activity/detail/${a.id}'">
+					<p>
+						<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
+						</p>
+						<p>${a.summary} </p>
+						<p><small>${a.time.first().date}至${a.time.last().date}</small><br />
+						已有<b> ${a.joiner.size()}</b>人报名参加
+						</p>
+
+					</div>
 				</div>
-				
+
 				#{/list}
+				
+				
 			</div>
 			<p class="text-right">
 				<a href="@{Activities.index}" class="btn  btn-primary">Read More</a>
@@ -247,6 +257,17 @@
 			$("#send").fadeOut();
 			$("#zuce_page").addClass("hide");
 		}
+		$(".activity").hover(function(){
+			$(this).children().last().clearQueue();
+			$(this).children().last().stop(true,true).animate({top:'0'},"slow");
+			
+		},function(){
+			$(this).children().last().clearQueue();
+			$(this).children().last().stop(true,true).animate({top:'165'});
+			
+		});
+		
+		
 	</script>
 </body>
 </html>
