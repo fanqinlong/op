@@ -70,15 +70,7 @@ public class Application extends Controller {
     		}
     		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin,userprofile);
     	}
-		// String userType = Utils.getUserType();
-		// if(userType==null){
-		// render();
-		// }else if(userType.equals("simple")){
-		// SimpleUsers.infoCenter();
-		// }else{
-		// CSSAs.infoCenter();
-		// }
-
+	
 		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin);
 	}
 
