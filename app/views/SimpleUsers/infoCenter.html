@@ -22,7 +22,7 @@
 			 <div class="detail">
 				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
 				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
+				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
 			</div>
 			#{/if}
 			#{elseif trend.action.equals("disallown")}
@@ -30,7 +30,7 @@
 			 <div class="detail">
 				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
 				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
+				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
 			</div>
 			#{/elseif}			
 			#{elseif  trend.action.equals("like")}
@@ -38,7 +38,7 @@
 			 <div class="detail">
 				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
 				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
+				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
 			</div>
 			#{/elseif}
 			#{elseif trend.action.equals("join")}
@@ -46,7 +46,7 @@
 			 <div class="detail">
 				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
 				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
+				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
 			</div>
 			#{/elseif}
 			
@@ -55,7 +55,7 @@
 			 <div class="detail">
 				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
 				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
+				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
 			</div>
 			#{/elseif}
 			<p>${trend.time}</p>
