@@ -205,6 +205,26 @@ public class QuestAnsw extends Application {
 				CSSAFocusQues = true;
 			}
 		}
+		/***
+		 *通知，回答了用户的问题
+		 * 
+		 * **/
+		
+		String noticName;
+		if(comentUsertype.equals("simple")){
+			SimpleUser sUser =SimpleUser.findById(comentUserid);
+			noticName = sUser.name;
+		}else{
+			CSSA cssa = CSSA.findById(comentUserid);
+			noticName =cssa.email;
+		}	
+		ArrayList<String> s = new ArrayList();
+		
+		if(comentUsertype.equals("simple")){
+			Messaging.addNotification(ques.usertype, ques.userid, noticName+"回答了您的问题"+QuesTitle, s);
+			}else{
+				Messaging.addNotification(ques.usertype, ques.userid, noticName+"回答了您的问题"+QuesTitle, s);
+			}
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
 				CssaComment, userid, UserFocusQues, CSSAFocusQues,
@@ -212,44 +232,22 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchPage(long id, long question_id) {
-//		if (session.get("logged") == null) {
-//			SimpleUsers.login();
-//		} 
 			List<Tag> t = Tag.findAll();
 			List<Ques> aQues = Ques.find("order by date desc").fetch(5);
 			long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 					.count() / 5 + 1);
 			Iterator iterator = aQues.iterator();
 			List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-			List<Comments> comm = null;
-			Object com1 = null;
 			while (iterator.hasNext()) {
 				Ques ques = (Ques) iterator.next();
 				List<Comments> comments = Comments.find("quesid = ?", ques.id)
 						.fetch();
-				comm = comments;
-
-				for (Object obj : comments) {
-					System.out.println("看看遍历出来的是什么" + obj);
-					com1 = obj;
-
-				}
-				System.out.println("每个问题答案里面的" + comments);
-				System.out.println("看看转换后的是什么样子的" + com1);
 				Comments comment = comments.isEmpty() ? null
 						: (Comments) comments.get(0);
 				QuestionArticle qa = new QuestionArticle(ques, comment);
 				qArticles.add(qa);
 			}
-//			String userType = session.get("usertype");
-//			long userId = Long.parseLong(session.get("logged"));
-
-			List<Comments> com = Comments.findAll();
-
-			System.out.println("comments" + com);
-
-			render(t, qArticles, pageCount, comm);
-		
+			render(t, qArticles, pageCount);
 	}
 
 	public static void searchQues(String ques) {
@@ -523,6 +521,28 @@ public class QuestAnsw extends Application {
 
 		new FocusQues(fquserType, fquserid, fquserprofile, id, QuesTitle);
 
+		/**
+		 * 通知关注了用户的问题
+		 * 
+		**/
+		Long noticeid;
+		String noticName;
+		if(fquserType.equals("simple")){
+			SimpleUser sUser =SimpleUser.findById(userId);
+			noticeid = sUser.id;
+			noticName = sUser.name;
+		}else{
+			CSSA cssa = CSSA.findById(userId);
+			noticeid = cssa.id;
+			noticName =cssa.email;
+		}	
+		
+		ArrayList<String> s = new ArrayList();
+		if(fquserType.equals("simple")){
+			Messaging.addNotification(ques.usertype, ques.userid, noticName+"关注了您的问题"+QuesTitle, s);
+			}else{
+				Messaging.addNotification(ques.usertype, ques.userid, noticName+"关注了您的问题"+QuesTitle, s);
+			}
 		showQuesInfo(id);
 	}
 
@@ -545,7 +565,6 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchSchool(String school) {
-		System.out.println("查找 学校:" + school);
 		List<Tag> t = Tag.findAll();
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE school LIKE ?",
 				"%" + school + "%").fetch(5);
@@ -665,16 +684,10 @@ public class QuestAnsw extends Application {
 			comid = com.id;
 			username = com.username;
 		}
-		System.out.println("用户id:" + userid);
-		System.out.println("用户类型:" + userType);
-		System.out.println("答案id:" + comid);
-
 		Comments findCom = Comments.findById(comid);
 
 		Ques fQ = Ques.findById(Quesid);
-		System.out.println("看看找到的是什么：" + fQ);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
-		System.out.println("关注的问题：" + FQ);
 		render(findCom, fQ, FQ, username);
 	}
 
@@ -707,10 +720,26 @@ public class QuestAnsw extends Application {
 		}
 		FocusQues fques = FocusQues.findById(cfq);
 		fques.delete();
-
+		
 		Ques q = Ques.findById(quesid);
 		q.focusNum = q.focusNum - 1;
 		q.save();
+		
+		String noticName;
+		if(fquserType.equals("simple")){
+			SimpleUser sUser =SimpleUser.findById(userId);
+			noticName = sUser.name;
+		}else{
+			CSSA cssa = CSSA.findById(userId);
+			noticName =cssa.email;
+		}		
+		ArrayList<String> s = new ArrayList();
+		
+		if(fquserType.equals("simple")){
+			Messaging.addNotification(q.usertype, q.userid, noticName+"取消了关注您的问题"+q.title, s);
+			}else{
+				Messaging.addNotification(q.usertype, q.userid, noticName+"取消了关注您的问题"+q.title, s);
+			}
 		showQuesInfo(quesid);
 	}
 
@@ -725,14 +754,9 @@ public class QuestAnsw extends Application {
 		List<AgreeComment> agreeCom = AgreeComment
 				.find("userid = ? and quesId =? and commentsid = ? and  userType = ?",
 						userId, quesid, id, fquserType).fetch();
-		System.out.println(agreeCom);
 		String quesTitle;
 
-		boolean notEmpty = false;
-
 		if (!agreeCom.isEmpty()) {
-			notEmpty = true;
-			System.out.println("不为空");
 			Iterator iterator = agreeCom.iterator();
 			Long Acid = null;
 			while (iterator.hasNext()) {
@@ -749,7 +773,6 @@ public class QuestAnsw extends Application {
 			flash.error("您取消了对这条回答的赞同");
 			showQuesInfo(quesid);
 		} else {
-			System.out.println("数据库里面是空，走到这是添加了站台");
 			flash.error("您赞同了这条回答！");
 			Comments com = Comments.findById(id);
 			com.praiseNum = com.praiseNum + 1;

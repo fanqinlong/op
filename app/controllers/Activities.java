@@ -254,9 +254,11 @@ public class Activities extends Application {
 		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 		l.save();
 		
+
 		Trend t = new Trend(Utils.getNowTime(), l.likerSU,l.likerCSSA,l.activity.publisherSU, l.activity.publisherCSSA,a, "like", "activity");
 		t.save();
 		
+
 		ArrayList<String> s = new ArrayList();
 		s.add("11");
 		s.add("22");

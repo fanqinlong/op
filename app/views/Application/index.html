@@ -63,9 +63,13 @@
  -->
 		</div>
 		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
+
+		
 		<div id="login" class="login col-md-2 col-md-offset-8">
-			<form class="login-form" method="post"
-				action="@{SimpleUsers.authenticate}">
+
+			#{if isNotLogin}
+			<form class="login-form" method="post" action="@{SimpleUsers.authenticate}">
+
 				<h5 class="pull-left">登录奥噗</h5>
 				<h5 class="pull-right">
 					<a href="@{SimpleUsers.signup}" id="login-font1"> 注册<i
@@ -88,12 +92,26 @@
 					</label>
 				</div>
 			</form>
-		</div>
+			#{/if}
+			#{else}
+				<li>
+					<div style="margin-left:20px; margin-top:50px;">
+						<img src="${userprofile}" class="img-circle">
+					</div>
+				</li>
+				<li style="margin-left:27px;margin-top:45px;">
+					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a>
+					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
+				</li>
+			#{/else}
+		  </div>
+
 
 
 	</header>
 
 	<div class="container hot-list">
+
 
 		<div class="mg-top-3">
 

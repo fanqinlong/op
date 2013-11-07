@@ -45,7 +45,37 @@ public class Application extends Controller {
 		long AcNum;
 		AcNum = Activity.count();
 
-		render(ques, wel, activity,  QuesNum, WelNum, AcNum);
+		render(ques, wel, activity, QuesNum, WelNum, AcNum);
+
+		List<StuInfo> stu = StuInfo.find("order by id desc").fetch(5);
+		int StuNum;
+		List<StuInfo> stuNumber = StuInfo.findAll();
+		StuNum = stuNumber.size();
+
+		boolean isNotLogin = false;
+
+		if (session.get("logged") == null) {
+			isNotLogin = true;
+		} else {
+			isNotLogin = false;
+
+			String userType = session.get("usertype");
+			long userid = Long.parseLong(session.get("logged"));
+			String userprofile;
+			if (userType.equals("simple")) {
+				SimpleUser sip = SimpleUser.findById(userid);
+				userprofile = sip.profile;
+			} else {
+				CSSA cssa = CSSA.findById(userid);
+				userprofile = cssa.profile;
+
+			}
+			render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,
+					isNotLogin, userprofile);
+
+		}
+		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,
+				isNotLogin);
 	}
 
 	static SimpleUser connectedSimple() {
