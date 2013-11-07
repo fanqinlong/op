@@ -210,22 +210,20 @@ public class QuestAnsw extends Application {
 		 * 
 		 * **/
 		
-		Long noticeid;
 		String noticName;
 		if(comentUsertype.equals("simple")){
 			SimpleUser sUser =SimpleUser.findById(comentUserid);
-			noticeid = sUser.id;
 			noticName = sUser.name;
 		}else{
 			CSSA cssa = CSSA.findById(comentUserid);
-			noticeid = cssa.id;
 			noticName =cssa.email;
 		}	
 		ArrayList<String> s = new ArrayList();
+		
 		if(comentUsertype.equals("simple")){
-			Messaging.addNotification("simple", noticeid, noticName+"回答了您的问题"+QuesTitle, s);
+			Messaging.addNotification(ques.usertype, ques.userid, noticName+"回答了您的问题"+QuesTitle, s);
 			}else{
-				Messaging.addNotification("cssa", noticeid, noticName+"回答了您的问题"+QuesTitle, s);
+				Messaging.addNotification(ques.usertype, ques.userid, noticName+"回答了您的问题"+QuesTitle, s);
 			}
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
@@ -234,44 +232,22 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchPage(long id, long question_id) {
-//		if (session.get("logged") == null) {
-//			SimpleUsers.login();
-//		} 
 			List<Tag> t = Tag.findAll();
 			List<Ques> aQues = Ques.find("order by date desc").fetch(5);
 			long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 					.count() / 5 + 1);
 			Iterator iterator = aQues.iterator();
 			List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-			List<Comments> comm = null;
-			Object com1 = null;
 			while (iterator.hasNext()) {
 				Ques ques = (Ques) iterator.next();
 				List<Comments> comments = Comments.find("quesid = ?", ques.id)
 						.fetch();
-				comm = comments;
-
-				for (Object obj : comments) {
-					System.out.println("看看遍历出来的是什么" + obj);
-					com1 = obj;
-
-				}
-				System.out.println("每个问题答案里面的" + comments);
-				System.out.println("看看转换后的是什么样子的" + com1);
 				Comments comment = comments.isEmpty() ? null
 						: (Comments) comments.get(0);
 				QuestionArticle qa = new QuestionArticle(ques, comment);
 				qArticles.add(qa);
 			}
-//			String userType = session.get("usertype");
-//			long userId = Long.parseLong(session.get("logged"));
-
-			List<Comments> com = Comments.findAll();
-
-			System.out.println("comments" + com);
-
-			render(t, qArticles, pageCount, comm);
-		
+			render(t, qArticles, pageCount);
 	}
 
 	public static void searchQues(String ques) {
@@ -563,9 +539,9 @@ public class QuestAnsw extends Application {
 		
 		ArrayList<String> s = new ArrayList();
 		if(fquserType.equals("simple")){
-			Messaging.addNotification("simple", noticeid, noticName+"关注了您的问题"+QuesTitle, s);
+			Messaging.addNotification(ques.usertype, ques.userid, noticName+"关注了您的问题"+QuesTitle, s);
 			}else{
-				Messaging.addNotification("cssa", noticeid, noticName+"关注了您的问题"+QuesTitle, s);
+				Messaging.addNotification(ques.usertype, ques.userid, noticName+"关注了您的问题"+QuesTitle, s);
 			}
 		showQuesInfo(id);
 	}
@@ -749,23 +725,20 @@ public class QuestAnsw extends Application {
 		q.focusNum = q.focusNum - 1;
 		q.save();
 		
-		Long noticeid;
 		String noticName;
 		if(fquserType.equals("simple")){
 			SimpleUser sUser =SimpleUser.findById(userId);
-			noticeid = sUser.id;
 			noticName = sUser.name;
 		}else{
 			CSSA cssa = CSSA.findById(userId);
-			noticeid = cssa.id;
 			noticName =cssa.email;
 		}		
 		ArrayList<String> s = new ArrayList();
 		
 		if(fquserType.equals("simple")){
-			Messaging.addNotification("simple", noticeid, noticName+"取消了关注您的问题"+q.title, s);
+			Messaging.addNotification(q.usertype, q.userid, noticName+"取消了关注您的问题"+q.title, s);
 			}else{
-				Messaging.addNotification("cssa", noticeid, noticName+"取消了关注您的问题"+q.title, s);
+				Messaging.addNotification(q.usertype, q.userid, noticName+"取消了关注您的问题"+q.title, s);
 			}
 		showQuesInfo(quesid);
 	}

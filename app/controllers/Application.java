@@ -50,7 +50,26 @@ public class Application extends Controller {
 		int StuNum;
 		List<StuInfo> stuNumber = StuInfo.findAll();
 		StuNum = stuNumber.size();
-
+		
+		boolean isNotLogin = false;
+		
+		if (session.get("logged") == null) {
+			isNotLogin = true;
+    	}else{
+    		isNotLogin = false;
+    		
+    		String userType = session.get("usertype");
+    		long userid = Long.parseLong(session.get("logged"));
+    		String userprofile;
+    		if(userType.equals("simple")){
+    			SimpleUser sip = SimpleUser.findById(userid);
+    			userprofile = sip.profile;
+    		}else{
+    			CSSA cssa = CSSA.findById(userid);
+    			userprofile = cssa.profile;
+    		}
+    		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin,userprofile);
+    	}
 		// String userType = Utils.getUserType();
 		// if(userType==null){
 		// render();
@@ -60,7 +79,7 @@ public class Application extends Controller {
 		// CSSAs.infoCenter();
 		// }
 
-		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum);
+		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin);
 	}
 
 	static SimpleUser connectedSimple() {
