@@ -1,7 +1,10 @@
-#{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
+#{extends 'main.html' /}%{String date = new
+Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
+'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
-	<div class="left-div col-md-8" >
-		<div class="activity-pic" style="width: 300px;float: left;margin-right: 20px;">
+	<div class="left-div col-md-8">
+		<div class="activity-pic"
+			style="width: 300px; float: left; margin-right: 20px;">
 			<img src="${a.poster}">
 		</div>
 
@@ -9,96 +12,93 @@
 			<div class="activity-weight acpading">
 				<h4>${a.name}</h4>
 				<div class="detail ">
-					<span class="pic-leftTitle">时间：</span>
-					
-					<span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
+					<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date}
+						${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 				</div>
-
 				#{if isAllown || isOwner}
 				<div class="detail ">
-					<span class="pic-leftTitle">地点：</span>
-					<span class="At_info">${a.location}</span>
+					<span class="pic-leftTitle">地点：</span> <span class="At_info">${a.location}</span>
 				</div>
 				#{/if}
 				<div class="detail">
-					<span class="pic-leftTitle">费用：</span>
-					<span class="At_info">$ ${a.money}</span>
-
+					<span class="pic-leftTitle">费用：</span> <span class="At_info">$
+						${a.money}</span>
 				</div>
 				<div class="detail">
-					<span class="pic-leftTitle">人数：</span>
-					<span class="At_info">${a.scope.scope}</span>
+					<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
 				</div>
 				<div class="detail">
-					<span class="pic-leftTitle">类型：</span>
-					<span class="At_info">${a.type.name}</span>
+					<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
 				</div>
 				<div class="detail">
-					<span class="pic-leftTitle">发起人：</span>
-					<span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</span>
+					<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</span>
 				</div>
 				#{if isAllown || isOwner}
 				<div class="detail">
-					<span class="pic-leftTitle">联系方式：</span>
-					<span class="At_info">${a.contract}</span>
+					<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
 				</div>
 				#{/if}
 				<div class="detail">
-					<span class="pic-leftTitle">是否通过审核：</span>
-					<span class="At_info">${a.isChecked?"是":"否"}</span>
+					<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
 				</div>
-				
+
 				<div class="detail">
-					<span class="pic-leftTitle">参加者男女比例</span>
-					%{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list}
-					  <span class="At_info">${male}</span>
-					:
-					<span class="At_info">${female}</span>
+					<span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int
+					male=0;}% #{list items:a.joiner,as:'joiner'}
+					%{joiner.joiner.gender=="女"?female++:male++;}% #{/list} <span
+						class="At_info">${male}</span> : <span class="At_info">${female}</span>
 
 				</div>
-				 
-				%{int man = male*100/(male+female+0.0001)}%
-				%{int women = female*100/(male+female+0.0001) }%
-				
-					<div class="progress" style="width: 130px;">
-					  <div class="progress-bar progress-bar-success " style="width:${man}%" >
-					    <span class="sr-only">35% Complete (success)</span>
-					  </div> 
-					  
-					  <div class="progress-bar progress-bar-danger" style="width: ${women}%">
-					    <span class="sr-only">10% Complete (danger)</span>
-					  </div>
+
+				%{int man = male*100/(male+female+0.0001)}% %{int women =
+				female*100/(male+female+0.0001) }%
+
+				<div class="progress" style="width: 130px;">
+					<div class="progress-bar progress-bar-success "
+						style="width: ${man}">
+						<span class="sr-only">35% Complete (success)</span>
 					</div>
-				
-				#{if date < a.time.last().date}
-				#{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
+
+					<div class="progress-bar progress-bar-danger"
+						style="width: ${women}">
+						<span class="sr-only">10% Complete (danger)</span>
+					</div>
+				</div>
+
+				#{if date < a.time.last().date} #{if a.publisherCSSA==null &&
+				connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
 				<div>
-					<a class="btn btn-success" target="_bank" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
+					<a class="btn btn-success" target="_bank"
+						href="@{Activities.allJoinner(a.id)}">查看参加者</a>
 				</div>
 				#{/if} #{else }
 				<div>
-					#{if a.isOpen!=true}
-					<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
+					#{if a.isOpen!=true} <a href="#myModal" role="button"
+						data-toggle="modal"
+						class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a> #{/if}
+					<a href="@{Activities.like(a.id)}"
+						class="btn btn-info ${hasLiked?'disabled':''}">关注</a> #{if
+					a.isOpen!=true} <a class="btn btn-success"
+						href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 					#{/if}
-					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
-					#{if a.isOpen!=true}
-					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
-					#{/if}
-	<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
 									<h4 class="modal-title" id="myModalLabel">自我介绍</h4>
 								</div>
 								<div class="modal-body">
-									<form action="@{Activities.join}"  class="form-horizontal" method="POST">
-									<textarea class="form-control"  name="selfIntro" rows="3"></textarea>
-									 
-										<input type="hidden" name="aid" value="${a.id}">
-										<br/>
-										        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-										        <button type="submit" class="btn btn-info">提交</button>
+									<form action="@{Activities.join}" class="form-horizontal"
+										method="POST">
+										<textarea class="form-control" name="selfIntro" rows="3"></textarea>
+
+										<input type="hidden" name="aid" value="${a.id}"> <br />
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">关闭</button>
+										<button type="submit" class="btn btn-info">提交</button>
 									</form>
 								</div>
 							</div>
@@ -107,94 +107,86 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
+				</div>
+				#{/else} #{/if}
+
 			</div>
-			#{/else}
-
-		#{/if}
-
-		</div>
 			<h3>活动介绍</h3>
-			<p style="text-indent:2em;width:500px;">${a.intro}</p>
+			<p style="text-indent: 2em; width: 500px;">${a.intro}</p>
+		</div>
+		
+		#{if date > a.time.last().date}
+		<div id="comment" style="padding-top: 30px;">
+			<div>
+				#{form @comment(), method:'get',class:'form-horizontal'}
+				<h4 class="col-md-offset-2" style="margin-left: -3px;">参加了一次神奇的活动之后，我想说：</h4>
+				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}"
+					style="margin-left: -100px;">
+					<label for="email" class="col-md-2 control-label">标签</label>
+					<div class="col-md-3 " style="width: 40%;">
+						<input type="text" placeholder="好玩、热闹..." class="form-control"
+							name="c.tag" />
+					</div>
+					<span class="col-md-3">#{error 'tag' /}</span>
+				</div>
+				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}"
+					style="margin-left: -100px;">
+					<label for="email" class="col-md-2 control-label">评论</label>
+					<div class="col-md-3 " style="width: 40%;">
+						<textarea rows="5" cols="30" class="form-control" name="c.comment" /></textarea>
+						<input type="hidden" name="activity" value="${a.id}" />
+					</div>
+					<span class="col-md-3">#{error 'comment' /}</span>
+				</div>
+				<div class="form-group" style="margin-left: -100px;">
+					<div class="col-md-offset-2 col-md-3">
+						<input type="submit" class="btn btn-primary" value="晒晒">
+					</div>
+				</div>
+				#{/form}
+			</div>
+		</div>
+		
+		#{list items:a.comment,as:'comment'}
+		<div
+			style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
+			<img style="width: 40px; height: 40px;"
+				src=${comment.publisher.profile} /> <span>${comment.publisher.name}:</span>
+			<span>${comment.tag}</span><span style="float: right;">${comment.publishedAt}</span>
+			<br /> <span style="padding-left: 40px;">${comment.comment}</span>
+		</div>
+		#{/list} #{/if}
+
+
 	</div>
 
-%{String date = new Date().format("yyyy-MM-dd")}%
-#{if date > a.time.last().date}
-	
-<div id="comment" style="padding-top:30px;">	
-	<div>
-		#{form @comment(), method:'get',class:'form-horizontal'} 
-		<h4 class="col-md-offset-2" style="margin-left:-3px;">参加了一次神奇的活动之后，我想说：</h4>
-				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left:-100px;">
-				        <label for="email" class="col-md-2 control-label">标签</label>
-				        <div class="col-md-3 " style="width:40%;">
-				                <input type="text" placeholder="好玩、热闹..." class="form-control" name="c.tag"  />
-				        </div>
-				        <span class="col-md-3">#{error 'tag' /}</span>
-				</div>
-				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left:-100px;">
-				        <label for="email" class="col-md-2 control-label">评论</label>
-				        <div class="col-md-3 " style="width:40%;">
-				                <textarea  rows="5" cols="30" class="form-control" name="c.comment"  /></textarea>
-				                <input type="hidden" name="activity" value="${a.id}" />
-				        </div>
-				        <span class="col-md-3">#{error 'comment' /}</span>
-				</div>
-				<div class="form-group" style="margin-left:-100px;">
-				        <div class="col-md-offset-2 col-md-3">
-				                <input type="submit" class="btn btn-primary" value="晒晒">
-				        </div>
-				</div>		
-		#{/form}
-	</div>
-</div>
-	
-	
 
-#{list items:a.comment,as:'comment'}
-<div style="width:70%; padding-top:15px;  border-top:1px solid #dddddd; padding-bottom:10px;">
-	<img style="width:40px;height:40px;" src=${comment.publisher.profile} />
-	<span>${comment.publisher.name}:</span>
-	<span>${comment.tag}</span><span style="float:right;">${comment.publishedAt}</span>
-	<br/>
-	<span style="padding-left:40px;">${comment.comment}</span>
-</div>
-#{/list}
-#{/if}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
- </div>	
- 
- 
- <!--  地图  -->
-<div class="col-md-4">
+	<!--  地图  -->
+	<div class="col-md-4">
 
 		<div class="right-top">
-			<a href="@{Activities.Create}" class="btn btn-info faqi">
-				<i class="icon-flag"></i> 发起活动
+			<a href="@{Activities.Create}" class="btn btn-info faqi"> <i
+				class="icon-flag"></i> 发起活动
 			</a>
 		</div>
 
 		<div class="map">
 			<h4 class="activity-title3">
-				活动地图 #{if isAllown || isOwner}
-					<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
-					 #{/if}
+				活动地图 #{if isAllown || isOwner} <a
+					href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图
+				</a> #{/if}
 			</h4>
-			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
+			<img
+				src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false"
+				alt="">
 		</div>
 
 		<div class="person">
-				<h4 class="activity-title3">活动组织者</h4>
+			<h4 class="activity-title3">活动组织者</h4>
 			<div class="activity-userpic">
-				<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+				<img
+					src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile}
+					alt="" style="height: 60px; width: 60px;">
 			</div>
 			<div>
 				<small class="name">${publisher_name}</small>
@@ -203,48 +195,16 @@
 		<br />
 
 		<div class="numbers">
-		<h4 class="activity-title4">活动成员</h4>
-		#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
-		<br>
-		#{list items:allownJoiner,as:'joiner'}
-		<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}">
-		#{/list}
-	</div>
-</div>
-<<<<<<< HEAD
- 
-</div>
- 
-	
-</div>
-
-<div>
-
- 	 
-					
-	
-	#{if date > a.time.last().date}
-	<div id="comment">
-	<div>
-		#{form @comment(), method:'get',class:'form-horizontal'} 参加了一次神奇的活动之后，我想说：
-		<br />
-		标签：
-		<input type="text" name="c.tag" placeholder="好玩、热闹..." />
-		<br />
-		评论：
-		<input type="hidden" name="activity" value="${a.id}" />
-		<textarea rows="5" cols="30" name="c.comment"></textarea>
-		<br />
-		<input type="submit" value="晒晒">
-		#{/form}
+			<h4 class="activity-title4">活动成员</h4>
+			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span
+				class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span>
+			<span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span
+				class="canyu1">人已关注;</span> <br> #{list
+			items:allownJoiner,as:'joiner'} <img src="${joiner.joiner.profile}"
+				style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
 		</div>
-<div>
+	</div>
 
-<div>
-#{list items:a.comment,as:'comment'}
-<img src=${comment.publisher.profile} />${comment.publisher.name}${comment.comment}${comment.tag}${comment.publishedAt}
-#{/list}
-=======
->>>>>>> temp
 </div>
-</div>
+
+

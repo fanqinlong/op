@@ -15,7 +15,6 @@
 			<i class="icon-flag"></i>
 			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 允许了 ${trend.relationSU.name}参加活动：
 			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-			${trend.orderSU==null?"dd":"dddddfd"}
 			#{/if}
 			#{elseif trend.action.equals("disallown")}
 			<i class="icon-flag"></i>
@@ -45,6 +44,8 @@
 			
 			#{/if}
 			#{elseif trend.type.equals("qa")}
+			
+			
 			
 			#{/elseif}
 			</div>
