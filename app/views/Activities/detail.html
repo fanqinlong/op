@@ -1,4 +1,4 @@
-#{extends 'main.html' /} #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
+#{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
 	<div class="left-div col-md-8" >
 
@@ -75,7 +75,7 @@
 					  </div>
 					</div>
 				
-				
+				#{if date < a.time.last().date}
 				#{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
 				<div>
 					<a class="btn btn-success" target="_bank" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
@@ -87,13 +87,8 @@
 					#{/if}
 					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
 					#{if a.isOpen!=true}
-					<a class="btn " href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
+					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 					#{/if}
-					
-					
-					
-					
-					
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -122,12 +117,9 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
-					
-				 
-				
 			</div>
 			#{/else}
-		
+		#{/if}
 		</div>
 			<h3>活动介绍</h3><p style="text-indent:2em;width:500px;">${a.intro}</p>
 									 
@@ -181,7 +173,7 @@
 
  	 
 					
-	%{String date = new Date().format("yyyy-MM-dd")}%
+	
 	#{if date > a.time.last().date}
 	<div id="comment">
 	<div>

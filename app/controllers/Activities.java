@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import notifiers.Trend;
+
 import com.mysql.jdbc.Util;
 
 import play.Play;
@@ -214,6 +216,10 @@ public class Activities extends Application {
 		Joiner j = Joiner.findById(jid);
 		j.isAllown = true;
 		j.save();
+		//添加到最新动态中。
+		
+		Trend t = new Trend(Utils.getNowTime(),j.activity.publisherSU,j.activity.publisherCSSA,j.joiner, null,j.activity, "allown", "activity");
+		t.save();
 		allJoinner(j.activity.id);
 	}
 
@@ -221,6 +227,8 @@ public class Activities extends Application {
 		Joiner j = Joiner.findById(jid);
 		j.isAllown = false;
 		j.save();
+		Trend t = new Trend(Utils.getNowTime(), j.activity.publisherSU,j.activity.publisherCSSA,j.joiner, null,j.activity, "disallown", "activity");
+		t.save();
 		allJoinner(j.activity.id);
 	}
 
@@ -245,6 +253,10 @@ public class Activities extends Application {
 		l.activity = a;
 		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 		l.save();
+		
+		Trend t = new Trend(Utils.getNowTime(), l.likerSU,l.likerCSSA,l.activity.publisherSU, l.activity.publisherCSSA,a, "like", "activity");
+		t.save();
+		
 		ArrayList<String> s = new ArrayList();
 		s.add("11");
 		s.add("22");
@@ -273,6 +285,10 @@ public class Activities extends Application {
 			j.isAllown = false;
 			j.joinedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 			j.save();
+			
+			Trend t = new Trend(Utils.getNowTime(),j.joiner ,null,j.activity.publisherSU, null,j.activity, "join", "activity");
+			t.save();
+			
 			flash.success("您申请参加成功，请静候审核结果。");
 			detail(aid);
 		}
@@ -285,6 +301,10 @@ public class Activities extends Application {
 		c.publisher = user;
 		c.publishedAt = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		c.save();
+		Trend t = new Trend(Utils.getNowTime(), c.publisher,null,c.activity.publisherSU,c.activity.publisherCSSA,a, "comment", "activity");
+		t.save();
+		
+		
 		ArrayList<String> s = new ArrayList();
 		s.add("11");
 		s.add("22");

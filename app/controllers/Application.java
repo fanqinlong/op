@@ -31,36 +31,21 @@ public class Application extends Controller {
 	}
 
 	public static void index() {
-		List<Ques> ques = Ques.find("order by views desc").fetch(5);
+		List<Ques> ques = Ques.find("order by views desc").fetch(6);
 		int QuesNum;
 		List<Ques> qNumber = Ques.findAll();
 		QuesNum = qNumber.size();
 
-		List<Wel> wel = Wel.find("order by views desc").fetch(5);
+		List<Wel> wel = Wel.find("order by views desc").fetch(6);
 		int WelNum;
 		List<Wel> wNumber = Wel.findAll();
 		WelNum = wNumber.size();
 
-		List<Activity> activity = Activity.find("order by views desc").fetch(5);
-		int AcNum;
-		List<Activity> acNumber = Activity.findAll();
-		AcNum = acNumber.size();
+		List<Activity> activity = Activity.find("order by views desc").fetch(6);
+		long AcNum;
+		AcNum = Activity.count();
 
-		List<StuInfo> stu = StuInfo.find("order by id desc").fetch(5);
-		int StuNum;
-		List<StuInfo> stuNumber = StuInfo.findAll();
-		StuNum = stuNumber.size();
-
-		// String userType = Utils.getUserType();
-		// if(userType==null){
-		// render();
-		// }else if(userType.equals("simple")){
-		// SimpleUsers.infoCenter();
-		// }else{
-		// CSSAs.infoCenter();
-		// }
-
-		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum);
+		render(ques, wel, activity,  QuesNum, WelNum, AcNum);
 	}
 
 	static SimpleUser connectedSimple() {

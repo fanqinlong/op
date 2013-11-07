@@ -31,3 +31,7 @@ body{
 .hot-list p{
 	padding:5px 0;
 }
+
+.activity img{
+	width:100%;
+}

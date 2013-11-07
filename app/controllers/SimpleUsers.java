@@ -2,12 +2,17 @@ package controllers;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.mysql.jdbc.log.Log;
 
 import notifiers.Notifier;
+import notifiers.Trend;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
@@ -384,9 +389,10 @@ public class SimpleUsers extends Application {
 
 	public static void doChangeProfile(Long id, File f, int left, int top,
 			int height, int width) {
-		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
-		Images.crop(f,f, left, top, height, width);
-		Images.resize(f, f, 150, 150,true);
+		String path = "public/images/profile/" + Codec.UUID()
+				+ f.getName().substring(f.getName().lastIndexOf("."));
+		Images.crop(f, f, left, top, height, width);
+		Images.resize(f, f, 150, 150, true);
 		Files.copy(f, Play.getFile(path));
 
 		((SimpleUser) SimpleUser.findById(id)).changeProfile(path);
@@ -395,33 +401,46 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void infoCenter() {
-		long id = Long.parseLong(session.get("logged"));
-		//List<Activity> activities = Activity.find("select a from Activity a join a.joiner as j join a.liker as l join a.comment as c where a. order by j.joinedAt desc,l.likedAt desc, c.publishedAt desc").fetch();
+		long id = Utils.getUserId();
+
+		List<Trend> trends = Trend
+				.find("select distinct t from Trend t left join t.a.liker as l "
+						+ "where l.likerSU.id = ? or t.orderSU.id = ? or t.relationSU.id = ? order by time desc",
+						id, id,id).fetch();
+		
+//		Collections.sort(trends, new Comparator<Trend>(){
+//			public int compare(Trend t1,Trend t2){
+//				return t2.time.compareTo(t1.time);
+//			}
+//		});
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		render(user);
+		render(user, trends);
 	}
 
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherSU.id = ?",userId).fetch();
+		List<Activity> activities = Activity.find("publisherSU.id = ?", userId)
+				.fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "publish";
-		render(user,activities,tag);
+		render(user, activities, tag);
 	}
-	public static void joinedActivity(){
+
+	public static void joinedActivity() {
 		long userId = Utils.getUserId();
-		List<Joiner> activities = Joiner.find("joiner.id = ?",userId).fetch();
+		List<Joiner> activities = Joiner.find("joiner.id = ?", userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "join";
-		render(user,activities,tag);
+		render(user, activities, tag);
 	}
+
 	public static void likedActivity() {
 		long userId = Utils.getUserId();
-		List<Liker> activities = Liker.find("likerSU.id = ?",userId).fetch();
+		List<Liker> activities = Liker.find("likerSU.id = ?", userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "like";
-		render(user,activities,tag);
+		render(user, activities, tag);
 	}
 
 	public static void getActivityJoiner(long aid) {
@@ -431,9 +450,5 @@ public class SimpleUsers extends Application {
 						aid).fetch();
 		render(s);
 	}
-
-	
-
-	
 
 }
