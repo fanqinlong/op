@@ -59,6 +59,8 @@ public class Activity extends Model {
 	public boolean isTop;
 	public long views; //浏览量
 	public String postAt;//发布日期
+	
+	public boolean isFrontPage;
 
 
 }

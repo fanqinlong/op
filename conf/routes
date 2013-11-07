@@ -152,6 +152,7 @@ GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
 
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
+GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 
 
 #Info and Jobs

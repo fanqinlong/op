@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import play.mvc.Controller;
 
@@ -40,5 +42,8 @@ public class Utils extends Controller {
 	}
 	public static long getUserId(){
 		return Long.parseLong(session.get("logged"));
+	}
+	public static String getNowTime(){
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 	}
 }

@@ -2,18 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="/public/images/favicon.ico" mce_href="/public/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/public/images/favicon.ico"
+	mce_href="/public/images/favicon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>欢迎来到奥噗</title>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-#{stylesheet 'op-theme.css' /} 
-#{stylesheet 'font-awesome/css/font-awesome.min.css' /} 
-#{stylesheet 'index.css' /} 
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'op-theme.css' /} #{stylesheet
+'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /}
 #{stylesheet 'media-queries.css' /}
-<script type="text/javascript"> 
-
-$(document).ready(function(){
-});
+<script type="text/javascript">
+	$(document).ready(function() {
+	});
 </script>
 </head>
 <body>
@@ -60,41 +60,46 @@ $(document).ready(function(){
 			<a class="right carousel-control" href="#carousel" data-slide="next">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
- -->
+			 -->
 		</div>
 		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
 
 		
 		<div id="login" class="login col-md-2 col-md-offset-8">
+
 			#{if isNotLogin}
 			<form class="login-form" method="post" action="@{SimpleUsers.authenticate}">
+
 				<h5 class="pull-left">登录奥噗</h5>
 				<h5 class="pull-right">
-					<a href="@{SimpleUsers.signup}" id="login-font1">
-						注册<i class="icon-flag "></i>
+					<a href="@{SimpleUsers.signup}" id="login-font1"> 注册<i
+						class="icon-flag "></i>
 					</a>
 				</h5>
 				<div class="form-group">
-					<input type="email" class="form-control" id="email" name="email" placeholder="邮箱">
+					<input type="email" class="form-control" id="email" name="email"
+						placeholder="邮箱">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" id="password" name="password" placeholder="密码">
+					<input type="password" class="form-control" id="password"
+						name="password" placeholder="密码">
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-block">登录</button>
 				<div class="checkbox">
-					<label> <input type="checkbox"> 记住我 | #{a @SimpleUsers.forgetPassword()}忘记密码？#{/a}
+					<label> <input type="checkbox"> 记住我 | #{a
+						@SimpleUsers.forgetPassword()}忘记密码？#{/a}
 					</label>
 				</div>
 			</form>
 			#{/if}
 			#{else}
 				<li>
-					<div style="margin-left:20px; margin-top:50px;">
+					<div style="margin-left:10%; margin-top:20%;">
 						<img src="${userprofile}" class="img-circle">
 					</div>
 				</li>
-				<li style="margin-left:27px;margin-top:45px;">
+				<li style="margin-left:13%;margin-top:23%;">
 					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a>
 					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
 				</li>
@@ -106,97 +111,67 @@ $(document).ready(function(){
 	</header>
 
 	<div class="container hot-list">
+		<div class="mg-top-3">
+			<h3 class="text-primary">
+				最新活动<small class="text-info">ACTIVITY</small><small
+					class="pull-right">进行着<span class="text-info">${AcNum}</span>个活动
+				</small>
+			</h3>
+			<hr />
+			<div class="row">
+				#{list items:activity,as:'a'}
+				<div class="col-md-2 activity">
+					<img alt="" src="${a.poster}" class="img-rounded" title="${a.name}">
+				</div>
+				#{/list}
+			</div>
+			<p class="text-right">
+				<a href="@{Activities.index}" class="btn  btn-primary">Read More</a>
+			</p>
+
+		</div>
 
 		<div class="row">
-			<div class="col-md-6">
-				<div class="mg-top-3">
-					<h3 class="text-primary">
-						新生接机<small class="text-danger">WELCOME</small><small class="pull-right">已顺利接到<span class="text-info">${StuNum}</span>名同学
-						</small>
-					</h3>
-					<hr>
-					#{list items:stu,as:'s'}
-					<h4>
-							<a >
-								#{if s.hometown==null}
-									<a>来自奥噗社区的</a>
-								#{/if}
-								#{else}
-								来自${s.hometown}的
-								#{/else}
-								${s.username}向美国${s.school}大学提交了需要接机服务
-							</a>
-					</h4>
-					#{/list}
+			<div class="col-md-6 ">
 
-					<p class="text-right">
-						<a class="btn btn-lg btn-warning " type="button" href="@{Airports.index}">
-							<i class="icon-plane"></i> 新生接机快速通道 ${isNotLogin}
-						</a>
-					</p>
 
-				</div>
-				<div class="mg-top-3">
+				<h3 class="text-primary">
+					最热话题<small class="text-warning">QUESTION</small><small
+						class="pull-right">活跃着<span class="text-info">${QuesNum}</span>个话题
+					</small>
+				</h3>
+				<hr />
+				#{list items:ques,as:'q'}
+				<h4>
+					<span class="label label-primary">${q.views}</span> <a
+						href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
+				</h4>
+				#{/list}
+				<p class="text-right">
+					<a href="@{QuestAnsw.searchPage}" class="btn  btn-primary">Read
+						More</a>
+				</p>
 
-					<h3 class="text-primary">
-						最热话题<small class="text-warning">QUESTION</small><small class="pull-right">活跃着<span class="text-info">${QuesNum}</span>个话题
-						</small>
-					</h3>
-					<hr />
-					#{list items:ques,as:'q'}
-					<h4>
-						<span class="label label-primary">${q.views}</span>
-							<a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
-					</h4>
-					#{/list}
-					<p class="text-right">
-						<a href="@{QuestAnsw.searchPage}" class="btn  btn-primary">Read More</a>
-					</p>
-
-				</div>
-				<div>
-					<img src="/public/images/index-topic.png" alt="" />
-				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="mg-top-3">
-					<div>
-						<img src="/public/images/index-activity.png" alt="">
-					</div>
-					<h3 class="text-primary">
-						最新活动<small class="text-info">ACTIVITY</small><small class="pull-right">进行着<span class="text-info">${AcNum}</span>个活动
-						</small>
-					</h3>
-					<hr />
-				
-					#{list items:activity,as:'ac'}
-					<h4>
-						<span class="label label-info">${ac.views}</span>
-							<a href="@{Activities.detail(ac.id)}">${ac.name}</a>
-					</h4>
-					#{/list}
-				
-					<p class="text-right">
-						<a href="@{Activities.index}" class="btn  btn-primary">Read More</a>
-					</p>
-				</div>
-				<div class="mg-top-3">
-					<h3 class="text-primary">
-						爱心公益<small class="text-success">COMMOMWEAL</small><small class="pull-right">认证过<span class="text-info">${WelNum}</span>个公益行动
-						</small>
-					</h3>
-					<hr />
-					#{list items:wel,as:'w'}
-					<h4>
-						<span class="label label-danger">${w.views}</span>
-							<a href="@{Charities.welfare(w.id)}">${w.title}</a>
-					</h4>
-					#{/list}
-					<p class="text-right">
-						<a href="@{Charities.pigination(1)}" class="btn btn-primary">Read More</a>
-					</p>
 
-				</div>
+				<h3 class="text-primary">
+					爱心公益<small class="text-success">COMMOMWEAL</small><small
+						class="pull-right">认证过<span class="text-info">${WelNum}</span>个公益行动
+					</small>
+				</h3>
+				<hr />
+				#{list items:wel,as:'w'}
+				<h4>
+					<span class="label label-danger">${w.views}</span> <a
+						href="@{Charities.welfare(w.id)}">${w.title}</a>
+				</h4>
+				#{/list}
+				<p class="text-right">
+					<a href="@{Charities.pigination(1)}" class="btn btn-primary">Read
+						More</a>
+				</p>
+
 
 			</div>
 		</div>
@@ -206,37 +181,28 @@ $(document).ready(function(){
 	<footer class="navbar-op-footer ">
 		<div class="container ">
 			<P class="navbar-text navbar-right">
-				<a href="#">
-					<img src="/public/images/share_facebook.png" />
-				</a>
-				<a href="#">
-					<img src="/public/images/share_google+.png" alt="" />
-				</a>
-				<a href="#">
-					<img src="/public/images/share_twitter.png" alt="" />
-				</a>
-				<a href="#">
-					<img src="/public/images/share_weibo.png" alt="" />
+				<a href="#"> <img src="/public/images/share_facebook.png" />
+				</a> <a href="#"> <img src="/public/images/share_google+.png" alt="" />
+				</a> <a href="#"> <img src="/public/images/share_twitter.png" alt="" />
+				</a> <a href="#"> <img src="/public/images/share_weibo.png" alt="" />
 				</a>
 			</p>
 			<ul class="nav navbar-nav navbar-right ">
-				<li>
-					<a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a>
-				</li>
-				<li>
-					<a href="@{Info.contact}" class="list3">联系我们</a>
-				</li>
-				<li>
-					<a href="@{Info.jobs}" class="list3">加入奥噗</a>
-				</li>
+				<li><a href="@{Info.about}" class="navbar-brand">&copy;
+						opporlink&nbsp; 奥噗</a></li>
+				<li><a href="@{Info.contact}" class="list3">联系我们</a></li>
+				<li><a href="@{Info.jobs}" class="list3">加入奥噗</a></li>
 			</ul>
 
 		</div>
 	</footer>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="public/javascripts/jquery.validate.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="public/javascripts/jquery.validate.js"></script>
 	<script type="text/javascript">
 		$(function() {
 

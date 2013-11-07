@@ -20,8 +20,6 @@ import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class QuestAnsw extends Application {
-	
-
 	private static String label;
 
 	public static void index() {
@@ -604,11 +602,9 @@ public class QuestAnsw extends Application {
 				"userid = ? and userType = ? order by id desc", userId,
 				"simple").fetch();
 		notFoundIfNull(user);
-		// renderTemplate("SimpleUsers/infoCenter.html", user, UQues, UComment,
-		// FQues);
 		render(user, UQues, UComment, FQues);
 	}
-
+	
 	public static void cssaQues() {
 		long userId = Long.parseLong(session.get("logged"));
 		CSSA user = CSSA.findById(userId);
@@ -625,7 +621,7 @@ public class QuestAnsw extends Application {
 				"userid = ? and userType = ? order by id desc", userId, "cssa")
 				.fetch();
 		notFoundIfNull(user);
-		renderTemplate("CSSAs/infoCenter.html", user, CQues, CComment, CFQues);
+		render(user, CQues, CComment, CFQues);
 	}
 
 	public static void showUserInfor(String usertype, long userid) {
@@ -642,17 +638,12 @@ public class QuestAnsw extends Application {
 			List<FocusQues> FQues = FocusQues.find(
 					"userid = ? and userType = ? order by id desc", userid,
 					"simple").fetch(5);
-
-			// List<Activity> UActivity = Activity.find(
-			// "userid = ? and userType = ? order by id desc", userid,
-			// "simple").fetch(5);
-
 			notFoundIfNull(user);
 			renderTemplate("QuestAnsw/simpleUserinfo.html", user, UQues,
 					UComment, FQues);
 		} else if (usertype.equals("cssa")) {
 			CSSA user = CSSA.findById(userid);
-
+			
 			List<Ques> CQues = Ques.find(
 					"userid = ?  and usertype = ? order by id desc", userid,
 					"cssa").fetch(5);
@@ -665,7 +656,7 @@ public class QuestAnsw extends Application {
 					"userid = ? and userType = ? order by id desc", userid,
 					"cssa").fetch(5);
 			notFoundIfNull(user);
-			renderTemplate("CSSAs/infoCenter.html", user, CQues, CComment,
+			renderTemplate("QuestAnsw/cssaInfo.html", user, CQues, CComment,
 					CFQues);
 		}
 	}

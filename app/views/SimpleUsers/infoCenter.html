@@ -1,53 +1,56 @@
-#{extends 'main.html' /} #{set title:'个人中心' /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} #{include 'SimpleUsers/infoCenterTop.html' /}
+#{extends 'main.html' /} #{set title:'个人中心' /} #{set 'Styles'}
+#{stylesheet 'user.css' /} #{/set} #{include
+'SimpleUsers/infoCenterTop.html' /}
 
 <div class="row mg-top-3">
 	#{include 'SimpleUsers/infoCenterNav.html' /}
 	<div class="col-md-8">
-		<ul id="myTab" class="nav nav-tabs">
-			<li class="active">
-				<a href="#home" data-toggle="tab">活动消息</a>
-			</li>
-			<li>
-				<a href="#profile" data-toggle="tab">问答消息</a>
-			</li>
-			<li>
-				<a href="#profile1" data-toggle="tab">私信&通知</a>
-			</li>
+		<ul class="nav nav-tabs">
+			<li class="active"><a>最新动态</a></li>
 		</ul>
-		<div id="myTabContent" class="tab-content">
-			<div class="tab-pane fade in active" id="home">
-				#{list items:activities,as:'activity'}
-				<div>
-					<a href="@{Activities.detail(activity.id)}" target="_bank">
-						${activity.name}
-						<br />
-						<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
-					</a>
-				</div>
-				<hr/>
-				#{/list}
-
+		<div class="mg-top-2">
+		#{list items:trends,as:'trend'}
+			<div>
+			#{if trend.type.equals("activity")}
+			#{if trend.action.equals("allown")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 允许了 ${trend.relationSU.name}参加活动：
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			${trend.orderSU==null?"dd":"dddddfd"}
+			#{/if}
+			#{elseif trend.action.equals("disallown")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 将 ${trend.relationSU.name} 从 允许参加 人员中移除：
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			
+			#{/elseif}			
+			#{elseif  trend.action.equals("like")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank">${trend.a.name}</a>
+			
+			#{/elseif}
+			#{elseif trend.action.equals("join")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderSU.name} 报名了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			
+			#{/elseif}
+			
+			#{elseif trend.action.equals("comment")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderSU.name} 评论了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			
+			#{/elseif}
+			
+			#{/if}
+			#{elseif trend.type.equals("qa")}
+			
+			#{/elseif}
 			</div>
-
-			<div class="tab-pane fade" id="profile">
-				#{list items:ques,as:'q'}
-				<li style="list-style: none; margin-top: 10px;">
-					<lable> <a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
-				</li>
-				#{/list}
-			</div>
-			<div class="tab-pane fade" id="profile1">
-				#{list items:LikedActivity,as:'activity'}
-				<p>
-					<img src="${user.profile}" class="img-polaroid" />
-					我关注了活动
-					<a href="@{Activities.detail(activity.id)}">${activity.name}</a>
-					<br />
-					<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
-				</p>
-				<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-				#{/list}
-			</div>
+			#{/list}
 		</div>
+
 	</div>
 </div>

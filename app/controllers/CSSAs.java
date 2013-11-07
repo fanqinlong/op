@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import notifiers.Notifier;
+import notifiers.Trend;
 import play.Logger;
 import play.Play;
 import play.data.validation.Email;
@@ -279,9 +280,15 @@ public class CSSAs extends Application {
 
 	public static void infoCenter() {
 		long id = Utils.getUserId();
+
+		List<Trend> trends = Trend
+				.find("select distinct t from Trend t left join t.a.liker as l "
+						+ "where l.likerCSSA.id = ? or t.orderCSSA.id = ? or t.relationCSSA.id = ? order by time desc",
+						id, id,id).fetch();
+		
 		CSSA user = CSSA.findById(id);
 		notFoundIfNull(user);
-		render(user);
+		render(user,trends);
 	}
 
 	public static void myActivity() {
