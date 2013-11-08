@@ -238,8 +238,19 @@ hr {
 }
 
 .notification-time {
+	display: inline-block;
 	color: #AAA;
 	font-size: 12px;
+}
+
+.notification-delete {
+	float: right;
+	cursor: pointer;
+	color: #888;
+}
+
+.notification-delete:hover {
+	background-color: #DDD;
 }
 
 /* 模块: 写站内信 */

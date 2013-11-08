@@ -44,7 +44,7 @@ public class Messaging extends Application {
 	public static void index() {
 		render();
 	}
-	
+
 	public static void sendTo(String userType, long userID) {
 		String frameSrc = "/msg/compose/" + userType + "/" + userID;
 		renderTemplate("Messaging/index.html", frameSrc);
@@ -53,11 +53,11 @@ public class Messaging extends Application {
 	public static void compose(String userType, long userID) {
 		renderArgs.put("userType", userType);
 		renderArgs.put("userID", userID);
-		String userName = ""; 
+		String userName = "";
 		if (userType.equals("simple")) {
-			userName = ((SimpleUser)SimpleUser.find("id=?", userID).first()).name;
+			userName = ((SimpleUser) SimpleUser.find("id=?", userID).first()).name;
 		} else if (userType.equals("cssa")) {
-			userName = ((CSSA)CSSA.find("id=?", userID).first()).school.name;
+			userName = ((CSSA) CSSA.find("id=?", userID).first()).school.name;
 		}
 		renderArgs.put("userName", userName);
 		render();
@@ -119,6 +119,24 @@ public class Messaging extends Application {
 		render();
 	}
 
+	public static void deleteNotification(long notificationID) {
+		Notification notification = Notification.find("id=? and userID=? and userType=? and isDeleted=?",
+			notificationID, getMyID(), getMyUserType(), false).first();
+		if (notification != null) {
+			notification.isDeleted = true;
+			notification.save();
+		}
+		PiggybackPacket pp = new PiggybackPacket(null, getMailCount(getMyUserType(), getMyID()), 0);
+		renderJSON(pp);
+	}
+
+	static void addNotification(String userType, long userID, String notificationTmplID, ArrayList<String> params) {
+		Notification notification = new Notification(userID, userType, notificationTmplID, params, new Date(), false,
+			false);
+		notification.create();
+		setNotificationCount(userType, userID, getNotificationCount(userType, userID) + 1);
+	}
+
 	public static void announcements() {
 		// TODO-zhao: NYI
 		render();
@@ -163,38 +181,30 @@ public class Messaging extends Application {
 		renderText(outboxJSONSerializer.toJson(pp));
 	}
 
-	static void addNotification(String userType, long userID, String notificationTmplID, ArrayList<String> params) {
-		Notification notification = new Notification(userID, userType, notificationTmplID, params, new Date(), false,
-			false);
-		notification.create();
-
-		setNotificationCount(userType, userID, getNotificationCount(userType, userID) + 1);
-	}
-
 	public static void fetchNotifications() {
 		List<Notification> notifications = Notification.find(
 			"userID=? and userType=? and isDeleted=? order by time desc", getMyID(), getMyUserType(), false).fetch();
-		
+
 		for (Notification n : notifications) {
 			// 取模板内容
 			n.title = Messages.get("NT_TITLE_" + n.tmplID);
 			n.content = Messages.get("NT_CONTENT_" + n.tmplID, n.params.toArray());
 		}
-		
+
 		PiggybackPacket pp = new PiggybackPacket(notifications,
 			getMailCount(getMyUserType(), getMyID()), 0);
 
 		setNotificationCount(getMyUserType(), getMyID(), 0);
-		
-		String response = notificationJSONSerializer.toJson(pp); 
-		
+
+		String response = notificationJSONSerializer.toJson(pp);
+
 		for (Notification n : notifications) {
 			if (!n.isRead) {
 				n.isRead = true;
 				n.save();
 			}
 		}
-		
+
 		renderText(response);
 	}
 

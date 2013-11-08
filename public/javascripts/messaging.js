@@ -123,6 +123,16 @@ function showNotifications() {
 		data.payload.forEach(function(notification) {
 			var template = $("#notificationTmpl").html();
 			var notificationDiv = $("<div/>").html(Mustache.to_html(template, notification)).contents();
+			$(notificationDiv).children(".notification-delete").click(function(event) {
+				$(event.currentTarget).hide();
+				$.post("/msg/deleteNotification", {
+					"notificationID" : notification.id
+				}, function(data) {
+					// piggyback
+					$(notificationDiv).hide(100);
+					window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
+				});
+			});
 			$("#notificationList").append(notificationDiv);
 		});
 
