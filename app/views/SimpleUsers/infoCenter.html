@@ -36,7 +36,12 @@
 
 					<p>${trend.time}</p>
 				</div>
-				#{/if} #{elseif trend.type.equals("qa")} #{/elseif}
+				#{/if}
+				#{elseif trend.type.equals("qa")} 
+					${trend.q.id}
+				
+				
+				#{/elseif}
 
 			</div>
 			#{/list}

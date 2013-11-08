@@ -407,7 +407,7 @@ public class SimpleUsers extends Application {
 				.find("select distinct t from Trend t left join t.a.liker as l "
 						+ "where l.likerSU.id = ? or t.orderSU.id = ? or t.relationSU.id = ? order by time desc",
 						id, id,id).fetch();
-
+		
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
 		render(user, trends);

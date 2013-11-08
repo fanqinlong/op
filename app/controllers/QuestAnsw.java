@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import notifiers.Trend;
 import play.data.validation.Validation;
 import play.mvc.Before;
 import models.activity.Activity;
@@ -162,6 +163,7 @@ public class QuestAnsw extends Application {
 		}
 		
 		
+		
 		// 判断当前用户是否可以修改删除问题问题
 		Boolean UserQues = false;
 		Boolean CssaQues = false;
@@ -226,10 +228,22 @@ public class QuestAnsw extends Application {
 		if(comentUsertype.equals("simple")){
 			SimpleUser sUser =SimpleUser.findById(comentUserid);
 			noticName = sUser.name;
+			Ques q = Ques.findById(quesid);
+			SimpleUser simpleUser = SimpleUser.findById(q.userid);
+	    	Trend tend = new Trend(Utils.getNowTime(), sUser, null, simpleUser, null, q, "回答了", "qa");
+	    	tend.save();
 		}else{
 			CSSA cssa = CSSA.findById(comentUserid);
 			noticName =cssa.email;
-		}	
+			Ques q = Ques.findById(quesid);
+			CSSA ca = CSSA.findById(q.userid);
+			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, ca, q, "回答了", "qa");
+			tend.save();
+		}
+		//个人中心动态
+		
+		
+		
 		ArrayList<String> s = new ArrayList();
 		
 		if(comentUsertype.equals("simple")){
