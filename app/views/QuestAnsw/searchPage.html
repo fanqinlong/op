@@ -145,7 +145,7 @@ $(document).ready(function(){
 <div class="container container-op">
 		<div  class="group1">
 				#{list items:qArticles,as:'qa'}
-					<div style="border-bottom:1px solid #dddddd;margin-left:20px; padding-bottom:5px; width:600px;">
+					<div  class="sqinfo">
 			 	 	 <label class="woqu">
 							<a class="tiezi-title" href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" style="TEXT-DECORATION:none;" ><h5>${qa.ques.title}</h5></a>
 					</label>
@@ -162,17 +162,16 @@ $(document).ready(function(){
 									<p class="muted">关注</p>
 								</div>
 							</div>
-							
 						</label>
 						<div class="controls userinforright">
 							<ul style="	margin-left:125px; width:400px;" >
 								<li>
 									<span class="muted"> 标签:</span>
-									<span class="keywords" style="TEXT-DECORATION:none;">${qa.ques.label}</span>
+									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >${qa.ques.label}</span>
 								</li>
 								<li ><h5>${qa.ques.username}，${qa.ques.selfIntro}</h5></li>
-								<li class="qatitlea" style="height: 50px;overflow: hidden;">
-										<span class="qatitlea" >${qa.ques.content.raw()}</span>
+								<li  style="text-overflow:ellipsis;overflow:hidden; height:43px;">
+										<span >${qa.ques.content.raw()}</span>
 								</li>
 								<li style="padding-top:14px;">
 									<a href="@{QuestAnsw.fcousOnQuestion(qa.ques.id)}" class="guanzhu-question">
@@ -183,30 +182,6 @@ $(document).ready(function(){
 										<img src="/public/images/answer.png">
 										<span>我来回答</span>
 									</a>
-									
-									<!-- 
-									#{if qa.comments?.userid == userId  &&  qa.comments?.usertype == userType}
-										<a href="@{QuestAnsw.editComent(userId, userType,qa.ques.id)}">
-											<i class="icon-edit"></i>修改答案
-										</a>
-									#{/if} 
-									#{else}			
-									<a class="guanzhu-question" idnum="${qa.comments?.quesid}">
-										<img src="/public/images/answer.png">
-										我来回答${qa.comments?.id}
-									</a>
-									#{/else}
-									<div  class="kuaishuhuida hide" style="width:364px; height:100px;">
-									<div  id="show${qa.ques.id}" style="width:363px;"></div>
-										<form id="comments${qa.ques.id}"  action="@{QuestAnsw.comments}" method="POST" style=" width:365px;">
-											<input type="hidden"  name="quesid" value="${qa.comments?.quesid}" >
-											<textarea rows="2" style="width:350px;" id="comment${qa.ques.id}" name="comment" value="${flash.comment}"></textarea>
-											<input class="btn btn-info tiwen-btn" type="button" value="发布回答" 
-											onclick="quickAnswer('comment${qa.ques.id}','${qa.ques.id}')"
-											style="float:right; height:30px; margin-top:5px;" id="sub${qa.ques.id}"> 
-										</form>
-									</div>
-									-->
 								</li>
 							</ul>	
 						</div>
@@ -226,6 +201,8 @@ $(document).ready(function(){
 				       </div>
 				   </div>
 				</div>
-				
 </div>
 </div>
+
+
+

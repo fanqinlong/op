@@ -249,6 +249,7 @@ public class Activities extends Application {
 			}
 			l.likerSU = SimpleUser.findById(Utils.getUserId());
 		}
+		
 		Activity a = Activity.findById(aid);
 		l.activity = a;
 		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());

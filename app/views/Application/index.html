@@ -94,15 +94,31 @@
 			</form>
 			#{/if}
 			#{else}
-				<li>
-					<div style="margin-left:10%; margin-top:20%;">
-						<img src="${userprofile}" class="img-circle">
-					</div>
-				</li>
-				<li style="margin-left:13%;margin-top:23%;">
+				
+				
+					#{if isSimpleUser}
+					<li>
+						<div style="margin-left:10%; margin-top:20%;">
+							<img src="${userprofile}" class="img-circle">
+						</div>
+					</li>
+					<li style="margin-left:13%;margin-top:23%;">
 					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a>
 					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
-				</li>
+					  </li>
+					#{/if}
+					
+					#{elseif isCssa}
+					<li>
+						<div style="margin-left:10%; margin-top:20%;">
+							<img src="${userprofile}" class="img-circle" style="width:90%;">
+						</div>
+					</li>
+					<li style="margin-left:13%;margin-top:23%;">
+					    <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a>
+					    <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a>
+					</li>
+					#{/elseif}
 			#{/else}
 		  </div>
 

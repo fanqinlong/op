@@ -16,12 +16,23 @@
 				<ul style="padding-bottom:5px;"  >
 					<li  class="qatitle">	
 						<span  style="font-size:21px; color:#000000; font-weight:bold;">${findListQues.title}</span>
-						 #{if CssaQues || UserQues}
-						 	<a  class="btn btn-link" style="font-size:10px; color:#999999;"  href="@{QuestAnsw.editQues(findListQues.id)}">
-						 	 <i class="icon-edit"></i>修改</a>
-						 	<a  class="btn btn-link " style="font-size:10px; color:#999999;"  href="@{QuestAnsw.deleteQues(findListQues.id)}">
-						 	 <i class="icon-remove-sign"></i>删除</a>
-						 #{/if}
+						#{if isSimple}
+							#{if UserQues}
+							
+								<a  class="btn btn-link linkf"  href="@{QuestAnsw.editQues(findListQues.id)}">
+						 	 	<i class="icon-edit"></i>修改</a>
+						 		<a  class="btn btn-link linkf"  href="@{QuestAnsw.deleteQues(findListQues.id)}">
+						 	 	<i class="icon-remove-sign"></i>删除</a>
+							#{/if}
+						#{/if}
+						#{elseif isCSSA}
+							#{if CssaQues}
+								<a  class="btn btn-link linkf"   href="@{QuestAnsw.editQues(findListQues.id)}">
+						 	 	<i class="icon-edit"></i>修改</a>
+						 		<a  class="btn btn-link linkf"   href="@{QuestAnsw.deleteQues(findListQues.id)}">
+						 	 	<i class="icon-remove-sign"></i>删除</a>
+						 	 #{/if}
+						#{/elseif}
 						 #{else}
 						 	<span><span>
 						 #{/else}
@@ -31,11 +42,11 @@
 						<span class="qatitlea" >${findListQues.label}</span>
 					</li>
 					<li class="qatitle">
-						<span class="qatitlea" style="font-size:10px; color:#999999; TEXT-DECORATION:none">${findListQues.username}，${findListQues.selfIntro}</span>
+						<span class="qatitlea linkf">${findListQues.username}，${findListQues.selfIntro}</span>
 					</li>
 				
 					<li class="qatitle" style="padding-bottom:25px;">
-						<div class="qatitlea"  style="TEXT-DECORATION:none;text-indent:2em; color:#330000; line-height:25px;">${findListQues.content.raw()}</div>
+						<div class="qatitlea linkf sinfc"  >${findListQues.content.raw()}</div>
 					</li>
 					<li class="qatitle"   style="border-top:1px solid #dddddd;  border-bottom:1px solid #dddddd; padding-bottom:15px;">
 						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
@@ -50,7 +61,7 @@
 					 		<li class="" style="margin-left:-40px;">
 				    			<h5>
 				    				<a id="userInfo${ac.userid}" href="@{QuestAnsw.showUserInfor(ac.usertype,ac.userid)}" style="color:#336699;"><img  src=${ac.userprofile} class="op2-right2" style="height:40px; width:40px;"> ${ac.username}：</a>
-				    				<span >${ac.userSelfIntro}</span>
+				    				<span class="text-muted">${ac.userSelfIntro}</span>
 				    			</h5>
 				    			 <span >
 				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/images/1-2.png"> ${ac.praiseNum}票 ,</a>
@@ -60,24 +71,30 @@
 								 </div> 
 				    		</li>
 				    		<li class="qatitle" style="line-height:25px; margin-left:-40px;">
-				    			<div style="TEXT-DECORATION:none; text-indent:2em; font-size:10px ; color:#000000;  font-family:'Helvetica Neue',Helvetica,Arial,Sans-serif';" >${ac.comment.raw()}</div>
+				    			<div style="TEXT-DECORATION:none; text-indent:2em; font-size:12px ; color:#000000;  font-family:'Helvetica Neue',Helvetica,Arial,Sans-serif';" >${ac.comment.raw()}</div>
 				    		</li>
 		  	   	    </ul>
 		  	   #{/list}	
 	  	  </div> 		
   			
 	  		<div style="margin-left:40px;padding-bottom:50px; width:600px;">
-			 		#{if UserComments || CssaComment}
-						<span style="line-height: 50px;margin-left:50px;">一个问题你只能回答一次，但你可以对      
+	  		 #{if isSimple}
+	  		 	#{if UserQues}
+	  		 		#{list items:fQ,as:'findListQues'}
+	  		 			<span style="line-height: 50px;margin-left:50px;">用户不能回答自己的问题但是可以对自己的问题进行
+	  		 			<a href="@{QuestAnsw.editQues(findListQues.id)}">修改或者补充</a></span>
+	  		 		#{/list}
+	  		 	#{/if}
+	  		 	#{elseif UserComments}
+	  		 		<span style="line-height: 50px;margin-left:50px;">一个问题你只能回答一次，但你可以对  
 						#{list items:fQ,as:'findListQues'}
-						<a style="color:#259;" href="@{QuestAnsw.editComent(comentUserid, comentUsertype,findListQues.id)}">
+							<a style="color:#259;" href="@{QuestAnsw.editComent(comentUserid, comentUsertype,findListQues.id)}">
 							<u><big> 现有的回答</big></u></a>  
-						进行修改</span>
+							进行修改</span>
 						#{/list}
-					 #{/if}
-					
-					 #{else}
-					 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
+	  		 	#{/elseif}
+	  		 	#{else}
+	  		 		<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
 					  		${comentUsername} ,回答问题
 					 	</li>
 					 	<form id="comments" action="@{QuestAnsw.addComent}" method="post">
@@ -88,21 +105,76 @@
 						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
 						 	style="width:80px;" />
 					 	</form>
-					 #{/else}
+	  		 	#{/else}
+	  		 #{/if}
+	  		 #{elseif isCSSA}
+	  		 	#{if CssaQues}
+	  		 		#{list items:fQ,as:'findListQues'}
+	  		 			<span style="line-height: 50px;margin-left:50px;">用户不能回答自己的问题,但是可以对自己的问题进行
+	  		 			<a href="@{QuestAnsw.editQues(findListQues.id)}">修改或者补充</a></span>
+	  		 		#{/list}
+	  		 	#{/if}
+	  		 	#{elseif CssaComment}
+	  		 		<span style="line-height: 50px;margin-left:50px;">一个问题你只能回答一次，但你可以对  
+						#{list items:fQ,as:'findListQues'}
+							<a style="color:#259;" href="@{QuestAnsw.editComent(comentUserid, comentUsertype,findListQues.id)}">
+							<u><big> 现有的回答</big></u></a>  
+							进行修改</span>
+						#{/list}
+	  		 	#{/elseif}
+	  		 	#{else}
+	  		 			<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
+					  		${comentUsername} ,回答问题
+					 	</li>
+					 	<form id="comments" action="@{QuestAnsw.addComent}" method="post">
+						 	#{list items:fQ,as:'findListQues'}
+						 		<input type="hidden"  id="quesid" name="quesid" value="${findListQues.id}" />
+							#{/list}
+					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
+						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
+						 	style="width:80px;" />
+					 	</form>
+	  		 	#{/else}
+	  		 #{/elseif}
+	  		 #{else}
+	  		 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
+					  		${comentUsername} ,回答问题
+					 	</li>
+					 	<form id="comments" action="@{QuestAnsw.addComent}" method="post">
+						 	#{list items:fQ,as:'findListQues'}
+						 		<input type="hidden"  id="quesid" name="quesid" value="${findListQues.id}" />
+							#{/list}
+					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
+						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
+						 	style="width:80px;" />
+					 	</form>
+	  		 #{/else}
 			</div>
 </div>
 
 <div style="float:left;">
    #{list items:fQ,as:'fidid'}
 	<div class="op-right1">
-	#{if UserFocusQues || CSSAFocusQues}
+	#{if isSimple}
+		#{if UserFocusQues}
 		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
+		#{/if}
+		#{else}
+			<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+		#{/else}
 	#{/if}
-	
+	#{elseif isCSSA}
+		#{if CSSAFocusQues}
+		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
+		#{/if}
+		#{else}
+			<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+		#{/else}
+	#{/elseif}
 	#{else}
 		<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
-		
 	#{/else}
+	
 	</div>
 	<label class="op-17">
 		<span class="op-18">${fidid.focusNum}<span>

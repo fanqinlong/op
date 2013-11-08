@@ -58,4 +58,25 @@ width:70%;
 ul {	
 list-style:none;
 }
-
+span{
+font-size:12px;
+}
+.linkf{
+font-size:14px !important; 
+color:#999999;
+}
+a:link { 
+text-decoration: none;
+}
+.sinfc{
+TEXT-DECORATION:none;
+text-indent:2em; 
+color:#330000;
+line-height:25px;
+}
+.sqinfo{
+border-bottom:1px solid #dddddd;
+margin-left:20px; 
+padding-bottom:5px; 
+width:60%;
+}

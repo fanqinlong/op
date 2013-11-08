@@ -60,6 +60,8 @@ public class Application extends Controller {
 
     	}else{
     		isNotLogin = false;
+    		boolean isSimpleUser = false;
+    		boolean isCssa = false;
     		String userType = session.get("usertype");
     		long userid = Long.parseLong(session.get("logged"));
     		
@@ -67,12 +69,15 @@ public class Application extends Controller {
     		if(userType.equals("simple")){
     			SimpleUser sip = SimpleUser.findById(userid);
     			userprofile = sip.profile;
+    			isSimpleUser = true;
     		}else{
     			CSSA cssa = CSSA.findById(userid);
     			userprofile = cssa.profile;
+    			isCssa = true;
     		}
-    		System.out.println("头像路径"+userprofile);
-    		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin,userprofile);
+    		
+    		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin,userprofile,
+    				isSimpleUser,isCssa);
     	}
 		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin);
 	}
