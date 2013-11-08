@@ -8,48 +8,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a>最新动态</a></li>
 		</ul>
-<<<<<<< HEAD
-		<div class="mg-top-2">
-		#{list items:trends,as:'trend'}
-			<div>
-			#{if trend.type.equals("activity")}
-			#{if trend.action.equals("allown")}
-			<i class="icon-flag"></i>
-			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 允许了 ${trend.relationSU.name}参加活动：
-			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-			${trend.orderSU==null?"dd":"dddddfd"}
-			#{/if}
-			#{elseif trend.action.equals("disallown")}
-			<i class="icon-flag"></i>
-			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 将 ${trend.relationSU.name} 从 允许参加 人员中移除：
-			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-			
-			#{/elseif}			
-			#{elseif  trend.action.equals("like")}
-			<i class="icon-flag"></i>
-			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
-			<a href="@{Activities.detail(trend.a.id)}" target="_blank">${trend.a.name}</a>
-			
-			#{/elseif}
-			#{elseif trend.action.equals("join")}
-			<i class="icon-flag"></i>
-			${trend.time} ,${trend.orderSU.name} 报名了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
-			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-			
-			#{/elseif}
-			
-			#{elseif trend.action.equals("comment")}
-			<i class="icon-flag"></i>
-			${trend.time} ,${trend.orderSU.name} 评论了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
-			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-			
-			#{/elseif}
-			
-			#{/if}
-			#{elseif trend.type.equals("qa")}
-			
-			#{/elseif}
-=======
+
 		<div class=" mg-top-5">
 			#{list items:trends,as:'trend'}
 			<div class="row trend">
@@ -78,7 +37,7 @@
 					<p>${trend.time}</p>
 				</div>
 				#{/if} #{elseif trend.type.equals("qa")} #{/elseif}
->>>>>>> temp
+
 			</div>
 			#{/list}
 		</div>
