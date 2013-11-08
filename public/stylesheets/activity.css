@@ -39,3 +39,21 @@ color:#C0B9B9;
 .canyuNO{
 	color:#336699;
 }
+.activity-item-frontpage {
+	font-size:11px;
+}
+.activity-item-frontpage  .thumbnail{
+	border:none;
+}
+
+.activity-item-frontpage img{
+	width:100%;
+	border:1px solid #CCC;
+}
+.activity-item-frontpage .profile img{
+	width:40px;
+}
+
+.order .checked{
+	background:#EEE;
+}

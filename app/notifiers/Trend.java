@@ -9,6 +9,7 @@ import models.activity.Activity;
 import models.airport.StuInfo;
 import models.airport.VolInfo;
 import models.charity.Wel;
+import models.qa.Comments;
 import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
@@ -52,8 +53,8 @@ public class Trend extends Model{
     	this.type = type;
     }
     //问答
-    public Trend(String time,SimpleUser orderSU,CSSA orderCSSA,SimpleUser relationSU,
-    		CSSA relationCSSA,Ques q,String action, String type){
+    public Trend(String time,SimpleUser orderSU,CSSA orderCSSA,SimpleUser relationSU, 
+    		CSSA relationCSSA,Ques q,String action, String type,Comments c){
     	this.time = time;
     	this.orderSU = orderSU;
     	this.orderCSSA = orderCSSA;

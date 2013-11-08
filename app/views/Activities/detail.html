@@ -1,10 +1,7 @@
-#{extends 'main.html' /}%{String date = new
-Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
-'Styles'} #{stylesheet 'activity.css' /} #{/set}
+#{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
 	<div class="left-div col-md-8">
-		<div class="activity-pic"
-			style="width: 300px; float: left; margin-right: 20px;">
+		<div class="activity-pic" style="width: 300px; float: left; margin-right: 20px;">
 			<img src="${a.poster}">
 		</div>
 
@@ -12,8 +9,7 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 			<div class="activity-weight acpading">
 				<h4>${a.name}</h4>
 				<div class="details ">
-					<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date}
-						${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
+					<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 				</div>
 				#{if isAllown || isOwner}
 				<div class="details ">
@@ -21,8 +17,7 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 				</div>
 				#{/if}
 				<div class="details">
-					<span class="pic-leftTitle">费用：</span> <span class="At_info">$
-						${a.money}</span>
+					<span class="pic-leftTitle">费用：</span> <span class="At_info">$ ${a.money}</span>
 				</div>
 				<div class="details">
 					<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
@@ -31,7 +26,7 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 					<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
 				</div>
 				<div class="details">
-					<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:a.publisherCSSA.school.name}</span>
+					<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name + " CSSA")}</span>
 				</div>
 				#{if isAllown || isOwner}
 				<div class="details">
@@ -42,64 +37,46 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 					<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
 				</div>
 
-				
+
 				<div class="details">
-					<lable style="float:left;"><span class="pic-leftTitle" >参加者男女比例</span> %{int female=0;int
-					male=0;}% #{list items:a.joiner,as:'joiner'}
-					%{joiner.joiner.gender=="女"?female++:male++;}% #{/list} <span
-						class="At_info">${male}</span> : <span class="At_info">${female}</span>
+					<lable style="float:left;"> <span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list} <span class="At_info">${male}</span> : <span class="At_info">${female}</span> </lable>
 
-				</lable>
- 
-				%{int man = (male+female) == 0  ? 0 : male * 100 / (male + female)}%
-			%{int women = (male+female) == 0  ? 0 : female * 100 / (male + female) }%
+					%{int man = (male+female) == 0 ? 0 : male * 100 / (male + female)}% %{int women = (male+female) == 0 ? 0 : female * 100 / (male + female) }%
 
-				<div class="progress" style="width: 130px;float:left;margin-left:10px;">
-					<div class="progress-bar progress-bar-info "
-						style="width: ${man}%">
-						 
-					</div>
+					<div class="progress" style="width: 130px; float: left; margin-left: 10px;">
+						<div class="progress-bar progress-bar-info " style="width: ${man}%"></div>
 
-					<div class="progress-bar progress-bar-danger"
-						style="width: ${women}%">
-						 
+						<div class="progress-bar progress-bar-danger" style="width: ${women}%"></div>
 					</div>
 				</div>
-</div><br>
-
-				#{if date < a.time.last().date} #{if a.publisherCSSA==null &&
-				connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
+				<br>
+				#{if date < a.time.last().date} #{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
 				<div>
-					<a class="btn btn-success" target="_bank"
-						href="@{Activities.allJoinner(a.id)}">查看参加者</a>
+					<a class="btn btn-success" target="_bank" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
 				</div>
 				#{/if} #{else }
 				<div>
-					#{if a.isOpen!=true} <a href="#myModal" role="button"
-						data-toggle="modal"
-						class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a> #{/if}
-					<a href="@{Activities.like(a.id)}"
-						class="btn btn-info ${hasLiked?'disabled':''}">关注</a> #{if
-					a.isOpen!=true} <a class="btn btn-success"
-						href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
+					#{if a.isOpen!=true}
+					<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
 					#{/if}
-					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true">
+					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+					#{if a.isOpen!=true}
+					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
+					#{/if}
+					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true">&times;</button>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 									<h4 class="modal-title" id="myModalLabel">自我介绍</h4>
 								</div>
 								<div class="modal-body">
-									<form action="@{Activities.join}" class="form-horizontal"
-										method="POST">
+									<form action="@{Activities.join}" class="form-horizontal" method="POST">
 										<textarea class="form-control" name="selfIntro" rows="3"></textarea>
 
-										<input type="hidden" name="aid" value="${a.id}"> <br />
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">关闭</button>
+										<input type="hidden" name="aid" value="${a.id}">
+										<br />
+										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 										<button type="submit" class="btn btn-info">提交</button>
 									</form>
 								</div>
@@ -111,28 +88,24 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 					<!-- /.modal -->
 				</div>
 				#{/else} #{/if}
-
 			</div>
 			<h3>活动介绍</h3>
 			<p style="text-indent: 2em; width: 500px;">${a.intro}</p>
 		</div>
-		
+
 		#{if date > a.time.last().date && (isAllown || isOwner)}
 		<div id="comment" style="padding-top: 30px;">
 			<div>
 				#{form @comment(), method:'get',class:'form-horizontal'}
 				<h4 class="col-md-offset-2" style="margin-left: -3px;">参加了一次神奇的活动之后，我想说：</h4>
-				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}"
-					style="margin-left: -100px;">
+				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left: -100px;">
 					<label for="email" class="col-md-2 control-label">标签</label>
 					<div class="col-md-3 " style="width: 40%;">
-						<input type="text" placeholder="好玩、热闹..." class="form-control"
-							name="c.tag" />
+						<input type="text" placeholder="好玩、热闹..." class="form-control" name="c.tag" />
 					</div>
 					<span class="col-md-3">#{error 'tag' /}</span>
 				</div>
-				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}"
-					style="margin-left: -100px;">
+				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left: -100px;">
 					<label for="email" class="col-md-2 control-label">评论</label>
 					<div class="col-md-3 " style="width: 40%;">
 						<textarea rows="5" cols="30" class="form-control" name="c.comment" /></textarea>
@@ -148,14 +121,12 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 				#{/form}
 			</div>
 		</div>
-		
+
 		#{list items:a.comment,as:'comment'}
-		<div
-			style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
-			<img style="width: 40px; height: 40px;"
-				src=${comment.publisher.profile} /> <span>${comment.publisher.name}:</span>
-			<span>${comment.tag}</span><span style="float: right;">${comment.publishedAt}</span>
-			<br /> <span style="padding-left: 40px;">${comment.comment}</span>
+		<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
+			<img style="width: 40px; height: 40px;" src=${comment.publisher.profile} /> <span>${comment.publisher.name}:</span> <span>${comment.tag}</span><span style="float: right;">${comment.publishedAt}</span>
+			<br />
+			<span style="padding-left: 40px;">${comment.comment}</span>
 		</div>
 		#{/list} #{/if}
 
@@ -167,43 +138,57 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 	<div class="col-md-4">
 
 		<div class="right-top">
-			<a href="@{Activities.Create}" class="btn btn-info faqi"> <i
-				class="icon-flag"></i> 发起活动
+			<a href="@{Activities.Create}" class="btn btn-info faqi">
+				<i class="icon-flag"></i> 发起活动
 			</a>
 		</div>
 
 		<div class="map">
 			<h4 class="activity-title3">
-				活动地图 #{if isAllown || isOwner} <a
-					href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图
-				</a> #{/if}
+				活动地图 #{if isAllown || isOwner}
+				<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
+				#{/if}
 			</h4>
-			<img
-				src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false"
-				alt="">
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
 		</div>
 
 		<div class="person">
 			<h4 class="activity-title3">活动组织者</h4>
 			<div class="activity-userpic">
-				<img
-					src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile}
-					alt="" style="height: 60px; width: 60px;">
+				<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
 			</div>
 			<div>
 				<small class="name">${publisher_name}</small>
 			</div>
 		</div>
 		<br />
+		#{if connectedSimpleUser?.isAdmin}
+		<div>
+			#{if !a.isTop}
+			<a class="btn btn-primary" href="@{Activities.setTop(a.id)}">顶置</a>
+			#{/if} #{if a.isTop}
+			<a class="btn btn-primary" href="@{Activities.cancleTop(a.id)}">取消顶置</a>
+			#{/if} #{if !a.isHot}
+			<a class="btn btn-primary" href="@{Activities.setHot(a.id)}">热门</a>
+			#{/if}#{if a.isHot}
+			<a class="btn btn-primary" href="@{Activities.cancleHot(a.id)}">取消热门</a>
+			#{/if} #{if !a.isFrontPage}
+			<a class="btn btn-primary" href="@{Activities.setFrontPage(a.id)}">首页显示</a>
+			#{/if} #{if a.isFrontPage}
+			<a class="btn btn-primary" href="@{Activities.cancleFrontPage(a.id)}">取消首页显示</a>
+			#{/if} #{if !a.isChecked}
+			<a class="btn btn-primary" href="@{Activities.setChecked(a.id)}">认证</a>
+			#{/if} #{if a.isChecked}
+			<a class="btn btn-primary" href="@{Activities.cancleChecked(a.id)}">取消认证</a>
+			#{/if}
+		</div>
+		#{/if}
 
 		<div class="numbers">
 			<h4 class="activity-title4">活动成员</h4>
-			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span
-				class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span>
-			<span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span
-				class="canyu1">人已关注;</span> <br> #{list
-			items:allownJoiner,as:'joiner'} <img src="${joiner.joiner.profile}"
-				style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
+			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
+			<br>
+			#{list items:allownJoiner,as:'joiner'} <img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
 		</div>
 	</div>
 

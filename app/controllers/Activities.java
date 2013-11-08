@@ -30,8 +30,7 @@ import models.users.SimpleUser;
 
 public class Activities extends Application {
 
-	@Before(unless = { "index", "detail", "filterType", "filterPeriod",
-			"filterPeriodWeekend", "filterScope", "filterLocation" })
+	@Before(unless = { "index", "detail", "filterType", "filterPeriod", "filterPeriodWeekend", "filterScope", "filterLocation", "orderByCSSA", "orderByDefault", "orderByTime","orderByScope" })
 	public static void isLogged() {
 		if (Utils.getUserType() == null) {
 			SimpleUsers.login();
@@ -43,13 +42,14 @@ public class Activities extends Application {
 	}
 
 	public static void index() {
+		String orderName = session.get("orderName")==null?"default":session.get("orderName");
 		String type = session.get("type") == null ? "" : session.get("type");
 		String scope = session.get("scope") == null ? "" : session.get("scope");
 		String zip = session.get("zip") == null ? "" : session.get("location");
 		String deadline = "";
 		String nowtime = Utils.getNowTime();
-		int days = session.get("days") == null ? -1 : Integer.parseInt(session
-				.get("days"));
+		String orderby = session.get("orderby") == null ? "" : session.get("orderby");
+		int days = session.get("days") == null ? -1 : Integer.parseInt(session.get("days"));
 		if (days == -1 || days == -2)
 			deadline = "7777-77-77";
 		else {
@@ -62,33 +62,27 @@ public class Activities extends Application {
 			isWeekend = true;
 		List<Activity> a;
 		if (isWeekend) {
-			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ?  order by isTop desc ,isHot desc, isChecked desc,views desc,t.date asc",
-							deadline,nowtime, "%" + type + "%", "%" + scope + "%")
-					.fetch();
+			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ?  order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		} else {
-			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and   a.type.name like ? and a.scope.scope like ? order by isTop desc ,isHot desc, isChecked desc,views desc,t.date asc",
-							deadline, nowtime,"%" + type + "%", "%" + scope + "%")
-					.fetch();
+			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and   a.type.name like ? and a.scope.scope like  ? order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		}
+
+		List<Activity> frontpageActivity = Activity.find("isFrontPage = true order by views desc").fetch(6);
 
 		List<Type> t = Type.find("order by sequence asc").fetch();
 		List<Scope> s = Scope.find("order by sequence asc").fetch();
 		List<Period> p = Period.find("order by sequence asc").fetch();
 
-		render(a, t, s, p, days, type, scope);
+		render(a, t, s, p, days, type, scope, frontpageActivity,orderName);
 	}
 
 	public static void create() {
 		render();
 	}
 
-	public static void next(File f, int left, int top, int height, Long id,
-			int width) {
+	public static void next(File f, int left, int top, int height, Long id, int width) {
 
-		String path = "public/images/poster/" + Codec.UUID()
-				+ f.getName().substring(f.getName().lastIndexOf("."));
+		String path = "public/images/poster/" + Codec.UUID() + f.getName().substring(f.getName().lastIndexOf("."));
 		Images.crop(f, f, left, top, height, width);
 		Images.resize(f, f, 300, 300, true);
 		Files.copy(f, Play.getFile(path));
@@ -96,21 +90,18 @@ public class Activities extends Application {
 		flash.success("请填写活动详情。");
 		List<Type> t = Type.find("order by sequence asc").fetch();
 		List<Scope> s = Scope.find("order by sequence asc").fetch();
-		String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar
-				.getInstance().getTime());
+		String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		render(t, s, startDate);
 	}
 
-	public static void post(Activity a, Date dateFrom, Date dateTo,
-			String timeFrom, String timeTo, long type, long scope) {
+	public static void post(Activity a, Date dateFrom, Date dateTo, String timeFrom, String timeTo, long type, long scope) {
 		if (dateFrom.getTime() - dateTo.getTime() > 0) {
 			validation.keep();
 			params.flash();
 			flash.error("开始时间不能大于结束时间");
 			List<Type> t = Type.find("order by sequence asc").fetch();
 			List<Scope> s = Scope.find("order by sequence asc").fetch();
-			String startDate = new SimpleDateFormat("yyyy-MM-dd")
-					.format(Calendar.getInstance().getTime());
+			String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 			render("@next", t, s, startDate);
 		}
 		String poster = session.get("posterPath");
@@ -123,16 +114,14 @@ public class Activities extends Application {
 		}
 		Type t = Type.findById(type);
 		Scope s = Scope.findById(scope);
-		String postAt = new SimpleDateFormat("yyyy-MM-dd HH:mm")
-				.format(Calendar.getInstance().getTime());
+		String postAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 		a.postAt = postAt;
 		a.type = t;
 		a.scope = s;
 		a.save();
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		long days = (dateTo.getTime() - dateFrom.getTime())
-				/ (24 * 60 * 60 * 1000);
+		long days = (dateTo.getTime() - dateFrom.getTime()) / (24 * 60 * 60 * 1000);
 		for (int i = 0; i <= days; i++) {
 			cal.setTime(dateFrom);
 			cal.add(Calendar.DAY_OF_MONTH, i);
@@ -143,11 +132,8 @@ public class Activities extends Application {
 			time.activity = a;
 			String date = sdf.format(cal.getTime()).toString();
 			Calendar c = Calendar.getInstance();
-			c.set(Integer.parseInt(date.substring(0, 4)),
-					Integer.parseInt(date.substring(5, 7)) - 1,
-					Integer.parseInt(date.substring(8, 10)));
-			if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-					|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+			c.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)) - 1, Integer.parseInt(date.substring(8, 10)));
+			if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
 				time.isWeekend = true;
 				System.out.println("true");
 			} else
@@ -195,35 +181,23 @@ public class Activities extends Application {
 		boolean isOwner = false;
 		if (Utils.getUserType() == null) {
 			hasJoined = true;
-		} else if (Utils.getUserType() != null
-				&& Utils.getUserType().equals("simple")) {
-			List<Liker> likerExist = Liker
-					.find("likerSU.id = ? and activity.id = ?",
-							Utils.getUserId(), id).fetch();
+		} else if (Utils.getUserType() != null && Utils.getUserType().equals("simple")) {
+			List<Liker> likerExist = Liker.find("likerSU.id = ? and activity.id = ?", Utils.getUserId(), id).fetch();
 			hasLiked = likerExist.isEmpty() ? false : true;
-			List<Joiner> joinerExist = Joiner.find(
-					"joiner.id = ? and activity.id = ?", Utils.getUserId(), id)
-					.fetch();
+			List<Joiner> joinerExist = Joiner.find("joiner.id = ? and activity.id = ?", Utils.getUserId(), id).fetch();
 			hasJoined = joinerExist.isEmpty() ? false : true;
-			List<Joiner> allowner = Joiner.find(
-					"isAllown = ? and joiner.id = ? and activity.id = ?", true,
-					Utils.getUserId(), id).fetch();
+			List<Joiner> allowner = Joiner.find("isAllown = ? and joiner.id = ? and activity.id = ?", true, Utils.getUserId(), id).fetch();
 			isAllown = allowner.isEmpty() ? false : true;
 			if (a.publisherSU != null && a.publisherSU.id == Utils.getUserId())
 				isOwner = true;
 		} else {
-			List<Liker> likerExist = Liker.find(
-					"likerCSSA.id = ? and activity.id = ?", Utils.getUserId(),
-					id).fetch();
+			List<Liker> likerExist = Liker.find("likerCSSA.id = ? and activity.id = ?", Utils.getUserId(), id).fetch();
 			hasLiked = likerExist.isEmpty() ? false : true;
 			hasJoined = true;
-			if (a.publisherCSSA != null
-					&& a.publisherCSSA.id == Utils.getUserId())
+			if (a.publisherCSSA != null && a.publisherCSSA.id == Utils.getUserId())
 				isOwner = true;
 		}
-		List<Joiner> allownJoiner = Joiner
-				.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?",
-						id, true).fetch();
+		List<Joiner> allownJoiner = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?", id, true).fetch();
 
 		render(a, hasLiked, hasJoined, isAllown, isOwner, allownJoiner);
 
@@ -231,20 +205,14 @@ public class Activities extends Application {
 
 	public static void allJoinner(long aid) {
 		boolean isOwner = false;
-		List<Joiner> joiners = Joiner
-				.find("select distinct j from Joiner j join j.activity as a where a.id=?",
-						aid).fetch();
+		List<Joiner> joiners = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=?", aid).fetch();
 		Activity a = Activity.findById(aid);
 		notFoundIfNull(a);
-		if (Utils.getUserType().equals("simple") && a.publisherSU != null
-				&& a.publisherSU.id == Utils.getUserId())
+		if (Utils.getUserType().equals("simple") && a.publisherSU != null && a.publisherSU.id == Utils.getUserId())
 			isOwner = true;
-		else if (a.publisherCSSA != null
-				&& a.publisherCSSA.id == Utils.getUserId())
+		else if (a.publisherCSSA != null && a.publisherCSSA.id == Utils.getUserId())
 			isOwner = true;
-		int allownCount = Joiner
-				.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?",
-						aid, true).fetch().size();
+		int allownCount = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?", aid, true).fetch().size();
 		render(joiners, isOwner, allownCount);
 
 	}
@@ -256,29 +224,25 @@ public class Activities extends Application {
 		j.save();
 		// 添加到最新动态中。
 
-		Trend t = new Trend(Utils.getNowTime(), j.joiner, null,
-				j.activity.publisherSU, j.activity.publisherCSSA, j.activity,
-				"通过审核允许参加", "activity");
+		Trend t = new Trend(Utils.getNowTime(), j.joiner, null, j.activity.publisherSU, j.activity.publisherCSSA, j.activity, "通过审核允许参加", "activity");
 		t.save();
-		//通知
+		// 通知
 		if (j.activity.publisherCSSA == null) {
 			notification.add(j.joiner.name);
 			notification.add("通过审核参加");
 			notification.add(j.activity.publisherSU.name);
 			notification.add(j.activity.id + "");
 			notification.add(j.activity.name);
-			Messaging.addNotification("simple", j.joiner.id,
-					"activity", notification);
+			Messaging.addNotification("simple", j.joiner.id, "activity", notification);
 		} else {
 			notification.add(j.joiner.name);
 			notification.add("通过审核参加");
 			notification.add(j.activity.publisherCSSA.school.name);
 			notification.add(j.activity.id + "");
 			notification.add(j.activity.name);
-			Messaging.addNotification("simple", j.joiner.id,
-					"activity", notification);
+			Messaging.addNotification("simple", j.joiner.id, "activity", notification);
 		}
-		
+
 		allJoinner(j.activity.id);
 	}
 
@@ -287,30 +251,26 @@ public class Activities extends Application {
 		Joiner j = Joiner.findById(jid);
 		j.isAllown = false;
 		j.save();
-		Trend t = new Trend(Utils.getNowTime(), j.joiner, null,
-				j.activity.publisherSU, j.activity.publisherCSSA, j.activity,
-				"取消允许参加", "activity");
+		Trend t = new Trend(Utils.getNowTime(), j.joiner, null, j.activity.publisherSU, j.activity.publisherCSSA, j.activity, "取消允许参加", "activity");
 		t.save();
-		
-		//通知
+
+		// 通知
 		if (j.activity.publisherCSSA == null) {
 			notification.add(j.joiner.name);
 			notification.add("取消允许参加");
 			notification.add(j.activity.publisherSU.name);
 			notification.add(j.activity.id + "");
 			notification.add(j.activity.name);
-			Messaging.addNotification("simple", j.joiner.id,
-					"activity", notification);
+			Messaging.addNotification("simple", j.joiner.id, "activity", notification);
 		} else {
 			notification.add(j.joiner.name);
 			notification.add("取消允许参加");
 			notification.add(j.activity.publisherCSSA.school.name);
 			notification.add(j.activity.id + "");
 			notification.add(j.activity.name);
-			Messaging.addNotification("simple", j.joiner.id,
-					"activity", notification);
+			Messaging.addNotification("simple", j.joiner.id, "activity", notification);
 		}
-		
+
 		allJoinner(j.activity.id);
 	}
 
@@ -319,9 +279,7 @@ public class Activities extends Application {
 		Activity a = Activity.findById(aid);
 		Liker l = new Liker();
 		if (Utils.getUserType().equals("cssa")) {
-			List<Liker> likerExist = Liker.find(
-					"likerCSSA.id = ? and activity.id = ?", Utils.getUserId(),
-					aid).fetch();
+			List<Liker> likerExist = Liker.find("likerCSSA.id = ? and activity.id = ?", Utils.getUserId(), aid).fetch();
 			if (!likerExist.isEmpty()) {
 				flash.error("您已关注。");
 				detail(aid);
@@ -333,21 +291,17 @@ public class Activities extends Application {
 				notification.add(a.publisherSU.name);
 				notification.add(a.id + "");
 				notification.add(a.name);
-				Messaging.addNotification("simple", a.publisherSU.id,
-						"activity", notification);
+				Messaging.addNotification("simple", a.publisherSU.id, "activity", notification);
 			} else {
 				notification.add(l.likerCSSA.school.name + " CSSA");
 				notification.add("关注了");
 				notification.add(a.publisherCSSA.school.name);
 				notification.add(a.id + "");
 				notification.add(a.name);
-				Messaging.addNotification("cssa", a.publisherCSSA.id,
-						"activity", notification);
+				Messaging.addNotification("cssa", a.publisherCSSA.id, "activity", notification);
 			}
 		} else {
-			List<Liker> likerExist = Liker.find(
-					"likerSU.id = ? and activity.id = ?", Utils.getUserId(),
-					aid).fetch();
+			List<Liker> likerExist = Liker.find("likerSU.id = ? and activity.id = ?", Utils.getUserId(), aid).fetch();
 			if (!likerExist.isEmpty()) {
 				flash.error("您已关注。");
 				detail(aid);
@@ -359,27 +313,22 @@ public class Activities extends Application {
 				notification.add(a.publisherSU.name);
 				notification.add(a.id + "");
 				notification.add(a.name);
-				Messaging.addNotification("simple", a.publisherSU.id,
-						"activity", notification);
+				Messaging.addNotification("simple", a.publisherSU.id, "activity", notification);
 			} else {
 				notification.add(l.likerSU.name + " CSSA");
 				notification.add("关注了");
 				notification.add(a.publisherCSSA.school.name);
 				notification.add(a.id + "");
 				notification.add(a.name);
-				Messaging.addNotification("cssa", a.publisherCSSA.id,
-						"activity", notification);
+				Messaging.addNotification("cssa", a.publisherCSSA.id, "activity", notification);
 			}
 		}
 
 		l.activity = a;
-		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar
-				.getInstance().getTime());
+		l.likedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 		l.save();
 
-		Trend t = new Trend(Utils.getNowTime(), l.likerSU, l.likerCSSA,
-				l.activity.publisherSU, l.activity.publisherCSSA, a, "关注了",
-				"activity");
+		Trend t = new Trend(Utils.getNowTime(), l.likerSU, l.likerCSSA, l.activity.publisherSU, l.activity.publisherCSSA, a, "关注了", "activity");
 		t.save();
 
 		detail(aid);
@@ -392,9 +341,7 @@ public class Activities extends Application {
 			flash.error("抱歉，CSSA用户不可参加。");
 			detail(aid);
 		} else {
-			List<Joiner> joinerExist = Joiner
-					.find("joiner.id = ? and activity.id = ?",
-							Utils.getUserId(), aid).fetch();
+			List<Joiner> joinerExist = Joiner.find("joiner.id = ? and activity.id = ?", Utils.getUserId(), aid).fetch();
 			if (!joinerExist.isEmpty()) {
 				flash.error("您已关注。");
 				detail(aid);
@@ -403,12 +350,10 @@ public class Activities extends Application {
 			j.joiner = SimpleUser.findById(Utils.getUserId());
 			j.selfIntro = selfIntro;
 			j.isAllown = false;
-			j.joinedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm")
-					.format(Calendar.getInstance().getTime());
+			j.joinedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 			j.save();
 
-			Trend t = new Trend(Utils.getNowTime(), j.joiner, null,
-					j.activity.publisherSU, null, j.activity, "报名了", "activity");
+			Trend t = new Trend(Utils.getNowTime(), j.joiner, null, j.activity.publisherSU, null, j.activity, "报名了", "activity");
 			t.save();
 
 			if (j.activity.publisherCSSA == null) {
@@ -417,18 +362,16 @@ public class Activities extends Application {
 				notification.add(j.activity.publisherSU.name);
 				notification.add(j.activity.id + "");
 				notification.add(j.activity.name);
-				Messaging.addNotification("simple", j.activity.publisherSU.id,
-						"activity", notification);
+				Messaging.addNotification("simple", j.activity.publisherSU.id, "activity", notification);
 			} else {
 				notification.add(j.joiner.name);
 				notification.add("报名了");
 				notification.add(j.activity.publisherCSSA.school.name);
 				notification.add(j.activity.id + "");
 				notification.add(j.activity.name);
-				Messaging.addNotification("cssa", j.activity.publisherCSSA.id,
-						"activity", notification);
+				Messaging.addNotification("cssa", j.activity.publisherCSSA.id, "activity", notification);
 			}
-			
+
 			flash.success("您申请参加成功，请静候审核结果。");
 			detail(aid);
 		}
@@ -440,35 +383,119 @@ public class Activities extends Application {
 		SimpleUser user = SimpleUser.findById(Utils.getUserId());
 		c.activity = a;
 		c.publisher = user;
-		c.publishedAt = new SimpleDateFormat("yyyy-MM-dd").format(Calendar
-				.getInstance().getTime());
+		c.publishedAt = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 		c.save();
-		Trend t = new Trend(Utils.getNowTime(), c.publisher, null,
-				c.activity.publisherSU, c.activity.publisherCSSA, a, "评论了",
-				"activity");
-		
-		//通知
+		Trend t = new Trend(Utils.getNowTime(), c.publisher, null, c.activity.publisherSU, c.activity.publisherCSSA, a, "评论了", "activity");
+
+		// 通知
 		if (a.publisherCSSA == null) {
 			notification.add(c.publisher.name);
 			notification.add("评论了");
 			notification.add(a.publisherSU.name);
 			notification.add(a.id + "");
 			notification.add(a.name);
-			Messaging.addNotification("simple", 4,
-					"activity", notification);
+			Messaging.addNotification("simple", 4, "activity", notification);
 		} else {
 			notification.add(c.publisher.name);
 			notification.add("评论了");
 			notification.add(a.publisherCSSA.school.name);
 			notification.add(a.id + "");
 			notification.add(a.name);
-			Messaging.addNotification("cssa", a.publisherCSSA.id,
-					"activity", notification);
+			Messaging.addNotification("cssa", a.publisherCSSA.id, "activity", notification);
 		}
-		
+
 		t.save();
 
 		detail(activity);
+	}
+
+	public static void setTop(long id) {
+		Activity a = Activity.findById(id);
+		a.isTop = true;
+		a.save();
+		flash.success("顶置活动成功。");
+		detail(id);
+	}
+
+	public static void setHot(long id) {
+		Activity a = Activity.findById(id);
+		a.isHot = true;
+		a.save();
+		flash.success("设置热门活动成功。");
+		detail(id);
+	}
+
+	public static void setChecked(long id) {
+		Activity a = Activity.findById(id);
+		a.isChecked = true;
+		a.save();
+		flash.success("活动通过审核。");
+		detail(id);
+	}
+
+	public static void setFrontPage(long id) {
+		Activity a = Activity.findById(id);
+		a.isFrontPage = true;
+		a.save();
+		flash.success("设置首页显示成功。");
+		detail(id);
+	}
+
+	public static void cancleTop(long id) {
+		Activity a = Activity.findById(id);
+		a.isTop = false;
+		a.save();
+		flash.success("取消顶置活动成功。");
+		detail(id);
+	}
+
+	public static void cancleHot(long id) {
+		Activity a = Activity.findById(id);
+		a.isHot = false;
+		a.save();
+		flash.success("取消设置热门活动成功。");
+		detail(id);
+	}
+
+	public static void cancleChecked(long id) {
+		Activity a = Activity.findById(id);
+		a.isChecked = false;
+		a.save();
+		flash.success("成功通过认证。");
+		detail(id);
+	}
+
+	public static void cancleFrontPage(long id) {
+		Activity a = Activity.findById(id);
+		a.isFrontPage = false;
+		a.save();
+		flash.success("取消通过认证。");
+		detail(id);
+	}
+
+	public static void orderByCSSA() {
+		session.put("orderby", "a.publisherCSSA desc,");
+		session.put("orderName", "cssa");
+		index();
+	}
+
+	public static void orderByDefault() {
+		session.put("orderby", "");
+		session.put("orderName", "default");
+		index();
+	}
+
+	public static void orderByTime() {
+		session.put("orderby", "t.date asc,");
+		session.put("orderName", "time");
+		index();
+	}
+
+	public static void orderByScope() {
+		session.put("orderby", "scope asc,");
+		session.put("orderName", "scope");
+		index();
+
 	}
 
 }
