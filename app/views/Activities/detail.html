@@ -50,16 +50,18 @@
 					</div>
 				</div>
 				<br>
-				#{if date < a.time.last().date} #{if a.publisherCSSA==null && connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}
+				
+			
 				<div>
-					<a class="btn btn-success" target="_bank" href="@{Activities.allJoinner(a.id)}">查看参加者</a>
-				</div>
-				#{/if} #{else }
-				<div>
-					#{if a.isOpen!=true}
+				
+					#{if date < a.time.last().date} 
+					#{if a.publisherCSSA!=connectedCSSA && connectedSimpleUser!=a.publisherSU && a.isOpen!=true}
 					<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
-					#{/if}
 					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+					#{/if}
+					 #{if a.publisherCSSA!=connectedCSSA && connectedSimpleUser!=a.publisherSU && a.isOpen==true}
+					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+					#{/if}
 					#{if a.isOpen!=true}
 					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 					#{/if}
@@ -87,7 +89,7 @@
 					</div>
 					<!-- /.modal -->
 				</div>
-				#{/else} #{/if}
+			#{/if}
 			</div>
 			<h3>活动介绍</h3>
 			<p style="text-indent: 2em; width: 500px;">${a.intro}</p>
