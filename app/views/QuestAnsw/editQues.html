@@ -72,18 +72,19 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>标题</label>
 	<div class="col-md-3 qaw">
-		<input type="text" name="q.title" value="${eQues.title}"  placeholder="请输入文章标题......" class="form-control ">
+		<input type="text" name="eQues.title" value="${eQues.title}"  placeholder="请输入文章标题......" class="form-control " />
+		<input type="hidden" name="eQues.id"  value="${eQues.id}">
 	</div>
-	 <span class="col-md-3">#{error 'name' /}</span>
+	 <span class="col-md-3">#{error 'title' /}</span>
 </div>
 		
 		
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>问题说明</label>
 	<div class="col-md-3 qaw">
-		<textarea id="area1" name="q.content"   style="width:550px;" rows="10" style="width:550px;" >${eQues.content}</textarea>
+		<textarea id="area1" name="eQues.content"   style="width:550px;" rows="10" style="width:550px;" >${eQues.content}</textarea>
 	</div>
-	 <span class="col-md-3">#{error 'name' /}</span>
+	 <span class="col-md-3">#{error 'content' /}</span>
 </div>
 		
 <div class="form-group">
@@ -96,7 +97,7 @@
 			<div id="list" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
 		</div>
 	</div>
-	 <span class="col-md-3">#{error 'name' /}</span>
+	 <span class="col-md-3">#{error 'school' /}</span>
 </div>	
 	
 <div class="form-group">
@@ -112,9 +113,10 @@
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>选择标签</label>
 	<div class="col-md-3 qaw">
 		 <div class="controls " style="width:550px;" id="ulname">
-			#{list items:t,as:'tag'}	 
+			#{list items:t,as:'tag'}
 				<label class="checkbox-inline btn btn-default" style="border-radius:20px;margin-left:0px;">
-		  			 <input type="checkbox" style="float:none;margin-left:0px;" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
+		  			<input style="float:none;margin-left:0px;" type="checkbox" name="Tag" id="Tag"
+					value="${eQues.label}" ${flash.Tag=="eQues"?"checked":""}  > ${tag.tagName}
 				</label>
 			#{/list}
 		  </div>

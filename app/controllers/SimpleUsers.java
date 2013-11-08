@@ -408,11 +408,6 @@ public class SimpleUsers extends Application {
 						+ "where l.likerSU.id = ? or t.orderSU.id = ? or t.relationSU.id = ? order by time desc",
 						id, id,id).fetch();
 		
-//		Collections.sort(trends, new Comparator<Trend>(){
-//			public int compare(Trend t1,Trend t2){
-//				return t2.time.compareTo(t1.time);
-//			}
-//		});
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
 		render(user, trends);
@@ -449,6 +444,11 @@ public class SimpleUsers extends Application {
 				.find("select s from SimpleUser s,ActivityJoiner aj where s.id = aj.jid and aid=?",
 						aid).fetch();
 		render(s);
+	}
+
+	public static void homePage(long id) {
+		
+	
 	}
 
 }

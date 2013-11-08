@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import notifiers.Trend;
 import play.data.validation.Validation;
 import play.mvc.Before;
 import models.activity.Activity;
@@ -20,8 +21,6 @@ import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class QuestAnsw extends Application {
-	
-
 	private static String label;
 
 	public static void index() {
@@ -36,6 +35,10 @@ public class QuestAnsw extends Application {
 	public static void dispAddQues(String title, String Tag, String content,
 			String school, String date, Long id, long answerNum, long focusNum,
 			String selfIntro) {
+		if (session.get("logged") == null) {
+			flash.error("请登录!");
+			SimpleUsers.login();
+    	}
 		String usertype = session.get("usertype");
 		long userid = Long.parseLong(session.get("logged"));
 		String username;
@@ -150,6 +153,17 @@ public class QuestAnsw extends Application {
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", quesid).fetch(5);
 		List<Comments> listCom = Comments.find("quesid = ?", quesid).fetch();
 
+		boolean isSimple = false;
+		boolean isCSSA = false;
+		
+		if(comentUsertype.equals("simple")){
+			isSimple = true;
+		}else{
+			isCSSA = true;
+		}
+		
+		
+		
 		// 判断当前用户是否可以修改删除问题问题
 		Boolean UserQues = false;
 		Boolean CssaQues = false;
@@ -162,9 +176,9 @@ public class QuestAnsw extends Application {
 				"id = ? and userid = ? and usertype = ? ", quesid, uid, "cssa")
 				.fetch();
 		if (!userThisQues.isEmpty() || !cssaThisQues.isEmpty()) {
-			if (!userThisQues.isEmpty()) {
+			if (!userThisQues.isEmpty() && comentUsertype.equals("simple")) {
 				UserQues = true;
-			} else if (!cssaThisQues.isEmpty()) {
+			} else if (!cssaThisQues.isEmpty() && comentUsertype.equals("cssa")) {
 				CssaQues = true;
 			}
 		}
@@ -180,9 +194,9 @@ public class QuestAnsw extends Application {
 				"quesid = ? and userid = ? and usertype = ? ", quesid, uid,
 				"cssa").fetch();
 		if (!userThisComment.isEmpty() || !cssaThisComment.isEmpty()) {
-			if (!userThisComment.isEmpty()) {
+			if (!userThisComment.isEmpty() && comentUsertype.equals("simple")) {
 				UserComments = true;
-			} else if (!cssaThisComment.isEmpty()) {
+			} else if (!cssaThisComment.isEmpty() && comentUsertype.equals("cssa")) {
 				CssaComment = true;
 			}
 		}
@@ -199,9 +213,9 @@ public class QuestAnsw extends Application {
 				"quesId = ? and userid = ? and userType = ? ", quesid, uid,
 				"cssa").fetch();
 		if (!userThisFocusQues.isEmpty() || !cssaThisFocusQues.isEmpty()) {
-			if (!userThisComment.isEmpty()) {
+			if (!userThisComment.isEmpty() && comentUsertype.equals("simple")) {
 				UserFocusQues = true;
-			} else if (!userThisFocusQues.isEmpty()) {
+			} else if (!userThisFocusQues.isEmpty() && comentUsertype.equals("cssa")) {
 				CSSAFocusQues = true;
 			}
 		}
@@ -214,10 +228,22 @@ public class QuestAnsw extends Application {
 		if(comentUsertype.equals("simple")){
 			SimpleUser sUser =SimpleUser.findById(comentUserid);
 			noticName = sUser.name;
+			Ques q = Ques.findById(quesid);
+			SimpleUser simpleUser = SimpleUser.findById(q.userid);
+	    	Trend tend = new Trend(Utils.getNowTime(), sUser, null, simpleUser, null, q, "回答了", "qa");
+	    	tend.save();
 		}else{
 			CSSA cssa = CSSA.findById(comentUserid);
 			noticName =cssa.email;
-		}	
+			Ques q = Ques.findById(quesid);
+			CSSA ca = CSSA.findById(q.userid);
+			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, ca, q, "回答了", "qa");
+			tend.save();
+		}
+		//个人中心动态
+		
+		
+		
 		ArrayList<String> s = new ArrayList();
 		
 		if(comentUsertype.equals("simple")){
@@ -228,7 +254,7 @@ public class QuestAnsw extends Application {
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
 				CssaComment, userid, UserFocusQues, CSSAFocusQues,
-				comentUserid, comentUsertype);
+				comentUserid, comentUsertype,isSimple,isCSSA);
 	}
 
 	public static void searchPage(long id, long question_id) {
@@ -312,20 +338,14 @@ public class QuestAnsw extends Application {
 		String comentUsertype = session.get("usertype");
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsername;
-		String userprofile;
-		String userSelfIntro;
 		Long userid;
 		if (comentUsertype.equals("simple")) {
 			SimpleUser su = SimpleUser.findById(comentUserid);
 			comentUsername = su.name;
-			userprofile = su.profile;
-			userSelfIntro = su.selfIntro;
 			userid = su.id;
 		} else {
 			CSSA cssa = CSSA.findById(comentUserid);
 			comentUsername = cssa.school.name;
-			userprofile = cssa.profile;
-			userSelfIntro = cssa.selfIntro;
 			userid = cssa.id;
 		}
 
@@ -334,6 +354,16 @@ public class QuestAnsw extends Application {
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
 		List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
 
+		boolean isSimple = false;
+		boolean isCSSA = false;
+		
+		if(comentUsertype.equals("simple")){
+			isSimple = true;
+		}else{
+			isCSSA = true;
+		}
+		
+		
 		// 判断当前用户是否可以修改删除问题问题
 		Boolean UserQues = false;
 		Boolean CssaQues = false;
@@ -346,9 +376,9 @@ public class QuestAnsw extends Application {
 				"id = ? and userid = ? and usertype = ? ", id, userid, "cssa")
 				.fetch();
 		if (!userThisQues.isEmpty() || !cssaThisQues.isEmpty()) {
-			if (!userThisQues.isEmpty()) {
+			if (!userThisQues.isEmpty() && comentUsertype.equals("simple")) {
 				UserQues = true;
-			} else if (!cssaThisQues.isEmpty()) {
+			} else if (!cssaThisQues.isEmpty() && comentUsertype.equals("cssa")) {
 				CssaQues = true;
 			}
 		}
@@ -364,9 +394,9 @@ public class QuestAnsw extends Application {
 				"quesid = ? and userid = ? and usertype = ? ", id, userid,
 				"cssa").fetch();
 		if (!userThisComment.isEmpty() || !cssaThisComment.isEmpty()) {
-			if (!userThisComment.isEmpty()) {
+			if (!userThisComment.isEmpty() && comentUsertype.equals("simple")) {
 				UserComments = true;
-			} else if (!cssaThisComment.isEmpty()) {
+			} else if (!cssaThisComment.isEmpty() && comentUsertype.equals("cssa")) {
 				CssaComment = true;
 			}
 		}
@@ -382,16 +412,19 @@ public class QuestAnsw extends Application {
 		List<FocusQues> cssaThisFocusQues = FocusQues.find(
 				"quesId = ? and userid = ? and userType = ? ", id, userid,
 				"cssa").fetch();
+		
 		if (!userThisFocusQues.isEmpty() || !cssaThisFocusQues.isEmpty()) {
-			if (!userThisComment.isEmpty()) {
+			if (!userThisFocusQues.isEmpty() && comentUsertype.equals("simple")) {
 				UserFocusQues = true;
-			} else if (!userThisFocusQues.isEmpty()) {
+			} else if (!cssaThisFocusQues.isEmpty() && comentUsertype.equals("cssa")) {
 				CSSAFocusQues = true;
 			}
 		}
+		System.out.println("sim"+UserFocusQues);
+		System.out.println("cssa"+CSSAFocusQues);
 		render(fQ, listCom, comentUsername, FQ, UserQues, CssaQues,
 				UserComments, CssaComment, userid, comentUsertype,
-				UserFocusQues, CSSAFocusQues, comentUserid);
+				UserFocusQues, CSSAFocusQues, comentUserid,isSimple,isCSSA);
 	    }
 	}
 
@@ -454,8 +487,8 @@ public class QuestAnsw extends Application {
 		render(t, eQues);
 	}
 
-	public static void editSuccessful(Ques q) {
-		q.save();
+	public static void editSuccessful(Ques eQues) {
+		eQues.save();
 		render();
 	}
 
@@ -491,6 +524,10 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void fcousOnQuestion(long id) {
+		if (session.get("logged") == null) {
+			flash.error("请登录!");
+			SimpleUsers.login();
+    	}
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 		List<FocusQues> foc = FocusQues.find(
@@ -500,6 +537,7 @@ public class QuestAnsw extends Application {
 			flash.error("您已经关注");
 			showQuesInfo(id);
 		}
+		
 		long fquserid;
 		String fquserprofile;
 		if (fquserType.equals("simple")) {
@@ -507,7 +545,7 @@ public class QuestAnsw extends Application {
 			fquserid = simpleUser.id;
 			fquserprofile = simpleUser.profile;
 		} else {
-			CSSA cssa = CSSA.findById(id);
+			CSSA cssa = CSSA.findById(userId);
 			fquserid = cssa.id;
 			fquserprofile = cssa.profile;
 		}
@@ -516,7 +554,6 @@ public class QuestAnsw extends Application {
 		QuesTitle = ques.title;
 		ques.focusNum = ques.focusNum + 1;
 		ques.save();
-
 		flash.success("关注成功");
 
 		new FocusQues(fquserType, fquserid, fquserprofile, id, QuesTitle);
@@ -525,24 +562,25 @@ public class QuestAnsw extends Application {
 		 * 通知关注了用户的问题
 		 * 
 		**/
-		Long noticeid;
 		String noticName;
 		if(fquserType.equals("simple")){
 			SimpleUser sUser =SimpleUser.findById(userId);
-			noticeid = sUser.id;
 			noticName = sUser.name;
 		}else{
 			CSSA cssa = CSSA.findById(userId);
-			noticeid = cssa.id;
 			noticName =cssa.email;
 		}	
 		
 		ArrayList<String> s = new ArrayList();
+		
 		if(fquserType.equals("simple")){
 			Messaging.addNotification(ques.usertype, ques.userid, noticName+"关注了您的问题"+QuesTitle, s);
 			}else{
 				Messaging.addNotification(ques.usertype, ques.userid, noticName+"关注了您的问题"+QuesTitle, s);
 			}
+		
+		
+		
 		showQuesInfo(id);
 	}
 
@@ -604,11 +642,9 @@ public class QuestAnsw extends Application {
 				"userid = ? and userType = ? order by id desc", userId,
 				"simple").fetch();
 		notFoundIfNull(user);
-		// renderTemplate("SimpleUsers/infoCenter.html", user, UQues, UComment,
-		// FQues);
 		render(user, UQues, UComment, FQues);
 	}
-
+	
 	public static void cssaQues() {
 		long userId = Long.parseLong(session.get("logged"));
 		CSSA user = CSSA.findById(userId);
@@ -625,10 +661,14 @@ public class QuestAnsw extends Application {
 				"userid = ? and userType = ? order by id desc", userId, "cssa")
 				.fetch();
 		notFoundIfNull(user);
-		renderTemplate("CSSAs/infoCenter.html", user, CQues, CComment, CFQues);
+		render(user, CQues, CComment, CFQues);
 	}
 
 	public static void showUserInfor(String usertype, long userid) {
+		if (session.get("logged") == null) {
+			flash.error("请登录后查看对方信息!");
+			SimpleUsers.login();
+    	}
 		if (usertype.equals("simple")) {
 			SimpleUser user = SimpleUser.findById(userid);
 			List<Ques> UQues = Ques.find(
@@ -642,17 +682,12 @@ public class QuestAnsw extends Application {
 			List<FocusQues> FQues = FocusQues.find(
 					"userid = ? and userType = ? order by id desc", userid,
 					"simple").fetch(5);
-
-			// List<Activity> UActivity = Activity.find(
-			// "userid = ? and userType = ? order by id desc", userid,
-			// "simple").fetch(5);
-
 			notFoundIfNull(user);
 			renderTemplate("QuestAnsw/simpleUserinfo.html", user, UQues,
 					UComment, FQues);
 		} else if (usertype.equals("cssa")) {
 			CSSA user = CSSA.findById(userid);
-
+			
 			List<Ques> CQues = Ques.find(
 					"userid = ?  and usertype = ? order by id desc", userid,
 					"cssa").fetch(5);
@@ -665,7 +700,7 @@ public class QuestAnsw extends Application {
 					"userid = ? and userType = ? order by id desc", userid,
 					"cssa").fetch(5);
 			notFoundIfNull(user);
-			renderTemplate("CSSAs/infoCenter.html", user, CQues, CComment,
+			renderTemplate("QuestAnsw/cssaInfo.html", user, CQues, CComment,
 					CFQues);
 		}
 	}
@@ -697,6 +732,11 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void cancelFqcusQues(Long quesid) {
+		if (session.get("logged") == null) {
+			flash.error("请登录!");
+			SimpleUsers.login();
+    	}
+		
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 
@@ -718,6 +758,8 @@ public class QuestAnsw extends Application {
 			FocusQues cancelFQ = (FocusQues) iterator.next();
 			cfq = cancelFQ.id;
 		}
+		System.out.println(cfq);
+		
 		FocusQues fques = FocusQues.findById(cfq);
 		fques.delete();
 		
@@ -748,6 +790,12 @@ public class QuestAnsw extends Application {
 	 */
 
 	public static void notAgree(Long id, Long quesid) {
+		
+		if (session.get("logged") == null) {
+			flash.error("请登录!");
+			SimpleUsers.login();
+    	}
+		
 		// 传过来的id是回答的id
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));

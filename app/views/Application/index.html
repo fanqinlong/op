@@ -57,7 +57,7 @@
 			<a class="right carousel-control" href="#carousel" data-slide="next">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
- -->
+			 -->
 		</div>
 		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
 
@@ -90,18 +90,35 @@
 					</label>
 				</div>
 			</form>
-			#{/if} #{else}
-			<li>
-				<div style="margin-left: 20px; margin-top: 50px;">
-					<img src="${userprofile}" class="img-circle">
-				</div>
-			</li>
-			<li style="margin-left: 27px; margin-top: 45px;"><a
-				type="button" class="btn btn-default btn-sm"
-				href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button"
-				class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
-			</li> #{/else}
-		</div>
+			#{/if}
+			#{else}
+				
+				
+					#{if isSimpleUser}
+					<li>
+						<div style="margin-left:10%; margin-top:20%;">
+							<img src="${userprofile}" class="img-circle">
+						</div>
+					</li>
+					<li style="margin-left:13%;margin-top:23%;">
+					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a>
+					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
+					  </li>
+					#{/if}
+					
+					#{elseif isCssa}
+					<li>
+						<div style="margin-left:10%; margin-top:20%;">
+							<img src="${userprofile}" class="img-circle" style="width:90%;">
+						</div>
+					</li>
+					<li style="margin-left:13%;margin-top:23%;">
+					    <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a>
+					    <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a>
+					</li>
+					#{/elseif}
+			#{/else}
+		  </div>
 
 
 
@@ -118,6 +135,7 @@
 			<div class="row ">
 				#{list items:activities,as:'a'}
 				<div class="col-md-2 activity">
+
 					<div class="poster">
 					<a href="@{Activities.detail(a.id)}">
 						<img alt="" src="${a.poster}">
@@ -134,6 +152,7 @@
 						</p>
 
 					</div>
+
 				</div>
 
 				#{/list}

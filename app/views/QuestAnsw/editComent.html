@@ -13,9 +13,20 @@
 				<ul style="padding-bottom:5px;"  >
 					<li  class="qatitle">	
 						<span  style="font-size:21px; color:#000000; font-weight:bold;">${findListQues.title}</span>
-						 #{if CssaQues || UserQues}
-						 	<a href="@{QuestAnsw.editQues(findListQues.id)}">修改<a><a href="@{QuestAnsw.deleteQues(findListQues.id)}">删除</a>
-						 #{/if}
+						#{if isSimple}
+							#{if UserQues}
+								<a  class="btn btn-link" style="font-size:10px; color:#999999;"  href="@{QuestAnsw.editQues(findListQues.id)}">
+						 	 	<i class="icon-edit"></i>修改</a>
+						 		<a  class="btn btn-link " style="font-size:10px; color:#999999;"  href="@{QuestAnsw.deleteQues(findListQues.id)}">
+						 	 	<i class="icon-remove-sign"></i>删除</a>
+							#{/if}
+						#{/if}
+						#{elseif isCSSA}
+								<a  class="btn btn-link" style="font-size:10px; color:#999999;"  href="@{QuestAnsw.editQues(findListQues.id)}">
+						 	 	<i class="icon-edit"></i>修改</a>
+						 		<a  class="btn btn-link " style="font-size:10px; color:#999999;"  href="@{QuestAnsw.deleteQues(findListQues.id)}">
+						 	 	<i class="icon-remove-sign"></i>删除</a>
+						#{/elseif}
 						 #{else}
 						 	<span><span>
 						 #{/else}
