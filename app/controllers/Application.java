@@ -41,7 +41,7 @@ public class Application extends Controller {
 		List<Wel> wNumber = Wel.findAll();
 		WelNum = wNumber.size();
 
-		List<Activity> activity = Activity.find("order by views desc").fetch(6);
+		List<Activity> activities = Activity.find("isFrontPage = true order by views desc").fetch(6);
 		long AcNum;
 		AcNum = Activity.count();
 
@@ -56,7 +56,7 @@ public class Application extends Controller {
 		boolean isNotLogin = false;
 		if (session.get("logged") == null) {
 			isNotLogin = true;
-			System.out.println("1111");
+
 
     	}else{
     		isNotLogin = false;
@@ -76,10 +76,11 @@ public class Application extends Controller {
     			isCssa = true;
     		}
     		
-    		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin,userprofile,
+    		render(ques, wel, activities, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin,userprofile,
     				isSimpleUser,isCssa);
     	}
-		render(ques, wel, activity, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin);
+		render(ques, wel, activities, stu, QuesNum, WelNum, AcNum, StuNum,isNotLogin);
+
 	}
 
 	static SimpleUser connectedSimple() {

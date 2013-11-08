@@ -75,3 +75,21 @@ li{
 list-style:none;
 
 }
+.img-w-3 img{
+	width:30px;
+}
+.img-w-5 img{
+	width:50px;
+}
+.img-w-9 img{
+	width:90px;
+}
+.img-w-15 img{
+	width:150px;
+}
+.img-w-20 img{
+	width:200px;
+}
+.img-border img{
+	border:1px solid #CCC;
+}

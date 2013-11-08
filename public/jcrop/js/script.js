@@ -7,7 +7,7 @@
 
 function checkForm() {
     if (parseInt($('#w').val())) return true;
-    $('.error').html('Please select a crop region and then press Upload').show();
+    $('.error').html('请选择图片区域').show();
     return false;
 };
 
@@ -96,7 +96,5 @@ function fileSelectHandler() {
             });
         };
     };
-	// Download by http://www.codefans.net	
-    // read selected file as DataURL
     oReader.readAsDataURL(oFile);
 }
