@@ -8,64 +8,37 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a>最新动态</a></li>
 		</ul>
-		<div class=" mg-top-5">#{list items:trends,as:'trend'}
+		<div class=" mg-top-5">
+			#{list items:trends,as:'trend'}
 			<div class="row trend">
-			#{if trend.type.equals("activity")}
-			<div class="col-md-1 profile">
-			<a class="img-border img-w-5" href=""><img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}"/></a>
+				#{if trend.type.equals("activity")}
+				<div class="col-md-1 profile">
+					<a class="img-border img-w-5" href=""><img
+						src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" /></a>
+				</div>
+				<div class="col-md-11 activity">
+					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a> ${trend.action} ${trend.relationSU.name} 发布的活动：
+					<div class="detail">
+						<p>
+							"<a href="@{Activities.detail(trend.a.id)}" target="_blank">
+								${trend.a.name}</a>"
+						</p>
+						<p>
+							<a href="@{Activities.detail(trend.a.id)}" target="_blank"
+								class="img-w-20 img-border"> <img src="${trend.a.poster}" /></a>
+						</p>
+						<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date}
+							${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo}
+							报名参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()}))
+							评论(${trend.a.comment.size()})</p>
+					</div>
+
+					<p>${trend.time}</p>
+				</div>
+				#{/if} #{elseif trend.type.equals("qa")} #{/elseif}
 			</div>
-			<div class="col-md-11 activity">
-			<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")}</a>
-			
-			#{if trend.action.equals("allown")}
-			 允许了 ${trend.relationSU.name}参加活动：
-			 <div class="detail">
-				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
-				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
-			</div>
-			#{/if}
-			#{elseif trend.action.equals("disallown")}
-			 将 ${trend.relationSU.name} 从 允许参加 人员中移除：
-			 <div class="detail">
-				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
-				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
-			</div>
-			#{/elseif}			
-			#{elseif  trend.action.equals("like")}
-			 关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动:
-			 <div class="detail">
-				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
-				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
-			</div>
-			#{/elseif}
-			#{elseif trend.action.equals("join")}
-			 报名了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动:
-			 <div class="detail">
-				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
-				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
-			</div>
-			#{/elseif}
-			
-			#{elseif trend.action.equals("comment")}
-			 评论了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动:
-			 <div class="detail">
-				<p>"<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>"</p>
-				<p><a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border" > <img src="${trend.a.poster}" /></a></p>
-				<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 参加(${trend.a.joiner.size()} 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
-			</div>
-			#{/elseif}
-			<p>${trend.time}</p>
-			</div>
-			#{/if}
-			#{elseif trend.type.equals("qa")}
-			
-			#{/elseif}
-			</div>
-			#{/list}</div>
+			#{/list}
+		</div>
 
 	</div>
 </div>

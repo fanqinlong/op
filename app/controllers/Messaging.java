@@ -167,6 +167,7 @@ public class Messaging extends Application {
 		Notification notification = new Notification(userID, userType, notificationTmplID, params, new Date(), false,
 			false);
 		notification.create();
+
 		setNotificationCount(userType, userID, getNotificationCount(userType, userID) + 1);
 	}
 

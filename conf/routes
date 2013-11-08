@@ -34,6 +34,7 @@ GET                	/simple/liked/activity                               	 Simpl
 GET					/simple/edumail									 		 SimpleUsers.eduMail
 POST				/simple/edumail											 SimpleUsers.authEduMail
 GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
+GET					/simple/homepage/{userid}/{actiontype}					 SimpleUsers.homePage
 
 
 #CSSAs Registration/Authentication
