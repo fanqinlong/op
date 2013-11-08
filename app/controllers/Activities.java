@@ -47,6 +47,7 @@ public class Activities extends Application {
 		String scope = session.get("scope") == null ? "" : session.get("scope");
 		String zip = session.get("zip") == null ? "" : session.get("location");
 		String deadline = "";
+		String nowtime = Utils.getNowTime();
 		int days = session.get("days") == null ? -1 : Integer.parseInt(session
 				.get("days"));
 		if (days == -1 || days == -2)
@@ -62,13 +63,13 @@ public class Activities extends Application {
 		List<Activity> a;
 		if (isWeekend) {
 			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? order by isTop desc ,isHot desc, isChecked desc,views desc,t.date asc",
-							deadline, "%" + type + "%", "%" + scope + "%")
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ?  order by isTop desc ,isHot desc, isChecked desc,views desc,t.date asc",
+							deadline,nowtime, "%" + type + "%", "%" + scope + "%")
 					.fetch();
 		} else {
 			a = Activity
-					.find("select distinct a from Activity a join a.time as t  where t.date <? and   a.type.name like ? and a.scope.scope like ? order by isTop desc ,isHot desc, isChecked desc,views desc,t.date asc",
-							deadline, "%" + type + "%", "%" + scope + "%")
+					.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and   a.type.name like ? and a.scope.scope like ? order by isTop desc ,isHot desc, isChecked desc,views desc,t.date asc",
+							deadline, nowtime,"%" + type + "%", "%" + scope + "%")
 					.fetch();
 		}
 

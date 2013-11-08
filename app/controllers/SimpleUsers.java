@@ -451,4 +451,9 @@ public class SimpleUsers extends Application {
 		render(s);
 	}
 
+	public static void homePage(long id) {
+		
+	
+	}
+
 }
