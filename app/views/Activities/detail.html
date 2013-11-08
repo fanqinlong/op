@@ -42,28 +42,30 @@ Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set
 					<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
 				</div>
 
+				
 				<div class="details">
-					<span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int
+					<lable style="float:left;"><span class="pic-leftTitle" >参加者男女比例</span> %{int female=0;int
 					male=0;}% #{list items:a.joiner,as:'joiner'}
 					%{joiner.joiner.gender=="女"?female++:male++;}% #{/list} <span
 						class="At_info">${male}</span> : <span class="At_info">${female}</span>
 
-				</div>
-
+				</lable>
+ 
 				%{int man = (male+female) == 0  ? 0 : male * 100 / (male + female)}%
-				%{int women = (male+female) == 0  ? 0 : female * 100 / (male + female) }%
+			%{int women = (male+female) == 0  ? 0 : female * 100 / (male + female) }%
 
-				<div class="progress" style="width: 130px;">
-					<div class="progress-bar progress-bar-success "
+				<div class="progress" style="width: 130px;float:left;margin-left:10px;">
+					<div class="progress-bar progress-bar-info "
 						style="width: ${man}%">
-						<span class="sr-only">35% Complete (success)</span>
+						 
 					</div>
 
 					<div class="progress-bar progress-bar-danger"
 						style="width: ${women}%">
-						<span class="sr-only">10% Complete (danger)</span>
+						 
 					</div>
 				</div>
+</div><br>
 
 				#{if date < a.time.last().date} #{if a.publisherCSSA==null &&
 				connectedSimpleUser?.name==a.publisherSU.name && a.isOpen!=true}

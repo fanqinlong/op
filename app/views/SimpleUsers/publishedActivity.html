@@ -13,20 +13,22 @@
 				<a href="@{SimpleUsers.likedActivity}">已关注活动</a>
 			</li>
 		</ul>
-		<div class="mg-top-2">
+		<div class="mg-top-2" >
 			#{if activities.isEmpty()}您还未发布任何活动，
 			<a href="@{Activities.create}">发布一个</a>
 			。#{/if}#{else} #{list items:activities,as:'activity'}
-			<div>
-			<p>
-				${activity.postAt},我发布了活动：
+			<div style="border: solid 1px #e2e2e2;padding: 15px;padding-left:30px;">
+			<h4>
+				我发布了活动：
 				<a href="@{Activities.detail(activity.id)}"> ${activity.name} </a>
-				（<a href="@{Activities.allJoinner(activity.id)}">${activity.joiner.size()}人 </a>
-				报名参加 ，${activity.liker.size()}人 关注， ${activity.views}人浏览）
-			</p>
+				
+			</h4>
 			<a href="@{Activities.detail(activity.id)}">
-				<img alt="" style="width: 240px; margin-top: 20px;" src="${activity.poster}" class="img-polaroid">
-			</a>
+				<img alt="" style="width: 150px;margin-bottom:15px; " src="${activity.poster}" class="img-polaroid">
+			</a><br/>
+			<span style="font-size:12px;">${activity.postAt}</span>
+			<span style="margin-left:30px;font-size:12px;"> <a href="@{Activities.allJoinner(activity.id)}">${activity.joiner.size()}人报名参加 ， </a>
+				${activity.liker.size()}人 关注， ${activity.views}人浏览</span>
 			</div>
 			#{/list} #{/else}
 		</div>

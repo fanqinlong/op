@@ -2,15 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="/public/images/favicon.ico"
-	mce_href="/public/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/public/images/favicon.ico" mce_href="/public/images/favicon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>欢迎来到奥噗</title>
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-#{stylesheet 'op-theme.css' /} #{stylesheet
-'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /}
-#{stylesheet 'media-queries.css' /}
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'op-theme.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /} #{stylesheet 'media-queries.css' /}
 
 </head>
 <body>
@@ -60,65 +56,46 @@
 			 -->
 		</div>
 		<img src="/public/images/logo-big.png" class="logo col-md-offset-2">
-
-
 		<div id="login" class="login col-md-2 col-md-offset-8">
 
 			#{if isNotLogin}
-			<form class="login-form" method="post"
-				action="@{SimpleUsers.authenticate}">
-
+			<div style="margin-top: 25%">
 				<h5 class="pull-left">登录奥噗</h5>
 				<h5 class="pull-right">
-					<a href="@{SimpleUsers.signup}" id="login-font1"> 注册<i
-						class="icon-flag "></i>
+					<a href="@{SimpleUsers.signup}" id="login-font1"> 注册<i class="icon-flag "></i>
 					</a>
 				</h5>
+			</div>
+			<form class="login-form" method="post" action="@{SimpleUsers.authenticate}">
+
+
 				<div class="form-group">
-					<input type="email" class="form-control" id="email" name="email"
-						placeholder="邮箱">
+					<input type="email" class="form-control" id="email" name="email" placeholder="邮箱">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" id="password"
-						name="password" placeholder="密码">
+					<input type="password" class="form-control" id="password" name="password" placeholder="密码">
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-block">登录</button>
 				<div class="checkbox">
-					<label> <input type="checkbox"> 记住我 | #{a
-						@SimpleUsers.forgetPassword()}忘记密码？#{/a}
+					<label> <input type="checkbox"> 记住我 | #{a @SimpleUsers.forgetPassword()}忘记密码？#{/a}
 					</label>
 				</div>
 			</form>
-			#{/if}
-			#{else}
-				
-				
-					#{if isSimpleUser}
-					<li>
-						<div style="margin-left:10%; margin-top:20%;">
-							<img src="${userprofile}" class="img-circle">
-						</div>
-					</li>
-					<li style="margin-left:13%;margin-top:23%;">
-					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a>
-					  <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a>
-					  </li>
-					#{/if}
-					
-					#{elseif isCssa}
-					<li>
-						<div style="margin-left:10%; margin-top:20%;">
-							<img src="${userprofile}" class="img-circle" style="width:90%;">
-						</div>
-					</li>
-					<li style="margin-left:13%;margin-top:23%;">
-					    <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a>
-					    <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a>
-					</li>
-					#{/elseif}
-			#{/else}
-		  </div>
+			#{/if} #{else} #{if isSimpleUser}
+			<li>
+				<div style="margin-left: 10%; margin-top: 20%;">
+					<img src="${userprofile}" class="img-circle">
+				</div>
+			</li>
+			<li style="margin-left: 13%; margin-top: 23%;"><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></li> #{/if} #{elseif isCssa}
+			<li>
+				<div style="margin-left: 10%; margin-top: 20%;">
+					<img src="${userprofile}" class="img-circle" style="width: 90%;">
+				</div>
+			</li>
+			<li style="margin-left: 13%; margin-top: 23%;"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></li> #{/elseif} #{/else}
+		</div>
 
 
 
@@ -127,8 +104,7 @@
 	<div class="container hot-list">
 		<div class="mg-top-3">
 			<h3 class="text-primary">
-				最新活动<small class="text-info">ACTIVITY</small><small
-					class="pull-right">进行着<span class="text-info">${AcNum}</span>个活动
+				最新活动<small class="text-info">ACTIVITY</small><small class="pull-right">进行着<span class="text-info">${AcNum}</span>个活动
 				</small>
 			</h3>
 			<hr />
@@ -137,18 +113,17 @@
 				<div class="col-md-2 activity">
 
 					<div class="poster">
-					<a href="@{Activities.detail(a.id)}">
-						<img alt="" src="${a.poster}">
+						<a href="@{Activities.detail(a.id)}"> <img alt="" src="${a.poster}">
 						</a>
 					</div>
 					<div class="titles text-center">${a.name}</div>
 					<div class="detail " onclick="window.location.href='/activity/detail/${a.id}'">
-					<p>
-						<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
+						<p>
+							<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
 						</p>
-						<p>${a.summary} </p>
-						<p><small>${a.time.first().date}至${a.time.last().date}</small><br />
-						已有<b> ${a.joiner.size()}</b>人报名参加
+						<p>${a.summary}</p>
+						<p>
+							<small>${a.time.first().date}至${a.time.last().date}</small><br /> 已有<b> ${a.joiner.size()}</b>人报名参加
 						</p>
 
 					</div>
@@ -156,8 +131,8 @@
 				</div>
 
 				#{/list}
-				
-				
+
+
 			</div>
 			<p class="text-right">
 				<a href="@{Activities.index}" class="btn  btn-primary">Read More</a>
@@ -168,40 +143,34 @@
 		<div class="row">
 			<div class="col-md-6 ">
 				<h3 class="text-primary">
-					最热话题<small class="text-warning">QUESTION</small><small
-						class="pull-right">活跃着<span class="text-info">${QuesNum}</span>个话题
+					最热话题<small class="text-warning">QUESTION</small><small class="pull-right">活跃着<span class="text-info">${QuesNum}</span>个话题
 					</small>
 				</h3>
 				<hr />
 				#{list items:ques,as:'q'}
 				<h4>
-					<span class="label label-primary">${q.views}</span> <a
-						href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
+					<span class="label label-primary">${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
 				</h4>
 				#{/list}
 				<p class="text-right">
-					<a href="@{QuestAnsw.searchPage}" class="btn  btn-primary">Read
-						More</a>
+					<a href="@{QuestAnsw.searchPage}" class="btn  btn-primary">Read More</a>
 				</p>
 
 			</div>
 			<div class="col-md-6">
 
 				<h3 class="text-primary">
-					爱心公益<small class="text-success">COMMOMWEAL</small><small
-						class="pull-right">认证过<span class="text-info">${WelNum}</span>个公益行动
+					爱心公益<small class="text-success">COMMOMWEAL</small><small class="pull-right">认证过<span class="text-info">${WelNum}</span>个公益行动
 					</small>
 				</h3>
 				<hr />
 				#{list items:wel,as:'w'}
 				<h4>
-					<span class="label label-danger">${w.views}</span> <a
-						href="@{Charities.welfare(w.id)}">${w.title}</a>
+					<span class="label label-danger">${w.views}</span> <a href="@{Charities.welfare(w.id)}">${w.title}</a>
 				</h4>
 				#{/list}
 				<p class="text-right">
-					<a href="@{Charities.pigination(1)}" class="btn btn-primary">Read
-						More</a>
+					<a href="@{Charities.pigination(1)}" class="btn btn-primary">Read More</a>
 				</p>
 			</div>
 		</div>
@@ -216,8 +185,7 @@
 				</a>
 			</p>
 			<ul class="nav navbar-nav navbar-right ">
-				<li><a href="@{Info.about}" class="navbar-brand">&copy;
-						opporlink&nbsp; 奥噗</a></li>
+				<li><a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a></li>
 				<li><a href="@{Info.contact}" class="list3">联系我们</a></li>
 				<li><a href="@{Info.jobs}" class="list3">加入奥噗</a></li>
 			</ul>
@@ -225,12 +193,9 @@
 		</div>
 	</footer>
 
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script
-		src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="public/javascripts/jquery.validate.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="public/javascripts/jquery.validate.js"></script>
 	<script type="text/javascript">
 		$(function() {
 
@@ -276,17 +241,19 @@
 			$("#send").fadeOut();
 			$("#zuce_page").addClass("hide");
 		}
-		$(".activity").hover(function(){
+		$(".activity").hover(function() {
 			$(this).children().last().clearQueue();
-			$(this).children().last().stop(true,true).animate({top:'0'},"slow");
-			
-		},function(){
+			$(this).children().last().stop(true, true).animate({
+				top : '0'
+			}, "slow");
+
+		}, function() {
 			$(this).children().last().clearQueue();
-			$(this).children().last().stop(true,true).animate({top:'165'});
-			
+			$(this).children().last().stop(true, true).animate({
+				top : '165'
+			});
+
 		});
-		
-		
 	</script>
 </body>
 </html>

@@ -21,17 +21,23 @@
 		#{if date > a.activity.time.last().date}
 		活动结束，去<a href="/activity/detail/${a.activity.id}#comment">晒晒 </a>你的此次活动经历吧？
 		#{/if}
-		<div>
-			<p>
-				${a.joinedAt},我参加了活动：
+		<div style="border: solid 1px #e2e2e2;padding: 15px;padding-left:30px;">
+			<h4>
+				我参加了活动：
 				<a href="@{Activities.detail(a.activity.id)}"> ${a.activity.name} </a>
-				（<a href="@{Activities.allJoinner(a.activity.id)}">${a.activity.joiner.size()}人 </a>
-				报名参加 ，${a.activity.joiner.size()}人 关注， ${a.activity.views}人浏览）${a.isAllown?"已":"暂未"}通过审核。
-			</p>
+				
+			</h4>
 			<a href="@{Activities.detail(a.activity.id)}">
-				<img alt="" style="width: 240px; margin-top: 20px;" src="${a.activity.poster}" class="img-polaroid">
+				<img alt="" style="width:150px;margin-bottom:15px; " src="${a.activity.poster}" class="img-polaroid">
 			</a>
-			</div>
+			<br>
+			<span style="font-size:12px;">${a.joinedAt} </span>
+			
+			<span style="margin-left:30px;font-size:12px;">（<a href="@{Activities.allJoinner(a.activity.id)}">${a.activity.joiner.size()}人报名参加 ， </a>
+				${a.activity.joiner.size()}人 关注， ${a.activity.views}人浏览）${a.isAllown?"已":"暂未"}通过审核。
+		
+		</span>
+		</div>
 		#{/list}
 		#{/else}
 		

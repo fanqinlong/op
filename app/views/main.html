@@ -9,38 +9,23 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <script type="text/javascript" src="../../../public/javascripts/jquery.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
-#{stylesheet 'user.css' /}
-#{stylesheet 'op-theme.css' /}
-#{stylesheet 'main.css' /}
-#{stylesheet 'font-awesome/css/font-awesome.min.css'  /}
-#{get 'Styles' /}
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 
 </head>
 <body>
 	<header class="navbar  navbar-op" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/">
-					<img class="opporlinklog" src="@{'/public/images/logo.png'}">
+				<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}">
 				</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li>
-						<a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a>
-					</li>
-					<li>
-						<a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a>
-					</li>
-					<li>
-						<a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a>
-					</li>
-					<li>
-						<a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage}">问答</a>
-					</li>
-					<li>
-						<a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a>
-					</li>
+					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
+					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
+					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
+					<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage}">问答</a></li>
+					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
 				</ul>
 
 				<form class="navbar-form navbar-left global-search" role="search">
@@ -55,42 +40,19 @@
 
 				<ul class="nav navbar-nav navbar-right navbar-no-bg">
 					#{if connectedSimpleUser}
-					<li>
-						<a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a>
-					</li>
-					<li>
-						<a href="@{Messaging.index}">
-							<i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
-						</a>
-					</li>
-					<li>
-						<a href="@{SimpleUsers.logout}">
-							<i class=" icon-off"></i>
-						</a>
-					</li>
-					#{/if} #{elseif connectedCSSA}
-					<li>
-						<a href="@{CSSAs.infoCenter()}"> ${connectedCSSA.school.name} CSSA</a>
-					</li>
-					<li>
-						<a href="@{Messaging.index}">
-							<i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
-						</a>
-					</li>
-					<li>
-						<a href="@{CSSAs.logout}">
-							<i class=" icon-off"></i>
-						</a>
-					</li>
-					#{/elseif} #{else}
+					<li><a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a></li>
+					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
+					</a></li>
+					<li><a href="@{SimpleUsers.logout}"> <i class=" icon-off"></i>
+					</a></li> #{/if} #{elseif connectedCSSA}
+					<li><a href="@{CSSAs.infoCenter()}"> ${connectedCSSA.school.name} CSSA</a></li>
+					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
+					</a></li>
+					<li><a href="@{CSSAs.logout}"> <i class=" icon-off"></i>
+					</a></li> #{/elseif} #{else}
 
-					<li>
-						<a href="@{SimpleUsers.signup}" class="cssa_1">注册</a>
-					</li>
-					<li>
-						<a href="@{SimpleUsers.login}" class="cssa_1">登录</a>
-					</li>
-					#{/else}
+					<li><a href="@{SimpleUsers.signup}" class="cssa_1">注册</a></li>
+					<li><a href="@{SimpleUsers.login}" class="cssa_1">登录</a></li> #{/else}
 
 				</ul>
 			</div>
@@ -102,54 +64,44 @@
 	<div class="container container-op clearfix">
 		#{if flash?.error}
 		<div class="alert alert-danger fade in">
-			<a class="close" data-dismiss="alert" href="#">&times;</a>
-			${flash.error}
+			<a class="close" data-dismiss="alert" href="#">&times;</a> ${flash.error}
 		</div>
 		#{/if} #{if flash?.success}
 		<div class="alert alert-success fade in">
-			<a class="close" data-dismiss="alert" href="#">&times;</a>
-			${flash.success}
+			<a class="close" data-dismiss="alert" href="#">&times;</a> ${flash.success}
 		</div>
 		#{/if} #{doLayout /}
 	</div>
 	<!-- container end -->
-<footer class="navbar-op-footer " style="bottom:0px; width:100%; margin-top:30px;">
-		<div class="container " >
-			<ul class="nav navbar-nav " style="margin-left:25%;">
-				<li>
-					<a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a>
-				</li>
-				<li>
-					<a href="@{Info.contact}" class="list3">联系我们</a>
-				</li>
-				<li>
-					<a href="@{Info.jobs}" class="list3">加入奥噗</a>
-				</li>
-				
+	<footer class="navbar-op-footer " style="bottom: 0px; width: 100%; margin-top: 30px;">
+		<div class="container ">
+			<ul class="nav navbar-nav " style="margin-left: 25%;">
+				<li><a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a></li>
+				<li><a href="@{Info.contact}" class="list3">联系我们</a></li>
+				<li><a href="@{Info.jobs}" class="list3">加入奥噗</a></li>
+
 			</ul>
 
-				<P class="navbar-text ">
-					<a href="#">
-						<img src="/public/images/share_facebook.png" />
-					</a>
-					<a href="#">
-						<img src="/public/images/share_google+.png" alt="" />
-					</a>
-					<a href="#">
-						<img src="/public/images/share_twitter.png" alt="" />
-					</a>
-					<a href="#">
-						<img src="/public/images/share_weibo.png" alt="" />
-					</a>
-				</p>
+			<P class="navbar-text ">
+				<a href="#"> <img src="/public/images/share_facebook.png" />
+				</a> <a href="#"> <img src="/public/images/share_google+.png" alt="" />
+				</a> <a href="#"> <img src="/public/images/share_twitter.png" alt="" />
+				</a> <a href="#"> <img src="/public/images/share_weibo.png" alt="" />
+				</a>
+			</p>
 		</div>
 	</footer>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-git.min.js"></script>
 	<script src="../../public/jcrop/js/jquery.Jcrop.min.js"></script>
-    <script src="../../public/jcrop/js/script.js"></script>
+	<script src="../../public/jcrop/js/script.js"></script>
 
 	#{get 'Scripts' /}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".alert").delay(3000).slideUp("slow");
+		});
+	</script>
 </body>
 </html>
