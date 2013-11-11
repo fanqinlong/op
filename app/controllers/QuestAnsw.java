@@ -226,7 +226,6 @@ public class QuestAnsw extends Application {
 				Trend tend = new Trend(Utils.getNowTime(), sUser, null, null, cs, q, "回答了", "qa", null);
 				tend.save();
 			}
-			SimpleUser simpleUser = SimpleUser.findById(q.userid);
 		} else {
 			CSSA cssa = CSSA.findById(comentUserid);
 			noticName = cssa.email;
@@ -243,12 +242,16 @@ public class QuestAnsw extends Application {
 		}
 		// 个人中心动态
 
-		ArrayList<String> s = new ArrayList();
-
+		ArrayList<String> notification = new ArrayList();
+		notification.add(noticName);
+		notification.add("回答了您的问题");
+		notification.add("QuesTitle");
+		notification.add(ques.id+"");
+		
 		if (comentUsertype.equals("simple")) {
-			Messaging.addNotification(ques.usertype, ques.userid, noticName + "回答了您的问题" + QuesTitle, s);
+			Messaging.addNotification(ques.usertype, ques.userid, "qa", notification);
 		} else {
-			Messaging.addNotification(ques.usertype, ques.userid, noticName + "回答了您的问题" + QuesTitle, s);
+			Messaging.addNotification(ques.usertype, ques.userid, "qa", notification);
 		}
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom, comentUsername, FQ, UserQues, CssaQues, UserComments, CssaComment, userid, UserFocusQues, CSSAFocusQues, comentUserid, comentUsertype, isSimple, isCSSA);
 	}
@@ -283,11 +286,7 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
-
-		String userType = session.get("usertype");
-		long userId = Long.parseLong(session.get("logged"));
-
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, userType, userId);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount);
 	}
 
 	public static void searchTag(String tag) {
@@ -303,11 +302,7 @@ public class QuestAnsw extends Application {
 			qArticles.add(qa);
 		}
 		List<Tag> t = Tag.findAll();
-
-		String userType = session.get("usertype");
-		long userId = Long.parseLong(session.get("logged"));
-
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, userType, userId);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount);
 	}
 
 	public static void showQuesInfo(long id) {
@@ -441,10 +436,7 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
-
-		String userType = session.get("usertype");
-		long userId = Long.parseLong(session.get("logged"));
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, pageNum, userType, userId);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, pageNum);
 	}
 
 	public static void editQues(long id) {
@@ -592,11 +584,7 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
-
-		String userType = session.get("usertype");
-		long userId = Long.parseLong(session.get("logged"));
-
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, userType, userId);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount);
 	}
 
 	public static void userQues() {

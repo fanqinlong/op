@@ -55,13 +55,17 @@
 		});
 		
 	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+	
+		function showSchool(){
+	if($("#chooseSchool").hasClass("hidden")){
+		$("#chooseSchool").removeClass("hidden");
+		}else{
+		$("#chooseSchool").addClass("hidden");
+		}
+	}
+	
 		
 	</script>
-
-
-
-
-
 
 <div style="width:800px; border-right:1px solid #f4f4f4;">
 		<div style="width:735px;">
@@ -90,7 +94,17 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label">选择学校</label>
 	<div class="col-md-3 qaw">
-		<div style="width:560px; overflow:hidden;">
+	
+	<label class="checkbox-inline btn btn-default" style="border-radius:20px;margin-left:0px;">
+			<input style="float:none;margin-left:0px;" id="checkschool" type="checkbox"  onClick="showSchool()">选择学校
+	</label>
+	<span>
+		问题如果和学校有关,请点击选择学校
+	</span>
+	
+	
+	
+		<div style="width:560px; overflow:hidden;padding-top:10px;" id="chooseSchool" class="hidden">
 			<input type="text" id="txtSc" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; " name="q.school" value="${eQues.school}" placeholder="请选择学校" />
 			<div id="gj" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
 			<div id="sheng" style="width:550px; word-break:break-all; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
@@ -125,7 +139,7 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"></label>
 	<div class="col-md-3 qaw">
-		<div class="controls" style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
+		<div class="controls" style="margin-bottom:0px; margin-top:5px;">
 		  			<span>标签越精细，越容易让专业人士看到你的问题</span>
 		 </div>
 	</div>

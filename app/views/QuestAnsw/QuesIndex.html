@@ -55,6 +55,15 @@
 		});
 		
 	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+	
+	function showSchool(){
+	if($("#chooseSchool").hasClass("hidden")){
+		$("#chooseSchool").removeClass("hidden");
+		}else{
+		$("#chooseSchool").addClass("hidden");
+		}
+	}
+	
 </script>
 
 
@@ -84,7 +93,16 @@
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label">选择学校</label>
 	<div class="col-md-3 qaw">
-		<div style="width:560px; overflow:hidden;">
+	
+	<label class="checkbox-inline btn btn-default" style="border-radius:20px;margin-left:0px;">
+			<input style="float:none;margin-left:0px;" id="checkschool" type="checkbox"  onClick="showSchool()">选择学校
+	</label>
+	<lable>
+		问题如果和学校有关,请点击选择学校
+	</lable>
+	
+	
+		<div style="width:560px; overflow:hidden;padding-top:10px;" id="chooseSchool" class="hidden">
 			<input type="text" id="txtSc" readonly 
 			style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; cursor:auto;background-color:#FFFFFF;" 
 			name="school" value="${flash.school}" placeholder="请选择学校" />
@@ -96,15 +114,6 @@
 	 <span class="col-md-3">#{error 'name' /}</span>
 </div>	
 	
-<div class="form-group">
-	<label for="name" class="col-md-2 control-label"></label>
-	<div class="col-md-3 qaw">
-		<div class="controls" style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
-		  			<span>学校选填</span>
-		 </div>
-	</div>
-</div>		
-
 <div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>选择标签</label>
 	<div class="col-md-3 qaw">
