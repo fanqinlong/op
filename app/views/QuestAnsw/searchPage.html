@@ -90,9 +90,7 @@ $(document).ready(function(){
 	
 	
 </script>
-
-
-<div class="container container-op">
+ 
 
 
 
@@ -101,7 +99,7 @@ $(document).ready(function(){
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
     <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}" style="width:373px;">
   </div>
-  <button type="submit" class="btn btn btn-info">搜索问题</button>
+  <button type="submit" class="btn  btn-primary">搜索问题</button>
   <a type="button" href="@{QuestAnsw.QuesIndex}" class="btn btn-info">我要提问</a>
 </form>
 
@@ -120,19 +118,13 @@ $(document).ready(function(){
     <input type="text" class="form-control" placeholder="点击选择学校"  id="txtSc" name="school"
     value="${flash.school}" readonly  style="width:373px; cursor:auto;background-color:#FFFFFF;"  />
   </div>
-  <button type="submit" class="btn btn btn-info">搜索学校</button>
+  <button type="submit" class="btn   btn-primary">搜索学校</button>
 </form>
 <div id="gj" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
 <div id="sheng" style="width:373px; word-break:break-all; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
 <div id="list" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>	 
 
-    <!-- 
-	 	 <dl class="btn-group" style="padding-left:45px; padding-bottom:10px;" data-toggle="buttons-radio">
-					  <a class="btn"  style="width:120px; height:17px;line-height:15px;font-size:12px;">默认(时间)排序<img  src="/public/images/searchpageArrow.png"/></a>
-					  <a class="btn" href="@{QuestAnsw.Quespaging}"style="width:100px; height:17px;line-height:15px;font-size:12px;">回答数量<img  src="/public/images/searchpageArrow.png"/></a>
-					  <a class="btn" href="@{QuestAnsw.Quespaging}" style="width:100px; height:17px;line-height:15px;font-size:12px;">关注热度<img  src="/public/images/searchpageArrow.png"/></a>
-		</dl>
-    -->
+  
 </div>
 
 									#{list items:com1,as:'qa'}
@@ -147,19 +139,22 @@ $(document).ready(function(){
 				#{list items:qArticles,as:'qa'}
 					<div  class="sqinfo">
 			 	 	 <label class="woqu">
-							<a class="tiezi-title" href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" style="TEXT-DECORATION:none;" ><h5>${qa.ques.title}</h5></a>
+							<a class="tiezi-title" href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" style="TEXT-DECORATION:none;" ><h4 style="margin-left:10px;">${qa.ques.title}</h4></a>
 					</label>
+					<img src="${qa.ques.userprofile}" style="width:36px;float:right;margin-top:54px;">
+								
 						<label class="userinforleft">
+						
 							<div class="guanzhu-num">
 								<a class="guanzhuNO2">${qa.ques.answerNum}</a>
 								<div>
-									<p class="muted">回答</p>
+									<p style="color:rgb(100,100,100);font-size:12px;">回答</p>
 								</div>
 							</div>
 							<div class="huida-num">
-								<a class="guanzhuNO3">${qa.ques.focusNum}</a>
+								<a style="color:white;">${qa.ques.focusNum}</a>
 								<div>
-									<p class="muted">关注</p>
+									<p style="color:white;font-size:12px;">关注</p>
 								</div>
 							</div>
 						</label>
@@ -169,8 +164,10 @@ $(document).ready(function(){
 									<span class="muted"> 标签:</span>
 									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >${qa.ques.label}</span>
 								</li>
-								<li ><h5>${qa.ques.username}，${qa.ques.selfIntro}</h5></li>
-								<li  style="text-overflow:ellipsis;overflow:hidden; height:43px;">
+								<li >
+								
+								<strong>${qa.ques.username}</strong>，${qa.ques.selfIntro}</li>
+								<li  style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
 										<span >${qa.ques.content.raw()}</span>
 								</li>
 								<li style="padding-top:14px;">
@@ -201,8 +198,7 @@ $(document).ready(function(){
 				       </div>
 				   </div>
 				</div>
-</div>
-</div>
-
+			</div>
+ 
 
 

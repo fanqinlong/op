@@ -62,9 +62,9 @@ public class Activities extends Application {
 			isWeekend = true;
 		List<Activity> a;
 		if (isWeekend) {
-			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ?  order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
+			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <= ? and t.date>=? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ?  order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		} else {
-			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <? and t.date>? and   a.type.name like ? and a.scope.scope like  ? order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
+			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <=? and t.date>=? and   a.type.name like ? and a.scope.scope like  ? order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		}
 
 		List<Activity> frontpageActivity = Activity.find("isFrontPage = true order by views desc").fetch(6);

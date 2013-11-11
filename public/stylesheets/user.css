@@ -45,10 +45,10 @@
 	height: 40px;
 	width: 60px;
 	text-align: center;
-	border-left: 1px solid #000000;
-	border-top: 1px solid #000000;
-	border-right: 1px solid #000000;
-	border-bottom: 0px solid #000000;
+	border-left: 1px solid rgb(100,100,100);
+	border-top: 1px solid rgb(100,100,100);
+	border-right: 1px solid rgb(100,100,100);
+	border-bottom: 0px solid rgb(100,100,100);
 }
 
 .huida-num {
@@ -56,10 +56,10 @@
 	height: 40px;
 	width: 60px;
 	text-align: center;
-	border-left: 1px solid #000000;
-	border-top: 1px solid #000000;
-	border-right: 1px solid #000000;
-	border-bottom: 0px solid #000000;
+	border-left: 1px solid rgb(100,100,100);
+	border-top: 1px solid rgb(100,100,100);
+	border-right: 1px solid rgb(100,100,100);
+	border-bottom: 1px solid rgb(100,100,100);
 }
 
 ul {
@@ -91,7 +91,7 @@ line-height:25px;
 }
 .sqinfo{
 border-bottom:1px solid #dddddd;
-margin-left:20px; 
+margin-left:10px; 
 padding-bottom:5px; 
 width:60%;
 }

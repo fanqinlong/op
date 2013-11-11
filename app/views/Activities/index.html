@@ -84,8 +84,13 @@
 					<div class="time">${fa.time.first().date}至${fa.time.last().date} </div>
 					<div class="profile">
 					<span class="pull-right mg-top-2">已有 <a href="@{Activities.alljoinner(fa.id)}"> ${fa.joiner.size()}人 </a> 报名参加</span>
-						<a>
-							<img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" class="img-polaroid ">
+						
+						#{if fa.publisherCSSA==null}
+					<a data-toggle="modal" href="@{SimpleUsers.preview(fa.publisherSU.id)}" data-target="#modal">
+					#{/if}#{else}
+					<a data-toggle="modal" href="@{CSSAs.preview(fa.publisherCSSA.id)}" data-target="#modal">
+					#{/else}
+						<img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" class="img-polaroid ">
 						</a>
 						<span><a> ${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}</a></span>
 						
@@ -122,8 +127,11 @@
 					<small>${a.time.first().date}至${a.time.last().date} </small>
 					<div>
 					<span class="pull-right mg-top-3">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>
-					
-						<a>
+					#{if a.publisherCSSA==null}
+					<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal">
+					#{/if}#{else}
+					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
+					#{/else}
 							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="img-polaroid" style="width: 45px; height: 45px;">
 						</a>
 						<div><a>  ${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}</a></div>
@@ -137,4 +145,13 @@
 	<div class="row ">#{/if} #{/list} #{/if} #{if row%4!=0}</div>
 	#{/if}
 </div>
+#{set 'Scripts'}
+
+<script type="text/javascript">
+$('#modal').on('hidden', function() {
+    $(this).removeData('modal');
+});
+</script>
+#{/set}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 

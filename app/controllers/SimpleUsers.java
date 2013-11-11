@@ -37,7 +37,7 @@ public class SimpleUsers extends Application {
 	@Before(unless = { "login", "signup", "register", "confirmRegistration",
 			"authenticate", "resendConfirmation", "forgetPassword",
 			"doForgetPassword", "resetPasswordConfirmation", "resetPassword",
-			"confirmEduMail" })
+			"confirmEduMail","preview" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			login();
@@ -410,7 +410,8 @@ public class SimpleUsers extends Application {
 		
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		render(user, trends);
+		boolean isInfoCenter = true;
+		render(user, trends,isInfoCenter);
 	}
 
 	public static void publishedActivity() {
@@ -437,6 +438,9 @@ public class SimpleUsers extends Application {
 		String tag = "like";
 		render(user, activities, tag);
 	}
+	
+
+	
 
 	public static void getActivityJoiner(long aid) {
 
@@ -446,9 +450,29 @@ public class SimpleUsers extends Application {
 		render(s);
 	}
 
-	public static void homePage(long id) {
-		
+	public static void homePage(long userid) {
+		SimpleUser user = SimpleUser.findById(userid);
+		notFoundIfNull(user);
+		render("@infoCenter",user);
 	
+	}
+
+	public static void homePageActivity(long userid) {
+		List<Activity> activities = Activity.find("publisherSU.id = ?", userid)
+				.fetch();
+		SimpleUser user = SimpleUser.findById(userid);
+		render(user, activities);
+	}
+
+	public static void homePageQa(long userid) {
+	
+	}
+
+	public static void preview(long userid) {
+		SimpleUser user = SimpleUser.findById(userid);
+		List<Activity> activities = Activity.find("publisherSU.id = ? order by views", userid).fetch(3);
+		List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"simple").fetch(3);
+		render(user,activities,questions);
 	}
 
 }
