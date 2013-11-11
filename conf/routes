@@ -5,6 +5,8 @@
 # Home page
 GET / Application.index
 
+
+
 #SimpleUsers Registration/Authentication
 GET    				/simple/signup                                           SimpleUsers.signup
 POST        		/simple/signup                                           SimpleUsers.register
@@ -27,14 +29,12 @@ POST        		/simple/resetpassword                                    SimpleUse
 GET                	/simple/changeprofile/{id}                               SimpleUsers.changeProfile
 POST        		/simple/changeprofile                                    SimpleUsers.doChangeProfile
 GET                	/simple/infocenter                                       SimpleUsers.infoCenter
-GET                	/simple/published/activity                               SimpleUsers.publishedActivity
-GET                	/simple/joined/activity                               	 SimpleUsers.joinedActivity
-GET                	/simple/liked/activity                               	 SimpleUsers.likedActivity
 
 GET					/simple/edumail									 		 SimpleUsers.eduMail
 POST				/simple/edumail											 SimpleUsers.authEduMail
 GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
 GET					/simple/homepage/{userid}/{actiontype}					 SimpleUsers.homePage
+GET					/simple/preview/{userid}								 SimpleUsers.preview
 
 
 #CSSAs Registration/Authentication
@@ -60,6 +60,9 @@ GET                	/cssa/changeprofile/{id}                                 CSS
 POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
 GET                	/cssa/infocenter		                                  CSSAs.infoCenter
 GET                	/cssa/myactivity                                         CSSAs.myActivity
+GET					/cssa/homepage/{userid}								 CSSAs.homePage
+GET					/cssa/preview/{userid}								 CSSAs.preview
+
 
 
 #Airport

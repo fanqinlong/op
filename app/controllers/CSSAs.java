@@ -19,13 +19,14 @@ import play.libs.Files;
 import play.libs.Images;
 import play.mvc.*;
 import models.activity.Activity;
+import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
 import models.airport.School;
 
 public class CSSAs extends Application {
 
-	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetPassword", "doForgetPassword", "resetPasswordConfirmation", "resetPassword" })
+	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetPassword", "doForgetPassword", "resetPasswordConfirmation", "resetPassword","preview" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			CSSAs.login();
@@ -298,5 +299,18 @@ public class CSSAs extends Application {
 		List<Activity> LikedActivity = Activity.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ", userId, "cssa").fetch();
 		notFoundIfNull(user);
 		render(user, postedActivity, LikedActivity);
+	}
+
+	public static void homePage(long userid) {
+		CSSA user = CSSA.findById(userid);
+		notFoundIfNull(user);
+		render("@infoCenter",user);	
+	}
+
+	public static void preview(long userid) {
+	CSSA user = CSSA.findById(userid);
+	List<Activity> activities = Activity.find("publisherCSSA.id = ? order by views", userid).fetch(3);
+	List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"cssa").fetch(3);
+	render(user,activities,questions);
 	}
 }

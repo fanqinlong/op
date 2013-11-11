@@ -1,10 +1,8 @@
 <div class="row">
 	<div class=" col-md-2">
-
 		<a href="@{SimpleUsers.changeProfile(user.id)}">
 			<img class="img-thumbnail profile-lg" src="${user.profile}">
 		</a>
-
 	</div>
 	<div class="col-md-8">
 		<h3>
@@ -71,11 +69,15 @@
 		</h6>
 		<h5>
 			签名：${user.selfIntro?user.selfIntro:'无'} &nbsp;
+		
 			<a href="@{SimpleUsers.eduMail}" >
 				<i class="icon-edit">完善资料</i>
 			</a>
+			
 		</h5>
+		
 		<p>
+		
 			<a class="btn btn-primary " href="@{Activities.create}">
 				<i class="icon-flag"></i> 发起活动
 			</a>
@@ -83,6 +85,7 @@
 				<i class="icon-question-sign"></i> 我要提问
 			</a>
 		</p>
+	
 
 	</div>
 </div>

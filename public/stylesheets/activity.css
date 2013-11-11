@@ -1,59 +1,81 @@
-.activity-item .thumbnail>a>img{
-	width:100%;
-	
+.activity-item .thumbnail>a>img {
+	width: 100%;
 }
-.orders .btn{
-	border:1px solid #CCC;
+
+.orders .btn {
+	border: 1px solid #CCC;
 }
-.tags>a{
+
+.tags>a {
 	margin: 15px;
 }
-.tags>span{
-	margin:15px;
-	color:#333;
+
+.tags>span {
+	margin: 15px;
+	color: #333;
 }
-a.detailed{
-	height:300px;
+
+a.detailed {
+	height: 300px;
 }
-.list{
-	font-size:12px;
+
+.list {
+	font-size: 12px;
 }
-.details{
-	height:26px;
+
+.details {
+	margin-bottom: 5px;
 }
- 
-.ac_wid{
-	width:600px;
+
+.ac_wid {
+	width: 600px;
 }
-.map{
-	
-	height:210px;
+
+.map {
+	height: 210px;
 }
-a{
-text-decoration:none !important;
+
+a {
+	text-decoration: none !important;
 }
- 
-.pic-leftTitle{
-color:#C0B9B9;
+
+.pic-leftTitle {
+	color: #333;
 }
-.canyuNO{
-	color:#336699;
+
+.canyuNO {
+	color: #336699;
 }
+
 .activity-item-frontpage {
-	font-size:11px;
-}
-.activity-item-frontpage  .thumbnail{
-	border:none;
+	font-size: 11px;
 }
 
-.activity-item-frontpage img{
-	width:100%;
-	border:1px solid #CCC;
-}
-.activity-item-frontpage .profile img{
-	width:40px;
+.activity-item-frontpage  .thumbnail {
+	border: none;
 }
 
-.order .checked{
-	background:#EEE;
+.activity-item-frontpage img {
+	width: 100%;
+	border: 1px solid #CCC;
+}
+
+.activity-item-frontpage .profile img {
+	width: 40px;
+}
+
+.order .checked {
+	background: #EEE;
+}
+
+.card-title {
+	background-color: #CCF;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding: 5px 20px;
+}
+.card-content p{
+	font-size:12px;
+	line-height:36px;
+	margin:0px;
 }

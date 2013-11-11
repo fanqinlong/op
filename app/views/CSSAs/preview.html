@@ -1,0 +1,46 @@
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title"><i class="icon-reorder"></i> ${user.school.name} CSSA 的个人资料</h4>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+            <div class="col-md-3"><img src="${user.profile}" class="img-w-9 img-thumbnail" /></div>
+            <div class="col-md-7"><h3>
+            
+             ${user.school.name} CSSA</h3><p>简介：${user.selfIntro==null?"TA 还没添加简介。":user.selfIntro}</p></div>
+            <div class="col-md-2"><a href="@{Messaging.sendTo('cssa',user.id)}"><i class=" icon-envelope-alt"></i>发私信</a></div>
+            </div>
+            <div class="mg-top-2">
+            #{if user.peopleNumber} 
+            <span class="userinfo-font-b">${user.peopleNumber}</span> 
+            <span class="userinfo-font-w">人,</span> 
+            #{/if} #{if user.homepage} 
+            <span class="userinfo-font-w">主页：</span> 
+            <a class="userinfo-font-b" href="${user.homepage}">${user.homepage}，</a> 
+            #{/if} #{if user.contract} 
+            <span class="userinfo-font-w">手机号</span> 
+            <span class="userinfo-font-b">${user.contract}</span> #{/if} 
+            </div>
+            <div class="mg-top-2">
+            <div class="card-title"> TA 发起的活动<span class="pull-right"><a>查看更多>></a></span></div>
+            <div class="card-content">
+            #{list items:activities,as:'a'}
+            <p><span class="label label-info">${a.views}</span> &nbsp; <a href="@{Activities.detail(a.id)}" target="_blank">${a.name}</a> <span class="pull-right">${a.postAt}</span></p>
+            #{/list}
+            </div>
+            </div>
+             <div class="mg-top-2">
+            <div class="card-title"> TA 提出的问题<span class="pull-right"><a>查看更多>></a></span></div>
+            <div class="card-content">
+            ${questions.size()==0?"TA 还未提出问题":""}
+             #{list items:questions,as:'q'}
+              <p><span class="label label-info">${q.views}</span> &nbsp; <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a> <span class="pull-right">${q.date}</span></p>
+            #{/list}
+            </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>

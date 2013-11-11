@@ -1,0 +1,95 @@
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title"><i class="icon-reorder"></i> ${user.name} 的个人资料</h4>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+            <div class="col-md-3"><img src="${user.profile}" class="img-w-9 img-thumbnail" /></div>
+            <div class="col-md-7"><h3>
+            #{if user.gender.equals("男")}
+            <img src="@{'public/images/data_card_male.png'}" />
+            #{/if}#{else}
+            <img src="@{'public/images/data_card_female.png'}" />
+            #{/else}
+             ${user.name}</h3><p>签名：${user.selfIntro==null?"TA 还没表达自己的个性。":user.selfIntro}</p></div>
+            <div class="col-md-2"><a href="@{Messaging.sendTo('simple',user.id)}"><i class=" icon-envelope-alt"></i>发私信</a></div>
+            </div>
+            <div class="mg-top-2"><span>
+				#{if user.age}
+					<span class="text-primary"> ${user.age} </span>
+					 岁，
+				 #{/if}
+			    
+			    #{if user.birthday}
+			    	#{if user.dispBirthday}
+					生日是<span class="text-primary"> ${user.birthday} </span>
+					#{/if}
+				 #{/if}
+			    
+			    #{if user.hometown}
+			    	 来自 <span class="text-primary"> ${user.hometown} </span>, 
+			    #{/if} 
+			    
+			    #{if user.homeNow}
+			    	现居住<span class="text-primary"> ${user.homeNow} </span>, 
+			    #{/if} 
+			    
+			    #{if user.school}
+			     <span> 学校 </span>
+			    	 <span class="text-primary"> ${user.school} </span> ,
+			    #{/if} 
+			    
+			    #{if user.major}
+			     <span>专业 </span>
+			    	 <span class="text-primary"> ${user.major} </span> ,
+			    #{/if} 
+			    
+			    #{if user.admissionTime}
+			     <span>入学时间 </span>
+			    	 <span class="text-primary"> ${user.admissionTime} </span> ,
+			    #{/if} 
+			    
+			    #{if user.qq}
+			    	#{if user.dispQQ}
+			    	
+			     <span>QQ </span>
+			    	 <span class="text-primary"> ${user.qq} </span> ,
+			    	 #{/ if}
+			    #{/if} 
+			    
+			    #{if user.ralationship}
+			    	<span> 感情状况 </span> 
+			    	<span class="text-primary"> ${user.ralationship} </span> , 
+			    #{/if} 
+			    
+			    #{if user.contract} 
+			    	#{if user.dispContract}
+			    	<span> 手机号 </span> 
+			    	<span class="text-primary"> ${user.contract} </span>
+			    	#{/if} 
+			    #{/if}
+			    
+			</span></div>
+            <div class="mg-top-2">
+            <div class="card-title"> TA 发起的活动<span class="pull-right"><a>查看更多>></a></span></div>
+            <div class="card-content">
+            #{list items:activities,as:'a'}
+            <p><span class="label label-info">${a.views}</span> &nbsp; <a href="@{Activities.detail(a.id)}" target="_blank">${a.name}</a> <span class="pull-right">${a.postAt}</span></p>
+            #{/list}
+            </div>
+            </div>
+             <div class="mg-top-2">
+            <div class="card-title"> TA 提出的问题<span class="pull-right"><a>查看更多>></a></span></div>
+            <div class="card-content">
+            ${questions.size()==0?"TA 还未提出问题":""}
+             #{list items:questions,as:'q'}
+              <p><span class="label label-info">${q.views}</span> &nbsp; <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a> <span class="pull-right">${q.date}</span></p>
+            #{/list}
+            </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>

@@ -1,70 +1,66 @@
 #{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
-	<div class="left-div col-md-8">
-		<div class="activity-pic" style="width: 300px; float: left; margin-right: 20px;">
-			<img src="${a.poster}">
-		</div>
-
-		<div class="activity ">
-			<div class="activity-weight acpading">
-				<h4>${a.name}</h4>
-				<div class="details ">
-					<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
-				</div>
-				#{if isAllown || isOwner}
-				<div class="details ">
-					<span class="pic-leftTitle">地点：</span> <span class="At_info">${a.location}</span>
-				</div>
-				#{/if}
-				<div class="details">
-					<span class="pic-leftTitle">费用：</span> <span class="At_info">$ ${a.money}</span>
-				</div>
-				<div class="details">
-					<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
-				</div>
-				<div class="details">
-					<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
-				</div>
-				<div class="details">
-					<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name + " CSSA")}</span>
-				</div>
-				#{if isAllown || isOwner}
-				<div class="details">
-					<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
-				</div>
-				#{/if}
-				<div class="details">
-					<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
-				</div>
-
-
-				<div class="details">
-					<lable style="float:left;"> <span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list} <span class="At_info">${male}</span> : <span class="At_info">${female}</span> </lable>
-
-					%{int man = (male+female) == 0 ? 0 : male * 100 / (male + female)}% %{int women = (male+female) == 0 ? 0 : female * 100 / (male + female) }%
-
-					<div class="progress" style="width: 130px; float: left; margin-left: 10px;">
-						<div class="progress-bar progress-bar-info " style="width: ${man}%"></div>
-
-						<div class="progress-bar progress-bar-danger" style="width: ${women}%"></div>
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-5">
+				<img src="${a.poster}" class="img-thumbnail">
+			</div>
+			<div class="col-md-7">
+				<div class="activity-weight acpading">
+					<h3>${a.name}</h3>
+					<div class="details ">
+						<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 					</div>
-				</div>
-				<br>
-				
-			
-				<div>
-				
-					#{if date < a.time.last().date} 
-					#{if a.publisherCSSA!=connectedCSSA && connectedSimpleUser!=a.publisherSU && a.isOpen!=true}
-					<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
-					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+					#{if isAllown || isOwner}
+					<div class="details ">
+						<span class="pic-leftTitle">地点：</span> <span class="At_info">${a.location}</span>
+					</div>
 					#{/if}
-					 #{if a.publisherCSSA!=connectedCSSA && connectedSimpleUser!=a.publisherSU && a.isOpen==true}
-					<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+					<div class="details">
+						<span class="pic-leftTitle">费用：</span> <span class="At_info">$ ${a.money}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name + " CSSA")}</span>
+					</div>
+					#{if isAllown || isOwner}
+					<div class="details">
+						<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
+					</div>
 					#{/if}
-					#{if a.isOpen!=true}
-					<a class="btn btn-success" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
-					#{/if}
+					<div class="details">
+						<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">是否公开参加：</span> <span class="At_info">${a.isOpen?"是":"否"}</span>
+					</div>
+					#{if !a.isOpen}
+					<div class="details clearfix">
+						<lable style="float:left;"> <span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list} </lable>
+
+						%{int man = (male+female) == 0 ? 0 : male * 100 / (male + female)}% %{int women = (male+female) == 0 ? 0 : female * 100 / (male + female) }%
+
+						<div class="progress" style="width: 130px; float: left; margin-left: 10px;">
+							<div class="progress-bar progress-bar-info " style="width: ${man}%"></div>
+							<div class="progress-bar progress-bar-danger" style="width: ${women}%"></div>
+						</div>
+					</div>
+					#{/if} 
+					#{if date <= a.time.last().date}
+					<div class="details">
+						#{if !a.isOpen}
+						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
+						#{/if}
+						<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+						#{if !a.isOpen}
+						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
+						#{/if}
+					</div>
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -88,63 +84,57 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
+					#{/if}
 				</div>
-			#{/if}
+
 			</div>
+		</div>
+		<div>
 			<h3>活动介绍</h3>
-			<p style="text-indent: 2em; width: 500px;">${a.intro}</p>
+			<p>${a.intro}</p>
 		</div>
-
 		#{if date > a.time.last().date && (isAllown || isOwner)}
-		<div id="comment" style="padding-top: 30px;">
-			<div>
-				#{form @comment(), method:'get',class:'form-horizontal'}
-				<h4 class="col-md-offset-2" style="margin-left: -3px;">参加了一次神奇的活动之后，我想说：</h4>
-				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left: -100px;">
-					<label for="email" class="col-md-2 control-label">标签</label>
-					<div class="col-md-3 " style="width: 40%;">
-						<input type="text" placeholder="好玩、热闹..." class="form-control" name="c.tag" />
-					</div>
-					<span class="col-md-3">#{error 'tag' /}</span>
+		<div id="comment">
+
+			#{form @comment(), method:'get',class:'form-horizontal'}
+			<h4 style="color: #336699; margin-top: 30px;">参加了一次神奇的活动之后，我想说：</h4>
+			<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}">
+				<label for="inputEmail3" class="col-sm-2 control-label">标签</label>
+				<div class="col-sm-10">
+					<input type="text" style="width: 250px;" placeholder="好玩、热闹..." class="form-control" name="c.tag" />
 				</div>
-				<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}" style="margin-left: -100px;">
-					<label for="email" class="col-md-2 control-label">评论</label>
-					<div class="col-md-3 " style="width: 40%;">
-						<textarea rows="5" cols="30" class="form-control" name="c.comment" /></textarea>
-						<input type="hidden" name="activity" value="${a.id}" />
-					</div>
-					<span class="col-md-3">#{error 'comment' /}</span>
-				</div>
-				<div class="form-group" style="margin-left: -100px;">
-					<div class="col-md-offset-2 col-md-3">
-						<input type="submit" class="btn btn-primary" value="晒晒">
-					</div>
-				</div>
-				#{/form}
+				<span>#{error 'tag' /}</span>
 			</div>
+			<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}">
+				<label for="inputPassword3" class="col-sm-2 control-label">评论</label>
+				<div class="col-sm-5">
+					<textarea class="form-control " name="c.comment" /></textarea>
+					<input type="hidden" name="activity" value="${a.id}" />
+				</div>
+				<span>#{error 'comment' /}</span>
+			</div>
+			<div class="form-group">
+				<div class="">
+					<input type="submit" class="btn btn-primary col-sm-offset-2" value="晒晒">
+				</div>
+			</div>
+			#{/form} #{list items:a.comment,as:'comment'}
+			<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
+				<img style="width: 40px; height: 40px;" src=${comment.publisher.profile} /> <strong>${comment.publisher.name}:${comment.tag}</strong><span style="float: right;">${comment.publishedAt}</span>
+				<br />
+				<span style="padding-left: 50px;">${comment.comment}</span>
+			</div>
+			#{/list}
 		</div>
-
-		#{list items:a.comment,as:'comment'}
-		<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
-			<img style="width: 40px; height: 40px;" src=${comment.publisher.profile} /> <span>${comment.publisher.name}:</span> <span>${comment.tag}</span><span style="float: right;">${comment.publishedAt}</span>
-			<br />
-			<span style="padding-left: 40px;">${comment.comment}</span>
-		</div>
-		#{/list} #{/if}
-
-
+		#{/if}
 	</div>
-
-
 	<!--  地图  -->
 	<div class="col-md-4">
-
 		<div class="right-top">
-			<a href="@{Activities.Create}" class="btn btn-info faqi">
+			<a href="@{Activities.Create}" class="btn btn-success btn-lg  faqi">
 				<i class="icon-flag"></i> 发起活动
 			</a>
 		</div>
-
 		<div class="map">
 			<h4 class="activity-title3">
 				活动地图 #{if isAllown || isOwner}
@@ -157,15 +147,19 @@
 		<div class="person">
 			<h4 class="activity-title3">活动组织者</h4>
 			<div class="activity-userpic">
-				<img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+				#{if a.publisherCSSA==null}
+				<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal">
+					#{/if}#{else}
+					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
+						#{/else} <img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+					</a>
 			</div>
 			<div>
-				<small class="name">${publisher_name}</small>
+				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} #{/if}#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}">${a.publisherSU.name} #{/if} #{/else}
 			</div>
 		</div>
-		<br />
 		#{if connectedSimpleUser?.isAdmin}
-		<div>
+		<div class="mg-top-2">
 			#{if !a.isTop}
 			<a class="btn btn-primary" href="@{Activities.setTop(a.id)}">顶置</a>
 			#{/if} #{if a.isTop}
@@ -185,15 +179,26 @@
 			#{/if}
 		</div>
 		#{/if}
-
 		<div class="numbers">
 			<h4 class="activity-title4">活动成员</h4>
 			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
 			<br>
-			#{list items:allownJoiner,as:'joiner'} <img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
+			#{list items:allownJoiner,as:'joiner'}
+			<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
+				<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
+			</a>
 		</div>
 	</div>
-
 </div>
+
+#{set 'Scripts'}
+
+<script type="text/javascript">
+	$('#modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
+</script>
+#{/set}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 
