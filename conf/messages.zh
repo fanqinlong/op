@@ -15,7 +15,7 @@ NT_TITLE_activity=活动通知
 NT_CONTENT_activity= %s %s %s 发布的活动：<a href="/activity/detail/%s" target="_top">%s</a>
 
 NT_TITLE_qa=问答通知
-NT_CONTENT_qa= <a href="%s">%s</a>
+NT_CONTENT_qa= %s %s<a href="/QuestAnsw/showQuesInfo/%s">%s</a>
 
 NT_TITLE_charity=公益通知
 NT_CONTENT_charity= <a href="%s">%s</a>
