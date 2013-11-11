@@ -245,8 +245,8 @@ public class QuestAnsw extends Application {
 		ArrayList<String> notification = new ArrayList();
 		notification.add(noticName);
 		notification.add("回答了您的问题");
-		notification.add("QuesTitle");
 		notification.add(ques.id+"");
+		notification.add(QuesTitle);
 		
 		if (comentUsertype.equals("simple")) {
 			Messaging.addNotification(ques.usertype, ques.userid, "qa", notification);
@@ -543,15 +543,18 @@ public class QuestAnsw extends Application {
 				tend.save();
 			}
 		}
-
-		ArrayList<String> s = new ArrayList();
-
+		
+		ArrayList<String> notification = new ArrayList();
+		notification.add(noticName);
+		notification.add("关注了你的问题");
+		notification.add(ques.id+"");
+		notification.add(QuesTitle);
+		
 		if (fquserType.equals("simple")) {
-			Messaging.addNotification(ques.usertype, ques.userid, noticName + "关注了您的问题" + QuesTitle, s);
+			Messaging.addNotification(ques.usertype, ques.userid, "qa", notification);
 		} else {
-			Messaging.addNotification(ques.usertype, ques.userid, noticName + "关注了您的问题" + QuesTitle, s);
+			Messaging.addNotification(ques.usertype, ques.userid, "qa", notification);
 		}
-
 		showQuesInfo(id);
 	}
 
@@ -756,17 +759,23 @@ public class QuestAnsw extends Application {
 			quesTitle = com.quesTitle;
 			com.save();
 			new AgreeComment(fquserType, userId, id, quesid, quesTitle);
+			
 			Comments comments = Comments.findById(id);
 
 			if (fquserType.equals("simple")) {
 				SimpleUser sUser = SimpleUser.findById(userId);
 				Ques q = Ques.findById(quesid);
-
+				ArrayList<String> notification = new ArrayList();
+				notification.add(sUser.name);
+				notification.add("赞同了你答案,点击查看");
+				notification.add(q.id+"");
+				notification.add(q.title);
+				Messaging.addNotification(comments.usertype, comments.userid, "qa", notification);
+				
 				if (comments.usertype.equals("simple")) {
 					SimpleUser simpleUser = SimpleUser.findById(comments.userid);
 					Trend tend = new Trend(Utils.getNowTime(), sUser, null, simpleUser, null, q, "攒了你的回答", "praise", comments);
 					tend.save();
-
 				} else {
 					CSSA cssa = CSSA.findById(comments.userid);
 					Trend tend = new Trend(Utils.getNowTime(), sUser, null, null, cssa, q, "攒了你的回答", "praise", comments);
@@ -775,6 +784,13 @@ public class QuestAnsw extends Application {
 			} else {
 				CSSA cssa = CSSA.findById(userId);
 				Ques q = Ques.findById(quesid);
+				ArrayList<String> notification = new ArrayList();
+				notification.add(cssa.school.name);
+				notification.add("赞同了你答案,点击查看");
+				notification.add(q.id+"");
+				notification.add(q.title);
+				Messaging.addNotification(comments.usertype, comments.userid, "qa", notification);
+				
 				if (comments.usertype.equals("simple")) {
 					SimpleUser simpleUser = SimpleUser.findById(comments.userid);
 					Trend tend = new Trend(Utils.getNowTime(), null, cssa, simpleUser, null, q, "回答了", "praise", comments);
@@ -786,6 +802,7 @@ public class QuestAnsw extends Application {
 				}
 			}
 
+			
 			showQuesInfo(quesid);
 		}
 	}
