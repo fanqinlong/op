@@ -60,8 +60,16 @@
 			 		<ul style="border-bottom:1px solid #dddddd; padding-bottom:15px;">
 					 		<li class="" style="margin-left:-40px;">
 				    			<h5>
-				    				<a id="userInfo${ac.userid}" href="@{QuestAnsw.showUserInfor(ac.usertype,ac.userid)}" style="color:#336699;"><img  src=${ac.userprofile} class="op2-right2" style="height:40px; width:40px;"> ${ac.username}：</a>
+				    				#{if ac.usertype == "cssa"}
+				    				<a id="userInfo${ac.userid}" href="@{CSSAs.preview(ac.userid)}" data-target="#modal" data-toggle="modal" style="color:#336699;">
+				    				<img  src=${ac.userprofile} class="op2-right2" style="height:30px; width:30px;"> ${ac.username}：</a>
 				    				<span class="text-muted">${ac.userSelfIntro}</span>
+				    				#{/if}
+				    				#{else}
+				    					<a id="userInfo${ac.userid}" href="@{SimpleUsers.preview(ac.userid)}" data-target="#modal" data-toggle="modal" style="color:#336699;">
+				    					<img  src=${ac.userprofile} class="op2-right2" style="height:30px; width:30px;"> ${ac.username}：</a>
+				    					<span class="text-muted">${ac.userSelfIntro}</span>	
+				    				#{/else}
 				    			</h5>
 				    			 <span >
 				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/images/1-2.png"> ${ac.praiseNum}票 ,</a>
@@ -177,18 +185,27 @@
 	
 	</div>
 	<label class="op-17">
-		<span class="op-18">${fidid.focusNum}<span>
-		<span class="op-13">人已关注</span>
+		<span class="op-18">
+			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
+		<span>
+		<span class="op-13">人关注该问题</span>
 		</span></span>
 	</label>
 	#{/list}
 	 <div>
 	  #{list items:FQ,as:'fidid'}
-	 	<a href="@{QuestAnsw.showUserInfor(fidid.userType,fidid.userid)}"><img  src=${fidid.userprofile} class="op2-right2" style="height:60px; width:60px;"></a>
+	  
+	  #{if fidid == "cssa"}
+	  	<a href="@{CSSAs.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
+	  	<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	  #{/if}
+	  #{else}
+	 		<a href="@{SimpleUsers.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	  #{/else}
+	 	
 	  #{/list}
 	 </div> 
-	 
 </div>
-	 
-	 <div style=" clear:both;"></div>	
-
+<div style=" clear:both;"></div>	
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

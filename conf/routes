@@ -154,10 +154,9 @@ POST /QuestAnsw/addComent                              QuestAnsw.addComent
 GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
 GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool 
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
-
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
-
+GET  /QuestAnsw/allFollowers/{id}                  QuestAnsw.allFollowers
 
 #Info and Jobs
 

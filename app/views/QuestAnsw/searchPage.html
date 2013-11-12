@@ -129,12 +129,12 @@ $('#modal').on('hidden', function() {
 					</label>
 					#{if qa.ques.usertype == "cssa"}
 					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal">
-						<img src="${qa.ques.userprofile}" style="width:36px;float:right;margin-top:54px;">${qa.ques.usertype}
+						<img src="${qa.ques.userprofile}" style="width:30px;float:right;margin-top:54px;">${qa.ques.usertype}
 					</a>
 					#{/if}
 					#{else}
 						<a href="@{SimpleUsers.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal">
-							<img src="${qa.ques.userprofile}" style="width:36px;float:right;margin-top:54px;">
+							<img src="${qa.ques.userprofile}" style="width:30px;float:right;margin-top:54px;">
 						</a>
 					#{/else}
 						<label class="userinforleft">
