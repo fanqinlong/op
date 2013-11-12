@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import notifiers.Trend;
+import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.mvc.Before;
 import models.activity.Activity;
@@ -21,18 +22,18 @@ import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class QuestAnsw extends Application {
-	private static String label;
-
 	public static void index() {
 		render();
 	}
-
 	public static void QuesIndex() {
 		List<Tag> t = Tag.findAll();
 		render(t);
 	}
 
-	public static void dispAddQues(String title, String Tag, String content, String school, String date, Long id, long answerNum, long focusNum, String selfIntro) {
+	public static void dispAddQues(@Required String title, 
+			@Required String Tag, 
+			@Required String content, 
+			String school, String date, Long id, long answerNum, long focusNum, String selfIntro) {
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
 			SimpleUsers.login();
@@ -63,13 +64,12 @@ public class QuestAnsw extends Application {
 			params.flash();
 			flash.error("错误:请输入内容");
 			QuesIndex();
-		} else if (!Ques.islabel(label)) {
+		} else if (Tag == null) {
 			validation.keep();
 			params.flash();
 			flash.error("错误:至少选择一个标签");
 			QuesIndex();
 		}
-
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
 		new Ques(title, Tag, school, content, d, userid, usertype, username, userprofile, answerNum, focusNum, userselfIntro);
@@ -85,7 +85,6 @@ public class QuestAnsw extends Application {
 			tend.save();
 		}
 		render();
-
 	}
 
 	public static void comments(String qid, String comment) {
