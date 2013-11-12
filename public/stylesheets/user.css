@@ -11,21 +11,14 @@
 .qaw {
 	width: 70%;
 }
-
-.woqu {
-	width: auto;
-	margin-left: -15%;
-}
-
 .qatitle {
 	padding-top: 15px;
 }
 
 .userinforleft {
 	float: left;
-	width: 88px;
-	padding-top: 50px;
 	text-align: right;
+	padding-top:20px;
 }
 
 .userinforright {
@@ -103,4 +96,16 @@ width:60%;
 	margin:10px;
 	padding:10px;
 }
-
+.qfont{
+font-family:museo-slab,"Helvetica Neue",Helvetica,Arial,sans-serif;
+font-size:13.5 !important;
+font-weight:bold;
+color:inherit !important;
+text-rendering:optimizelegibility;
+}
+.ql{
+padding-left:10px;
+}
+.sq{
+padding-top:5px;
+}

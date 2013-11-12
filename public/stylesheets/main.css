@@ -50,14 +50,12 @@
 	font-family: Arial;
 	padding: 3px 8px;
 }
-
-
-
 .container-op {
 	padding: 20px;
 	margin: 20px auto;
 	border: 1px solid #ccc;
 	background-color: #FFF;
+	padding-left:50px;
 }
 img.profile-lg{
 	height:150px;

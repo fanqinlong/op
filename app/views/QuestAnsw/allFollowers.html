@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'allFollowers.html' /}
+<link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
+<h3 class="sh_title">已经关注的同学</h3>
+
+<p class="sh_content">
+		#{list items:allFoll,as:'af'}
+			#{if af.userType == "cssa"}
+				<a href="@{CSSAs.preview(af.userid)}" data-target="#modal" data-toggle="modal">
+					<img src="${af.userprofile}" style="width:60px; height:60px;" >
+				</a>
+			#{/if}
+			#{else}
+				<a href="@{SimpleUsers.preview(af.userid)}" data-target="#modal" data-toggle="modal">
+					<img src="${af.userprofile}" style="width:60px; height:60px;" >
+				</a>
+			#{/else}
+		#{/list}
+<br />
+<br />
+#{list items:ques,as:'q'}
+	<span class="sh_4">${q.focusNum}人已关注</span>
+#{/list}
+</p>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
