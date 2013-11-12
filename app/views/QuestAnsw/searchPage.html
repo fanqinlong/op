@@ -112,29 +112,21 @@ $('#modal').on('hidden', function() {
 
   
 </div>
-
-									#{list items:com1,as:'qa'}
-										<a>${qa.userid}</a>
-										<br />
-										<a>${qa.usertype}</a>
-									#{/list}
-
-
 <div class="container container-op">
-		<div  class="group1">
+		<div class="group1">
 				#{list items:qArticles,as:'qa'}
+				<div style="width:665px;">
+				<i class=" icon-lightbulb"></i><span><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" style="font-size:15px;">${qa.ques.title}</a></span>
+				</div>
 					<div  class="sqinfo">
-			 	 	 <label class="woqu">
-							<a class="tiezi-title" href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" style="TEXT-DECORATION:none;" ><h4 style="margin-left:10px;">${qa.ques.title}</h4></a>
-					</label>
 					#{if qa.ques.usertype == "cssa"}
 					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal">
-						<img src="${qa.ques.userprofile}" style="width:30px;float:right;margin-top:54px;">${qa.ques.usertype}
+						<img src="${qa.ques.userprofile}" style="width:30px;float:right;padding-top:10px;">
 					</a>
 					#{/if}
 					#{else}
 						<a href="@{SimpleUsers.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal">
-							<img src="${qa.ques.userprofile}" style="width:30px;float:right;margin-top:54px;">
+							<img src="${qa.ques.userprofile}" style="width:30px;float:right;padding-top:10px;">
 						</a>
 					#{/else}
 						<label class="userinforleft">
@@ -153,18 +145,20 @@ $('#modal').on('hidden', function() {
 							</div>
 						</label>
 						<div class="controls userinforright">
-							<ul style="	margin-left:125px; width:400px;" >
-								<li>
-									<span class="muted"> 标签:</span>
+							<ul style="	margin-left:110px; width:400px;" >
+								<li class="sq">
+									<i class="icon-bookmark-empty"></i>
 									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >${qa.ques.label}</span>
 								</li>
-								<li >
-								
+								<li class="sq">
+								<i class="icon-user-md"></i>
 								<strong>${qa.ques.username}</strong>，${qa.ques.selfIntro}</li>
-								<li  style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
+								<li  class="sq">
+									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
 										<span >${qa.ques.content.raw()}</span>
+									</div>
 								</li>
-								<li style="padding-top:14px;">
+								<li class="sq">
 									<a href="@{QuestAnsw.fcousOnQuestion(qa.ques.id)}" class="guanzhu-question">
 										<img src="/public/images/focus.png">
 										关注问题

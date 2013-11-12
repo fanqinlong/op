@@ -679,7 +679,6 @@ public class QuestAnsw extends Application {
 	public static void userQues() {
 		long userId = Long.parseLong(session.get("logged"));
 		SimpleUser user = SimpleUser.findById(userId);
-
 		List<Ques> UQues = Ques.find(
 				"userid = ?  and usertype = ? order by id desc", userId,
 				"simple").fetch();

@@ -13,12 +13,12 @@
 <div style="width:700px; float:left;">
 		 <div style="width:600px;">
 				#{list items:fQ,as:'findListQues'}
-				<ul style="padding-bottom:5px;"  >
+				<ul style="padding-bottom:5px; padding-left:0px;"  >
 					<li  class="qatitle">	
-						<span  style="font-size:21px; color:#000000; font-weight:bold;">${findListQues.title}</span>
+						<i class=" icon-lightbulb"></i>
+						<span  style="font-size:17px; color:#000000; font-weight:bold;" class="ql">${findListQues.title}</span>
 						#{if isSimple}
 							#{if UserQues}
-							
 								<a  class="btn btn-link linkf"  href="@{QuestAnsw.editQues(findListQues.id)}">
 						 	 	<i class="icon-edit"></i>修改</a>
 						 		<a  class="btn btn-link linkf"  href="@{QuestAnsw.deleteQues(findListQues.id)}">
@@ -39,14 +39,17 @@
 					</li>
 				
 					<li class="qatitle">
-						<span class="qatitlea" >${findListQues.label}</span>
+						<i class="icon-bookmark-empty"></i>	<span  class="ql">${findListQues.label}</span>
 					</li>
 					<li class="qatitle">
-						<span class="qatitlea linkf">${findListQues.username}，${findListQues.selfIntro}</span>
+						<i class="icon-user"></i><span class="qatitlea linkf ql">${findListQues.username}，${findListQues.selfIntro}</span>
 					</li>
 				
 					<li class="qatitle" style="padding-bottom:25px;">
-						<div class="qatitlea linkf sinfc"  >${findListQues.content.raw()}</div>
+					<i class="icon-spinner icon-spin"></i>
+						<div class="qatitlea linkf sinfc"  >
+						${findListQues.content.raw()}
+						</div>
 					</li>
 					<li class="qatitle"   style="border-top:1px solid #dddddd;  border-bottom:1px solid #dddddd; padding-bottom:15px;">
 						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
