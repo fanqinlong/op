@@ -72,7 +72,11 @@ public class QuestAnsw extends Application {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-		new Ques(title, Tag, school, content, d, userid, usertype, username, userprofile, answerNum, focusNum, userselfIntro);
+		new Ques(title, Tag, school, content, d, userid, usertype, username, userprofile, answerNum, 1, userselfIntro);
+		
+		Ques ques = Ques.find("order by id desc").first();
+		new FocusQues(usertype, userid, userprofile, ques.id, ques.title);
+		
 		if (usertype.equals("simple")) {
 			SimpleUser sUser = SimpleUser.findById(userid);
 			Ques q = Ques.find("order by id desc").first();
@@ -151,7 +155,9 @@ public class QuestAnsw extends Application {
 		String d = (df.format(Calendar.getInstance().getTime()));
 		new Comments(quesid, comment, 0, comentUserid, comentUsertype, comentUsername, comentUserprofile, comentUserSelfIntro, d, QuesTitle, 0);
 		Ques fQ = Ques.findById(quesid);
-
+		
+		new FocusQues(comentUsertype, comentUserid, comentUserprofile, fQ.id, fQ.title);
+		
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", quesid).fetch(5);
 		List<Comments> listCom = Comments.find("quesid = ?", quesid).fetch();
 
@@ -398,14 +404,6 @@ public class QuestAnsw extends Application {
 		render(att);
 	}
 
-	public static void popupUserInfo() {
-		render();
-	}
-
-	public static void userInfoIndex() {
-		render();
-	}
-
 	public static void Quespaging(int pageNum, String data) {
 		List<Tag> t = Tag.findAll();
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
@@ -415,18 +413,7 @@ public class QuestAnsw extends Application {
 			pageNum = (int) pageCount;
 		}
 		List<Ques> aQues = Ques.find("order by date desc").from((pageNum - 1) * 5).fetch(5);
-
-		// if(){
-		// List<Ques> aQues = Ques.find("order by answerNum desc")
-		// .from((pageNum - 1) * 5).fetch(5);
-		// }else if(){
-		// List<Ques> aQues = Ques.find("order by focusNum desc")
-		// .from((pageNum - 1) * 5).fetch(5);
-		// }else{
-		// List<Ques> aQues = Ques.find("order by date desc")
-		// .from((pageNum - 1) * 5).fetch(5);
-		// }
-
+		
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
@@ -438,18 +425,15 @@ public class QuestAnsw extends Application {
 		}
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, pageNum);
 	}
-
 	public static void editQues(long id) {
 		List<Tag> t = Tag.findAll();
 		Ques eQues = Ques.findById(id);
 		render(t, eQues);
 	}
-
 	public static void editSuccessful(Ques eQues) {
 		eQues.save();
 		render();
 	}
-
 	public static void deleteQues(long id, int pageNum) {
 		Ques dques = Ques.findById(id);
 		dques.delete();
@@ -472,11 +456,6 @@ public class QuestAnsw extends Application {
 		}
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, pageNum);
 	}
-
-	public static void deleteComent() {
-		render();
-	}
-
 	public static void fcousOnQuestion(long id) {
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
@@ -543,7 +522,6 @@ public class QuestAnsw extends Application {
 				tend.save();
 			}
 		}
-		
 		ArrayList<String> notification = new ArrayList();
 		notification.add(noticName);
 		notification.add("关注了你的问题");
@@ -672,7 +650,6 @@ public class QuestAnsw extends Application {
 			flash.error("请登录!");
 			SimpleUsers.login();
 		}
-
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 
@@ -729,7 +706,6 @@ public class QuestAnsw extends Application {
 			flash.error("请登录!");
 			SimpleUsers.login();
 		}
-
 		// 传过来的id是回答的id
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
@@ -743,7 +719,6 @@ public class QuestAnsw extends Application {
 				AgreeComment aComment = (AgreeComment) iterator.next();
 				Acid = aComment.id;
 			}
-
 			AgreeComment a = AgreeComment.findById(Acid);
 			a.delete();
 			Comments com = Comments.findById(id);
@@ -759,9 +734,7 @@ public class QuestAnsw extends Application {
 			quesTitle = com.quesTitle;
 			com.save();
 			new AgreeComment(fquserType, userId, id, quesid, quesTitle);
-			
 			Comments comments = Comments.findById(id);
-
 			if (fquserType.equals("simple")) {
 				SimpleUser sUser = SimpleUser.findById(userId);
 				Ques q = Ques.findById(quesid);
@@ -790,7 +763,6 @@ public class QuestAnsw extends Application {
 				notification.add(q.id+"");
 				notification.add(q.title);
 				Messaging.addNotification(comments.usertype, comments.userid, "qa", notification);
-				
 				if (comments.usertype.equals("simple")) {
 					SimpleUser simpleUser = SimpleUser.findById(comments.userid);
 					Trend tend = new Trend(Utils.getNowTime(), null, cssa, simpleUser, null, q, "回答了", "praise", comments);
@@ -806,35 +778,6 @@ public class QuestAnsw extends Application {
 			showQuesInfo(quesid);
 		}
 	}
-
-	/**
-	 * public static void goodAnswer(Long id, Long quesid) { String fquserType =
-	 * session.get("usertype"); long userId =
-	 * Long.parseLong(session.get("logged")); List<AgreeComment> agreeCom =
-	 * AgreeComment
-	 * .find("userid = ? and quesId =? and commentsid = ? and  userType = ?",
-	 * userId, quesid, id, fquserType).fetch(); String quesTitle; if
-	 * (!agreeCom.isEmpty()) { flash.error("您已经赞同过了这个问答"); showQuesInfo(quesid);
-	 * } else { System.out.println("数据库里面是空，走到这是添加了站台");
-	 * flash.error("您赞同了这条回答！"); Comments com = Comments.findById(id);
-	 * com.praiseNum = com.praiseNum + 1; quesTitle = com.quesTitle; com.save();
-	 * new AgreeComment(fquserType, userId, id, quesid, quesTitle);
-	 * showQuesInfo(quesid); } }
-	 * 
-	 * public static void notAgree(Long id, Long quesid) { String fquserType =
-	 * session.get("usertype"); long userId =
-	 * Long.parseLong(session.get("logged")); List<AgreeComment> agreeCom =
-	 * AgreeComment
-	 * .find("userid = ? and quesId =? and commentsid = ? and  userType = ?",
-	 * userId, quesid, id, fquserType).fetch(); String quesTitle; if
-	 * (!agreeCom.isEmpty()) { flash.error("您已经反对了这条回答"); showQuesInfo(quesid);
-	 * } else { System.out.println("数据库里面是空，走到这是添加了站台");
-	 * flash.error("您反对了这条回答！"); Comments com = Comments.findById(id);
-	 * com.hateNum = com.hateNum + 1; quesTitle = com.quesTitle; com.save(); new
-	 * AgreeComment(fquserType, userId, id, quesid, quesTitle);
-	 * showQuesInfo(quesid); } }
-	 **/
-
 	public static void changeComent(Long comentUserid, String comentUsertype) {
 		List<Comments> come = Comments.find("SELECT a FROM Comments a WHERE userid LIKE ? and usertype like ?", comentUserid, "%" + comentUsertype + "%").fetch();
 		Iterator iterator = come.iterator();
