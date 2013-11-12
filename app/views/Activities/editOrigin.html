@@ -10,14 +10,11 @@
  
 	<h6  class=" col-md-7    control-label" style="color:#e2e2e2;margin-bottom:20px;">温馨提示：您需要填写的活动相关信息，其他用户浏览到您的活动信息并报名参加，请您如实填写。</h6>
 	<div class="clearfix"></div>
-	 
-
-
 <form action="@{Activities.post}" method="post" accept-charset="${_response_encoding}" class="form-horizontal " name="form1" id="form-activity">
 <div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">活动名称</label>
 	<div class="col-md-3 ">
-		<input id="inputEmail" type="text" name="a.name" value="${flash['a.name']}"  class="form-control" maxlength="40"/>
+		<input id="inputEmail" type="text" name="a.name" value="${a?.name}"  class="form-control" maxlength="40"/>
 	</div>
 	<span class="col-md-6"><span style="color:red;">*</span>请填写活动名称,中英文均可,如<span style="color:red;">“Hallowen Party”“万圣节派队”</span></span>
 </div>
@@ -27,7 +24,7 @@
 	<div class="col-md-3 ">
 		<select name="type">
 				#{list items:t,as:'at'}
-				<option value="${at.id}" >${at.name}</option>
+				<option value="${at.id}"  ${a?.type?.id==at.id?'selected':''}>${at.name}</option>
 				#{/list}
 		</select>
 	</div>
@@ -39,7 +36,7 @@
 	<div class="col-md-3 ">
 		<select name="scope">
 				#{list items:s,as:'s'}
-				<option value="${s.id}"  >${s.scope}</option>
+				<option value="${s.id}" ${a?.scope?.id==s.id?'selected':''} >${s.scope}</option>
 				#{/list}
 			</select>
 	</div>
@@ -66,7 +63,7 @@
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">费用</label>
 	<div class="col-md-3 ">
-		<input class="form-control" name="a.money" value="${flash['a.money']}" id="appendedPrependedInput" type="text" maxlength="7">
+		<input class="form-control" name="a.money" value="${a.money}" id="appendedPrependedInput" type="text" maxlength="7">
 	</div>
 	<span class="col-md-3"><span style="color:red;">*</span>费用单位为美元,如<span style="color:red;">“111.5”</span></span>
 </div>
@@ -75,7 +72,7 @@
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">是否公开</label>
 	<div class="col-md-3 ">
-		<input name="a.isOpen" value="true"  type="checkbox" ${flash['a.isOpen']=="true"?"checked":""}>
+		<input name="a.isOpen" value="true"  type="checkbox" ${a.isOpen=="true"?"checked":""}>
 			是
 	</div>
 	<span class="col-md-3">#{error 's.money' /}</span>
@@ -84,7 +81,7 @@
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">联系电话</label>
 	<div class="col-md-3 ">
-		<input class="form-control" type="text" name="a.contract" value="${flash['a.contract']}" maxlength="15"/>
+		<input class="form-control" type="text" name="a.contract" value="${a.contract}" maxlength="15"/>
 	</div>
 	<span class="col-md-6"><span style="color:red;">*</span>请填写真实有效的联系电话,如<span style="color:red;">“+1(213)777-7777，+86-13777777777”</span></span>
 </div>
@@ -92,7 +89,7 @@
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">地点</label>
 	<div class="col-md-3 ">
-		<input class="form-control"  type="text" name="a.location" value="${flash['a.location']}" maxlength="40"/>
+		<input class="form-control"  type="text" name="a.location" value="${a.location}" maxlength="40"/>
 	</div>
 	<span class="col-md-6"><span style="color:red;">*</span>请填写详细的地点,以方便google地图定位。如<span style="color:red;">“Los Angeles central park”</span></span>
 </div>
@@ -100,7 +97,7 @@
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">邮编</label>
 	<div class="col-md-3 ">
-		<input class="form-control"  type="text" name="a.zip" value="${flash['a.zip']}" maxlength="6"/>
+		<input class="form-control"  type="text" name="a.zip" value="${a.zip}" maxlength="6"/>
 	</div>
 	<span class="col-md-3"><span style="color:red;">*</span>请填写邮编，如<span style="color:red;">“33455”</span></span>
 </div>
@@ -108,7 +105,7 @@
 <div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">活动概要</label>
 	<div class="col-md-3 ">
-		<textarea name="a.summary" cols="36" rows="3" id="luggage" maxlength="40">${flash['a.summary']}</textarea>
+		<textarea name="a.summary" cols="36" rows="3" id="luggage" maxlength="40">${a.summary}</textarea>
 	</div>
 	<span class="col-md-6"><span style="color:red;">*</span>您的活动概要将会在活动主页的卡片中显示</span>
 </div>
@@ -116,11 +113,10 @@
 <div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">活动介绍</label>
 	<div class="col-md-3 ">
-		<textarea name="a.intro" cols="36" rows="6" id="remarks" maxlength="10000">${flash['a.intro']}</textarea>
+		<textarea name="a.intro" cols="36" rows="6" id="remarks" maxlength="10000">${a.intro}</textarea>
 	</div>
 	<span class="col-md-3"><span style="color:red;">*</span>尽可能详尽地描述您的活动</span>
 </div>
-
 	
 	<div class="form-group">
 		<div class="col-md-offset-2 col-md-3">
@@ -128,7 +124,7 @@
 			<input type="reset" class="btn " value="重置">
 		</div>
 	</div>
-	
+	<input type="hidden" name="a.id" value="${a.id}" />
 </form>
 <div class="clearfix"></div>
 

@@ -1,162 +1,93 @@
 #{extends 'main.html' /} #{set title:'create' /} 
-#{set 'Styles'} 
-#{stylesheet 'bootstrap-datepicker.css' /} 
-#{stylesheet 'bootstrap-timepicker.min.css' /} 
-#{/set}
-
-<form action="@{Activities.post}" method="post" accept-charset="${_response_encoding}" class="form-horizontal " name="form1" id="form-activity">
-<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">活动名称</label>
-	<div class="col-md-3 ">
-		<input id="inputEmail" type="text" name="a.name" value="${flash['a.name']}"  class="form-control" maxlength="40"/>
-	</div>
-	<span class="col-md-6"><span style="color:red;">*</span>请填写活动名称,中英文均可,如<span style="color:red;">“Hallowen Party”“万圣节派队”</span></span>
-</div>
-
-<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">活动类型</label>
-	<div class="col-md-3 ">
-		<select name="type">
-				#{list items:t,as:'at'}
-				<option value="${at.id}">${at.name}</option>
-				#{/list}
-		</select>
-	</div>
-	<span class="col-md-3"><span style="color:red;">*</span>必填</span>
-</div>
-
-
-
-<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">人数范围</label>
-	<div class="col-md-3 ">
-		<select name="scope">
-				#{list items:s,as:'s'}
-				<option value="${s.id}" >${s.scope}</option>
-				#{/list}
-			</select>
-	</div>
-	<span class="col-md-3"><span style="color:red;">*</span>必填</span></span>
-</div>
-
+<img src="@{'public/images/active_step3.png'}" class="img-responsive" style="margin:20px auto;">
 	
-<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}" >
-	<label for="password" class="col-md-2 control-label">活动时间</label>
-	<div class="col-md-3 " style="width:660px;">
-		<div class="input-append date ">
-				<input size="16" type="text" class="datepicker" name="dateFrom" readonly />
-				<span class="add-on"><i class="icon-th hide"></i></span>至
-				<input size="16" type="text" class="datepicker"  name="dateTo"   readonly />
+	<h1 class=" col-md-1 col-md-offset-1 control-label" style="color:#336699;text-align: right;"><i>3</i></h1>
+	<h3 class=" col-md-4  control-label" style="color:#6699cc;">第三步：预览活动发布页面</h3>
+ 
+	<h6  class=" col-md-7  control-label" style="color:#e2e2e2;margin-bottom:20px;">温馨提示：您可以预览活动页面效果，请核实信息以及海报，然后发布您的活动。</h6>
+	<div class="clearfix"></div>
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-5">
+				<img src="${a.poster}" class="img-thumbnail">
+			</div>
+			<div class="col-md-7">
+				<div class="activity-weight acpading">
+					<h3>${a.name}</h3>
+					<div class="details ">
+						<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
+					</div>
+					<div class="details ">
+						<span class="pic-leftTitle">地点：</span> <span class="At_info">${a.location}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">费用：</span> <span class="At_info">$ ${a.money}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name + " CSSA")}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
+					</div>
+					<div class="details">
+						<span class="pic-leftTitle">是否公开参加：</span> <span class="At_info">${a.isOpen?"是":"否"}</span>
+					</div>
+				</div>
+
+			</div>
 		</div>
-		<div class=" bootstrap-timepicker">
-            <input id="timeFrom" type="text" class="input-small" name="timeFrom">
-            -
-            <input id="timeTo" type="text" class="input-small"  name="timeTo">
-        </div>
-	</div>
-	
-</div>
-<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">费用</label>
-	<div class="col-md-3 ">
-		<input class="form-control" name="a.money" value="${flash['a.money']}" id="appendedPrependedInput" type="text" maxlength="7">
-	</div>
-	<span class="col-md-3"><span style="color:red;">*</span>费用单位为美元,如<span style="color:red;">“111.5”</span></span>
-</div>
-
-
-<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">是否公开</label>
-	<div class="col-md-3 ">
-		<input name="a.isOpen" value="true"  type="checkbox" ${flash['a.isOpen']=="true"?"checked":""}>
-			是
-	</div>
-	<span class="col-md-3">#{error 's.money' /}</span>
-</div>
-
-<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">联系电话</label>
-	<div class="col-md-3 ">
-		<input class="form-control" type="text" name="a.contract" value="${flash['a.contract']}" maxlength="15"/>
-	</div>
-	<span class="col-md-6"><span style="color:red;">*</span>请填写真实有效的联系电话,如<span style="color:red;">“+1(213)777-7777，+86-13777777777”</span></span>
-</div>
-
-<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">地点</label>
-	<div class="col-md-3 ">
-		<input class="form-control"  type="text" name="a.location" value="${flash['a.location']}" maxlength="40"/>
-	</div>
-	<span class="col-md-6"><span style="color:red;">*</span>请填写详细的地点,以方便google地图定位。如<span style="color:red;">“Los Angeles central park”</span></span>
-</div>
-
-<div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">邮编</label>
-	<div class="col-md-3 ">
-		<input class="form-control"  type="text" name="a.zip" value="${flash['a.zip']}" maxlength="6"/>
-	</div>
-	<span class="col-md-3"><span style="color:red;">*</span>请填写邮编，如<span style="color:red;">“33455”</span></span>
-</div>
-
-<div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">活动概要</label>
-	<div class="col-md-3 ">
-		<textarea name="a.summary" cols="36" rows="3" id="luggage" maxlength="40">${flash['a.summary']}</textarea>
-	</div>
-	<span class="col-md-6"><span style="color:red;">*</span>您的活动概要将会在活动主页的卡片中显示</span>
-</div>
-
-<div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">活动介绍</label>
-	<div class="col-md-3 ">
-		<textarea name="a.intro" cols="36" rows="6" id="remarks" maxlength="10000">${flash['a.intro']}</textarea>
-	</div>
-	<span class="col-md-3"><span style="color:red;">*</span>尽可能详尽地描述您的活动</span>
-</div>
-
-	
-	<div class="form-group">
-		<div class="col-md-offset-2 col-md-3">
-			<input type="submit" class="btn btn-primary" value="提交">
-			<input type="reset" class="btn " value="重置">
+		<div>
+			<h3>活动介绍</h3>
+			<p>${a.intro}</p>
 		</div>
 	</div>
-	
-</form>
-<div class="clearfix"></div>
+	<!--  地图  -->
+	<div class="col-md-4">
+		
+		<div class="map">
+			<h4 class="activity-title3">
+				活动地图 #{if isAllown || isOwner}
+				<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
+				#{/if}
+			</h4>
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
+		</div>
 
-#{set 'Scripts'} 
-#{script 'bootstrap-datepicker.js' /}
-#{script 'bootstrap-timepicker.min.js' /}
-<script type="text/javascript">
-	$(".datepicker").datepicker({
-		format : "yyyy-mm-dd",
-		autoclose : true,
-		startDate : "${startDate}",
-		todayBtn : true,
-		language : "zh-CN",
-		forceParse : false
-	});
-	
-	   $('#timeFrom').timepicker({
-		   minuteStep: 30,
-           disableFocus: true
-	   });
-	   $('#timeTo').timepicker({
-		   minuteStep: 30,
-           disableFocus: true
-	   });
-	
-	function addtime2(){
-		$("#time2").removeClass("hide");
-		$("#time1_1").addClass("hide");
-	}
-	function addtime3(){
-		$("#time3").removeClass("hide");
-		$("#time2_1").addClass("hide");
-	}
-	
-</script>
-#{/set}
+		<div class="person">
+			<h4 class="activity-title3">活动组织者</h4>
+			<div class="activity-userpic">
+						 <img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+			</div>
+			<div>
+				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} <i class="icon-envelope-alt"></i><small class="name">发私信</small> #{/if}
+				#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
+				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name}
+				 #{if a.publisherSU?.gender.equals("女")}	 
+				<img src="@{'public/images/active_detailed_gender-proportion_female.png'}">
+				#{/if}#{elseif a.publisherSU?.gender.equals("男")}
+				<img src="@{'public/images/active_detailed_gender-proportion_male.png'}">
+				#{/elseif}<small class="name">发私信</small>
+				 #{/else}
+			</div>
+		</div>
+		
+		
+	</div>
+</div>
 
 
+<div class="mg-top-3 col-md-offset-3">
+<a href="@{Activities.editPost()}" class="btn btn-primary"> 返回上一步</a>
+<a href="@{Activities.publish()}" class="btn btn-success btn-lg">发布</a> 
+
+</div>	

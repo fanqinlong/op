@@ -40,8 +40,8 @@ public class Application extends Controller {
 		int WelNum;
 		List<Wel> wNumber = Wel.findAll();
 		WelNum = wNumber.size();
-
-		List<Activity> activities = Activity.find("isFrontPage = true order by views desc").fetch(6);
+		String nowtime = Utils.getNowTime();
+		List<Activity> activities = Activity.find("select distinct a from Activity a join a.time as t  where isFrontPage = true and t.date>= ? order by views desc ",nowtime).fetch(6);
 		long AcNum;
 		AcNum = Activity.count();
 

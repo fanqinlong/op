@@ -50,6 +50,7 @@ public class Activity extends Model {
 	public String contract;
 	public boolean isChecked;
 	public boolean isHot;
+
 	public String summary;
 	@Required
 	@Column(columnDefinition = "TEXT")
@@ -61,6 +62,7 @@ public class Activity extends Model {
 	public String postAt;//发布日期
 	
 	public boolean isFrontPage;
+	public boolean isPublished;
 
 
 }

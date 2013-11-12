@@ -410,8 +410,7 @@ public class SimpleUsers extends Application {
 		
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		boolean isInfoCenter = true;
-		render(user, trends,isInfoCenter);
+		render(user, trends);
 	}
 
 	public static void publishedActivity() {

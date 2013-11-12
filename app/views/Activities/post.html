@@ -1,0 +1,48 @@
+#{extends 'main.html' /} #{set title:'发布海报' /}
+
+<link href=" @{'public/jcrop/css/main.css'}" rel="stylesheet" type="text/css">
+<link href="  @{'public/jcrop/css/jquery.Jcrop.min.css'}" rel="stylesheet" type="text/css">
+<script src="  @{'public/jcrop/js/jquery.min.js'}"></script>
+<script src=" @{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
+<script src="  @{'public/jcrop/js/script.js'}"></script>
+ <img src="@{'public/images/active_step2.png'}" class="img-responsive" style="margin:20px auto;">
+	
+	<h1 class=" col-md-1 col-md-offset-1 control-label" style="color:#336699;text-align: right;"><i>2</i></h1>
+	<h3 class=" col-md-4  control-label" style="color:#6699cc;">第二步：上传活动海报</h3>
+ 
+	<h6  class=" col-md-7    control-label" style="color:#e2e2e2;margin-bottom:20px;">温馨提示：您需要上传一张图片作为活动海报，海报将用来展示本次活动形象，请您精心准备</h6>
+	<div class="clearfix"></div>
+	<div class="row">
+#{if a?.poster!=null}	 
+<div class="col-md-4">
+<h3>当前海报：</h3>
+<img src="${a?.poster}" class="img-thumbnail" />
+</div>
+
+#{/if}
+<div class="row col-md-8 ${a?.poster==null?'col-md-offset-2':''}">
+	
+	<h3>上传海报：</h3>
+		#{form @next(),method:'POST',enctype:'multipart/form-data',onsubmit:'return checkForm()'} <input type="hidden" id="x1" name="left"> <input type="hidden" id="y1" name="top"> <input type="hidden" id="x2" name="height"> <input type="hidden" id="y2" name="width"> <input type="hidden" name="id" value="${id}" />
+		<h4>第一步:请选择海报</h4>
+		<div>
+			<input type="file" name="f" id="image_file" onchange="fileSelectHandler()">
+		</div>
+
+		<div class="error"></div>
+
+		<div class="step2">
+			<h4>第二步:请对海报进行剪切</h4>
+			<img id="preview">
+			<div class="info hide">
+				<label>File size</label> <input type="text" id="filesize" name="filesize"> <label>Type</label> <input type="text" id="filetype" name="filetype"> <label>Image dimension</label> <input type="text" id="filedim" name="filedim"> <label>W</label> <input type="text" id="w" name="w"> <label>H</label> <input type="text" id="h" name="h">
+			</div>
+			<br />
+
+			<input type="submit" value="上传" class="btn btn-success"> 
+		</div>
+		<input type="hidden" name="aid" value="${id}" />
+		#{/form}
+		<a href="@{Activities.editOrigin()}" class="btn btn-primary mg-top-3">返回上一步</a>
+	</div>
+</div>
