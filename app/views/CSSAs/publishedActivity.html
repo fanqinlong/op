@@ -19,7 +19,11 @@
 			<h4>
 				我发布了活动：
 				<a href="@{Activities.detail(activity.id)}" target="_blank"> ${activity.name} </a>
-				
+				#{if !activity.isCanceled}
+				<a data-toggle="modal" class="btn btn-danger" href="@{Activities.cancel(activity.id)}" data-target="#modal">取消活动</a>
+				#{/if}#{else}
+				<a class="btn btn-danger"  disabled="disabled">活动已取消</a>
+				#{/else}
 			</h4>
 			<a href="@{Activities.detail(activity.id)}" target="_blank">
 				<img alt="" style="width: 150px;margin-bottom:15px; " src="${activity.poster}" class="img-polaroid">
@@ -32,3 +36,12 @@
 		</div>
 	</div>
 </div>
+#{set}
+<script type="text/javascript">
+	$('#modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
+</script>
+#{/set}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+

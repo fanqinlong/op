@@ -21,7 +21,12 @@
 			<div style="border: solid 1px #e2e2e2;padding: 15px;padding-left:30px;">
 			<h4>
 				我发布了活动：
-				<a href="@{Activities.detail(activity.id)}"> ${activity.name} </a>
+				<a href="@{Activities.detail(activity.id)}"> ${activity.name} </a> 
+				#{if !activity.isCanceled}
+				<a data-toggle="modal" class="btn btn-danger" href="@{Activities.cancel(activity.id)}" data-target="#modal">取消活动</a>
+				#{/if}#{else}
+				<a class="btn btn-danger"  disabled="disabled">活动已取消</a>
+				#{/else}
 				
 			</h4>
 			<a href="@{Activities.detail(activity.id)}">
@@ -35,3 +40,14 @@
 		</div>
 	</div>
 </div>
+#{set}
+<script type="text/javascript">
+	$('#modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
+</script>
+#{/set}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
+
