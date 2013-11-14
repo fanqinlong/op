@@ -74,15 +74,30 @@
 
 
 <div class="form-group">
+	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>到达日期</label>
+	<div class="col-md-3 ">
+		<div class="input-append date  form_date" data-date="" data-date-format="dd MM yyyy ">
+			<input size="16" type="text"  name="s.date" value="${flash.date}" readonly style="width: 100%; height:34px;" placeholder="点击选择达到时间">
+			<span class="add-on"><i class="icon-th hide"></i></span>
+		</div>
+	</div>
+	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">(请选择一个有效的到达日期，可咨询机票提供方。如果出现航班延误等特殊情况，接机人会和你联系。)</div></span><span class="col-md-3">#{error 'name' /}</span>
+</div>
+
+
+
+<div class="form-group">
 	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>到达时间</label>
 	<div class="col-md-3 ">
-		<div class="input-append date  form_datetime" data-date="" data-date-format="dd MM yyyy - HH:ii">
-			<input size="16" type="text"  name="s.date" value="${flash.date}" readonly style="width: 241px; height:34px;" placeholder="点击选择达到时间">
-			<span class="add-on"><i class="icon-th"></i></span>
+		
+		<div class="input-append date  form_time" data-date="" data-date-format="hh:ii">
+			<input size="16" type="text"  name="s.time" value="${flash.time}" readonly style="width: 100%; height:34px;"  placeholder="点击选择达到时间">
+			<span class="add-on"><i class="icon-th hide"></i></span>
 		</div>
 	</div>
 	 <span class="suffix">*</span><span class="col-md-3 sfont"><div style="width:630px;">(请选择一个有效的到达时间，可咨询机票提供方。如果出现航班延误等特殊情况，接机人会和你联系。)</div></span><span class="col-md-3">#{error 'name' /}</span>
 </div>
+
 
 
 
@@ -126,21 +141,33 @@
 <script type="text/javascript" src="public/javascripts/AirportsJS/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="public/javascripts/AirportsJS/bootstrap-datetimepicker.zh-CN.js"></script>
 
-
 <script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-        language:'zh-CN',
+    	$('.form_date').datetimepicker({
+        language:  'zh-CN',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
 		todayHighlight: 1,
 		startView: 2,
-		forceParse: 0,
-		format: "yyyy-mm-dd  hh:ii",
-        showMeridian: 1
+		minView: 2,
+		format: "yyyy-mm-dd",
+		forceParse: 0
     });
+     $('.form_time').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+    
+    
+    
 </script>
-
 
 
 

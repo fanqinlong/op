@@ -143,9 +143,9 @@ POST /QuestAnsw/searchpage               		       QuestAnsw.answerRapidly
 GET	 /QuestAnsw/{pageNum}		                       QuestAnsw.Quespaging
 GET  /QuestAnsw/deleteQues/{id}                        QuestAnsw.deleteQues
 GET  /QuestAnsw/editQues/{id}                          QuestAnsw.editQues
-POST  /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
+POST /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
 GET  /QuestAnsw/editComent/{comentUserid}/{comentUsertype}/{quesid}		   QuestAnsw.editComent
-POST  /QuestAnsw/editComSuccessful	                   QuestAnsw.editComSuccessful
+POST /QuestAnsw/editComSuccessful	                   QuestAnsw.editComSuccessful
 GET  /QuestAnsw/cancelFqcusQues/{quesid}		       QuestAnsw.cancelFqcusQues
 GET  /QuestAnsw/notAgree/{id}/{quesid}	               QuestAnsw.notAgree
 GET  /QuestAnsw/changeComent/{comentUserid}/{comentUsertype} QuestAnsw.changeComent
@@ -156,7 +156,7 @@ GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
-GET  /QuestAnsw/allFollowers/{id}                  QuestAnsw.allFollowers
+GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 
 #Info and Jobs
 

@@ -522,7 +522,12 @@ public class QuestAnsw extends Application {
 
 	public static void deleteQues(long id, int pageNum) {
 		Ques dques = Ques.findById(id);
+		
+		System.out.println(dques);
+		System.out.println(dques.id);
+		
 		dques.delete();
+		
 		List<Tag> t = Tag.findAll();
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 				.count() / 5 + 1);

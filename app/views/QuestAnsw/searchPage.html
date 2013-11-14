@@ -22,8 +22,11 @@ $(document).ready(function(){
 });
 	var school = "";
 	$(function (){
-		$.each(allUnivList,function (j,m){		
-			$("#gj").append("<a href='javascript:void(0);' style='margin: 8px;'  onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
+		$.each(allUnivList,function (j,m){
+		if(j==0 || j==7){
+			$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
+		}		
+			//$("#gj").append("<a href='javascript:void(0);' style='margin: 8px;'  onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
 		});
 	});
 	//获得每个国家的省份
