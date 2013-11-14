@@ -164,8 +164,19 @@
 		.op-1{
 			margin:30px;
 		}
-	 
+	 	.op-1-1{
+	 		margin-left:20%;
+	 	}
 		
+		#div1{
+		float:left;font-size:24px;color:#336699;margin-left:38%
+		}
+		#div2{
+		float:left;font-size:24px;color:#336699;
+		}
+		#div3{
+		margin-left:38%;margin-bottom:10%
+		}
 		.op-4{
 			 
 			float:left;
@@ -302,7 +313,7 @@ width:200px;margin-top:5px;margin-bottom:5px;}
 		
 		}
  
-	/*·ÖÒ³*/	
+	/*ï¿½ï¿½Ò³*/	
 
 .pagination ul > li > a, .pagination ul > li > span {
 			float: left;
