@@ -8,10 +8,11 @@
  	    var school = "";
 		$(function (){
 			$.each(allUnivList,function (j,m){		
-				if(j==0 || j==7){
+				if(j==0){
 					$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
+				}else if(j==7){
+					$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");
 				}
-							
 			});
 		});
 		

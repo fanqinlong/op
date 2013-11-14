@@ -35,7 +35,8 @@ POST				/simple/edumail											 SimpleUsers.authEduMail
 GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
 GET					/simple/homepage/{userid}/{actiontype}					 SimpleUsers.homePage
 GET					/simple/preview/{userid}								 SimpleUsers.preview
-
+GET					/simple/detail/{id}							             SimpleUsers.detail
+GET					/simple/userQues/{id}							         SimpleUsers.userQues
 
 #CSSAs Registration/Authentication
 GET                 /cssa/signup                                             CSSAs.signup
@@ -60,9 +61,10 @@ GET                	/cssa/changeprofile/{id}                                 CSS
 POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
 GET                	/cssa/infocenter		                                  CSSAs.infoCenter
 GET                	/cssa/myactivity                                         CSSAs.myActivity
-GET					/cssa/homepage/{userid}								 CSSAs.homePage
-GET					/cssa/preview/{userid}								 CSSAs.preview
-
+GET					/cssa/homepage/{userid}								     CSSAs.homePage
+GET					/cssa/preview/{userid}								     CSSAs.preview
+GET					/cssa/detail/{id}							             CSSAs.detail
+GET					/cssa/userQues/{id}							             CSSAs.userQues
 
 
 #Airport

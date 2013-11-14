@@ -313,4 +313,17 @@ public class CSSAs extends Application {
 	List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"cssa").fetch(3);
 	render(user,activities,questions);
 	}
+	
+	public static void detail(long id){
+		CSSA cssa = CSSA.findById(id);
+		List<Activity> activities = Activity.find("publisherCSSA.id = ?",id).fetch();
+		render(activities,cssa);
+	}
+	public static void userQues(long id){
+		CSSA cssa = CSSA.findById(id);
+		List<Ques> ques = Ques.find("userid = ?",id).fetch();
+		render(ques,cssa);
+	}
+	
+	
 }

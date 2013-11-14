@@ -474,5 +474,18 @@ public class SimpleUsers extends Application {
 		List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"simple").fetch(3);
 		render(user,activities,questions);
 	}
+	public static void detail(long id){
+		SimpleUser simple = SimpleUser.findById(id);
+		List<Activity> activities = Activity.find("publisherSU.id = ?",id).fetch();
+		render(activities,simple);
+	}
+	public static void userQues(long id){
+		SimpleUser simple = SimpleUser.findById(id);
+		List<Ques> ques = Ques.find("userid = ?",id).fetch();
+		
+		System.out.println(ques);
+		
+		render(ques,simple);
+	}
 
 }
