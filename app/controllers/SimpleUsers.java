@@ -410,13 +410,12 @@ public class SimpleUsers extends Application {
 		
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		boolean isInfoCenter = true;
-		render(user, trends,isInfoCenter);
+		render(user, trends);
 	}
 
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherSU.id = ?", userId)
+		List<Activity> activities = Activity.find("publisherSU.id = ? order by postAt desc ", userId)
 				.fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "publish";
@@ -425,7 +424,7 @@ public class SimpleUsers extends Application {
 
 	public static void joinedActivity() {
 		long userId = Utils.getUserId();
-		List<Joiner> activities = Joiner.find("joiner.id = ?", userId).fetch();
+		List<Joiner> activities = Joiner.find("joiner.id = ? order by postAt desc ", userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "join";
 		render(user, activities, tag);
@@ -433,7 +432,7 @@ public class SimpleUsers extends Application {
 
 	public static void likedActivity() {
 		long userId = Utils.getUserId();
-		List<Liker> activities = Liker.find("likerSU.id = ?", userId).fetch();
+		List<Liker> activities = Liker.find("likerSU.id = ? order by postAt desc ", userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "like";
 		render(user, activities, tag);

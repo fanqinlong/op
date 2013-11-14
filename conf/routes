@@ -47,24 +47,30 @@ GET                	/cssa/logout                                             CSS
 GET                	/cssa/signup/{uuid}                                      CSSAs.confirmRegistration
 GET                	/cssa/confirmation/{uuid}                                CSSAs.resendConfirmation
 GET                	/cssa/show/{id}                                          CSSAs.show
-GET               	/cssa/changepassword/{id}                                CSSAs.changePassword
+GET               	/cssa/changepassword                                	 CSSAs.changePassword
 POST        		/cssa/changepassword                                     CSSAs.doChangePassword
-GET                	/cssa/updateprofile/{id}                                 CSSAs.updateProfile
+GET                	/cssa/updateprofile                                 	 CSSAs.updateProfile
 POST        		/cssa/updateprofile                                      CSSAs.doUpdateProfile
-GET                	/cssa/changeemail/{id}                                   CSSAs.changeEmail
+GET                	/cssa/changeemail                                  		 CSSAs.changeEmail
 POST        		/cssa/changeemail                                        CSSAs.dochangeEmail
 GET                	/cssa/forgetpassword                                     CSSAs.forgetPassword
 POST        		/cssa/forgetpassword                                     CSSAs.doForgetPassword
 GET                	/cssa/resetpassword/{uuid}                               CSSAs.resetPasswordConfirmation
 POST        		/cssa/resetpassword                                      CSSAs.doResetPassword
-GET                	/cssa/changeprofile/{id}                                 CSSAs.changeProfile
+GET                	/cssa/changeprofile                                		 CSSAs.changeProfile
 POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
 GET                	/cssa/infocenter		                                  CSSAs.infoCenter
 GET                	/cssa/myactivity                                         CSSAs.myActivity
+<<<<<<< HEAD
 GET					/cssa/homepage/{userid}								     CSSAs.homePage
 GET					/cssa/preview/{userid}								     CSSAs.preview
 GET					/cssa/detail/{id}							             CSSAs.detail
 GET					/cssa/userQues/{id}							             CSSAs.userQues
+=======
+GET					/cssa/homepage/{userid}									 CSSAs.homePage
+GET					/cssa/preview/{userid}									 CSSAs.preview
+
+>>>>>>> 73bd602510c340586189288a4250b4c0a4850437
 
 
 #Airport

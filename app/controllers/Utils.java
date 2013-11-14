@@ -46,4 +46,7 @@ public class Utils extends Controller {
 	public static String getNowTime(){
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 	}
+	public static String getNowDate(){
+		return new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+	}
 }

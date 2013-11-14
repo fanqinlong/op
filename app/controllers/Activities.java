@@ -13,6 +13,8 @@ import notifiers.Trend;
 import com.mysql.jdbc.Util;
 
 import play.Play;
+import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.libs.Codec;
 import play.libs.Files;
 import play.libs.Images;
@@ -30,7 +32,7 @@ import models.users.SimpleUser;
 
 public class Activities extends Application {
 
-	@Before(unless = { "index", "detail", "filterType", "filterPeriod", "filterPeriodWeekend", "filterScope", "filterLocation", "orderByCSSA", "orderByDefault", "orderByTime","orderByScope" })
+	@Before(unless = { "index", "detail", "filterType", "filterPeriod", "filterPeriodWeekend", "filterScope", "filterLocation", "orderByCSSA", "orderByDefault", "orderByTime", "orderByScope" })
 	public static void isLogged() {
 		if (Utils.getUserType() == null) {
 			SimpleUsers.login();
@@ -42,12 +44,13 @@ public class Activities extends Application {
 	}
 
 	public static void index() {
-		String orderName = session.get("orderName")==null?"default":session.get("orderName");
+		String orderName = session.get("orderName") == null ? "default" : session.get("orderName");
 		String type = session.get("type") == null ? "" : session.get("type");
 		String scope = session.get("scope") == null ? "" : session.get("scope");
 		String zip = session.get("zip") == null ? "" : session.get("location");
 		String deadline = "";
-		String nowtime = Utils.getNowTime();
+		String nowtime = Utils.getNowDate();
+
 		String orderby = session.get("orderby") == null ? "" : session.get("orderby");
 		int days = session.get("days") == null ? -1 : Integer.parseInt(session.get("days"));
 		if (days == -1 || days == -2)
@@ -67,45 +70,86 @@ public class Activities extends Application {
 			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <=? and t.date>=? and   a.type.name like ? and a.scope.scope like  ? order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		}
 
-		List<Activity> frontpageActivity = Activity.find("isFrontPage = true order by views desc").fetch(6);
+		List<Activity> frontpageActivity = Activity.find("select distinct a from Activity a join a.time as t  where isFrontPage = true and t.date>= ? order by views desc ", nowtime).fetch(6);
 
 		List<Type> t = Type.find("order by sequence asc").fetch();
 		List<Scope> s = Scope.find("order by sequence asc").fetch();
 		List<Period> p = Period.find("order by sequence asc").fetch();
 
-		render(a, t, s, p, days, type, scope, frontpageActivity,orderName);
+		render(a, t, s, p, days, type, scope, frontpageActivity, orderName);
 	}
 
 	public static void create() {
-		render();
+		List<Type> t = Type.find("order by sequence asc").fetch();
+		List<Scope> s = Scope.find("order by sequence asc").fetch();
+		String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		String s_aid = session.get("aid");
+		if (s_aid == null)
+			render(t, s, startDate);
+		long aid = Long.parseLong(s_aid);
+		Activity a = Activity.findById(aid);
+		render(t, s, startDate, a);
 	}
 
-	public static void next(File f, int left, int top, int height, Long id, int width) {
+	public static void editOrigin() {
+		List<Type> t = Type.find("order by sequence asc").fetch();
+		List<Scope> s = Scope.find("order by sequence asc").fetch();
+		String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		String s_aid = session.get("aid");
+		if (s_aid == null)
+			render(t, s, startDate);
+		long aid = Long.parseLong(s_aid);
+		Activity a = Activity.findById(aid);
+		render(t, s, startDate, a);
+	}
 
+	public static void next(File f, int left, int top, int height, int width) {
 		String path = "public/images/poster/" + Codec.UUID() + f.getName().substring(f.getName().lastIndexOf("."));
 		Images.crop(f, f, left, top, height, width);
 		Images.resize(f, f, 300, 300, true);
 		Files.copy(f, Play.getFile(path));
-		session.put("posterPath", path);
-		flash.success("请填写活动详情。");
-		List<Type> t = Type.find("order by sequence asc").fetch();
-		List<Scope> s = Scope.find("order by sequence asc").fetch();
-		String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-		render(t, s, startDate);
+		String s_aid = session.get("aid");
+		if (s_aid == null)
+			create();
+		long aid = Long.parseLong(s_aid);
+		Activity a = Activity.findById(aid);
+		a.poster = path;
+		a.save();
+		render(a);
 	}
 
 	public static void post(Activity a, Date dateFrom, Date dateTo, String timeFrom, String timeTo, long type, long scope) {
-		if (dateFrom.getTime() - dateTo.getTime() > 0) {
-			validation.keep();
+		if (dateFrom == null || dateTo == null) {
+			Validation.keep();
 			params.flash();
-			flash.error("开始时间不能大于结束时间");
 			List<Type> t = Type.find("order by sequence asc").fetch();
 			List<Scope> s = Scope.find("order by sequence asc").fetch();
 			String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-			render("@next", t, s, startDate);
+			String s_aid = session.get("aid");
+			if (s_aid == null)
+				render("@create", t, s, startDate);
+			render("@editOrigin", t, s, startDate, a);
+		} else if (dateFrom.getTime() - dateTo.getTime() > 0) {
+			validation.keep();
+			params.flash();
+			List<Type> t = Type.find("order by sequence asc").fetch();
+			List<Scope> s = Scope.find("order by sequence asc").fetch();
+			String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			String s_aid = session.get("aid");
+			if (s_aid == null)
+				render("@create", t, s, startDate);
+			render("@editOrigin", t, s, startDate, a);
+		} else if (!validation.valid(a).ok) {
+			validation.keep();
+			params.flash();
+			List<Type> t = Type.find("order by sequence asc").fetch();
+			List<Scope> s = Scope.find("order by sequence asc").fetch();
+			String startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			String s_aid = session.get("aid");
+			if (s_aid == null)
+				render("@create", t, s, startDate);
+			render("@editOrigin", t, s, startDate, a);
 		}
-		String poster = session.get("posterPath");
-		a.poster = poster;
 		if (Utils.getUserType().equals("simple")) {
 			a.publisherSU = SimpleUser.findById(Utils.getUserId());
 		}
@@ -141,8 +185,30 @@ public class Activities extends Application {
 			time.save();
 		}
 
-		flash.success("发布成功。");
-		index();
+		long id = a.id;
+		session.put("aid", id);
+		render(id);
+	}
+
+	public static void editPost() {
+		String s_aid = session.get("aid");
+		if (s_aid == null)
+			create();
+		long aid = Long.parseLong(s_aid);
+		Activity a = Activity.findById(aid);
+		render("@post", a);
+	}
+
+	public static void publish() {
+		String s_aid = session.get("aid");
+		if (s_aid == null)
+			create();
+		long aid = Long.parseLong(s_aid);
+		Activity a = Activity.findById(aid);
+		a.isPublished = true;
+		a.save();
+		session.remove("aid");
+		render(aid);
 	}
 
 	public static void filterType(String type) {
@@ -308,16 +374,16 @@ public class Activities extends Application {
 			}
 			l.likerSU = SimpleUser.findById(Utils.getUserId());
 			if (a.publisherCSSA == null) {
-				notification.add(l.likerSU.name + " CSSA");
+				notification.add(l.likerSU.name);
 				notification.add("关注了");
 				notification.add(a.publisherSU.name);
 				notification.add(a.id + "");
 				notification.add(a.name);
 				Messaging.addNotification("simple", a.publisherSU.id, "activity", notification);
 			} else {
-				notification.add(l.likerSU.name + " CSSA");
+				notification.add(l.likerSU.name);
 				notification.add("关注了");
-				notification.add(a.publisherCSSA.school.name);
+				notification.add(a.publisherCSSA.school.name + " CSSA");
 				notification.add(a.id + "");
 				notification.add(a.name);
 				Messaging.addNotification("cssa", a.publisherCSSA.id, "activity", notification);
@@ -496,6 +562,94 @@ public class Activities extends Application {
 		session.put("orderName", "scope");
 		index();
 
+	}
+
+	public static void cancel(long aid) {
+		render(aid);
+	}
+
+	public static void doCancelActivity(long aid, String canceledReasion) {
+		ArrayList<String> notification = new ArrayList();
+		String usertype = Utils.getUserType();
+		Activity a = Activity.findById(aid);
+		if ((a.publisherCSSA != null && usertype.equals("cssa") && a.publisherCSSA.id == Utils.getUserId()) || a.publisherSU != null && usertype.equals("simple") && a.publisherSU.id == Utils.getUserId()) {
+			a.isCanceled = true;
+			a.canceledReasion = canceledReasion;
+			a.save();
+
+			for (Joiner j : a.joiner) {
+				Trend t = new Trend(Utils.getNowTime(), a.publisherSU, a.publisherCSSA, a.publisherSU, a.publisherCSSA, a, "取消了", "activity");
+				t.save();
+
+				if (a.publisherCSSA == null) {
+					notification.add(a.publisherSU.name);
+					notification.add("取消了");
+					notification.add(a.publisherSU.name);
+					notification.add(a.id + "");
+					notification.add(a.name);
+					Messaging.addNotification("simple", j.joiner.id, "activity", notification);
+				} else {
+					notification.add(a.publisherCSSA.school.name + " CSSA");
+					notification.add("取消了");
+					notification.add(a.publisherCSSA.school.name + " CSSA");
+					notification.add(a.id + "");
+					notification.add(a.name);
+					Messaging.addNotification("simple", j.joiner.id, "activity", notification);
+				}
+
+			}
+			for (Liker l : a.liker) {
+				Trend t = new Trend(Utils.getNowTime(), a.publisherSU, a.publisherCSSA, a.publisherSU, a.publisherCSSA, a, "取消了", "activity");
+				t.save();
+				if (l.likerCSSA != null) {
+					if (a.publisherCSSA == null) {
+						notification.add(a.publisherSU.name);
+						notification.add("取消了");
+						notification.add(a.publisherSU.name);
+						notification.add(a.id + "");
+						notification.add(a.name);
+						Messaging.addNotification("cssa", l.likerCSSA.id, "activity", notification);
+					} else {
+						notification.add(a.publisherCSSA.school.name + " CSSA");
+						notification.add("取消了");
+						notification.add(a.publisherCSSA.school.name);
+						notification.add(a.id + "");
+						notification.add(a.name);
+						Messaging.addNotification("cssa", l.likerCSSA.id, "activity", notification);
+					}
+				} else {
+					if (a.publisherCSSA == null) {
+						notification.add(a.publisherSU.name);
+						notification.add("取消了");
+						notification.add(a.publisherSU.name);
+						notification.add(a.id + "");
+						notification.add(a.name);
+						Messaging.addNotification("simple", l.likerSU.id, "activity", notification);
+					} else {
+						notification.add(a.publisherCSSA.school.name + " CSSA");
+						notification.add("取消了");
+						notification.add(a.publisherCSSA.school.name);
+						notification.add(a.id + "");
+						notification.add(a.name);
+						Messaging.addNotification("simple", l.likerSU.id, "activity", notification);
+					}
+				}
+			}
+
+		} else {
+			flash.error("这不是您发布的活动，取消失败。");
+			if (usertype.equals("cssa")) {
+				CSSAs.publishedActivity();
+			} else if (usertype.equals("simple")) {
+				SimpleUsers.publishedActivity();
+			}
+		}
+		flash.success("取消成功。");
+		if (usertype.equals("cssa")) {
+			CSSAs.publishedActivity();
+		} else if (usertype.equals("simple")) {
+			SimpleUsers.publishedActivity();
+		}
 	}
 
 }

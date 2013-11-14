@@ -25,7 +25,6 @@
 	<a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''}"> ${p.period}</a>
 	#{/list}
 	<a href="@{Activities.filterPeriodWeekend}" class="${days==-2?'label label-primary':''}" style="margin-left: 10px;"> 周末</a>
-
 </p>
 <!--  
 <div class="clearfix tags">
@@ -112,11 +111,16 @@
 			<div style="width: 100px; height: 100px;">
 				#{if a.isTop}
 				<img src="@{'/public/images/active_detailed_tag.png'}">
-				#{/if} #{elseif a.isHot}
+				#{/if}
+				#{elseif a.isCanceled}
+				<img src="@{'/public/images/active_detailed_tag3.png'}">
+				#{/elseif}
+				 #{elseif a.isHot}
 				<img src="@{'/public/images/active_detailed_tag1.png'}">
 				#{/elseif}#{elseif a.isChecked}
 				<img src="@{'/public/images/active_detailed_tag2.png'}">
-				#{/elseif}
+				#{/elseif} 
+				
 			</div>
 			<div class="thumbnail" style="margin-top: -100px; float: left;">
 				<a href="@{Activities.detail(a.id)}">

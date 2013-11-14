@@ -19,6 +19,8 @@ import play.libs.Files;
 import play.libs.Images;
 import play.mvc.*;
 import models.activity.Activity;
+import models.activity.Joiner;
+import models.activity.Liker;
 import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
@@ -144,11 +146,12 @@ public class CSSAs extends Application {
 		session.put("usertype", "cssa");
 	}
 
-	public static void changePassword(Long id) {
-		render(id);
+	public static void changePassword() {
+		render();
 	}
 
-	public static void doChangePassword(@Required String currentPassword, @Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
+	public static void doChangePassword(@Required String currentPassword, @Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2) {
+		long id = Utils.getUserId();
 		if (id != Long.parseLong(session.get("logged"))) {
 			flash.error("帐户有误，请重新登陆");
 			session.clear();
@@ -157,12 +160,12 @@ public class CSSAs extends Application {
 			validation.keep();
 			params.flash();
 			flash.error("请更正错误。");
-			changePassword(id);
+			changePassword();
 		} else if (!((CSSA) CSSA.findById(id)).checkPassword(currentPassword)) {
 			validation.keep();
 			params.flash();
 			flash.error("原密码不正确！");
-			changePassword(id);
+			changePassword();
 		} else {
 			((CSSA) CSSA.findById(id)).changePassword(password);
 			flash.success("密码更改成功。");
@@ -170,33 +173,35 @@ public class CSSAs extends Application {
 		}
 	}
 
-	public static void updateProfile(Long id) {
-		CSSA user = CSSA.findById(id);
+	public static void updateProfile() {
+		CSSA user = CSSA.findById(Utils.getUserId());
 		notFoundIfNull(user);
 		render(user);
 	}
 
 	public static void doUpdateProfile(CSSA user) {
+		user.id = Utils.getUserId();
 		user.save();
 		flash.success("资料更新成功");
 		infoCenter();
 	}
 
-	public static void changeEmail(Long id) {
-		render(id);
+	public static void changeEmail() {
+		render();
 	}
 
-	public static void dochangeEmail(@Required @Email String email, Long id) {
+	public static void dochangeEmail(@Required @Email String email) {
+		long id = Utils.getUserId();
 		if (!CSSA.isEmailAvailable(email)) {
 			validation.keep();
 			params.flash();
 			flash.error("邮箱已存在。");
-			changeEmail(id);
+			changeEmail();
 		} else if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
 			flash.error("请更正错误。");
-			changeEmail(id);
+			changeEmail();
 		}
 		((CSSA) CSSA.findById(id)).changeEmail(email);
 		flash.success("邮箱更改成功，请重新登陆。");
@@ -263,16 +268,18 @@ public class CSSAs extends Application {
 		}
 	}
 
-	public static void changeProfile(Long id) {
-		CSSA user = CSSA.findById(id);
+	public static void changeProfile() {
+		CSSA user = CSSA.findById(Utils.getUserId());
 		notFoundIfNull(user);
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File f, int left, int top,
+	public static void doChangeProfile( File f, int left, int top,
 			int height, int width) {
+		long id = Utils.getUserId();
 		 String path1 = "public/images/profile/" + Codec.UUID() + ".jpg";
 		Images.crop(f, f, left, top, height, width);
+		Images.resize(f, f, 150, 150);
 		Files.copy(f, Play.getFile(path1));
 		 ((CSSA) CSSA.findById(id)).changeProfile(path1);
 		flash.success("头像更改成功");
@@ -313,6 +320,7 @@ public class CSSAs extends Application {
 	List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"cssa").fetch(3);
 	render(user,activities,questions);
 	}
+<<<<<<< HEAD
 	
 	public static void detail(long id){
 		CSSA cssa = CSSA.findById(id);
@@ -326,4 +334,27 @@ public class CSSAs extends Application {
 	}
 	
 	
+=======
+	public static void publishedActivity() {
+		long userId = Utils.getUserId();
+		List<Activity> activities = Activity.find("publisherCSSA.id = ? order by postAt desc ", userId)
+				.fetch();
+		CSSA user = CSSA.findById(userId);
+		String tag = "publish";
+		render(user, activities, tag);
+	}
+
+
+
+	public static void likedActivity() {
+		long userId = Utils.getUserId();
+		List<Liker> activities = Liker.find("likerCSSA.id = ? order by postAt desc " , userId).fetch();
+		CSSA user = CSSA.findById(userId);
+		String tag = "like";
+		render(user, activities, tag);
+	}
+	
+	
+	
+>>>>>>> 73bd602510c340586189288a4250b4c0a4850437
 }

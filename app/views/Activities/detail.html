@@ -1,6 +1,6 @@
 #{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<div class="row">
 			<div class="col-md-5">
 				<img src="${a.poster}" class="img-thumbnail">
@@ -41,22 +41,36 @@
 					</div>
 					#{if !a.isOpen}
 					<div class="details clearfix">
-						<lable style="float:left;"> <span class="pic-leftTitle">参加者男女比例</span> %{int female=0;int male=0;}% #{list items:a.joiner,as:'joiner'} %{joiner.joiner.gender=="女"?female++:male++;}% #{/list} </lable>
-
+						<lable style="float:left;"> <span class="pic-leftTitle">参加者男女比例</span> 
+						%{int female=0;int male=0;}%
+						 #{list items:a.joiner,as:'joiner'} 
+						%{joiner.joiner.gender=="女"?female++:male++;}%  
+						#{/list} 
+						
+						%{if(a.publisherSU!=null)a.publisherSU.gender.equals("女")?female++:male++;}%
+						</lable>
 						%{int man = (male+female) == 0 ? 0 : male * 100 / (male + female)}% %{int women = (male+female) == 0 ? 0 : female * 100 / (male + female) }%
 
-						<div class="progress" style="width: 130px; float: left; margin-left: 10px;">
-							<div class="progress-bar progress-bar-info " style="width: ${man}%"></div>
-							<div class="progress-bar progress-bar-danger" style="width: ${women}%"></div>
-						</div>
+						<img src="@{'public/images/active_detailed_gender-proportion_male.png'}" class="pull-left" style="margin-top: 5px;margin-left: 10px;">
+					<div class="progress" style="width: 130px; float: left; margin-left: 10px;">
+					<div class="progress-bar progress-bar-info " style="background-color:#33a4e9;width: ${man}%"></div>
+
+						<div class="progress-bar progress-bar-danger" style="background-color:#ff3393;width: ${women}%"></div>
+						
 					</div>
+					<img src="@{'public/images/active_detailed_gender-proportion_female.png'}" style="margin-left: 5px;margin-top: -5px;" >
+				</div>
+				 
 					#{/if} 
+					
 					#{if date <= a.time.last().date}
 					<div class="details">
-						#{if !a.isOpen}
+						#{if !a.isOpen && !isOwner}
 						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
 						#{/if}
+						#{if !isOwner}
 						<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
+						#{/if}
 						#{if !a.isOpen}
 						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 						#{/if}
@@ -84,11 +98,16 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
-					#{/if}
+					#{/if} 
 				</div>
 
 			</div>
 		</div>
+		<div>#{if a.isCanceled}
+				<h3 class="text-danger">	${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}  取消了活动，原因:<small>${a.canceledReasion}	</small>			
+					#{/if}
+					</h3>
+					</div>
 		<div>
 			<h3>活动介绍</h3>
 			<p>${a.intro}</p>
@@ -129,7 +148,7 @@
 		#{/if}
 	</div>
 	<!--  地图  -->
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<div class="right-top">
 			<a href="@{Activities.Create}" class="btn btn-success btn-lg  faqi">
 				<i class="icon-flag"></i> 发起活动
@@ -155,7 +174,15 @@
 					</a>
 			</div>
 			<div>
-				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} #{/if}#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}">${a.publisherSU.name} #{/if} #{/else}
+				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} <a href="@{Messaging.sendTo('cssa',a.publisherCSSA.id)}"><i class="icon-envelope-alt"></i><small class="name">发私信</small></a> #{/if}
+				#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
+				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name}
+				 #{if a.publisherSU?.gender.equals("女")}	 
+				<img src="@{'public/images/active_detailed_gender-proportion_female.png'}">
+				#{/if}#{elseif a.publisherSU?.gender.equals("男")}
+				<img src="@{'public/images/active_detailed_gender-proportion_male.png'}">
+				#{/elseif}<a href="@{Messaging.sendTo('simple',a.publisherSU.id)}"><i class="icon-envelope-alt"></i><small class="name">发私信</small></a>
+				 #{/else}
 			</div>
 		</div>
 		#{if connectedSimpleUser?.isAdmin}
@@ -182,11 +209,13 @@
 		<div class="numbers">
 			<h4 class="activity-title4">活动成员</h4>
 			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
-			<br>
-			#{list items:allownJoiner,as:'joiner'}
-			<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
-				<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
-			</a>
+		
+				#{list items:allownJoiner,as:'joiner'}
+					<div  style="height: 110px;overflow: hidden;clear:both;">
+				<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
+					<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
+				</a>
+			</div>
 		</div>
 	</div>
 </div>

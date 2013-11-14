@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 #{extends 'main.html' /}
 #{set title:user.name /} 
 #{set 'Styles'} 
 #{stylesheet 'user.css' /} 
 #{/set} 
+=======
+#{extends 'main.html' /} #{set title:user.name /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} 
+>>>>>>> 73bd602510c340586189288a4250b4c0a4850437
 #{include 'SimpleUsers/infoCenterTop.html' /}
 
 <div class="row mg-top-3">
@@ -23,7 +27,7 @@
 				</div>
 				<div class="col-md-11 activity">
 					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
-					${trend.action} ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+"CSSA")} 发布的活动：
+					${trend.action} ${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA.school.name+"CSSA")} 发布的活动：
 					<div class="detail">
 						<p>
 							"
@@ -35,7 +39,7 @@
 								<img src="${trend.a.poster}" />
 							</a>
 						</p>
-						<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 报名参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()})) 评论(${trend.a.comment.size()})</p>
+						<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 报名参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()}) 评论(${trend.a.comment.size()})</p>
 					</div>
 
 					<p>${trend.time}</p>
@@ -61,6 +65,7 @@
 					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
 					的回答
 					<br />
+
 				</div>
 				#{/elseif}
 
