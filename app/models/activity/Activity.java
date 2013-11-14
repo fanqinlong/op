@@ -50,6 +50,8 @@ public class Activity extends Model {
 	public String contract;
 	public boolean isChecked;
 	public boolean isHot;
+	public boolean isCanceled;
+	public String canceledReasion;
 
 	public String summary;
 	@Required

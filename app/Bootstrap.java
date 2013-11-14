@@ -8,6 +8,8 @@ import models.airport.School;
 import models.charity.Wel;
 import models.users.SimpleUser;
 
+import java.util.TimeZone;
+
 @OnApplicationStart
 public class Bootstrap extends Job {
 
@@ -26,6 +28,8 @@ public class Bootstrap extends Job {
 		}
 
 		Lang.set("zh");
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT-8"));
 	}
+	
 
 }
