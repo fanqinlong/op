@@ -1,6 +1,6 @@
+
 #{extends 'main.html' /} #{set title:user.name /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} 
 #{include 'SimpleUsers/infoCenterTop.html' /}
-
 <div class="row mg-top-3">
 	#{include 'SimpleUsers/infoCenterNav.html' /}
 	<div class="col-md-8">
@@ -10,7 +10,7 @@
 
 		<div class=" mg-top-5">
 			#{list items:trends,as:'trend'}
-			<div class="row trend">
+			<div class=" trend">
 				#{if trend.type.equals("activity")}
 				<div class="col-md-1 profile">
 					<a class="img-border img-w-5" href="">

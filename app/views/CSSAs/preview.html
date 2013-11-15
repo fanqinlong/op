@@ -24,7 +24,7 @@
             <span class="userinfo-font-b">${user.contract}</span> #{/if} 
             </div>
             <div class="mg-top-2">
-            <div class="card-title"> TA 发起的活动<span class="pull-right"><a>查看更多>></a></span></div>
+            <div class="card-title"> TA 发起的活动<span class="pull-right"><a href="@{CSSAs.detail(user.id)}">查看更多>></a></span></div>
             <div class="card-content">
             #{list items:activities,as:'a'}
             <p><span class="label label-info">${a.views}</span> &nbsp; <a href="@{Activities.detail(a.id)}" target="_blank">${a.name}</a> <span class="pull-right">${a.postAt}</span></p>
@@ -32,7 +32,7 @@
             </div>
             </div>
              <div class="mg-top-2">
-            <div class="card-title"> TA 提出的问题<span class="pull-right"><a>查看更多>></a></span></div>
+            <div class="card-title"> TA 提出的问题<span class="pull-right"><a href="@{CSSAs.userQues(user.id)}">查看更多>></a></span></div>
             <div class="card-content">
             ${questions.size()==0?"TA 还未提出问题":""}
              #{list items:questions,as:'q'}

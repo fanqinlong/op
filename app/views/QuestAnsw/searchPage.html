@@ -22,8 +22,11 @@ $(document).ready(function(){
 });
 	var school = "";
 	$(function (){
-		$.each(allUnivList,function (j,m){		
-			$("#gj").append("<a href='javascript:void(0);' style='margin: 8px;'  onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
+		$.each(allUnivList,function (j,m){
+		if(j==0 || j==7){
+			$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
+		}		
+			//$("#gj").append("<a href='javascript:void(0);' style='margin: 8px;'  onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
 		});
 	});
 	//获得每个国家的省份
@@ -172,10 +175,13 @@ $('#modal').on('hidden', function() {
 						</div>
 						</div>
 			 	 	 #{/list}
-			 	 	 
 				 <div class="row-fluid">
 					<div class="span12" style="margin-left:10%;">
 						<div class="pagination">
+							#{if pageCount == 1 }
+							<a></a>
+							#{/if}
+							#{else}
 							<ul class="pagination pagination-lg ">
 							  <li ><a href="@{QuestAnsw.Quespaging(1)}">&laquo;</a></li>
 							  #{list items:1..pageCount,as:'page'}
@@ -183,6 +189,7 @@ $('#modal').on('hidden', function() {
 							  #{/list}
 							  <li ><a href="@{QuestAnsw.Quespaging(pageCount)}">&raquo;</a></li>
 							</ul>
+							#{/else}
 				       </div>
 				   </div>
 				</div>

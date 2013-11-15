@@ -26,6 +26,8 @@ public class StuInfo extends Model {
 	@Required
 	public String date;
 	@Required
+	public String time;
+	@Required
 	public String school;
 	@Required
 	public String luggage;
