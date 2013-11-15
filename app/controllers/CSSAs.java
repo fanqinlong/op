@@ -346,7 +346,7 @@ public class CSSAs extends Application {
 
 	public static void likedActivity() {
 		long userId = Utils.getUserId();
-		List<Liker> activities = Liker.find("likerCSSA.id = ? order by postAt desc " , userId).fetch();
+		List<Liker> activities = Liker.find("likerCSSA.id = ? order by likedAt desc " , userId).fetch();
 		CSSA user = CSSA.findById(userId);
 		String tag = "like";
 		render(user, activities, tag);
