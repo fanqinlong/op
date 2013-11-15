@@ -20,11 +20,18 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
+
+
+
+import notifiers.Trend;
 import models.*;
 import models.activity.Activity;
 import models.activity.Liker;
 import models.charity.Wel;
 import models.charity.welLiker;
+import models.users.CSSA;
 import models.users.SimpleUser;
 
 public class Charities extends Application{
@@ -174,7 +181,7 @@ public class Charities extends Application{
 			SimpleUsers.login();
 		}
 		
-		
+		String userType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");
 		List al_exist = welLiker.find(
@@ -191,10 +198,25 @@ public class Charities extends Application{
 		al.lid = userId;
 		al.ltype = usertype;
 		al.save();
-		Wel a = Wel.findById(aid);
+		Wel w = Wel.findById(aid);
 	
-		a.likerCount = a.likerCount + 1;
-		a.save();
+		w.likerCount = w.likerCount + 1;
+		w.save();
+	
+		
+		if(userType.equals("cssa")){
+			CSSA cssa = CSSA.findById(userId);
+		 
+			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, null, w,"关注了", "wel");
+			tend.save();
+		}else{
+			SimpleUser simp = SimpleUser.findById(userId);
+			
+			Trend tend = new Trend(Utils.getNowTime(), simp, null, null, null,w,"关注了", "wel");
+			tend.save();
+		}
+		
+		
 		flash.success("关注成功");
 		pigination(pageNo);
 	}

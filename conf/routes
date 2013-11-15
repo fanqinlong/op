@@ -67,6 +67,7 @@ GET					/cssa/detail/{id}							             CSSAs.detail
 GET					/cssa/userQues/{id}							             CSSAs.userQues
 
 
+
 #Airport
 GET                 /airport                                                  Airports.index
 GET                 /airport/stuinfo/{id}                                     Airports.addStuInfo
