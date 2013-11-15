@@ -260,7 +260,7 @@ public class SimpleUsers extends Application {
 	public static void doChangePassword(
 			@Required @MinSize(7) @MaxSize(20) String password,
 			@Required @MinSize(7) @MaxSize(20) String password1,
-			@Required @Equals("password") String password2) {
+			@Required @Equals("password1") String password2) {
 		long id = Long.parseLong(session.get("logged"));
 		if (validation.hasErrors()) {
 			validation.keep();
