@@ -157,10 +157,11 @@
 		<div class="map">
 			<h4 class="activity-title3">
 				活动地图 #{if isAllown || isOwner}
-				<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
+				
+				<a href="https://maps.google.com/?q=${a.location.replaceAll(" ","+")}" target="_blank">点击查看详细地图 </a>
 				#{/if}
 			</h4>
-			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(" ","+")}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll(" ","+")}&sensor=false" alt="">
 		</div>
 
 		<div class="person">
