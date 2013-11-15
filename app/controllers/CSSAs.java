@@ -320,7 +320,6 @@ public class CSSAs extends Application {
 	List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"cssa").fetch(3);
 	render(user,activities,questions);
 	}
-<<<<<<< HEAD
 	
 	public static void detail(long id){
 		CSSA cssa = CSSA.findById(id);
@@ -334,7 +333,6 @@ public class CSSAs extends Application {
 	}
 	
 	
-=======
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
 		List<Activity> activities = Activity.find("publisherCSSA.id = ? order by postAt desc ", userId)
@@ -356,5 +354,4 @@ public class CSSAs extends Application {
 	
 	
 	
->>>>>>> 73bd602510c340586189288a4250b4c0a4850437
 }
