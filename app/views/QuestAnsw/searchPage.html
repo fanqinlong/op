@@ -178,7 +178,9 @@ $('#modal').on('hidden', function() {
 				 <div class="row-fluid">
 					<div class="span12" style="margin-left:10%;">
 						<div class="pagination">
-							#{if pageCount == 1 }
+						
+						${pageCount}
+							#{if pageCount == 1 || pageCount == 0}
 							<a></a>
 							#{/if}
 							#{else}
@@ -195,3 +197,10 @@ $('#modal').on('hidden', function() {
 				</div>
 			</div>
  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+#{set 'Scripts'}
+<script type="text/javascript">
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+});
+</script>
+#{/set}

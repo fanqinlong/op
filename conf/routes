@@ -160,6 +160,8 @@ GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 
+GET  /QuestAnsw/cssaQues                               QuestAnsw.cssaQues
+
 #Info and Jobs
 
 GET 				/about    					                        Info.about
