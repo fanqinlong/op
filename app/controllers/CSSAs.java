@@ -21,6 +21,8 @@ import play.mvc.*;
 import models.activity.Activity;
 import models.activity.Joiner;
 import models.activity.Liker;
+import models.qa.Comments;
+import models.qa.FocusQues;
 import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
@@ -351,6 +353,21 @@ public class CSSAs extends Application {
 		String tag = "like";
 		render(user, activities, tag);
 	}
+	public static void cssaQues() {
+        long userId = Long.parseLong(session.get("logged"));
+        CSSA user = CSSA.findById(userId);
+        List<Ques> CQues = Ques
+                        .find("userid = ?  and usertype = ? order by id desc", userId,
+                                        "cssa").fetch();
+        List<Comments> CComment = Comments.find(
+                        "userid = ? and usertype =? order by id desc", userId, "cssa")
+                        .fetch();
+        List<FocusQues> CFQues = FocusQues.find(
+                        "userid = ? and userType = ? order by id desc", userId, "cssa")
+                        .fetch();
+        notFoundIfNull(user);
+        render(user, CQues, CComment, CFQues);
+ }
 	
 	
 	

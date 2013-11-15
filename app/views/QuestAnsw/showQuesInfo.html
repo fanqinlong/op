@@ -20,16 +20,12 @@
 							#{if UserQues}
 								<a  class="btn btn-link linkf"  href="@{QuestAnsw.editQues(findListQues.id)}">
 						 	 	<i class="icon-edit"></i>修改</a>
-						 		<a  class="btn btn-link linkf"  href="@{QuestAnsw.deleteQues(findListQues.id)}">
-						 	 	<i class="icon-remove-sign"></i>删除</a>
 							#{/if}
 						#{/if}
 						#{elseif isCSSA}
 							#{if CssaQues}
 								<a  class="btn btn-link linkf"   href="@{QuestAnsw.editQues(findListQues.id)}">
 						 	 	<i class="icon-edit"></i>修改</a>
-						 		<a  class="btn btn-link linkf"   href="@{QuestAnsw.deleteQues(findListQues.id)}">
-						 	 	<i class="icon-remove-sign"></i>删除</a>
 						 	 #{/if}
 						#{/elseif}
 						 #{else}
@@ -40,10 +36,26 @@
 					<li class="qatitle">
 						<i class="icon-bookmark-empty"></i>	<span  class="ql">${findListQues.label}</span>
 					</li>
+					#{if findListQues.usertype == "cssa"}
 					<li class="qatitle">
-						<i class="icon-user"></i><span class="qatitlea linkf ql">${findListQues.username}，${findListQues.selfIntro}</span>
+						<i class="icon-user"></i>
+						<a href="@{CSSAs.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
+						<span class="qatitlea linkf ql">
+						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
+						</a>
+						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
 					</li>
-				
+					#{/if}
+					#{else}
+						<li class="qatitle">
+						<i class="icon-user"></i>
+						<a href="@{SimpleUsers.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
+						<span class="qatitlea linkf ql">
+						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
+						</a>
+						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+					</li>
+					#{/else}
 					<li class="qatitle" style="padding-bottom:25px;">
 					<i class="icon-spinner icon-spin"></i>
 						<div class="qatitlea linkf sinfc"  >
@@ -195,7 +207,6 @@
 	#{/list}
 	 <div>
 	  #{list items:FQ,as:'fidid'}
-	  
 	  #{if fidid == "cssa"}
 	  	<a href="@{CSSAs.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
 	  	<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>

@@ -1,0 +1,50 @@
+#{extends 'main.html' /} #{set title:'已发布的活动' /} #{include 'CSSAs/infoCenterTop.html' /}
+<div class="row mg-top-3">
+	#{include 'CSSAs/infoCenterNav.html' /}
+	<div class="col-md-8">
+
+
+		<div class="bs-docs-example XX" id="activity">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active">
+					<a href="#home" data-toggle="tab">我发布的问题</a>
+				</li>
+				<li>
+					<a href="#profile" data-toggle="tab">我回答的问题</a>
+				</li>
+				<li>
+					<a href="#profile1" data-toggle="tab">我关注的问题</a>
+				</li>
+
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="home">
+					#{list items:CQues,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
+						</li>
+					#{/list}
+				</div>
+				
+				<div class="tab-pane fade" id="profile">
+					#{list items:CComment,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.quesid)}">${q.quesTitle}</a></lable>
+						</li>
+					#{/list}		
+				</div>
+				<div class="tab-pane fade" id="profile1">
+					#{list items:CFQues,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.quesId)}">${q.quesTitle}</a></lable>
+						</li>
+					#{/list}
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<div class="float-1"></div>
+

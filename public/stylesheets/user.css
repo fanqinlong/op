@@ -84,7 +84,6 @@ line-height:25px;
 }
 .sqinfo{
 border-bottom:1px solid #dddddd;
-margin-left:10px; 
 padding-bottom:5px; 
 width:60%;
 }
@@ -107,7 +106,7 @@ text-rendering:optimizelegibility;
 padding-left:10px;
 }
 .sq{
-padding-top:5px;
+padding-top:12px;
 }
 
 .infocenter_left2{

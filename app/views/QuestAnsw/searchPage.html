@@ -119,21 +119,20 @@ $('#modal').on('hidden', function() {
 		<div class="group1">
 				#{list items:qArticles,as:'qa'}
 				<div style="width:665px;">
-				<i class=" icon-lightbulb"></i><span><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" style="font-size:15px;">${qa.ques.title}</a></span>
+				<h4><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" >${qa.ques.title}</h4></span>
 				</div>
 					<div  class="sqinfo">
 					#{if qa.ques.usertype == "cssa"}
-					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal">
-						<img src="${qa.ques.userprofile}" style="width:30px;float:right;padding-top:10px;">
+					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal"  title="${qa.ques.username}">
+						<img src="${qa.ques.userprofile}" style="width:30px; float:right;padding-top:10px;">
 					</a>
 					#{/if}
 					#{else}
-						<a href="@{SimpleUsers.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal">
+						<a href="@{SimpleUsers.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal" title="${qa.ques.username}">
 							<img src="${qa.ques.userprofile}" style="width:30px;float:right;padding-top:10px;">
 						</a>
 					#{/else}
 						<label class="userinforleft">
-						
 							<div class="guanzhu-num">
 								<a class="guanzhuNO2">${qa.ques.answerNum}</a>
 								<div>
@@ -153,9 +152,7 @@ $('#modal').on('hidden', function() {
 									<i class="icon-bookmark-empty"></i>
 									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >${qa.ques.label}</span>
 								</li>
-								<li class="sq">
-								<i class="icon-user-md"></i>
-								<strong>${qa.ques.username}</strong>，${qa.ques.selfIntro}</li>
+								
 								<li  class="sq">
 									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
 										<span >${qa.ques.content.raw()}</span>

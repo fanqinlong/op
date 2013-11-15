@@ -698,21 +698,7 @@ public class QuestAnsw extends Application {
 		render(user, UQues, UComment, FQues);
 	}
 
-	public static void cssaQues() {
-		long userId = Long.parseLong(session.get("logged"));
-		CSSA user = CSSA.findById(userId);
-		List<Ques> CQues = Ques
-				.find("userid = ?  and usertype = ? order by id desc", userId,
-						"cssa").fetch();
-		List<Comments> CComment = Comments.find(
-				"userid = ? and usertype =? order by id desc", userId, "cssa")
-				.fetch();
-		List<FocusQues> CFQues = FocusQues.find(
-				"userid = ? and userType = ? order by id desc", userId, "cssa")
-				.fetch();
-		notFoundIfNull(user);
-		render(user, CQues, CComment, CFQues);
-	}
+	
 
 	public static void showUserInfor(String usertype, long userid) {
 		if (session.get("logged") == null) {
@@ -737,7 +723,6 @@ public class QuestAnsw extends Application {
 					UComment, FQues);
 		} else if (usertype.equals("cssa")) {
 			CSSA user = CSSA.findById(userid);
-
 			List<Ques> CQues = Ques.find(
 					"userid = ?  and usertype = ? order by id desc", userid,
 					"cssa").fetch(5);
