@@ -76,7 +76,7 @@ public class QuestAnsw extends Application {
 		String d = (df.format(Calendar.getInstance().getTime()));
 
 		new Ques(title, Tag, school, content, d, userid, usertype, username,
-				userprofile, answerNum, focusNum, userselfIntro);
+				userprofile, answerNum, 1, userselfIntro);
 
 		Ques ques = Ques.find("order by id desc").first();
 		new FocusQues(usertype, userid, userprofile, ques.id, ques.title);
@@ -555,7 +555,6 @@ public class QuestAnsw extends Application {
 	public static void deleteComent() {
 		render();
 	}
-
 	public static void fcousOnQuestion(long id) {
 		if (session.get("logged") == null) {
 			flash.error("请登录!");

@@ -1,6 +1,6 @@
 #{extends 'main.html' /} #{set title:'个人中心' /} #{set 'Styles'}
-#{stylesheet 'user.css' /} #{/set} #{include
-'CSSAs/infoCenterTop.html' /}
+#{stylesheet 'user.css' /} #{/set} 
+#{include'CSSAs/infoCenterTop.html' /}
 <div class="row mg-top-3">
 	#{include 'CSSAs/infoCenterNav.html' /}
 	<div class="col-md-8">
@@ -16,7 +16,7 @@
 					</a>
 				</div>
 
-				<div class="col-md-11 activity">
+				<div class="activity " style="margin-top:25px;">
 					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
 					${trend.action} ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+"CSSA")} 发布的活动：
 					<div class="detail">

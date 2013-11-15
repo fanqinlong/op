@@ -178,7 +178,9 @@ $('#modal').on('hidden', function() {
 				 <div class="row-fluid">
 					<div class="span12" style="margin-left:10%;">
 						<div class="pagination">
-							#{if pageCount == 1 }
+						
+						${pageCount}
+							#{if pageCount == 1 || pageCount == 0}
 							<a></a>
 							#{/if}
 							#{else}
