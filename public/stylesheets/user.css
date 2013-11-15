@@ -11,14 +11,21 @@
 .qaw {
 	width: 70%;
 }
+
+.woqu {
+	width: auto;
+	margin-left: -15%;
+}
+
 .qatitle {
 	padding-top: 15px;
 }
 
 .userinforleft {
 	float: left;
+	width: 88px;
+	padding-top: 50px;
 	text-align: right;
-	padding-top:20px;
 }
 
 .userinforright {
@@ -109,3 +116,34 @@ padding-left:10px;
 .sq{
 padding-top:5px;
 }
+
+.infocenter_left2{
+border-bottom: 1px solid #e2e2e2;
+}
+.infocenter_left2_pic{
+width:163px;
+margin-top:30px;
+}
+.infocenter_8{
+border-left:1px solid #e2e2e2;
+border-right:1px solid #e2e2e2;}
+.infocenter_left_content{
+text-align:center}
+.infocenter_title{
+color:#336699;border-bottom: 1px solid #e2e2e2;padding-bottom: 20px;}
+.infocenter_content_user{
+border-bottom:1px solid #e2e2e2;padding-bottom: 20px;padding-top: 20px;}
+.infocenter_activity_pic{
+width:150px;margin-bottom:15px; }
+.infocenter_users,.infocenter_users1{
+color:#336699}
+.infocenter_users1{
+margin-left:20px;}
+.infocenter_right2{border-bottom: 1px solid #e2e2e2;padding-left:0px;}
+.infocenter_1{
+	margin-right: 0px;
+margin-left: -22px;
+margin-top: -20px;
+}
+
+

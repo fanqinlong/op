@@ -35,7 +35,8 @@ POST				/simple/edumail											 SimpleUsers.authEduMail
 GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
 GET					/simple/homepage/{userid}/{actiontype}					 SimpleUsers.homePage
 GET					/simple/preview/{userid}								 SimpleUsers.preview
-
+GET					/simple/detail/{id}							             SimpleUsers.detail
+GET					/simple/userQues/{id}							         SimpleUsers.userQues
 
 #CSSAs Registration/Authentication
 GET                 /cssa/signup                                             CSSAs.signup
@@ -60,6 +61,10 @@ GET                	/cssa/changeprofile                                		 CSSAs.
 POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
 GET                	/cssa/infocenter		                                  CSSAs.infoCenter
 GET                	/cssa/myactivity                                         CSSAs.myActivity
+GET					/cssa/homepage/{userid}								     CSSAs.homePage
+GET					/cssa/preview/{userid}								     CSSAs.preview
+GET					/cssa/detail/{id}							             CSSAs.detail
+GET					/cssa/userQues/{id}							             CSSAs.userQues
 GET					/cssa/homepage/{userid}									 CSSAs.homePage
 GET					/cssa/preview/{userid}									 CSSAs.preview
 
@@ -143,9 +148,9 @@ POST /QuestAnsw/searchpage               		       QuestAnsw.answerRapidly
 GET	 /QuestAnsw/{pageNum}		                       QuestAnsw.Quespaging
 GET  /QuestAnsw/deleteQues/{id}                        QuestAnsw.deleteQues
 GET  /QuestAnsw/editQues/{id}                          QuestAnsw.editQues
-POST  /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
+POST /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
 GET  /QuestAnsw/editComent/{comentUserid}/{comentUsertype}/{quesid}		   QuestAnsw.editComent
-POST  /QuestAnsw/editComSuccessful	                   QuestAnsw.editComSuccessful
+POST /QuestAnsw/editComSuccessful	                   QuestAnsw.editComSuccessful
 GET  /QuestAnsw/cancelFqcusQues/{quesid}		       QuestAnsw.cancelFqcusQues
 GET  /QuestAnsw/notAgree/{id}/{quesid}	               QuestAnsw.notAgree
 GET  /QuestAnsw/changeComent/{comentUserid}/{comentUsertype} QuestAnsw.changeComent
@@ -156,7 +161,9 @@ GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
-GET  /QuestAnsw/allFollowers/{id}                  QuestAnsw.allFollowers
+GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
+
+GET  /QuestAnsw/cssaQues                               QuestAnsw.cssaQues
 
 #Info and Jobs
 

@@ -3,25 +3,15 @@
 <link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 <div class="row">
 	<div class=" col-md-2">
-
-
-	 
  	<a href="@{CSSAs.changeProfile(user.id)}">
 			<img class="img-thumbnail profile-lg" src="${user.profile}">
 		</a>
-			
 	</div>
-		 
 	<div class="col-md-8">
-	 
 			 <span class="use-f-a16"><strong style="font-size: 26px;">${user.school.name} CSSA</strong></span>
 					<a href="@{CSSAs.changePassword(user.id)}"> 密码</a>/
- 					 <a href="@{CSSAs.ChangeEmail(user.id)}"> 邮箱</a>
-	  
- 
+ 					<a href="@{CSSAs.ChangeEmail(user.id)}"> 邮箱</a>
 	<div style="padding-top: 20px; width: 774px; float: left;">
-		 
-		 
 			<p class="use-f-p">
 			 #{if user.peopleNumber}
 			<span class="userinfo-font-b">${user.peopleNumber}</span> 
@@ -50,10 +40,7 @@
 		 
 	 </div>
  </div>
-  
  </div>
-  
-
 <div class="row mg-top-3">
 	<div class="col-md-2">
 		<ul class="list-group">

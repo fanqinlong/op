@@ -62,6 +62,12 @@
 				#{/elseif}
 
 
+ 
+				#{elseif trend.type.equals("wel")}
+					${trend.time}你关注了<a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a>这条公益活动
+				#{/elseif}
+
+
 		</div>
 		
 		

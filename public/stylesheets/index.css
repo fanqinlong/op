@@ -9,25 +9,35 @@ body{
 	height:450px;
 }
 .logo {
-	position: absolute;
+	 
 	top:100px;
 	
 }
 
 .login {
-	position: absolute;
+  
 	background-color:rgba(0,0,0,0.6);
 	height:450px;
 	color:#fff;
 	
 }
-.login form{
-	margin-top:100px;
-}
+ .index_dl{
+ margin-top:55%;
+ }
 .header{
 	
 	height:450px;
 }
+.hot-list{
+margin-bottom: 70px;
+}
+.index-content-ul{
+	line-height: 32px;font-size:15px;padding-left: 0px;
+}
+.index-content-ul li span{
+	background-color:#6699cc;font-weight: normal;
+}
+
 .hot-list p{
 	padding:5px 0;
 }
@@ -50,12 +60,12 @@ body{
 	height:24px;
 	bottom:0px;
 	color:#FFF;
-	width:165px;
+	width:100%;
 }
 .activity .detail{
 	position: absolute;
 	background:#428bca;
-	width:165px;
+	width:100%;
 	height:165px;
 	top:165px;
 	color:#FFF;
@@ -63,4 +73,33 @@ body{
 }
 .activity .detail p{
 	padding:5px 10px 0 10px;
+}
+#banner_ctr{
+margin:0; padding:0; border:none;
+
+}
+#drag_ctr{
+
+margin-left:40px;
+}
+.hd_small{
+margin-top: 12px;
+}
+
+
+
+
+.index_row{
+width:100%;
+}
+.user_exit{
+	padding: 15px;
+}
+.user_exit{
+	margin-top: 20%;
+}
+.user_exit_infocenter{
+margin-left: 6%; margin-top: 15%;}
+hr{
+margin-top: 0px;
 }

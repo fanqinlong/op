@@ -76,7 +76,7 @@ public class QuestAnsw extends Application {
 		String d = (df.format(Calendar.getInstance().getTime()));
 
 		new Ques(title, Tag, school, content, d, userid, usertype, username,
-				userprofile, answerNum, focusNum, userselfIntro);
+				userprofile, answerNum, 1, userselfIntro);
 
 		Ques ques = Ques.find("order by id desc").first();
 		new FocusQues(usertype, userid, userprofile, ques.id, ques.title);
@@ -522,7 +522,12 @@ public class QuestAnsw extends Application {
 
 	public static void deleteQues(long id, int pageNum) {
 		Ques dques = Ques.findById(id);
+		
+		System.out.println(dques);
+		System.out.println(dques.id);
+		
 		dques.delete();
+		
 		List<Tag> t = Tag.findAll();
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 				.count() / 5 + 1);
@@ -550,7 +555,6 @@ public class QuestAnsw extends Application {
 	public static void deleteComent() {
 		render();
 	}
-
 	public static void fcousOnQuestion(long id) {
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
@@ -697,15 +701,12 @@ public class QuestAnsw extends Application {
 	public static void cssaQues() {
 		long userId = Long.parseLong(session.get("logged"));
 		CSSA user = CSSA.findById(userId);
-
 		List<Ques> CQues = Ques
 				.find("userid = ?  and usertype = ? order by id desc", userId,
 						"cssa").fetch();
-
 		List<Comments> CComment = Comments.find(
 				"userid = ? and usertype =? order by id desc", userId, "cssa")
 				.fetch();
-
 		List<FocusQues> CFQues = FocusQues.find(
 				"userid = ? and userType = ? order by id desc", userId, "cssa")
 				.fetch();

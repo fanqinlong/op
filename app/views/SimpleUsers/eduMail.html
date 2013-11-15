@@ -1,7 +1,7 @@
 #{extends 'main.html' /} #{set title:'edumail.html' /} 
 #{form @authEduMail(),method:'post',class:'form-horizontal'}
 <h4 class="col-md-offset-2">
-	验证EDU邮箱 <small> <a href="#modal" data-toggle="modal">为什么？</a></small>
+	验证EDU邮箱 <small>  
 </h4>
 <div class="form-group ${errors.forKey('eduMail') ? 'has-error' : ''}">
 	<label for="eduMail" class="col-md-2 control-label">EDU邮箱</label>
@@ -17,21 +17,9 @@
 </div>
 
 #{/form}
-<div class="modal fade" id="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title text-center" id="myModalLabel">为什么要验证EDU邮箱</h4>
-      </div>
-      <div class="modal-body">
+<div class="col-md-6 col-md-offset-2">
+    <h3>为什么要验证EDU邮箱</h3>
+    
        	 以.edu结尾的邮箱是独一无二的、作为美国学生的身份证明，在验证过edu邮箱以后您的账户将会有相应的认证图标。我们鼓励您用edu邮箱来验证身份，以获得在奥噗更加真实的服务。
-
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">了然</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>
+     
