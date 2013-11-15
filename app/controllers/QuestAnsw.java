@@ -701,15 +701,12 @@ public class QuestAnsw extends Application {
 	public static void cssaQues() {
 		long userId = Long.parseLong(session.get("logged"));
 		CSSA user = CSSA.findById(userId);
-
 		List<Ques> CQues = Ques
 				.find("userid = ?  and usertype = ? order by id desc", userId,
 						"cssa").fetch();
-
 		List<Comments> CComment = Comments.find(
 				"userid = ? and usertype =? order by id desc", userId, "cssa")
 				.fetch();
-
 		List<FocusQues> CFQues = FocusQues.find(
 				"userid = ? and userType = ? order by id desc", userId, "cssa")
 				.fetch();

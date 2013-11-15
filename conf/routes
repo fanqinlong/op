@@ -61,16 +61,13 @@ GET                	/cssa/changeprofile                                		 CSSAs.
 POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
 GET                	/cssa/infocenter		                                  CSSAs.infoCenter
 GET                	/cssa/myactivity                                         CSSAs.myActivity
-<<<<<<< HEAD
 GET					/cssa/homepage/{userid}								     CSSAs.homePage
 GET					/cssa/preview/{userid}								     CSSAs.preview
 GET					/cssa/detail/{id}							             CSSAs.detail
 GET					/cssa/userQues/{id}							             CSSAs.userQues
-=======
 GET					/cssa/homepage/{userid}									 CSSAs.homePage
 GET					/cssa/preview/{userid}									 CSSAs.preview
 
->>>>>>> 73bd602510c340586189288a4250b4c0a4850437
 
 
 #Airport
@@ -165,6 +162,8 @@ GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
+
+GET  /QuestAnsw/cssaQues                               QuestAnsw.cssaQues
 
 #Info and Jobs
 

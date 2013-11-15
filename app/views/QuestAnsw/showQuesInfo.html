@@ -7,7 +7,6 @@
 	<script language="javascript" type="text/javascript">
 		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 		function showPraise(){
-			
 		}
 	</script>
 <div style="width:700px; float:left;">
@@ -211,3 +210,10 @@
 </div>
 <div style=" clear:both;"></div>	
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+#{set 'Scripts'}
+<script type="text/javascript">
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+});
+</script>
+#{/set}
