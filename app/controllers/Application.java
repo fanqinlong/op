@@ -105,7 +105,6 @@ public class Application extends Controller {
 	@Before
 	static void rememberedUser() {
 		// response.cookies.get("email").value;
-
 	}
 
 	@Before
