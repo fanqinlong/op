@@ -798,7 +798,7 @@ public class QuestAnsw extends Application {
 		Ques q = Ques.findById(quesid);
 		q.focusNum = q.focusNum - 1;
 		q.save();
-
+		/**
 		String noticName;
 		if (fquserType.equals("simple")) {
 			SimpleUser sUser = SimpleUser.findById(userId);
@@ -807,6 +807,7 @@ public class QuestAnsw extends Application {
 			CSSA cssa = CSSA.findById(userId);
 			noticName = cssa.email;
 		}
+		
 		ArrayList<String> s = new ArrayList();
 
 		if (fquserType.equals("simple")) {
@@ -816,6 +817,7 @@ public class QuestAnsw extends Application {
 			Messaging.addNotification(q.usertype, q.userid, noticName
 					+ "取消了关注您的问题" + q.title, s);
 		}
+		**/
 		showQuesInfo(quesid);
 	}
 
