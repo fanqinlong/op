@@ -29,10 +29,12 @@
 			#{/if}
 			#{else}
 			<div style="margin-left:150px; margin-top:35px;" >
+				<!-- 
 				<a  class="btn btn-info" >
 					<img src="../public/images/feiji.png"> 
 					对不起您还未认证，请认证
 				</a>
+				-->
 			</div>	
 			#{/else}
 		#{/if}
@@ -60,10 +62,12 @@
 				#{/if}
 				#{else}
 				<div style="margin-left:150px; margin-top:35px;" >
+				<!-- 
 					<a  class="btn btn-info" >
 						<img src="../public/images/feiji.png"> 
 						对不起您还未认证，请认证
 					</a>
+				  -->
 				</div>	
 				#{/else}
 			#{/if}
@@ -80,13 +84,10 @@
       </div>
       <div class="modal-body">
 				#{list items:ls,as:'school'}
-					<dd class="list-fy on" style="margin-left:15px;">
+					<span class="list-fy on" style="margin-left:15px;">
 						<a class=" ${school==school.name?'Airports':''}  address" href="@{Airports.addStuInfo(school.id)}" >${school.name}</a>
-					</dd>
+					</span>
 				#{/list}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -102,14 +103,12 @@
       </div>
       <div class="modal-body">
 				#{list items:ls,as:'school'}
-					<dd class="list-fy on" style="margin-left:15px;">
+					<span class="list-fy on" style="margin-left:15px;">
 						<a class=" ${school==school.name?'Airports':''}  address" href="@{Airports.addVolInfo(school.id)}" >${school.name}</a>
-					</dd>
+					</span>
 				#{/list}
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
