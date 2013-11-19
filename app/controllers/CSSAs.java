@@ -31,7 +31,7 @@ public class CSSAs extends Application {
 	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetPassword", "doForgetPassword", "resetPasswordConfirmation", "resetPassword","preview" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
-			CSSAs.login();
+			SimpleUsers.login();
 		}else{
 			CSSA user = CSSA.findById(Utils.getUserId());
 			if(user==null)

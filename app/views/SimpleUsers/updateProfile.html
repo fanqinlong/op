@@ -1,8 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'updateProfile.html' /}
-
+#{set 'Styles'} 
+#{stylesheet 'bootstrap-datepicker.css' /} 
+#{stylesheet 'bootstrap-timepicker.min.css' /} 
+#{stylesheet 'user.css' /} 
+#{/set}
 #{form @doUpdateProfile(),method:'post',class:'form-horizontal'}
-<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
 
 <div class="form-group ${errors.forKey('name') ? 'has-error' : ''}">
 	<label for="name" class="col-md-2 control-label">当前昵称</label>
@@ -18,12 +21,10 @@
 		<input type="text" name="user.realName" value="${user.realName}" class="form-control" maxlength="24"/> 
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		 <input name="user.dispRealName" value="flase" type="checkbox" ${flash['user.dispRealName']=="flase"?"checked":""}>隐藏
+		 <input name="user.dispRealName" value="false" type="checkbox" ${flash['user.dispRealName']=="false"?"checked":""}> 隐藏
 	</span>
 	<span class="col-md-3">#{error 'realName' /}</span>
 </div>
-
-
 <div class="form-group ${errors.forKey('signature') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">个性签名</label>
 	<div class="col-md-3 ">
@@ -31,8 +32,6 @@
 	</div>
 	<span class="col-md-3">#{error 'signature' /}</span>
 </div>
-
-
 
 <div class="form-group ${errors.forKey('gender') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">性别</label>
@@ -43,10 +42,23 @@
 	<span class="col-md-3">#{error 'gender' /}</span>
 </div>
 
+
+<div class="form-group ${errors.forKey('birthday') ? 'has-error' : ''}">
+	<label for="password" class="col-md-2 control-label">生日</label>
+	<div class="col-md-3 input-append date input-group" id="birthday" >
+	 	<input type="text"  class="form-control datepicker"   name="user.birthday"   value="${user.birthday==null?'1990-01-01':''}" readonly="" />
+		<span class="input-group-addon"><i class="icon-th"></i></span>
+	</div>
+	<span class="suffix"></span><span class="col-md-3 sfont">
+		 <input name="user.dispBirthday" value="flase" type="checkbox" ${flash['user.dispBirthday']=="flase"?"checked":""}> 隐藏
+	</span>
+	<span class="col-md-3">#{error 'birthday' /}</span>
+</div>
 <div class="form-group ${errors.forKey('age') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">年龄</label>
-	<div class="col-md-3 ">
-		<select name="user.age">
+	 
+	<div class="col-md-1 ">
+		<select name="user.age" class="form-control">
 			<option value="0" ${user.age==0?"selected":""}>--</option> 
 			#{list items:18..60,as:'a'}
 			<option value="${a}" ${user.age==a?"selected":""}  >${a}</option>
@@ -56,21 +68,10 @@
 	<span class="col-md-3">#{error 'age' /}</span>
 </div>
 
-<div class="form-group ${errors.forKey('birthday') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">生日</label>
-	<div class="col-md-3 ">
-		<input type="text" name="user.birthday" value="${user.birthday}"  class="form-control" maxlength="32"/> 
-	</div>
-	<span class="suffix"></span><span class="col-md-3 sfont">
-		 <input name="user.dispBirthday" value="flase" type="checkbox" ${flash['user.dispBirthday']=="flase"?"checked":""}>隐藏
-	</span>
-	<span class="col-md-3">#{error 'birthday' /}</span>
-</div>
-
 <div class="form-group ${errors.forKey('ralationship') ? 'has-error' : ''}">
-	<label for="password" class="col-md-2 control-label">感情状况</label>
-	<div class="col-md-3 ">
-		 <select name="user.ralationship" value="${user.ralationship}">
+	<label for="password" class="col-md-2 control-label ">感情状况</label>
+	<div class="col-md-2 ">
+		 <select name="user.ralationship" value="${user.ralationship}" class="form-control">
 			  <option >保密</option> 
 			  <option >单身</option> 
 			  <option >恋爱中</option> 
@@ -120,8 +121,9 @@
 
 <div class="form-group ${errors.forKey('admissionTime') ? 'has-error' : ''}">
 	<label for="password" class="col-md-2 control-label">入学时间</label>
-	<div class="col-md-3 ">
-		<input type="text" name="user.admissionTime" value="${user.admissionTime}"  class="form-control" maxlength="11"/> 
+	<div class="col-md-3 input-append date input-group" id="admission" >
+	 	<input type="text" name="user.admissionTime" value="${user.admissionTime}"  class=" form-control datepicker"  readonly /> 
+	 	<span class="input-group-addon"><i class="icon-th"></i></span>
 	</div>
 	<span class="col-md-3">#{error 'admissionTime' /}</span>
 </div>
@@ -134,7 +136,7 @@
 		<input type="text" name="user.qq" value="${user.qq}"  class="form-control" maxlength="11"/> 
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		 <input name="user.dispQQ" value="false" type="checkbox" ${flash['user.dispQQ']=="false"?"checked":""}>隐藏
+		 <input name="user.dispQQ" value="false" type="checkbox" ${flash['user.dispQQ']=="false"?"checked":""}> 隐藏
 	</span>
 	<span class="col-md-3">#{error 'qq' /}</span>
 </div>
@@ -146,7 +148,7 @@
 		<input type="text" name="user.contract" value="${user.contract}"  class="form-control" maxlength="11"/>  
 	</div>
 	<span class="suffix"></span><span class="col-md-3 sfont">
-		<input name="user.dispContract" value="false" type="checkbox" ${flash['user.dispContract']=="false"?"checked":""}>隐藏
+		<input name="user.dispContract" value="false" type="checkbox" ${flash['user.dispContract']=="false"?"checked":""}> 隐藏
 	</span>
 	<span class="col-md-3">#{error 'contract' /}</span>
 </div>
@@ -167,26 +169,34 @@
 
 <div class="form-group">
 	<div class="col-md-offset-2 col-md-3">
-		<a href="@{SimpleUsers.infoCenter}" class="btn btn-default">跳过</a><input type="submit" class="btn btn-primary col-md-offset-1" value="保存">
+		<a href="@{SimpleUsers.infoCenter}" class="btn btn-default">取消</a><input type="submit" class="btn btn-primary col-md-offset-1" value="保存">
 	</div>
 </div>
 #{/form}
 
 
+#{set 'Scripts'} 
+#{script 'bootstrap-datepicker.js' /}
+#{script 'bootstrap-timepicker.min.js' /}
+<script type="text/javascript">
+	  	  
+		$('#birthday input').datepicker({
+	 			 startView: 2,
+				format : "yyyy-mm-dd",
+				startDate : "1960-01-01",
+				 autoclose: true
+				 
+			});
+		  $('#admission input').datepicker({
+	 			 startView: 2,
+				format : "yyyy-mm",
+				minViewMode: 1,
+				startDate : "1980-01",
+				 autoclose: true
+				 
+			});
+	   
+</script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#{/set}
 

@@ -1,18 +1,18 @@
 #{extends 'main.html' /} #{set title:'create' /} 
-<img src="@{'public/images/active_step3.png'}" class="img-responsive" style="margin:20px auto;">
-	
-	<h1 class=" col-md-1 col-md-offset-1 control-label" style="color:#336699;text-align: right;"><i>3</i></h1>
-	<h3 class=" col-md-4  control-label" style="color:#6699cc;">第三步：预览活动发布页面</h3>
- 
-	<h6  class=" col-md-7  control-label" style="color:#e2e2e2;margin-bottom:20px;">温馨提示：您可以预览活动页面效果，请核实信息以及海报，然后发布您的活动。</h6>
-	<div class="clearfix"></div>
+
 <div class="row">
-	<div class="col-md-8">
-		<div class="row">
-			<div class="col-md-5">
+<div class="col-md-10">
+<div class="col-md-offset-1 " >
+<img src="@{'public/images/active_step3.png'}" class="img-responsive">
+	
+	<h1 class="text-primary control-label"><i>3. </i><small class="text-primary">第三步：预览活动发布页面</small></h1>
+ 
+
+		<div class="row  mg-top-3">
+			<div class="col-md-4">
 				<img src="${a.poster}" class="img-thumbnail">
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-8">
 				<div class="activity-weight acpading">
 					<h3>${a.name}</h3>
 					<div class="details ">
@@ -30,17 +30,13 @@
 					<div class="details">
 						<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
 					</div>
-					<div class="details">
-						<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name + " CSSA")}</span>
-					</div>
+					
 					<div class="details">
 						<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
 					</div>
+					
 					<div class="details">
-						<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
-					</div>
-					<div class="details">
-						<span class="pic-leftTitle">是否公开参加：</span> <span class="At_info">${a.isOpen?"是":"否"}</span>
+						<span class="pic-leftTitle">是否需要报名：</span> <span class="At_info">${a.isOpen?"是":"否"}</span>
 					</div>
 				</div>
 
@@ -50,44 +46,15 @@
 			<h3>活动介绍</h3>
 			<p>${a.intro}</p>
 		</div>
-	</div>
-	<!--  地图  -->
-	<div class="col-md-4">
-		
-		<div class="map">
-			<h4 class="activity-title3">
-				活动地图 #{if isAllown || isOwner}
-				<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
-				#{/if}
-			</h4>
-			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
-		</div>
 
-		<div class="person">
-			<h4 class="activity-title3">活动组织者</h4>
-			<div class="activity-userpic">
-						 <img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
-			</div>
-			<div>
-				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} <i class="icon-envelope-alt"></i><small class="name">发私信</small> #{/if}
-				#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
-				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name}
-				 #{if a.publisherSU?.gender.equals("女")}	 
-				<img src="@{'public/images/active_detailed_gender-proportion_female.png'}">
-				#{/if}#{elseif a.publisherSU?.gender.equals("男")}
-				<img src="@{'public/images/active_detailed_gender-proportion_male.png'}">
-				#{/elseif}<small class="name">发私信</small>
-				 #{/else}
-			</div>
-		</div>
-		
-		
-	</div>
+	
+</div>
+
+<div class="mg-top-3 col-md-offset-8">
+<a href="@{Activities.editPost()}" class="btn btn-primary btn-lg"> 返回上一步</a>
+<a href="@{Activities.publish()}" class="btn btn-success btn-lg">发布</a> 
+</div>
+</div>
 </div>
 
 
-<div class="mg-top-3 col-md-offset-3">
-<a href="@{Activities.editPost()}" class="btn btn-primary"> 返回上一步</a>
-<a href="@{Activities.publish()}" class="btn btn-success btn-lg">发布</a> 
-
-</div>	

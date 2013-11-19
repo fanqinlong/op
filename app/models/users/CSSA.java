@@ -35,7 +35,7 @@ public class CSSA extends Model {
 	public String homepage;
 	@Required @MinSize(7) @MaxSize(40) 
 	public String applicant;
-	@Required @MinSize(7) @MaxSize(100)
+	@Required  @MaxSize(100)
 	public String applicantTitle;
 	@Required 
 	public String peopleNumber;
