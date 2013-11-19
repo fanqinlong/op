@@ -43,12 +43,14 @@ public class Airports extends Application {
 	public static void index() {
 		String usertype = session.get("usertype");
 		String username = null;
+		boolean isApproved = false;
 		if (!usertype.equals("simple")) {
 			CSSA cssa = CSSA.findById(Long.parseLong(session.get("logged")));
 			username = cssa.school.name;
+			isApproved = cssa.isApproved;
 		}
 		List ls = School.findAll();
-		render(ls, username);
+		render(ls, username,isApproved);
 	}
 
 	public static void addStuInfo(Long id) {
