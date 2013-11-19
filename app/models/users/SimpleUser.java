@@ -53,9 +53,12 @@ public class SimpleUser extends Model {
 		this.gender = gender;
 		this.passwordHash = Codec.hexMD5(password);
 		this.needConfirmation = Codec.UUID();
-		//this.profile = "/public/images/user_default.jpg";
 		this.profile = profile;
 		this.signupDate = signupDate;
+		String suffix = email.substring(email.length() - 3, email.length());
+		if (suffix.equals("edu")) {
+			this.eduMail = email;
+		}
 		create();
 	}
 
