@@ -8,14 +8,14 @@
 
 		<div class=" mg-top-5">
 			#{list items:trends,as:'trend'}
-			<div class=" trend">
+			<div class=" trend row">
 				#{if trend.type.equals("activity")}
-				<div class="col-md-1 profile">
+				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5" href="">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
-				<div class="activity" style="margin-top:25px;">
+				<div class="activity col-md-11" style="margin-top:25px;">
 					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
 					${trend.action} ${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} 发布的活动：
 					<div class="detail">
