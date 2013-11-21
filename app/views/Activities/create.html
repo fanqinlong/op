@@ -20,7 +20,7 @@
 		<input id="inputEmail" type="text" name="a.name" value="${flash['a.name']}"  class="form-control" maxlength="40"/> 
 		<span class="help-block"></span>
 	</div>
-	
+	<span class="col-md-3">#{error 'a.name' /}</span>
 </div>
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-3 control-label">开放参加</label>
@@ -55,17 +55,46 @@
 
 <div class="form-group ${errors.forKey('name') ? 'has-error' : ''}" >
 	<label for="password" class="col-md-3 control-label"><b class="text-danger">*</b> 活动日期</label>
-	<div class="col-md-4 ">
-		<div class="input-daterange input-group" id="datepicker">
-    		<input type="text" class="input-sm  form-control" name="dateFrom" />
+	<div class="col-md-7">
+		<div class="input-daterange input-group" id="datepicker" >
+    		<input type="text" class="input-sm  form-control " name="dateFrom"  style="width:127px" />
+    		 <select type="text" class="input-sm form-control" name="timeFrom" style="width:120px" > 
+            #{list items:9..23, as:'i'}
+              <option value="${i<10?'0':''}${i}:00">${i<10?'0':''}${i}:00</option>
+             <option value="${i<10?'0':''}${i}:30">${i<10?'0':''}${i}:30</option>
+           
+          	 #{/list}
+          	 
+           #{list items:0..8, as:'i'}
+            <option value="${i<10?'0':''}${i}:00">${i<10?'0':''}${i}:00</option>
+             <option value="${i<10?'0':''}${i}:30">${i<10?'0':''}${i}:30</option>
+            
+          	 #{/list}
+            </select>
+         
     		<span class="input-group-addon">TO</span>
-    		<input type="text" class="input-sm form-control" name="dateTo" />
-			</div>
-		
+    	 
+    		<input type="text" class="input-sm form-control" name="dateTo" style="width:120px" />
+    		<select  type="text" class="input-sm form-control"  name="timeTo" style="width:120px">
+            #{list items:9..23, as:'i'}
+              <option value="${i<10?'0':''}${i}:00">${i<10?'0':''}${i}:00</option>
+             <option value="${i<10?'0':''}${i}:30">${i<10?'0':''}${i}:30</option>
+           
+          	 #{/list}
+          	 
+           #{list items:0..8, as:'i'}
+            <option value="${i<10?'0':''}${i}:00">${i<10?'0':''}${i}:00</option>
+             <option value="${i<10?'0':''}${i}:30">${i<10?'0':''}${i}:30</option>
+            
+          	 #{/list}
+            </select>
+            
+		</div>
+		<span class="col-md-3">#{error 'email' /}</span>
 	</div>
 	
 </div>
-<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}" >
+<!--<div class="form-group ${errors.forKey('name') ? 'has-error' : ''}" >
 	<label for="password" class="col-md-3 control-label"><b class="text-danger">*</b> 活动时间</label>
 	<div class="col-md-4 ">
 		<div class=" bootstrap-timepicker input-group">
@@ -86,7 +115,7 @@
 	</div>
 	
 </div>
-
+-->
 
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-3 control-label"><b class="text-danger">*</b> 所需费用</label>

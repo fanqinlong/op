@@ -7,19 +7,19 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>奥噗 - #{get 'title' /}</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<script type="text/javascript" src="../../../public/javascripts/jquery.js"></script>
-<script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
+<script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
+<script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
 #{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
-	<header class="navbar  navbar-op" role="navigation">
+	<header class="navbar  navbar-op navbar-fixed-top"  role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}">
 				</a>
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav ">
 					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
