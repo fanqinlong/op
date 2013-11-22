@@ -11,6 +11,8 @@
 .qaw {
 	width: 70%;
 }
+
+
 .qatitle {
 	padding-top: 15px;
 }
@@ -132,3 +134,17 @@ color:#336699}
 margin-left:20px;}
 .infocenter_right2{border-bottom: 1px solid #e2e2e2;padding-left:0px;}
 
+.gotop{
+    
+    width:55px;
+    height:55px;
+}
+.gobackTop{
+	display:none;
+	width:50px;
+	height:80px;
+	float:left;
+	position:fixed;
+    right:10px;
+    bottom:100px;
+}

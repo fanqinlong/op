@@ -166,6 +166,8 @@ GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 
 
 
+POST /UserSurvey/index               		       UserSurvey.index
+
 #Info and Jobs
 
 GET 				/about    					                        Info.about
