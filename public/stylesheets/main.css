@@ -51,11 +51,21 @@
 	padding: 3px 8px;
 }
 .container-op {
+	margin-top: 70px !important;
 	padding: 20px;
 	margin: 20px auto;
 	border: 1px solid #ccc;
 	background-color: #FFF;
-	padding-left:50px;
+}
+.icon-bar {
+background-color: #fff;
+}
+.container-op1 {
+ 
+	padding: 20px;
+	margin: 20px auto;
+	border: 1px solid #ccc;
+	background-color: #FFF;
 }
 img.profile-lg{
 	height:150px;
@@ -67,5 +77,9 @@ img.profile-sm{
 	height:30px;
 }
 
-
-
+.bs-callout-info{
+background-color: #f4f8fa;
+border-color: #bce8f1;margin: 20px 0;margin-top:0px;
+padding: 20px;
+border-left: 3px solid #eee;
+}

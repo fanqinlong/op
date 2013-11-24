@@ -65,9 +65,9 @@ GET					/cssa/homepage/{userid}								     CSSAs.homePage
 GET					/cssa/preview/{userid}								     CSSAs.preview
 GET					/cssa/detail/{id}							             CSSAs.detail
 GET					/cssa/userQues/{id}							             CSSAs.userQues
-GET					/cssa/homepage/{userid}									 CSSAs.homePage
-GET					/cssa/preview/{userid}									 CSSAs.preview
+
 GET  				/cssa/question                              			 CSSAs.cssaQues
+
 
 
 

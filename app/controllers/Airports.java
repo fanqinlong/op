@@ -120,11 +120,6 @@ public class Airports extends Application {
 		}else if (s.date.equals("")) {
 			validation.keep();
 			params.flash();
-			flash.error("请正确填写机票上的到达日期");
-			addStuInfo(sid);
-		}else if (s.time.equals("")) {
-			validation.keep();
-			params.flash();
 			flash.error("请正确填写机票上的到达时间");
 			addStuInfo(sid);
 		}else if (s.luggage.equals("")) {

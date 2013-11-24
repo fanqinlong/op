@@ -115,7 +115,7 @@ $('#modal').on('hidden', function() {
 
   
 </div>
-<div class="container container-op">
+<div class="container container-op1">
 		<div class="group1">
 				#{list items:qArticles,as:'qa'}
 				<div style="width:665px;">
@@ -155,7 +155,7 @@ $('#modal').on('hidden', function() {
 								
 								<li  class="sq">
 									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
-										<span >${qa.ques.content.raw()}</span>
+										<span ><pre>${qa.ques.content.raw()}</pre></span>
 									</div>
 								</li>
 								<li class="sq">

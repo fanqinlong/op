@@ -7,20 +7,31 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>奥噗 - #{get 'title' /}</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<script type="text/javascript" src="../../../public/javascripts/jquery.js"></script>
-<script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
-<script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
+ <link href="/public/stylesheets/media-queries.css" rel="stylesheet"/>
+<script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
+<script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
+<script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
 #{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
-	<header class="navbar  navbar-op" role="navigation">
+	<header class="navbar  navbar-op navbar-fixed-top bs-docs-nav " role="navigation" style="min-height: 40px;height: 40px;">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}">
+ <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".bs-navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+			
+			
+				<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}" style="
+    margin-top: -5px;padding-top:3px;
+">
 				</a>
 			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
+			<nav class="navbar-collapse collapse bs-navbar-collapse" role="navigation" style="background-color:#336699;overflow-y: hidden;">
+				<ul class="nav navbar-nav ">
 					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
@@ -40,11 +51,13 @@
 -->
 				<ul class="nav navbar-nav navbar-right navbar-no-bg">
 					#{if connectedSimpleUser}
+					<li class="img-w-3"><a href="@{SimpleUsers.infoCenter()}" style="padding:3px 0px 0px 0px ;"><img src=" ${connectedSimpleUser.profile}" ></a></li>
 					<li><a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a></li>
 					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
 					</a></li>
 					<li><a href="@{SimpleUsers.logout}"> <i class=" icon-off"></i>
 					</a></li> #{/if} #{elseif connectedCSSA}
+					<li class="img-w-3"><a href="@{CSSAs.infoCenter()}" style="padding:3px 0px 0px 0px ;"><img src=" ${connectedCSSA.school.profile}" ></a></li>
 					<li><a href="@{CSSAs.infoCenter()}"> ${connectedCSSA.school.name} CSSA</a></li>
 					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
 					</a></li>
@@ -60,6 +73,9 @@
 		</div>
 	</header>
 
+
+
+
 	<!-- container begin -->
 	<div class="container container-op clearfix">
 		#{if flash?.error}
@@ -73,7 +89,9 @@
 		#{/if} #{doLayout /}
 	</div>
 	<!-- container end -->
-	<div class="gobackTop" id="gobackTop">
+
+
+<div class="gobackTop" id="gobackTop">
 		<div id="gotop" ><img src="/public/images/button_top_.png" id="Top" onmouseout="onmouseoutTop()" onmouseover="onmouseoverTop()"> </div>
 		<div style="margin-top:2px;"  data-toggle="modal" data-target="#myModa2"><img src="/public/images/button_suggest_.png" id="opinion"  onmouseout="mouseout()" onmouseover="mouseover()"> </div>
 	</div>
@@ -132,36 +150,33 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 	
-	
-	
-	
-	
-	<footer class="navbar-op-footer " style="bottom: 0px; width: 100%; margin-top: 30px;">
-		<div class="container ">
-			<ul class="nav navbar-nav " style="margin-left: 25%;">
-				<li><a href="@{Info.about}" class="navbar-brand">&copy; opporlink&nbsp; 奥噗</a></li>
-				<li><a href="@{Info.contact}" class="list3">联系我们</a></li>
-				<li><a href="@{Info.jobs}" class="list3">加入奥噗</a></li>
 
+	
+	<footer class="navbar-op-footer  col-md-12 ">
+		<div class="container col-md-offset-4" >
+		
+			<ul class="nav navbar-nav">
+				<li><a href="@{Info.about}" class="list3 pull-left" >&copy; opporlink&nbsp; 奥噗</a></li>
+				<li><a href="@{Info.contact}" class="list3 pull-left">联系我们</a></li>
+				<li><a href="@{Info.jobs}" class="list3 pull-left">加入奥噗</a></li>
+				 	<li><a href="http://weibo.com/u/3630148044" target="view_window" class="list3 pull-left"> <img src="/public/images/share_weibo.png"   class="list-3" alt="" /></a></li>
 			</ul>
-
-			<P class="navbar-text ">
-				<a href="#"> <img src="/public/images/share_facebook.png" />
-				</a> <a href="#"> <img src="/public/images/share_google+.png" alt="" />
-				</a> <a href="#"> <img src="/public/images/share_twitter.png" alt="" />
-				</a> <a href="#"> <img src="/public/images/share_weibo.png" alt="" />
-				</a>
-			</p>
+		
+		 
 		</div>
 	</footer>
+ 
+	
+	
+ 
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-git.min.js"></script>
-	<script src="../../public/jcrop/js/jquery.Jcrop.min.js"></script>
-	<script src="../../public/jcrop/js/script.js"></script>
+	<script src="@{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
+	<script src="@{'public/jcrop/js/script.js'}"></script>
 
 	#{get 'Scripts' /}
-	<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function() {
 			$(".alert").delay(3000).slideUp("slow");
 		});
@@ -212,7 +227,6 @@ bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 
 
 	</script>
-	
-	
 </body>
 </html>
+

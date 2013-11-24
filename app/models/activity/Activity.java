@@ -41,7 +41,7 @@ public class Activity extends Model {
 	public List<Time> time;
 	@Required
 	public String location;
-	@Required
+
 	public String zip;
 	public String poster;	
 	@Required

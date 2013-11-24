@@ -70,7 +70,7 @@
 </div>
 <a href="@{Activities.Create}" class="btn btn-success btn-lg pull-right">发起活动</a>
 </div>
-<div class="container container-op" >
+<div class="container container-op1" >
 
 #{list items:frontpageActivity,as:'fa'}
 <div class="col-md-2 activity-item-frontpage ">
@@ -152,8 +152,8 @@
 
 #{set 'Scripts'}
 <script type="text/javascript">
-$('#modal').on('hidden', function() {
-    $(this).removeData('modal');
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
 });
 </script>
 #{/set}

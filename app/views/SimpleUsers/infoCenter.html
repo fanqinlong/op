@@ -1,25 +1,23 @@
-
-#{extends 'main.html' /} #{set title:user.name /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} 
-#{include 'SimpleUsers/infoCenterTop.html' /}
+#{extends 'main.html' /} #{set title:user.name /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} #{include 'SimpleUsers/infoCenterTop.html' /}
 <div class="row mg-top-3">
 	#{include 'SimpleUsers/infoCenterNav.html' /}
 	<div class="col-md-8">
-		<ul class="nav nav-tabs">
-			<li class="active"><a> 我的最新动态</a></li>
+		<ul class="nav nav-tabs nav-tabs1" >
+			<li class="active"><a>#{if isInfoCenter} 我 #{/if}#{else} TA #{/else}的最新动态</a></li>
 		</ul>
 
 		<div class=" mg-top-5">
 			#{list items:trends,as:'trend'}
-			<div class=" trend">
+			<div class=" trend row">
 				#{if trend.type.equals("activity")}
-				<div class="col-md-1 profile">
+				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5" href="">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
-				<div class="activity" style="margin-top:25px;">
+				<div class="activity col-md-11" style="margin-top:25px;">
 					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
-					${trend.action} ${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA.school.name+"CSSA")} 发布的活动：
+					${trend.action} ${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} 发布的活动：
 					<div class="detail">
 						<p>
 							"
@@ -57,8 +55,13 @@
 					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
 					的回答
 					<br />
+					${trend.c.comment}
 				</div>
 				#{/elseif}
+				#{elseif trend.type.equals("wel")}
+					${trend.time}你关注了<a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a>这条公益活动
+				#{/elseif}
+
 		</div>
 		#{/list}
 	</div>

@@ -38,8 +38,13 @@ $(function() {
 		<a href="@{Activities.allownJoiner(joiner.id)}" rel="popoverx" data-content="> ${joiner.selfIntro}"  title="" data-original-title="申请者介绍">
 			<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
 		</a>
-		<br />
-		#{/else} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")}
+		<br/>
+		
+		#{/else}
+		#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null}
+				 <img alt="" src="@{'public/images/edu.png'}"> #{/if}
+		
+		 #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")}
 		<img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male">
 		#{/if} #{elseif joiner.joiner.gender!=null}
 		<img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male">
@@ -59,9 +64,5 @@ $(function() {
 		#{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
 	</div>
 	#{/list} #{/else}
-
-
-
-
 
 </div>

@@ -13,7 +13,11 @@
             #{/if}#{else}
             <img src="@{'public/images/data_card_female.png'}" />
             #{/else}
-             ${user.name}</h3><p>签名：${user.selfIntro==null?"TA 还没表达自己的个性。":user.selfIntro}</p></div>
+             ${user.name}
+             	#{if user.eduMail!=null &&user.eduMailConfirmation==null}
+				 <img alt="" src="@{'public/images/edu.png'}"> #{/if}
+             
+             </h3><p>签名：${user.selfIntro==null?"TA 还没表达自己的个性。":user.selfIntro}</p></div>
             <div class="col-md-2"><a href="@{Messaging.sendTo('simple',user.id)}"><i class=" icon-envelope-alt"></i>发私信</a></div>
             </div>
             <div class="mg-top-2"><span>
