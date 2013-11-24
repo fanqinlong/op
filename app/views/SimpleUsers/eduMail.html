@@ -6,7 +6,7 @@
 <div class="form-group ${errors.forKey('eduMail') ? 'has-error' : ''}">
 	<label for="eduMail" class="col-md-2 control-label">EDU邮箱</label>
 	<div class="col-md-3 ">
-		<input type="text" name="eduMail" value="${edumail}" id="eduMail" class="form-control" />
+		<input type="email" name="eduMail" value="${edumail}" id="eduMail" class="form-control" />
 	</div>
 	<span class="col-md-3">#{error 'eduMail' /}</span>
 </div>

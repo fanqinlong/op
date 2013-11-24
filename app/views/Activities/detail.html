@@ -1,14 +1,27 @@
 #{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
 	<div class="col-md-9">
- 
-	
-	 <div class="bs-callout bs-callout-info" style="">
+ #{if a.isCanceled}
+		<div class="bs-callout bs-callout-info">
+ 			<div>
+			<img src="/public/images/browsers_!.png" class="pull-left" style="margin-top: -15px;">
+			<h4 class="text-info">   Sorry，该活动已被
+${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}取消，您可以再看看其他活动 </h4>
+		
+			<h6 class="text-muted" style="margin: 20px;">
+				取消原因：${a.canceledReasion}
+			</h6>
+		</div>
+	</div> 
+	#{/if}
+	<!-- <div class="bs-callout bs-callout-info" style="">
 #{if a.isCanceled}
+			 
       <h4 class="text-danger">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}  取消了活动，原因:</h4>
       <p>${a.canceledReasion}	</p>
   #{/if}
   </div>
+  -->
 		<div class="row">
 			<div class="col-md-5">
 				<img src="${a.poster}" class="img-thumbnail">
@@ -185,6 +198,11 @@
 					</a>
 			</div>
 			<div>
+				
+			
+			
+			
+			
 				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} <a href="@{Messaging.sendTo('cssa',a.publisherCSSA.id)}"><i class="icon-envelope-alt"></i><small class="name">发私信</small></a> #{/if}
 				#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
 				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name}
@@ -232,10 +250,11 @@
 </div>
 
 #{set 'Scripts'}
+
 <script type="text/javascript">
-$('body').on('hidden.bs.modal', '.modal', function () {
-    $(this).removeData('bs.modal');
-});
+	$('#modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
 </script>
 #{/set}
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

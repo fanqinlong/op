@@ -181,6 +181,9 @@ public class Charities extends Application{
 			SimpleUsers.login();
 		}
 		
+		
+		
+		
 		String userType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");

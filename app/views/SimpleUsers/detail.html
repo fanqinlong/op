@@ -1,50 +1,53 @@
 #{extends 'main.html' /}
 
-<div class="row infocenter_1">
+<div class="row infocenter_1" >
 
-	<div class="col-md-2 infocenter_left2">
-		#{list items:simple,as:'s'} <img src="${s.profile}" class="infocenter_left2_pic">
-		<p class="infocenter_left_content">${s.name}</p>
-		<p class="infocenter_left_content">
-			<a href="@{SimpleUsers.detail(s.id)}">
-				<img src="@{'public/images/category.png'}"> 发起的活动
-			</a>
-		</p>
-		<p class="infocenter_left_content">
-			<a href="@{SimpleUsers.userQues(s.id)}">
-				<img src="@{'public/images/category.png'}"> 提出的问题
-			</a>
-		</p>
-		<p class="infocenter_left_content">
-			<a class="btn btn-primary" href="@{Messaging.sendTo('simple',s.id)}">发站内信</a>
-		</p>
-		#{/list}
-	</div>
-
-	<div class="col-md-8 infocenter_8">
-		<h3 class="infocenter_title">TA发起的活动</h3>
-		<!--中间内容-------------------------------------------------------------------->
-
-		#{list items:simple,as:'s'}
-		<p>${s.name} 发起的活动</p>
-		#{/list} #{list items:activities,as:'a'}
-		<div class="infocenter_content_user">
-			<p>
-				"
-				<a href="@{Activities.detail(a.id)}">${s.name}</a>
-				"
-			</p>
-			<p>
-				<img class="infocenter_activity_pic" src="${a.poster}" class="img-polaroid">
-			</p>
-			<span class="infocenter_users">${a.postAt}</span> <span class="infocenter_users1">参加(10) </span> <span class="infocenter_users">关注（10） </span> <span class="infocenter_users">浏览(${a.views})</span>
-		</div>
-		#{/list}
-
-
-		<!--中间内容-------------------------------------------------------------------->
-	</div>
-	<div class="col-md-2 infocenter_right2">
-		<img src="/public/images/msg/msg_ad.png">
-	</div>
+  <div class="col-md-2 infocenter_left2" >
+  #{list items:simple,as:'s'}
+  	 <img src="${s.profile}" class="infocenter_left2_pic" >
+  	 <p  class="infocenter_left_content">${s.name}</p>
+  	 <p class="infocenter_left_content"><a href="@{SimpleUsers.detail(s.id)}"><img src="@{'public/images/category.png'}"> 发起的活动</a></p>
+	 <p class="infocenter_left_content"><a href="@{SimpleUsers.userQues(s.id)}"><img src="@{'public/images/category.png'}"> 提出的问题</a></p>
+	 <p class="infocenter_left_content"> <a class="btn btn-primary" href="@{Messaging.sendTo('simple',s.id)}">发站内信</a></p>
+  #{/list}
+  </div>
+  
+  
+  
+  <div class="col-md-8 infocenter_8" style="">
+   #{list items:simple,as:'s'}
+  	<h3  class="center_left" style="">${s.name}发起的活动</h3>
+  	 #{/list}
+  	<hr>
+  	
+ <!--中间内容-------------------------------------------------------------------->
+  <!--中间内容-------------------------------------------------------------------->
+ 
+		 #{list items:activities,as:'a'}
+		  <div class="infocenter_content_user"  > 
+		  <p  class="center_left">"<a href="@{Activities.detail(a.id)}">${s.name}</a>"</p>
+		  <p> 
+		  <img class="infocenter_activity_pic center_left"    src="${a.poster}" class="img-polaroid">
+		  </p>
+			<span class="infocenter_users center_left" >${a.postAt}</span> 
+			 <span class="infocenter_users1" >参加(10) </span>
+			 <span class="infocenter_users">关注（10） </span>
+			 <span class="infocenter_users">浏览(${a.views})</span>
+			 </div>	
+			 #{/list}
+		
+		
+		 <!--中间内容-------------------------------------------------------------------->
+  </div>
+	  
+	  
+	  
+	  
+  <div class="col-md-2 infocenter_right2"   >
+  
+  	
+  <img src="/public/images/msg/msg_ad.png">
+  
+  </div>
 </div>
+

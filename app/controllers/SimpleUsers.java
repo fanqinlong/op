@@ -132,6 +132,7 @@ public class SimpleUsers extends Application {
 		connectSimple(user);
 		flash.success("Welcome %s ! EDU邮箱验证成功，请完善个人信息。", user.name);
 		updateProfile();
+
 	}
 
 	public static void eduMail() {

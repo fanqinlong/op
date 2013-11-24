@@ -7,7 +7,16 @@
 	<div class="col-md-8">
 		<h3>
 			${user.name}
-			<small> &nbsp; <a href="@{SimpleUsers.ChangeEmail(user.id)}"> 登录邮箱 </a>/ <a href="@{SimpleUsers.changePassword()}"> 密码</a></small>
+			
+			#{if user.eduMail!=null && user.eduMailConfirmation==null}
+				 <img alt="" src="@{'public/images/edu.png'}"> #{/if}
+				 #{if user.gender.equals("女")}	 
+				<img src="@{'public/images/active_detailed_gender-proportion_female.png'}">
+				#{/if}#{elseif user.gender.equals("男")}
+				<img src="@{'public/images/active_detailed_gender-proportion_male.png'}">
+				#{/elseif}
+				
+			<small> &nbsp; <a href="@{SimpleUsers.ChangeEmail(user.id)}" > 修改邮箱 </a>/ <a href="@{SimpleUsers.changePassword()}"> 修改密码</a></small>
 		</h3>
 		<h6>
 			<span>

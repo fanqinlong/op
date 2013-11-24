@@ -76,10 +76,13 @@ list-style:none;
 
 }
 .img-w-3 img{
-	width:30px;
+	width:32px;
+}
+.img-w-4 img{
+	width:48px;
 }
 .img-w-5 img{
-	width:50px;
+	width:48px;
 }
 .img-w-9 img{
 	width:90px;
