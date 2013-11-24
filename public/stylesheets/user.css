@@ -12,10 +12,6 @@
 	width: 70%;
 }
 
-.woqu {
-	width: auto;
-	margin-left: -15%;
-}
 
 .qatitle {
 	padding-top: 15px;
@@ -23,9 +19,8 @@
 
 .userinforleft {
 	float: left;
-	width: 88px;
-	padding-top: 50px;
 	text-align: right;
+	padding-top:20px;
 }
 
 .userinforright {
@@ -91,7 +86,6 @@ line-height:25px;
 }
 .sqinfo{
 border-bottom:1px solid #dddddd;
-margin-left:10px; 
 padding-bottom:5px; 
 width:60%;
 }
@@ -114,20 +108,20 @@ text-rendering:optimizelegibility;
 padding-left:10px;
 }
 .sq{
-padding-top:5px;
+padding-top:12px;
 }
 
 .infocenter_left2{
 border-bottom: 1px solid #e2e2e2;
 }
 .infocenter_left2_pic{
-width:163px;
-margin-top:30px;
-
+width:100px;
+margin:30px;
 }
 .infocenter_8{
 border-left:1px solid #e2e2e2;
-border-right:1px solid #e2e2e2;}
+border-right:1px solid #e2e2e2;
+padding:0px;}
 .infocenter_left_content{
 text-align:center}
 .infocenter_title{
@@ -146,5 +140,14 @@ margin-left:20px;}
 margin-left: -22px;
 margin-top: -20px;
 }
-
-
+.center_left{
+	margin-left:30px;
+	
+}
+.navbar-nav>li>a {
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.nav-tabs1{
+	margin-left:-15px;
+}
