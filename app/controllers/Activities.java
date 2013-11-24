@@ -65,17 +65,14 @@ public class Activities extends Application {
 			isWeekend = true;
 		List<Activity> a;
 		if (isWeekend) {
-			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <= ? and t.date>=? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ?  order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
+			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <= ? and t.date>=? and t.isWeekend=true and  a.type.name like ? and a.scope.scope like ? and a.isPublished=true  order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		} else {
-			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <=? and t.date>=? and   a.type.name like ? and a.scope.scope like  ? order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
+			a = Activity.find("select distinct a from Activity a join a.time as t  where t.date <=? and t.date>=? and   a.type.name like ? and a.scope.scope like  ? and a.isPublished=true order by " + orderby + " isTop desc ,isHot desc, isChecked desc,views desc,t.date asc", deadline, nowtime, "%" + type + "%", "%" + scope + "%").fetch();
 		}
-
 		List<Activity> frontpageActivity = Activity.find("select distinct a from Activity a join a.time as t  where isFrontPage = true and t.date>= ? order by views desc ", nowtime).fetch(6);
-
 		List<Type> t = Type.find("order by sequence asc").fetch();
 		List<Scope> s = Scope.find("order by sequence asc").fetch();
 		List<Period> p = Period.find("order by sequence asc").fetch();
-
 		render(a, t, s, p, days, type, scope, frontpageActivity, orderName);
 	}
 
