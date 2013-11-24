@@ -632,7 +632,6 @@ public class Activities extends Application {
 					}
 				}
 			}
-
 		} else {
 			flash.error("这不是您发布的活动，取消失败。");
 			if (usertype.equals("cssa")) {

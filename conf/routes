@@ -66,6 +66,9 @@ GET					/cssa/preview/{userid}								     CSSAs.preview
 GET					/cssa/detail/{id}							             CSSAs.detail
 GET					/cssa/userQues/{id}							             CSSAs.userQues
 
+GET  				/cssa/question                              			 CSSAs.cssaQues
+
+
 
 
 #Airport
@@ -161,7 +164,9 @@ GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 
-GET  /QuestAnsw/cssaQues                               QuestAnsw.cssaQues
+
+
+POST /UserSurvey/index               		       UserSurvey.index
 
 #Info and Jobs
 

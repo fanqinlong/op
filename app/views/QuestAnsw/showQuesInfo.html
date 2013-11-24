@@ -14,7 +14,6 @@
 				#{list items:fQ,as:'findListQues'}
 				<ul style="padding-bottom:5px; padding-left:0px;"  >
 					<li  class="qatitle">	
-						<i class=" icon-lightbulb"></i>
 						<span  style="font-size:17px; color:#000000; font-weight:bold;" class="ql">${findListQues.title}</span>
 						#{if isSimple}
 							#{if UserQues}
@@ -34,7 +33,7 @@
 					</li>
 				
 					<li class="qatitle">
-						<i class="icon-bookmark-empty"></i>	<span  class="ql">${findListQues.label}</span>
+							<span  class="ql">${findListQues.label}</span>
 					</li>
 					#{if findListQues.usertype == "cssa"}
 					<li class="qatitle">
@@ -43,30 +42,25 @@
 						<span class="qatitlea linkf ql">
 						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
 						</a>
-						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}11111111</div>
+						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+
 					</li>
 					#{/if}
 					#{else}
 						<li class="qatitle">
+
 						<i class="icon-user  pull-left"></i>
 						<a href="@{SimpleUsers.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
 						<img src="${findListQues.userprofile}"  class="pull-left" style="width:40px;"/></span>
 						</a>
 						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username}
-						 
 						${findListQues.selfIntro}
-						
-						
-						
 						</div>
-						
-						
-						
+
 					</li>
 					#{/else}
 					<li class="qatitle" style="padding-bottom:25px;">
-					<i class="icon-spinner icon-spin"></i>
 						<div class="qatitlea linkf sinfc"  >
 						${findListQues.content.raw()}
 						</div>
