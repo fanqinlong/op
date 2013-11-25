@@ -10,6 +10,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 .container-op{
 	font-size:14px;
 }
+.navbar-nav>li>a {
+padding-top: 10px;
+padding-bottom: 10px;
+}
 .navbar-brand {
 	padding: 5px;
 }
@@ -76,10 +80,13 @@ list-style:none;
 
 }
 .img-w-3 img{
-	width:30px;
+	width:32px;
+}
+.img-w-4 img{
+	width:48px;
 }
 .img-w-5 img{
-	width:50px;
+	width:48px;
 }
 .img-w-9 img{
 	width:90px;

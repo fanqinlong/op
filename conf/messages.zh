@@ -1,3 +1,4 @@
+
 # 系统通知模板
 # NT_TITLE_<tmpl_id>=通知标题
 # NT_CONTENT_<tmpl_id>=通知内容

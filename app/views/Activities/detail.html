@@ -1,6 +1,27 @@
 #{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
 	<div class="col-md-9">
+ #{if a.isCanceled}
+		<div class="bs-callout bs-callout-info">
+ 			<div>
+			<img src="/public/images/browsers_!.png" class="pull-left" style="margin-top: -15px;">
+			<h4 class="text-info">   Sorry，该活动已被
+${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}取消，您可以再看看其他活动 </h4>
+		
+			<h6 class="text-muted" style="margin: 20px;">
+				取消原因：${a.canceledReasion}
+			</h6>
+		</div>
+	</div> 
+	#{/if}
+	<!-- <div class="bs-callout bs-callout-info" style="">
+#{if a.isCanceled}
+			 
+      <h4 class="text-danger">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}  取消了活动，原因:</h4>
+      <p>${a.canceledReasion}	</p>
+  #{/if}
+  </div>
+  -->
 		<div class="row">
 			<div class="col-md-5">
 				<img src="${a.poster}" class="img-thumbnail">
@@ -25,19 +46,19 @@
 					<div class="details">
 						<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
 					</div>
-					<div class="details">
-						<span class="pic-leftTitle">发起人：</span> <span class="At_info">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name + " CSSA")}</span>
-					</div>
+					
 					#{if isAllown || isOwner}
 					<div class="details">
 						<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
 					</div>
 					#{/if}
+					<!-- 
 					<div class="details">
 						<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
 					</div>
+					!-->
 					<div class="details">
-						<span class="pic-leftTitle">是否公开参加：</span> <span class="At_info">${a.isOpen?"是":"否"}</span>
+						<span class="pic-leftTitle">是否需要报名：</span> <span class="At_info">${a.isOpen?"否":"是"}</span>
 					</div>
 					#{if !a.isOpen}
 					<div class="details clearfix">
@@ -68,11 +89,13 @@
 						#{if !a.isOpen && !isOwner}
 						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
 						#{/if}
-						#{if !isOwner}
-						<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}">关注</a>
-						#{/if}
+						
 						#{if !a.isOpen}
-						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
+						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">参加者</a>
+						#{/if}
+						
+						#{if !isOwner}
+						<a href="@{Activities.like(a.id)}" class="btn btn-danger ${hasLiked?'disabled':''}" title="Link后，您将收到此活动最新的动态。">Link !</a>
 						#{/if}
 					</div>
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -85,7 +108,6 @@
 								<div class="modal-body">
 									<form action="@{Activities.join}" class="form-horizontal" method="POST">
 										<textarea class="form-control" name="selfIntro" rows="3"></textarea>
-
 										<input type="hidden" name="aid" value="${a.id}">
 										<br />
 										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -103,18 +125,14 @@
 
 			</div>
 		</div>
-		<div>#{if a.isCanceled}
-				<h3 class="text-danger">	${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}  取消了活动，原因:<small>${a.canceledReasion}	</small>			
-					#{/if}
-					</h3>
-					</div>
+		
 		<div>
 			<h3>活动介绍</h3>
-			<p>${a.intro}</p>
+			<p>${a.intro.raw()}</p>
 		</div>
-		#{if date > a.time.last().date && (isAllown || isOwner)}
+		
 		<div id="comment">
-
+#{if date > a.time.last().date && (isAllown || isOwner) && !a.isCanceled}
 			#{form @comment(), method:'get',class:'form-horizontal'}
 			<h4 style="color: #336699; margin-top: 30px;">参加了一次神奇的活动之后，我想说：</h4>
 			<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}">
@@ -137,15 +155,20 @@
 					<input type="submit" class="btn btn-primary col-sm-offset-2" value="晒晒">
 				</div>
 			</div>
-			#{/form} #{list items:a.comment,as:'comment'}
+		
+			#{/form}
+				#{/if}
+			#{if date > a.time.last().date}
+			 #{list items:a.comment,as:'comment'}
 			<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
 				<img style="width: 40px; height: 40px;" src=${comment.publisher.profile} /> <strong>${comment.publisher.name}:${comment.tag}</strong><span style="float: right;">${comment.publishedAt}</span>
 				<br />
 				<span style="padding-left: 50px;">${comment.comment}</span>
 			</div>
 			#{/list}
+			#{/if}
 		</div>
-		#{/if}
+		
 	</div>
 	<!--  地图  -->
 	<div class="col-md-3">
@@ -157,10 +180,11 @@
 		<div class="map">
 			<h4 class="activity-title3">
 				活动地图 #{if isAllown || isOwner}
-				<a href="https://maps.google.com/?q=${a.location}" target="_blank">点击查看详细地图 </a>
+				
+				<a href="https://maps.google.com/?q=${a.location.replaceAll(" ","+")}" target="_blank">点击查看详细地图 </a>
 				#{/if}
 			</h4>
-			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location}&sensor=false" alt="">
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(" ","+")}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll(" ","+")}&sensor=false" alt="">
 		</div>
 
 		<div class="person">
@@ -174,6 +198,11 @@
 					</a>
 			</div>
 			<div>
+				
+			
+			
+			
+			
 				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} <a href="@{Messaging.sendTo('cssa',a.publisherCSSA.id)}"><i class="icon-envelope-alt"></i><small class="name">发私信</small></a> #{/if}
 				#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
 				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name}
