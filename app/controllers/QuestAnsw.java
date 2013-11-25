@@ -13,6 +13,7 @@ import play.mvc.Before;
 import models.activity.Activity;
 import models.qa.AgreeComment;
 import models.qa.Attention;
+import models.qa.ChildComment;
 import models.qa.Comments;
 import models.qa.FocusQues;
 import models.qa.Ques;
@@ -119,6 +120,7 @@ public class QuestAnsw extends Application {
 		Ques ques = Ques.findById(quesid);
 		QuesTitle = ques.title;
 		ques.answerNum = ques.answerNum + 1;
+
 		ques.save();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
@@ -159,6 +161,7 @@ public class QuestAnsw extends Application {
 		Ques ques = Ques.findById(quesid);
 		QuesTitle = ques.title;
 		ques.answerNum = ques.answerNum + 1;
+		ques.focusNum = ques.focusNum + 1;
 		ques.save();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
@@ -296,7 +299,7 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchPage(long id, long question_id) {
-		List<Tag> t = Tag.findAll();
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
 		List<Ques> aQues = Ques.find("order by date desc").fetch(5);
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 				.count() / 5 + 1);
@@ -311,11 +314,15 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
-		render(t, qArticles, pageCount);
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()){
+			contentIsEmpty = true;
+		}
+		render(t, qArticles, pageCount,contentIsEmpty);
 	}
 
 	public static void searchQues(String ques) {
-		List<Tag> t = Tag.findAll();
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE title LIKE ?",
 				"%" + ques + "%").fetch(5);
 
@@ -331,10 +338,27 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount);
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()){
+			contentIsEmpty = true;
+		}
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,contentIsEmpty);
 	}
 
 	public static void searchTag(String tag) {
+		
+		List<Tag> tg = Tag.find("tagName = ?",tag).fetch();
+		Iterator iter = tg.iterator();
+		Long tagid = null;
+		while(iter.hasNext()){
+			Tag ta = (Tag)iter.next();
+			tagid=ta.id;
+		}
+		Tag tagg = Tag.findById(tagid);
+		tagg.themeid = tagg.themeid+1;
+		tagg.save();
+		
+		
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
 				"%" + tag + "%").fetch(5);
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
@@ -349,8 +373,12 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
-		List<Tag> t = Tag.findAll();
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount);
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()){
+			contentIsEmpty = true;
+		}
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,contentIsEmpty);
 	}
 
 	public static void showQuesInfo(long id) {
@@ -522,12 +550,12 @@ public class QuestAnsw extends Application {
 
 	public static void deleteQues(long id, int pageNum) {
 		Ques dques = Ques.findById(id);
-		
+
 		System.out.println(dques);
 		System.out.println(dques.id);
-		
+
 		dques.delete();
-		
+
 		List<Tag> t = Tag.findAll();
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 				.count() / 5 + 1);
@@ -555,6 +583,7 @@ public class QuestAnsw extends Application {
 	public static void deleteComent() {
 		render();
 	}
+
 	public static void fcousOnQuestion(long id) {
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
@@ -662,7 +691,7 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void searchSchool(String school) {
-		List<Tag> t = Tag.findAll();
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE school LIKE ?",
 				"%" + school + "%").fetch(5);
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
@@ -677,7 +706,11 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount);
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()){
+			contentIsEmpty = true;
+		}
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,contentIsEmpty);
 	}
 
 	public static void userQues() {
@@ -956,6 +989,28 @@ public class QuestAnsw extends Application {
 		Ques ques = Ques.findById(id);
 		List<FocusQues> allFoll = FocusQues.find("quesId = ?", id).fetch();
 		render(ques, allFoll);
+	}
+
+	public static void addChildComment(Long quesid, Long cUserid,
+			String cUserName, String cUserType, String comments) {
+		if (session.get("logged") == null) {
+			flash.error("请登录!");
+			SimpleUsers.login();
+		} else {
+			String userType = session.get("usertype");
+			long userId = Long.parseLong(session.get("logged"));
+			String userName = null;
+			if (userType.equals("cssa")) {
+				CSSA cssa = CSSA.findById(userId);
+				userName = cssa.school.name;
+			} else {
+				SimpleUser simp = SimpleUser.findById(userId);
+				userName = simp.name;
+			}
+			new ChildComment(cUserid, cUserName, cUserType, quesid, comments,
+					userId, userName, userType);
+		}
+		render();
 	}
 
 }
