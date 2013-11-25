@@ -37,20 +37,27 @@
 					</li>
 					#{if findListQues.usertype == "cssa"}
 					<li class="qatitle">
+						<i class="icon-user"></i>
 						<a href="@{CSSAs.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
 						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
 						</a>
 						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+
 					</li>
 					#{/if}
 					#{else}
 						<li class="qatitle">
+
+						<i class="icon-user  pull-left"></i>
 						<a href="@{SimpleUsers.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
-						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
+						<img src="${findListQues.userprofile}"  class="pull-left" style="width:40px;"/></span>
 						</a>
-						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username}
+						${findListQues.selfIntro}
+						</div>
+
 					</li>
 					#{/else}
 					<li class="qatitle" style="padding-bottom:25px;">
@@ -84,6 +91,7 @@
 				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/images/1-2.png"> ${ac.praiseNum}票 ,</a>
 				    			 <span style="color:#999999;font-size:10px; margin-left:10px;">${ac.date}</span>
 				    			 <div style="float:right;margin-top:-30px;">
+	 								
 								 </div> 
 				    		</li>
 				    		<li class="qatitle" style="line-height:25px; margin-left:-40px;">

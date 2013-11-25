@@ -44,25 +44,27 @@ public class Charities extends Application{
 			if(su.isAdmin == true){
 			renderArgs.put("isAdmin",true);		
 			}
-			
-			
-		}
+		 }
 	}
 	
 	public static void fabu() {
 		if(session.get("logged") == null) {
                         Charities.pigination(1);
                 }
-                SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
-                if(su.isAdmin == false){
+               
+		render();
+	 }	
+	public static void smfabu() {
+		if(session.get("logged") == null) {
                         Charities.pigination(1);
-                        
                 }
+               
 		render();
 	 }	
  
+ 
 	@SuppressWarnings("unused")
-	public static void WelSave(String title,String content,String time,File f,String  generalize,int likerCount) {
+	public static void WelSave(String title,String content,String time,File f,String  generalize,int likerCount,boolean isChecked) {
 		 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
@@ -78,7 +80,7 @@ public class Charities extends Application{
 			String path = "/public/images/upload/"+fileName;
 			Files.copy(f,Play.getFile(path));
 			
-			Wel w = new Wel(title,content,d,path, generalize,likerCount);
+			Wel w = new Wel(title,content,d,path, generalize,likerCount,true);
 			wel();
  	}else{
 			 
@@ -91,14 +93,53 @@ public class Charities extends Application{
 		} 
 	}	
 	 
+	
+	public static void SmWelSave(String title,String content,String time,File f,String  generalize,int likerCount,boolean isChecked) {
+		 
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
+		String d = (df.format(Calendar.getInstance().getTime()));
+		
+		//上传图片
+		 
+		if(f!=null){
+			String fileName = f.getName();
+			String extName = fileName.substring(fileName.lastIndexOf("."));
+			UUID uuid = UUID.randomUUID();
+			fileName = uuid.toString() + extName;
+			
+			String path = "/public/images/upload/"+fileName;
+			Files.copy(f,Play.getFile(path));
+			
+			Wel w = new Wel(title,content,d,path, generalize,likerCount,false);
+			
+			wel();
+ 	}else{
+			 
+			 validation.keep();
+			 params.flash();
+			 flash.error("请上传封面图片");
+			 
+			 fabu();
+			
+		} 
+	}	
+	
+	public static void pass(Long id){
+		
+		  Wel w = Wel.findById(id);
+		  w.isChecked = true;
+		  w.save();
+		  render(w);
+		}
+	
+	
+	
  
  	public static void wel() {
-		List<Wel> we= Wel.find("order by likerCount desc").fetch(5);
-		long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
-		int pageNo = (int) (Wel.count()/5);
-		render(we,pageCount,pageNo );
+ 		 
 	}	
  
+ 	
 	public static void edit(long id,int pageNo){
 		if(session.get("logged") == null) {
 			Charities.pigination(1);
@@ -144,7 +185,7 @@ public class Charities extends Application{
 	
 	public static void del(long id,int pageNo){
 		if(session.get("logged") == null) {
-			Charities.pigination(1 );
+			Charities.pigination(1);
 		}
 		SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
 		if(su.isAdmin == false){
@@ -160,28 +201,37 @@ public class Charities extends Application{
 
 
 	public static void pigination(int pageNo) {
-		long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
-		
-		
-		if(pageNo < 1) {
-			pageNo =  1;
+	 
+		if(session.get("logged") == null) {
+            Charities.pigination(1);
+    }
+ 		SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
+ 	 if (session.get("logged") != null && session.get("usertype").equals("simple")) {
+ 		
+		if(su.isAdmin){
 			
-		} else if(pageNo >= pageCount) {
-			pageNo =  (int) pageCount;
-		}
-		List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
-	 renderTemplate("Charities/wel.html",we,pageCount,pageNo);
+		 
+		 List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
+			long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
+			renderTemplate("Charities/wel.html",we,pageCount,pageNo );
+		 
+		}else {
+			
+			List<Wel> we = Wel.find("isChecked=true order by time desc").from((pageNo-1)*5).fetch(5);
+			int count = Wel.find("isChecked=true order by time desc").fetch().size();
+			int pageCount = count%5==0?count/5:(count/5+1);
+			
+			renderTemplate("Charities/wel.html",we,pageCount,pageNo );
+			}
+		}	
+		 
 	 }
 	
 	
 	public static void like(long aid,int pageNo) {
-		
-		 
 		if(session.get("logged") == null) {
 			SimpleUsers.login();
 		}
-		
-		
 		
 		
 		String userType = session.get("usertype");
