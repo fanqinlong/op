@@ -20,7 +20,11 @@ smaller than 960
 @media screen and (max-width: 960px) {
 	 
 	 
-	 
+	 	.bs-navbar-collapse{
+	width: 20%;float: right;
+	}
+	
+	
 	 
 	 
 	 
@@ -63,7 +67,7 @@ smaller than 560
 	 	display:none;
 	 }
 	.login{
-	 	width:112%;
+	 	width:102%;
 	 	margin-top:0px;
 	 }
 	 .index_dl{
@@ -75,7 +79,20 @@ smaller than 560
 height: 229px !important;
  
 }
+.user_exit {
+margin-top: 0px !important;
  
+}
+.user_exit_infocenter {
+margin-left: 6%;
+margin-top: 0px !important;
+text-align:center;
+}
+
+ 	.bs-navbar-collapse{
+	width: 30%;float: right;
+	}
+	
  
 
 }

@@ -30,7 +30,7 @@
 ">
 				</a>
 			</div>
-			<nav class="navbar-collapse collapse bs-navbar-collapse" role="navigation" style="background-color:#336699;overflow-y: hidden;">
+			<nav class="navbar-collapse collapse bs-navbar-collapse" role="navigation" style="background-color:#336699;overflow-y: scroll;">
 				<ul class="nav navbar-nav ">
 					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
@@ -51,7 +51,7 @@
 -->
 				<ul class="nav navbar-nav navbar-right navbar-no-bg">
 					#{if connectedSimpleUser}
-					<li class="img-w-3"><a href="@{SimpleUsers.infoCenter()}" style="padding:3px 0px 0px 0px ;"><img src=" ${connectedSimpleUser.profile}" ></a></li>
+					<li class="img-w-3"><a href="@{SimpleUsers.infoCenter()}" style="padding:3px 0px 0px 14px ;"><img src=" ${connectedSimpleUser.profile}" ></a></li>
 					<li><a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a></li>
 					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
 					</a></li>

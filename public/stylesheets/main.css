@@ -83,3 +83,5 @@ border-color: #bce8f1;margin: 20px 0;margin-top:0px;
 padding: 20px;
 border-left: 3px solid #eee;
 }
+.navbar-collapse {
+max-height: 426px;}
