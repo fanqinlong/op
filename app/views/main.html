@@ -7,13 +7,13 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>奥噗 - #{get 'title' /}</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<script type="text/javascript" src="../../../public/javascripts/jquery.js"></script>
-<script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
-<script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
+<script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
+<script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
+<script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
 #{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
-	<header class="navbar  navbar-op" role="navigation">
+	<header class="navbar  navbar-op" role="navigation" style="min-height: 40px;height: 40px !important;">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}">
@@ -157,8 +157,8 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-git.min.js"></script>
-	<script src="../../public/jcrop/js/jquery.Jcrop.min.js"></script>
-	<script src="../../public/jcrop/js/script.js"></script>
+	<script src="@{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
+	<script src="@{'public/jcrop/js/script.js'}"></script>
 
 	#{get 'Scripts' /}
 	<script type="text/javascript">
