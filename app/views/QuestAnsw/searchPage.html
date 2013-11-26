@@ -126,7 +126,7 @@ $('#modal').on('hidden', function() {
 				#{list items:qArticles,as:'qa'}
 		
 			 
-				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" >${qa.ques.title}</a></p>
+				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}">${qa.ques.title}</a></p>
 				 
 					#{if qa.ques.usertype == "cssa"}
 					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal"  title="${qa.ques.username}">
@@ -166,7 +166,7 @@ $('#modal').on('hidden', function() {
 							<li class="sq">
 									 
 									<span class="keywords">
-									<h5 >${qa.ques.username}</h5>
+									<span style="font-size:14px;"><strong>${qa.ques.username}</strong></span>
 							 
 									
 									</span>
@@ -174,8 +174,9 @@ $('#modal').on('hidden', function() {
 							
 								
 								<li  class="sq">
-									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
-										<span style="font-size: 16px;color: black;">${qa.ques.content.raw()}</span>
+									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);
+										text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2; -webkit-box-orient: vertical;">
+										<span style="color: black;">${qa.ques.content.raw()}</span>
 									</div>
 								</li>
 								<li class="sq">
@@ -196,7 +197,7 @@ $('#modal').on('hidden', function() {
 			 	 	 </div>
 			 	 	 
 			 	 	 <div class="col-md-3 col-md-offset-1">
-						  <h3 class="text-primary" style="padding-bottom:10px;">最佳回答者</h3>
+						  <h3 class="text-primary" style="padding-bottom:10px;margin-top:0px;">最佳回答者</h3>
 						  
 						  <div class="row" style="margin-top:10px;">
 						  	<div class="col-md-8">
