@@ -9,8 +9,8 @@
 		function showPraise(){
 		}
 	</script>
-<div style="width:700px; float:left;">
-		 <div style="width:600px;">
+<div class="col-md-8">
+		 <div>
 				#{list items:fQ,as:'findListQues'}
 				<ul style="padding-bottom:5px; padding-left:0px;"  >
 					<li  class="qatitle">	
@@ -33,7 +33,7 @@
 					</li>
 				
 					<li class="qatitle">
-							<span  class="ql">${findListQues.label}</span>
+							<button  class="btn btn-info ql" disabled="disabled">${findListQues.label}</button>
 					</li>
 					#{if findListQues.usertype == "cssa"}
 					<li class="qatitle">
@@ -176,7 +176,7 @@
 			</div>
 </div>
 
-<div style="float:left;">
+<div class="col-md-3 col-md-offset-1">
    #{list items:fQ,as:'fidid'}
 	<div class="op-right1">
 	#{if isSimple}
@@ -204,19 +204,37 @@
 		<span class="op-18">
 			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
 		<span>
-		<span class="op-13">人关注该问题</span>
+		<span class="op-13">人已关注</span>
 		</span></span>
 	</label>
 	#{/list}
-	 <div>
+	 <div style="height: 80px;overflow: hidden;">
 	  #{list items:FQ,as:'fidid'}
 	  #{if fidid == "cssa"}
 	  	<a href="@{CSSAs.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
-	  	<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	  	<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;"></a>
 	  #{/if}
 	  #{else}
 	 		<a href="@{SimpleUsers.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
-	 		<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 			 
 	  #{/else}
 	 	
 	  #{/list}

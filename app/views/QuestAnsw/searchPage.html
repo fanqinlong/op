@@ -3,6 +3,7 @@
 #{set 'Styles'}
 <link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
 <link rel="stylesheet" href="/public/stylesheets/activity.css" />
+ <link href="/public/stylesheets/media-queries.css" rel="stylesheet"/>
 #{/set}
 <script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
 <script type="text/javascript"> 
@@ -84,9 +85,9 @@ $('#modal').on('hidden', function() {
 
 
 <form class="form-inline" role="form" action="@{QuestAnsw.searchQues}" method="post">
-  <div class="form-group">
+  <div class="form-group form-group1" style=" ">
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
-    <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}" style="width:373px;">
+    <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}"  >
   </div>
   <button type="submit" class="btn  btn-primary">搜索问题</button>
   <a type="button" href="@{QuestAnsw.QuesIndex}" class="btn btn-info">我要提问</a>
@@ -102,10 +103,10 @@ $('#modal').on('hidden', function() {
 </dl>
 	 
 <form class="form-inline" role="form" action="@{QuestAnsw.searchSchool}" method="post" style="margin-top:30px;">
-  <div class="form-group">
+  <div class="form-group form-group1"style=" ">
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
     <input type="text" class="form-control" placeholder="点击选择学校"  id="txtSc" name="school"
-    value="${flash.school}" readonly  style="width:373px; cursor:auto;background-color:#FFFFFF;"  />
+    value="${flash.school}" readonly  style=" cursor:auto;background-color:#FFFFFF;"  />
   </div>
   <button type="submit" class="btn   btn-primary">搜索学校</button>
 </form>
@@ -117,7 +118,7 @@ $('#modal').on('hidden', function() {
 </div>
 <div class="container container-op1">
 		<div class="row group1">
-			<div  class="sqinfo col-md-8">	
+			<div  class="sqinfo col-md-7">	
 			
 			  <h3 class="text-primary" style="margin-top:0px;">热门问答</h3>
 			 <hr>
@@ -153,7 +154,7 @@ $('#modal').on('hidden', function() {
 							</div>
 						</label>
 						<div class="controls userinforright">
-							<ul style="	margin-left:40px; width:400px;" >
+							<ul style="	margin-left:40px; width:75%;" >
 							
 								<li class="sq">
 									 
@@ -173,8 +174,8 @@ $('#modal').on('hidden', function() {
 								</li>
 							
 								
-								<li  class="sq">
-									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);
+								<li  class="sq" style="width:100%">
+									<div  style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);
 										text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2; -webkit-box-orient: vertical;">
 										<span style="color: black;">${qa.ques.content.raw()}</span>
 									</div>
@@ -196,7 +197,7 @@ $('#modal').on('hidden', function() {
 			 	 	 #{/list}
 			 	 	 </div>
 			 	 	 
-			 	 	 <div class="col-md-3 col-md-offset-1">
+			 	 	 <div class="col-md-3 col-md-offset-2">
 						  <h3 class="text-primary" style="padding-bottom:10px;margin-top:0px;">最佳回答者</h3>
 						  
 						  <div class="row" style="margin-top:10px;">
@@ -286,10 +287,24 @@ $('#modal').on('hidden', function() {
 						  	  
 				   </div>
 				   
+				   <hr>
 				   
-				   
-				   
-				   
+				    <h3 class="text-primary" style="padding-bottom:10px;margin-top:0px;">最佳问答</h3>
+				    <p>
+				    <a href=""><span class="label label-default">1</span>留学生们怎么购买国内的东西呢？</a>
+				    </p>
+				      <p>
+				    <a href=""><span class="label label-default">1</span>留学生们怎么购买国内的东西呢？</a>
+				    </p>
+				     <p>
+				    <a href=""><span class="label label-default">1</span>留学生们怎么购买国内的东西呢？</a>
+				    </p>
+				     <p>
+				    <a href=""><span class="label label-default">1</span>留学生们怎么购买国内的东西呢？</a>
+				    </p>
+				     <p>
+				    <a href=""><span class="label label-default">1</span>留学生们怎么购买国内的东西呢？</a>
+				    </p>
 				   
 				   
 				   
