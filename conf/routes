@@ -130,10 +130,12 @@ GET					/activity/comment										 Activities.comment
 
 #Charity
 
-POST 				/charity/{pageNo}                                       Charities.wel
+ 
 GET 				/charity/fabu                                           Charities.fabu
 GET 				/charity/smfabu                                         Charities.smfabu
- 
+POST 				/charity/{pageNo}                                       Charities.wel
+GET 				/charity/fabu                                           Charities.fabu
+POST        		/charity/add                 							Charities.wel 
 GET					/charity/Pass/{id}										Charities.pass
 GET         		/charity/welfare/{id}                                   Charities.welfare
 GET        		 	/charity/edit/{id}/{pageNo}                             Charities.edit

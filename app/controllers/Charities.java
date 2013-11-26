@@ -12,19 +12,6 @@ import java.util.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
-  
-
-
-
-
-
-
-
-
-
-
-
-
 import notifiers.Trend;
 import models.*;
 import models.activity.Activity;
@@ -46,7 +33,13 @@ public class Charities extends Application{
 			}
 		 }
 	}
-	
+	@Before
+	public static void islogged(){
+		
+		if (session.get("logged") == null) {
+		 renderArgs.put("islogged", true);
+		}
+	}
 	public static void fabu() {
 		if(session.get("logged") == null) {
                         Charities.pigination(1);
@@ -62,8 +55,7 @@ public class Charities extends Application{
 		render();
 	 }	
  
- 
-	@SuppressWarnings("unused")
+   
 	public static void WelSave(String title,String content,String time,File f,String  generalize,int likerCount,boolean isChecked) {
 		 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
@@ -81,7 +73,7 @@ public class Charities extends Application{
 			Files.copy(f,Play.getFile(path));
 			
 			Wel w = new Wel(title,content,d,path, generalize,likerCount,true);
-			wel();
+			wel(1);
  	}else{
 			 
 			 validation.keep();
@@ -112,7 +104,7 @@ public class Charities extends Application{
 			
 			Wel w = new Wel(title,content,d,path, generalize,likerCount,false);
 			
-			wel();
+			render(w);
  	}else{
 			 
 			 validation.keep();
@@ -132,12 +124,24 @@ public class Charities extends Application{
 		  render(w);
 		}
 	
+	public static void wel(int pageNo){
+		
+		int count = Wel.find("isChecked=true order by time desc").fetch().size();
 	
-	
- 
- 	public static void wel() {
- 		 
-	}	
+		int pageCount = count%5==0?count/5:(count/5+1);
+		
+		if(pageNo < 1) {
+			pageNo =  1;
+			
+		} else if(pageNo >= pageCount) {
+			pageNo =  (int) pageCount;
+		}
+		List<Wel> we = Wel.find("isChecked=true order by time desc").from((pageNo-1)*5).fetch(5);
+		
+		
+		renderTemplate("Charities/wel.html",we,pageCount,pageNo );
+		
+	}
  
  	
 	public static void edit(long id,int pageNo){
@@ -184,9 +188,7 @@ public class Charities extends Application{
 
 	
 	public static void del(long id,int pageNo){
-		if(session.get("logged") == null) {
-			Charities.pigination(1);
-		}
+		 
 		SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
 		if(su.isAdmin == false){
 			Charities.pigination(1);
@@ -201,30 +203,43 @@ public class Charities extends Application{
 
 
 	public static void pigination(int pageNo) {
-	 
+		
 		if(session.get("logged") == null) {
-            Charities.pigination(1);
-    }
+          wel(1);
+		 }
+		
  		SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
- 	 if (session.get("logged") != null && session.get("usertype").equals("simple")) {
+ 		
+ 	 if (session.get("logged") != null && session.get("usertype").equals("simple")||session.get("usertype").equals("cssa")) {
  		
 		if(su.isAdmin){
 			
-		 
-		 List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
 			long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
+			
+			if(pageNo < 1) {
+				pageNo =  1;
+				
+			} else if(pageNo >= pageCount) {
+				pageNo =  (int) pageCount;
+			}
+			  List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
 			renderTemplate("Charities/wel.html",we,pageCount,pageNo );
 		 
-		}else {
-			
-			List<Wel> we = Wel.find("isChecked=true order by time desc").from((pageNo-1)*5).fetch(5);
-			int count = Wel.find("isChecked=true order by time desc").fetch().size();
+		}else{
+			 int count = Wel.find("isChecked=true order by likerCount desc").fetch().size();
 			int pageCount = count%5==0?count/5:(count/5+1);
 			
+			if(pageNo < 1) {
+				pageNo =  1;
+				
+			} else if(pageNo >= pageCount) {
+				pageNo =  (int) pageCount;
+			}
+			List<Wel> we = Wel.find("isChecked=true order by likerCount desc").from((pageNo-1)*5).fetch(5);
 			renderTemplate("Charities/wel.html",we,pageCount,pageNo );
 			}
-		}	
-		 
+		}
+ 	  	 
 	 }
 	
 	
@@ -235,6 +250,7 @@ public class Charities extends Application{
 		
 		
 		String userType = session.get("usertype");
+		String username = session.get("name");
 		long userId = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");
 		List al_exist = welLiker.find(
@@ -249,6 +265,7 @@ public class Charities extends Application{
 		welLiker al = new welLiker();
 		al.aid = aid;
 		al.lid = userId;
+		al.name = username;
 		al.ltype = usertype;
 		al.save();
 		Wel w = Wel.findById(aid);

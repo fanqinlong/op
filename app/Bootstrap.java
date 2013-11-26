@@ -26,7 +26,7 @@ public class Bootstrap extends Job {
 		if(Wel.count() == 0){
 			Fixtures.loadModels("init-data-charity.yml");
 		}
-	//test
+	 
 		Lang.set("zh");
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT-8"));
 	}
