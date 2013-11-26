@@ -19,14 +19,11 @@
 .userinforleft {
 	float: left;
 	text-align: right;
-	padding-top: 20px;
+	 
 }
 
 .userinforright {
-	text-align: left;
-	width: 426px;
-	font-size: 8px;
-	margin-left: -11%;
+ 
 }
 
 .guanzhu-question {
@@ -91,9 +88,9 @@ a:link {
 }
 
 .sqinfo {
-	border-bottom: 1px solid #dddddd;
+ 
 	padding-bottom: 5px;
-	width: 60%;
+	 
 }
 
 .activity .detail {
@@ -116,7 +113,7 @@ a:link {
 }
 
 .sq {
-	padding-top: 12px;
+	 
 }
 
 .infocenter_left2 {

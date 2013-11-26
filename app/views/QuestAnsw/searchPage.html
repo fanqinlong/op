@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
 <link rel="stylesheet" href="/public/stylesheets/activity.css" />
 #{/set}
-<script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
+<script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
 <script type="text/javascript"> 
 $(document).ready(function(){
 	var idnum;
@@ -116,12 +116,18 @@ $('#modal').on('hidden', function() {
   
 </div>
 <div class="container container-op1">
-		<div class="group1">
+		<div class="row group1">
+			<div  class="sqinfo col-md-8">	
+			
+			  <h3 class="text-primary" style="margin-top:0px;">热门问答</h3>
+			 <hr>
+			
+			
 				#{list items:qArticles,as:'qa'}
-				<div style="width:665px;">
-				<h4><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" >${qa.ques.title}</h4></span>
-				</div>
-					<div  class="sqinfo">
+		
+			 
+				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" >${qa.ques.title}</a></p>
+				 
 					#{if qa.ques.usertype == "cssa"}
 					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal"  title="${qa.ques.username}">
 						<img src="${qa.ques.userprofile}" style="width:30px; float:right;padding-top:10px;">
@@ -147,15 +153,29 @@ $('#modal').on('hidden', function() {
 							</div>
 						</label>
 						<div class="controls userinforright">
-							<ul style="	margin-left:110px; width:400px;" >
+							<ul style="	margin-left:40px; width:400px;" >
+							
 								<li class="sq">
-									<i class="icon-bookmark-empty"></i>
-									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >${qa.ques.label}</span>
+									 
+									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >标签：
+									<span class="text-primary">${qa.ques.label}</span>
+									
+									
+									</span>
 								</li>
+							<li class="sq">
+									 
+									<span class="keywords">
+									<h5 >${qa.ques.username}</h5>
+							 
+									
+									</span>
+								</li>
+							
 								
 								<li  class="sq">
 									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
-										<span ><pre>${qa.ques.content.raw()}</pre></span>
+										<span style="font-size: 16px;color: black;">${qa.ques.content.raw()}</span>
 									</div>
 								</li>
 								<li class="sq">
@@ -169,11 +189,135 @@ $('#modal').on('hidden', function() {
 									</a>
 								</li>
 							</ul>	
+							<hr>
 						</div>
-						</div>
+						
 			 	 	 #{/list}
-				 <div class="row-fluid">
-					<div class="span12" style="margin-left:10%;">
+			 	 	 </div>
+			 	 	 
+			 	 	 <div class="col-md-3 col-md-offset-1">
+						  <h3 class="text-primary" style="padding-bottom:10px;">最佳回答者</h3>
+						  
+						  <div class="row" style="margin-top:10px;">
+						  	<div class="col-md-8">
+						   
+						  		<img src="@{'public/images/cece.jpg'}" class="pull-left" style="padding-right:10px;">
+						  		<p class="text-primary">
+						  			刘子
+						  		 </p>
+						  		 <p>
+						  		 <span class="text-muted">擅长：</span><span class="text-primary">吃粑粑</span>
+						  		 </p>
+						  
+						  	</div>
+						  	
+						  	<div class="col-md-4"><img src="@{'public/images/xw.jpg'}">
+						  		 <span class="text-muted">345</span>
+						  	
+						    </div>
+						  	  
+				   </div>
+				   
+				   
+				     
+						  <div class="row" style="margin-top:10px;">
+						  	<div class="col-md-8">
+						   
+						  		<img src="@{'public/images/cece.jpg'}" class="pull-left" style="padding-right:10px;">
+						  		<p class="text-primary">
+						  			刘子
+						  		 </p>
+						  		 <p>
+						  		 <span class="text-muted">擅长：</span><span class="text-primary">吃粑粑</span>
+						  		 </p>
+						  
+						  	</div>
+						  	
+						  	<div class="col-md-4"><img src="@{'public/images/xw.jpg'}">
+						  		 <span class="text-muted">345</span>
+						  	
+						    </div>
+						  	  
+				   </div>
+				   
+				   
+				   
+				     
+						  <div class="row" style="margin-top:10px;">
+						  	<div class="col-md-8">
+						   
+						  		<img src="@{'public/images/cece.jpg'}" class="pull-left" style="padding-right:10px;">
+						  		<p class="text-primary">
+						  			刘子
+						  		 </p>
+						  		 <p>
+						  		 <span class="text-muted">擅长：</span><span class="text-primary">吃粑粑</span>
+						  		 </p>
+						  
+						  	</div>
+						  	
+						  	<div class="col-md-4"><img src="@{'public/images/xw.jpg'}">
+						  		 <span class="text-muted">345</span>
+						  	
+						    </div>
+						  	  
+				   </div>
+				   
+				   
+				     
+						  <div class="row" style="margin-top:10px;">
+						  	<div class="col-md-8" >
+						   
+						  		<img src="@{'public/images/cece.jpg'}" class="pull-left" style="padding-right:10px;">
+						  		<p class="text-primary">
+						  			刘子
+						  		 </p>
+						  		 <p>
+						  		 <span class="text-muted">擅长：</span><span class="text-primary">吃粑粑</span>
+						  		 </p>
+						  
+						  	</div>
+						  	
+						  	<div class="col-md-4"><img src="@{'public/images/xw.jpg'}">
+						  		 <span class="text-muted">345</span>
+						  	
+						    </div>
+						  	  
+				   </div>
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+				   
+			 	 	 
+			 </div>
+			 
+			 
+			 
+			 	 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+					<div class="col-md-6">
 						<div class="pagination">
 							#{if pageCount == 1 || pageCount == 0}
 							<a></a>
@@ -190,7 +334,7 @@ $('#modal').on('hidden', function() {
 				       </div>
 				   </div>
 				</div>
-			</div>
+			 
  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 #{set 'Scripts'}
 <script type="text/javascript">

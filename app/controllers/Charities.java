@@ -205,7 +205,25 @@ public class Charities extends Application{
 	public static void pigination(int pageNo) {
 		
 		if(session.get("logged") == null) {
-          wel(1);
+		 
+			
+			int count = Wel.find("isChecked=true order by time desc").fetch().size();
+		
+			int pageCount = count%5==0?count/5:(count/5+1);
+			
+			if(pageNo < 1) {
+				pageNo =  1;
+				
+			} else if(pageNo >= pageCount) {
+				pageNo =  (int) pageCount;
+			}
+			List<Wel> we = Wel.find("isChecked=true order by time desc").from((pageNo-1)*5).fetch(5);
+			
+			
+			renderTemplate("Charities/wel.html",we,pageCount,pageNo );
+			
+			
+			
 		 }
 		
  		SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
@@ -222,7 +240,7 @@ public class Charities extends Application{
 			} else if(pageNo >= pageCount) {
 				pageNo =  (int) pageCount;
 			}
-			  List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
+			 List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
 			renderTemplate("Charities/wel.html",we,pageCount,pageNo );
 		 
 		}else{
