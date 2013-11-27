@@ -10,7 +10,8 @@
 		<div style="width:500px; height:300px; padding-left:12px;">
 			<img src="../public/images/GIF_airplane.gif">
 		</div>
-		<!--
+
+<!--
 		#{if isSimpleUser}
 			<div style="margin-left:35%; margin-top:35px; ">
 				<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -30,15 +31,14 @@
 			#{/if}
 			#{else}
 			<div style="margin-left:150px; margin-top:35px;" >
-				<!-- 
 				<a  class="btn btn-info" >
 					<img src="../public/images/feiji.png"> 
 					对不起您还未认证，请认证
 				</a>
-				-->
 			</div>	
 			#{/else}
 		#{/if}
+		
 		-->
 	</div>
 	<div style="float:left; width:512px; height:430px;  padding-top:70px;" >
@@ -65,12 +65,10 @@
 				#{/if}
 				#{else}
 				<div style="margin-left:150px; margin-top:35px;" >
-				<!-- 
 					<a  class="btn btn-info" >
 						<img src="../public/images/feiji.png"> 
 						对不起您还未认证，请认证
 					</a>
-				  -->
 				</div>	
 				#{/else}
 			#{/if}
@@ -83,11 +81,14 @@
 <div style="text-align:center;">
 	<h3 style="color:#428bca;">系统提示:接机功能将于2014年春季正式投入使用，谢谢!</h3>
 </div>
+<!-- 
 <div  style="float:left;margin-top:-35%;margin-left:40%;">
-<span class="button-wrap">
-	<a  class="button button-circle button-primary  "  data-toggle="modal" data-target="#myModa3">功能演示</a>
-</span>
+	<span class="button-wrap">
+		<a   class="button button-circle button-primary  "  data-toggle="modal" data-target="">功能演示</a >
+	</span>
 </div>
+-->
+<a class="btn btn-info"  data-toggle="modal" data-target="#myModa3">功能演示</a >
 <!-- 学生选择学校 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -134,12 +135,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">选择你想要接的学校</h4>
       </div>
-      <div class="modal-body">
-				#{list items:ls,as:'school'}
-					<span class="list-fy on" style="margin-left:15px;">
-						<a class=" ${school==school.name?'Airports':''}  btn btn-default  address" role="button" style="border-radius:20px" href="@{Airports.addVolInfo(school.id)}" >${school.name}</a>
-					</span>
-				#{/list}
+      <div class="modal-body" style="text-align:center;">
+				<img src="../public/images/11.png">
       </div>
       
     </div><!-- /.modal-content -->
