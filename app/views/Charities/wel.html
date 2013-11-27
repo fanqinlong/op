@@ -14,6 +14,10 @@
 					  
 					  </h4>
 					   		
+					   		
+					   		
+					   		
+					   		
 					
 			 </div> 
 			 	 #{if isAdmin}
@@ -105,37 +109,31 @@
 	<div class="float-1"></div>
 
 </div>
-	
+ 		   		
  	
 		<!--这里是底部-->
 	
 		#{set 'Scripts'}
 <script type="text/javascript">
-
-  
  
  
- $(document).ready(function(){
+	 $(document).ready(function(){
+	 	
 	 
-	 
-	 
-	 
-	 
-	 
-	if($("#shangyiye").attr("pagenum")==1){
-		$("#shangyiye").addClass("hide");
-	} 
-	
-	if($("#xiayiye").attr("pageNumber")==${pageNo}){
-		$("#xiayiye").addClass("hide");
-	} 
-	
-	  $(".paging").click(function(){
-		//var s = $(this).attr("number").val();
-			//alert($(this).attr("number"));
+		if($("#shangyiye").attr("pagenum")==1){
+			$("#shangyiye").addClass("hide");
+		} 
+		
+		if($("#xiayiye").attr("pageNumber")==${pageNo}){
+			$("#xiayiye").addClass("hide");
+		} 
+		
+		  $(".paging").click(function(){
+			//var s = $(this).attr("number").val();
+				//alert($(this).attr("number"));
 		 
 
-	});
+		});
 	 
 
 	
