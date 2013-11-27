@@ -5,11 +5,11 @@
 <div class="row mg-top-3">
 	#{include 'CSSAs/infoCenterNav.html' /}
 	<div class="col-md-8">
-		<ul class="nav nav-tabs nav-tabs nav-tabs1">
+		<ul class="nav nav-tabs">
 			<li class="active"><a>我的最新动态</a></li>
 		</ul>
-		<div class="mg-top-2">#{list items:trends,as:'trend'}
-			<div>
+		<div class="mg-top-5">#{list items:trends,as:'trend'}
+			<div class="trend">
 			#{if trend.type.equals("activity")}
 			#{if trend.action.equals("allown")}
 			<i class="icon-flag"></i>

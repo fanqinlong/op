@@ -9,8 +9,8 @@
 		function showPraise(){
 		}
 	</script>
-<div style="width:700px; float:left;">
-		 <div style="width:600px;">
+<div class="col-md-8">
+		 <div>
 				#{list items:fQ,as:'findListQues'}
 				<ul style="padding-bottom:5px; padding-left:0px;"  >
 					<li  class="qatitle">	
@@ -33,24 +33,31 @@
 					</li>
 				
 					<li class="qatitle">
-							<span  class="ql">${findListQues.label}</span>
+							<button  class="btn btn-info ql" disabled="disabled">${findListQues.label}</button>
 					</li>
 					#{if findListQues.usertype == "cssa"}
 					<li class="qatitle">
+						 
 						<a href="@{CSSAs.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
-						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
+						 
 						</a>
-						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+						<div class="qatitlea linkf ql" style=" margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+
 					</li>
 					#{/if}
 					#{else}
 						<li class="qatitle">
+
+						 
 						<a href="@{SimpleUsers.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
-						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
+						 
 						</a>
-						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+						<div class="qatitlea linkf ql" style=" margin-top:-16px;">${findListQues.username}
+						${findListQues.selfIntro}
+						</div>
+
 					</li>
 					#{/else}
 					<li class="qatitle" style="padding-bottom:25px;">
@@ -84,6 +91,7 @@
 				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/images/1-2.png"> ${ac.praiseNum}票 ,</a>
 				    			 <span style="color:#999999;font-size:10px; margin-left:10px;">${ac.date}</span>
 				    			 <div style="float:right;margin-top:-30px;">
+	 								
 								 </div> 
 				    		</li>
 				    		<li class="qatitle" style="line-height:25px; margin-left:-40px;">
@@ -93,7 +101,7 @@
 		  	   #{/list}	
 	  	  </div> 		
   			
-	  		<div style="padding-bottom:50px; width:600px;">
+	  		<div style="padding-bottom:50px; width:60%;">
 	  		 #{if isSimple}
 	  		 	#{if UserQues}
 	  		 		#{list items:fQ,as:'findListQues'}
@@ -126,7 +134,7 @@
 	  		 #{elseif isCSSA}
 	  		 	#{if CssaQues}
 	  		 		#{list items:fQ,as:'findListQues'}
-	  		 			<span style="line-height: 50px;margin-left:50px;">用户不能回答自己的问题,但是可以对自己的问题进行
+	  		 			<span style="line-height: 50px;">用户不能回答自己的问题,但是可以对自己的问题进行
 	  		 			<a href="@{QuestAnsw.editQues(findListQues.id)}">修改或者补充</a></span>
 	  		 		#{/list}
 	  		 	#{/if}
@@ -168,7 +176,7 @@
 			</div>
 </div>
 
-<div style="float:left;">
+<div class="col-md-3 col-md-offset-1">
    #{list items:fQ,as:'fidid'}
 	<div class="op-right1">
 	#{if isSimple}
@@ -196,23 +204,32 @@
 		<span class="op-18">
 			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
 		<span>
-		<span class="op-13">人关注该问题</span>
+		<span class="op-13">人已关注</span>
 		</span></span>
 	</label>
 	#{/list}
-	 <div>
+	 <div style="height: 80px;overflow: hidden;">
 	  #{list items:FQ,as:'fidid'}
 	  #{if fidid == "cssa"}
 	  	<a href="@{CSSAs.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
-	  	<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	  	<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;"></a>
 	  #{/if}
 	  #{else}
 	 		<a href="@{SimpleUsers.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
-	 		<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:30px;margin:5px;"></a>
+	 			 
 	  #{/else}
 	 	
 	  #{/list}
 	 </div> 
+	    <hr>
+				    <h3 class="text-primary" style="padding-bottom:10px;margin-top:0px;">相关问题</h3>
+				    #{list items : relatedQues,as:'rq'}
+				    <p>
+				   		 <a href="@{QuestAnsw.showQuesInfo(rq.id)}"><span class="label label-default">${rq.answerNum}</span>${rq.title}</a>
+				    </p>
+				    #{/list}
+				     
 </div>
 <div style=" clear:both;"></div>	
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

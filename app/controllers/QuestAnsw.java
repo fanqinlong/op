@@ -73,15 +73,11 @@ public class QuestAnsw extends Application {
 			QuesIndex();
 		}
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
-
 		String d = (df.format(Calendar.getInstance().getTime()));
-
 		new Ques(title, Tag, school, content, d, userid, usertype, username,
 				userprofile, answerNum, 1, userselfIntro);
-
 		Ques ques = Ques.find("order by id desc").first();
 		new FocusQues(usertype, userid, userprofile, ques.id, ques.title);
-
 		if (usertype.equals("simple")) {
 			SimpleUser sUser = SimpleUser.findById(userid);
 			Ques q = Ques.find("order by id desc").first();
@@ -98,38 +94,6 @@ public class QuestAnsw extends Application {
 		render();
 	}
 
-	public static void comments(String qid, String comment) {
-		long quesid = Long.parseLong(qid);
-		long comentUserid = Long.parseLong(session.get("logged"));
-		String comentUsertype = session.get("usertype");
-		String comentUsername;
-		String comentUserprofile;
-		String comentUserSelfIntro;
-		if (comentUsertype.equals("simple")) {
-			SimpleUser simp = SimpleUser.findById(comentUserid);
-			comentUsername = simp.name;
-			comentUserprofile = simp.profile;
-			comentUserSelfIntro = simp.selfIntro;
-		} else {
-			CSSA cssa = CSSA.findById(comentUserid);
-			comentUsername = cssa.school.name;
-			comentUserprofile = cssa.profile;
-			comentUserSelfIntro = cssa.selfIntro;
-		}
-		String QuesTitle;
-		Ques ques = Ques.findById(quesid);
-		QuesTitle = ques.title;
-		ques.answerNum = ques.answerNum + 1;
-
-		ques.save();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
-		String d = (df.format(Calendar.getInstance().getTime()));
-		new Comments(quesid, comment, 0, comentUserid, comentUsertype,
-				comentUsername, comentUserprofile, comentUserSelfIntro, d,
-				QuesTitle, 0);
-		renderHtml(comment);
-	}
-
 	public static void addComent(long quesid, String comment, long praiseNum,
 			long userid, String usertype, String username, String userprofile,
 			String userSelfIntro, String date) {
@@ -137,7 +101,6 @@ public class QuestAnsw extends Application {
 			flash.error("请登录后回答!");
 			SimpleUsers.login();
 		}
-
 		Long uid;
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsertype = session.get("usertype");
@@ -173,10 +136,8 @@ public class QuestAnsw extends Application {
 				fQ.title);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", quesid).fetch(5);
 		List<Comments> listCom = Comments.find("quesid = ?", quesid).fetch();
-
 		boolean isSimple = false;
 		boolean isCSSA = false;
-
 		if (comentUsertype.equals("simple")) {
 			isSimple = true;
 		} else {
@@ -278,7 +239,6 @@ public class QuestAnsw extends Application {
 			}
 		}
 		// 个人中心动态
-
 		ArrayList<String> notification = new ArrayList();
 		notification.add(noticName);
 		notification.add("回答了您的问题");
@@ -292,10 +252,13 @@ public class QuestAnsw extends Application {
 			Messaging.addNotification(ques.usertype, ques.userid, "qa",
 					notification);
 		}
+		
+		List<Ques> aboutQues = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
+				"%" + ques.label + "%").fetch(5);
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
 				CssaComment, userid, UserFocusQues, CSSAFocusQues,
-				comentUserid, comentUsertype, isSimple, isCSSA);
+				comentUserid, comentUsertype, isSimple, isCSSA,aboutQues);
 	}
 
 	public static void searchPage(long id, long question_id) {
@@ -315,17 +278,18 @@ public class QuestAnsw extends Application {
 			qArticles.add(qa);
 		}
 		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()){
+		if (qArticles.isEmpty()) {
 			contentIsEmpty = true;
 		}
-		render(t, qArticles, pageCount,contentIsEmpty);
+		List<Comments> topUser = Comments.find("order by praiseNum desc").fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
+		render(t, qArticles, pageCount, contentIsEmpty,topQues,topUser);
 	}
 
 	public static void searchQues(String ques) {
 		List<Tag> t = Tag.find("order by themeid desc").fetch();
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE title LIKE ?",
 				"%" + ques + "%").fetch(5);
-
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 				.count() / 5 + 1);
 		Iterator iterator = anq.iterator();
@@ -339,26 +303,24 @@ public class QuestAnsw extends Application {
 			qArticles.add(qa);
 		}
 		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()){
+		if (qArticles.isEmpty()) {
 			contentIsEmpty = true;
 		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,contentIsEmpty);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty);
 	}
 
 	public static void searchTag(String tag) {
-		
-		List<Tag> tg = Tag.find("tagName = ?",tag).fetch();
+		List<Tag> tg = Tag.find("tagName = ?", tag).fetch();
 		Iterator iter = tg.iterator();
 		Long tagid = null;
-		while(iter.hasNext()){
-			Tag ta = (Tag)iter.next();
-			tagid=ta.id;
+		while (iter.hasNext()) {
+			Tag ta = (Tag) iter.next();
+			tagid = ta.id;
 		}
 		Tag tagg = Tag.findById(tagid);
-		tagg.themeid = tagg.themeid+1;
+		tagg.themeid = tagg.themeid + 1;
 		tagg.save();
-		
-		
 		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
 				"%" + tag + "%").fetch(5);
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
@@ -374,11 +336,12 @@ public class QuestAnsw extends Application {
 			qArticles.add(qa);
 		}
 		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()){
+		if (qArticles.isEmpty()) {
 			contentIsEmpty = true;
 		}
 		List<Tag> t = Tag.find("order by themeid desc").fetch();
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,contentIsEmpty);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty);
 	}
 
 	public static void showQuesInfo(long id) {
@@ -406,7 +369,14 @@ public class QuestAnsw extends Application {
 			}
 
 			Ques fQ = Ques.findById(id);
-
+			
+			String s = new String(fQ.label);
+			String a[] = s.split(",");
+			
+			List<Ques> relatedQues = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
+					"%" + a[0] + "%").fetch(5);
+			
+			
 			List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
 			List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
 
@@ -480,10 +450,14 @@ public class QuestAnsw extends Application {
 					CSSAFocusQues = true;
 				}
 			}
+			
+			List<Ques> aboutQues = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
+				"%" + qw.label + "%").fetch(5);
+			
 			render(fQ, listCom, comentUsername, FQ, UserQues, CssaQues,
 					UserComments, CssaComment, userid, comentUsertype,
 					UserFocusQues, CSSAFocusQues, comentUserid, isSimple,
-					isCSSA);
+					isCSSA,aboutQues,relatedQues);
 		}
 	}
 
@@ -492,15 +466,7 @@ public class QuestAnsw extends Application {
 		render(att);
 	}
 
-	public static void popupUserInfo() {
-		render();
-	}
-
-	public static void userInfoIndex() {
-		render();
-	}
-
-	public static void Quespaging(int pageNum, String data) {
+	public static void Quespaging(int pageNum, String data ) {
 		List<Tag> t = Tag.findAll();
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
 				.count() / 5 + 1);
@@ -511,18 +477,7 @@ public class QuestAnsw extends Application {
 		}
 		List<Ques> aQues = Ques.find("order by date desc")
 				.from((pageNum - 1) * 5).fetch(5);
-
-		// if(){
-		// List<Ques> aQues = Ques.find("order by answerNum desc")
-		// .from((pageNum - 1) * 5).fetch(5);
-		// }else if(){
-		// List<Ques> aQues = Ques.find("order by focusNum desc")
-		// .from((pageNum - 1) * 5).fetch(5);
-		// }else{
-		// List<Ques> aQues = Ques.find("order by date desc")
-		// .from((pageNum - 1) * 5).fetch(5);
-		// }
-
+		
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
@@ -548,38 +503,22 @@ public class QuestAnsw extends Application {
 		render();
 	}
 
-	public static void deleteQues(long id, int pageNum) {
-		Ques dques = Ques.findById(id);
-
-		System.out.println(dques);
-		System.out.println(dques.id);
-
-		dques.delete();
-
-		List<Tag> t = Tag.findAll();
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		if (pageNum < 1) {
-			pageNum = 1;
-		} else if (pageNum >= pageCount) {
-			pageNum = (int) pageCount;
-		}
-		List<Ques> aQues = Ques.find("order by date desc")
-				.from((pageNum - 1) * 5).fetch(5);
-		Iterator iterator = aQues.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques ques = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(ques, comment);
-			qArticles.add(qa);
-		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				pageNum);
-	}
-
+	/**
+	 * public static void deleteQues(long id, int pageNum) { Ques dques =
+	 * Ques.findById(id); dques.delete(); List<Tag> t = Tag.findAll(); long
+	 * pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques .count() / 5
+	 * + 1); if (pageNum < 1) { pageNum = 1; } else if (pageNum >= pageCount) {
+	 * pageNum = (int) pageCount; } List<Ques> aQues =
+	 * Ques.find("order by date desc") .from((pageNum - 1) * 5).fetch(5);
+	 * Iterator iterator = aQues.iterator(); List<QuestionArticle> qArticles =
+	 * new ArrayList<QuestionArticle>(); while (iterator.hasNext()) { Ques ques
+	 * = (Ques) iterator.next(); List comments = Comments.find("quesid = ?",
+	 * ques.id).fetch(); Comments comment = comments.isEmpty() ? null :
+	 * (Comments) comments .get(0); QuestionArticle qa = new
+	 * QuestionArticle(ques, comment); qArticles.add(qa); }
+	 * renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+	 * pageNum); }
+	 **/
 	public static void deleteComent() {
 		render();
 	}
@@ -617,7 +556,6 @@ public class QuestAnsw extends Application {
 		flash.success("关注成功");
 
 		new FocusQues(fquserType, fquserid, fquserprofile, id, QuesTitle);
-
 		/**
 		 * 通知关注了用户的问题
 		 * 
@@ -626,7 +564,6 @@ public class QuestAnsw extends Application {
 		if (fquserType.equals("simple")) {
 			SimpleUser sUser = SimpleUser.findById(userId);
 			noticName = sUser.name;
-
 			Ques q = Ques.findById(id);
 			if (q.usertype.equals("simple")) {
 				SimpleUser simpleUser = SimpleUser.findById(q.userid);
@@ -672,23 +609,6 @@ public class QuestAnsw extends Application {
 		showQuesInfo(id);
 	}
 
-	public static void SearchAnswNum() {
-		List<Tag> t = Tag.findAll();
-		List<Ques> aQues = Ques.find("order by answerNum DESC").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		Iterator iterator = aQues.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques ques = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(ques, comment);
-			qArticles.add(qa);
-		}
-		render(t, qArticles, pageCount);
-	}
 
 	public static void searchSchool(String school) {
 		List<Tag> t = Tag.find("order by themeid desc").fetch();
@@ -707,85 +627,11 @@ public class QuestAnsw extends Application {
 			qArticles.add(qa);
 		}
 		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()){
+		if (qArticles.isEmpty()) {
 			contentIsEmpty = true;
 		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,contentIsEmpty);
-	}
-
-	public static void userQues() {
-		long userId = Long.parseLong(session.get("logged"));
-		SimpleUser user = SimpleUser.findById(userId);
-		List<Ques> UQues = Ques.find(
-				"userid = ?  and usertype = ? order by id desc", userId,
-				"simple").fetch();
-
-		List<Comments> UComment = Comments
-				.find("userid = ? and usertype =? order by id desc", userId,
-						"simple").fetch();
-
-		List<FocusQues> FQues = FocusQues.find(
-				"userid = ? and userType = ? order by id desc", userId,
-				"simple").fetch();
-		notFoundIfNull(user);
-		render(user, UQues, UComment, FQues);
-	}
-
-	public static void cssaQues() {
-		long userId = Long.parseLong(session.get("logged"));
-		CSSA user = CSSA.findById(userId);
-		List<Ques> CQues = Ques
-				.find("userid = ?  and usertype = ? order by id desc", userId,
-						"cssa").fetch();
-		List<Comments> CComment = Comments.find(
-				"userid = ? and usertype =? order by id desc", userId, "cssa")
-				.fetch();
-		List<FocusQues> CFQues = FocusQues.find(
-				"userid = ? and userType = ? order by id desc", userId, "cssa")
-				.fetch();
-		notFoundIfNull(user);
-		render(user, CQues, CComment, CFQues);
-	}
-
-	public static void showUserInfor(String usertype, long userid) {
-		if (session.get("logged") == null) {
-			flash.error("请登录后查看对方信息!");
-			SimpleUsers.login();
-		}
-		if (usertype.equals("simple")) {
-			SimpleUser user = SimpleUser.findById(userid);
-			List<Ques> UQues = Ques.find(
-					"userid = ?  and usertype = ? order by id desc", userid,
-					"simple").fetch(5);
-
-			List<Comments> UComment = Comments.find(
-					"userid = ? and usertype =? order by id desc", userid,
-					"simple").fetch(5);
-
-			List<FocusQues> FQues = FocusQues.find(
-					"userid = ? and userType = ? order by id desc", userid,
-					"simple").fetch(5);
-			notFoundIfNull(user);
-			renderTemplate("QuestAnsw/simpleUserinfo.html", user, UQues,
-					UComment, FQues);
-		} else if (usertype.equals("cssa")) {
-			CSSA user = CSSA.findById(userid);
-
-			List<Ques> CQues = Ques.find(
-					"userid = ?  and usertype = ? order by id desc", userid,
-					"cssa").fetch(5);
-
-			List<Comments> CComment = Comments.find(
-					"userid = ? and usertype =? order by id desc", userid,
-					"cssa").fetch(5);
-
-			List<FocusQues> CFQues = FocusQues.find(
-					"userid = ? and userType = ? order by id desc", userid,
-					"cssa").fetch(5);
-			notFoundIfNull(user);
-			renderTemplate("QuestAnsw/cssaInfo.html", user, CQues, CComment,
-					CFQues);
-		}
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty);
 	}
 
 	public static void editComent(Long userid, String userType, Long quesid) {
@@ -806,6 +652,7 @@ public class QuestAnsw extends Application {
 
 		Ques fQ = Ques.findById(Quesid);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
+		System.out.println("编辑回答");
 		render(findCom, fQ, FQ, username);
 	}
 
@@ -814,15 +661,14 @@ public class QuestAnsw extends Application {
 		render();
 	}
 
+	//取消关注
 	public static void cancelFqcusQues(Long quesid) {
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
 			SimpleUsers.login();
 		}
-
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
-
 		Long fQuesUesrid;
 
 		if (fquserType.equals("simple")) {
@@ -872,7 +718,8 @@ public class QuestAnsw extends Application {
 	 */
 
 	public static void notAgree(Long id, Long quesid) {
-
+System.out.println("不赞同这条回答");
+		
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
 			SimpleUsers.login();
@@ -893,7 +740,6 @@ public class QuestAnsw extends Application {
 				AgreeComment aComment = (AgreeComment) iterator.next();
 				Acid = aComment.id;
 			}
-
 			AgreeComment a = AgreeComment.findById(Acid);
 			a.delete();
 			Comments com = Comments.findById(id);
@@ -964,26 +810,6 @@ public class QuestAnsw extends Application {
 		}
 	}
 
-	public static void changeComent(Long comentUserid, String comentUsertype) {
-		List<Comments> come = Comments
-				.find("SELECT a FROM Comments a WHERE userid LIKE ? and usertype like ?",
-						comentUserid, "%" + comentUsertype + "%").fetch();
-		Iterator iterator = come.iterator();
-		Long comid = null;
-		Long Quesid = null;
-		String username = null;
-		while (iterator.hasNext()) {
-			Comments com = (Comments) iterator.next();
-			Quesid = com.quesid;
-			comid = com.id;
-			username = com.username;
-		}
-		Comments findCom = Comments.findById(comid);
-
-		Ques fQ = Ques.findById(Quesid);
-		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
-		renderTemplate("QuestAnsw/editComent.html", findCom, fQ, FQ, username);
-	}
 
 	public static void allFollowers(Long id) {
 		Ques ques = Ques.findById(id);
@@ -1011,6 +837,60 @@ public class QuestAnsw extends Application {
 					userId, userName, userType);
 		}
 		render();
+	}
+
+	public static void orderbyTime() {
+		List<Ques> anq = Ques.find("order by date desc").fetch(5);
+	}
+
+	public static void orderbyAnswerNumber() {
+		System.out.println("1111");
+		List<Ques> anq = Ques.find("order by answerNum desc").fetch(5);
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
+				.count() / 5 + 1);
+		Iterator iterator = anq.iterator();
+		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
+		while (iterator.hasNext()) {
+			Ques qu = (Ques) iterator.next();
+			List comments = Comments.find("quesid = ?", qu.id).fetch();
+			Comments comment = comments.isEmpty() ? null : (Comments) comments
+					.get(0);
+			QuestionArticle qa = new QuestionArticle(qu, comment);
+			qArticles.add(qa);
+		}
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()) {
+			contentIsEmpty = true;
+		}
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty);
+	}
+
+	public static void orderbyFocusNumber() {
+		List<Ques> anq = Ques.find("order by focusNum desc").fetch(5);
+	}
+	
+	public static void bestRespondents(){
+		List<Comments> com = Comments.find("order by praiseNum desc").fetch(10);
+		List<Ques> q = Ques.find("order by focusNum desc").fetch(10);
+	}
+	public static void userQues() {
+		long userId = Long.parseLong(session.get("logged"));
+		SimpleUser user = SimpleUser.findById(userId);
+		List<Ques> UQues = Ques.find(
+				"userid = ?  and usertype = ? order by id desc", userId,
+				"simple").fetch();
+
+		List<Comments> UComment = Comments
+				.find("userid = ? and usertype =? order by id desc", userId,
+						"simple").fetch();
+
+		List<FocusQues> FQues = FocusQues.find(
+				"userid = ? and userType = ? order by id desc", userId,
+				"simple").fetch();
+		notFoundIfNull(user);
+		render(user, UQues, UComment, FQues);
 	}
 
 }

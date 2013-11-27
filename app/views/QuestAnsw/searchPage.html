@@ -3,8 +3,9 @@
 #{set 'Styles'}
 <link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
 <link rel="stylesheet" href="/public/stylesheets/activity.css" />
+ <link href="/public/stylesheets/media-queries.css" rel="stylesheet"/>
 #{/set}
-<script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
+<script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
 <script type="text/javascript"> 
 $(document).ready(function(){
 	var idnum;
@@ -84,9 +85,9 @@ $('#modal').on('hidden', function() {
 
 
 <form class="form-inline" role="form" action="@{QuestAnsw.searchQues}" method="post">
-  <div class="form-group">
+  <div class="form-group form-group1" style=" ">
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
-    <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}" style="width:373px;">
+    <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}"  >
   </div>
   <button type="submit" class="btn  btn-primary">搜索问题</button>
   <a type="button" href="@{QuestAnsw.QuesIndex}" class="btn btn-info">我要提问</a>
@@ -102,31 +103,32 @@ $('#modal').on('hidden', function() {
 </dl>
 	 
 <form class="form-inline" role="form" action="@{QuestAnsw.searchSchool}" method="post" style="margin-top:30px;">
-  <div class="form-group">
+  <div class="form-group form-group1"style=" ">
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
     <input type="text" class="form-control" placeholder="点击选择学校"  id="txtSc" name="school"
-    value="${flash.school}" readonly  style="width:373px; cursor:auto;background-color:#FFFFFF;"  />
+    value="${flash.school}" readonly  style=" cursor:auto;background-color:#FFFFFF;"  />
   </div>
   <button type="submit" class="btn   btn-primary">搜索学校</button>
 </form>
 <div id="gj" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
 <div id="sheng" style="width:373px; word-break:break-all; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
 <div id="list" style="width:373px; border:1px #5885a5 solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>	 
-</div>
 
+  
+</div>
 <div class="container container-op1">
- #{if contentIsEmpty}
-  <div class="group1">
-  	<img src="../public/images/kong.png">
-  </div>
- #{/if}
- #{else}
- <div class="group1">
+<div class="group1">
+			<div  class="sqinfo col-md-7">	
+				#{if contentIsEmpty}
+  					<img src="../public/images/kong.png">
+  	 			#{/if}
+			 #{else}
+			  <h3 class="text-primary" style="margin-top:0px;">热门问答</h3>
+			 <hr>
+			
+			
 				#{list items:qArticles,as:'qa'}
-				<div style="width:665px;">
-				<h4><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" >${qa.ques.title}</h4></span>
-				</div>
-					<div  class="sqinfo">
+				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}">${qa.ques.title}</a></p>
 					#{if qa.ques.usertype == "cssa"}
 					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal"  title="${qa.ques.username}">
 						<img src="${qa.ques.userprofile}" style="width:30px; float:right;padding-top:10px;">
@@ -152,15 +154,30 @@ $('#modal').on('hidden', function() {
 							</div>
 						</label>
 						<div class="controls userinforright">
-							<ul style="	margin-left:110px; width:400px;" >
+							<ul style="	margin-left:40px; width:75%;" >
+							
 								<li class="sq">
-									<i class="icon-bookmark-empty"></i>
-									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >${qa.ques.label}</span>
+									 
+									<span class="keywords" style="TEXT-DECORATION:none; color:#CCCCCC;" >标签：
+									<span class="text-primary">${qa.ques.label}</span>
+									
+									
+									</span>
 								</li>
+							<li class="sq">
+									 
+									<span class="keywords">
+									<span style="font-size:14px;"><strong>${qa.ques.username}</strong></span>
+							 
+									
+									</span>
+								</li>
+							
 								
-								<li  class="sq">
-									<div style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);">
-										<span >${qa.ques.content.raw()}</span>
+								<li  class="sq" style="width:100%">
+									<div  style="text-overflow:ellipsis;overflow:hidden; height:43px;color:rgb(100,100,100);
+										text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2; -webkit-box-orient: vertical;">
+										<span style="color: black;">${qa.ques.content.raw()}</span>
 									</div>
 								</li>
 								<li class="sq">
@@ -174,11 +191,49 @@ $('#modal').on('hidden', function() {
 									</a>
 								</li>
 							</ul>	
+							<hr>
 						</div>
-						</div>
+						
 			 	 	 #{/list}
-				 <div class="row-fluid">
-					<div class="span12" style="margin-left:10%;">
+			 	 	 #{/else}
+			 	 	 </div>
+			
+			 	 	 <div class="col-md-3 col-md-offset-2">
+						  <h3 class="text-primary" style="padding-bottom:10px;margin-top:0px;">最佳回答者</h3>
+						 
+						  <div class="row" style="margin-top:10px;">
+						   #{list items:topUser,as:'tu'}
+							  	<div class="col-md-8" >
+							  		<a href="@{SimpleUsers.preview(tu.userid)}" data-target="#modal" data-toggle="modal" title="${tu.username}">
+							  			<img src="${tu.userprofile}" class="pull-left" style="padding-right:10px; width:57px;">
+							  		</a>
+							  		 <p class="text-primary">
+							  			${tu.username}
+							  		 </p>
+							  		 <p>
+							  		 	<span class="text-muted">签名:</span><span class="text-primary">${tu.userSelfIntro}</span>
+							  		 </p>
+							  	</div>
+							  	<div class="col-md-4"><img src="@{'public/images/1-2.PNG'}">
+							  		 <span class="text-muted">${tu.praiseNum}</span>
+							    </div>
+						  	#{/list}
+		     </div>
+				   <hr>
+				    <h3 class="text-primary" style="padding-bottom:10px;margin-top:0px;">热门问答</h3>
+ 					#{list items:topQues,as:'tq'}
+					    <p>
+					    	<a href="@{QuestAnsw.showQuesInfo(tq.id)}"><span class="label label-default">${tq.focusNum}</span>${tq.title}</a>
+					    </p>
+					#{/list}
+			 </div>
+			 
+			 
+			 #{if contentIsEmpty}
+			 	<a></a>
+			 #{/if}
+			 #{else}
+					<div class="col-md-6">
 						<div class="pagination">
 							#{if pageCount == 1 || pageCount == 0}
 							<a></a>
@@ -194,10 +249,10 @@ $('#modal').on('hidden', function() {
 							#{/else}
 				       </div>
 				   </div>
+				   #{/else}
 				</div>
- #{/else}
-		
-			</div>
+				
+			 
  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 #{set 'Scripts'}
 <script type="text/javascript">
