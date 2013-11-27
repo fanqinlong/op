@@ -128,6 +128,7 @@ public class QuestAnsw extends Application {
 		ques.save();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
+		
 		new Comments(quesid, comment, 0, comentUserid, comentUsertype,
 				comentUsername, comentUserprofile, comentUserSelfIntro, d,
 				QuesTitle, 0);
@@ -244,7 +245,6 @@ public class QuestAnsw extends Application {
 		notification.add("回答了您的问题");
 		notification.add(ques.id + "");
 		notification.add(QuesTitle);
-
 		if (comentUsertype.equals("simple")) {
 			Messaging.addNotification(ques.usertype, ques.userid, "qa",
 					notification);
@@ -306,8 +306,10 @@ public class QuestAnsw extends Application {
 		if (qArticles.isEmpty()) {
 			contentIsEmpty = true;
 		}
+		List<Comments> topUser = Comments.find("order by praiseNum desc").fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty);
+				contentIsEmpty,topUser,topQues);
 	}
 
 	public static void searchTag(String tag) {
@@ -340,8 +342,10 @@ public class QuestAnsw extends Application {
 			contentIsEmpty = true;
 		}
 		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		List<Comments> topUser = Comments.find("order by praiseNum desc").fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty);
+				contentIsEmpty,topUser,topQues);
 	}
 
 	public static void showQuesInfo(long id) {
@@ -630,8 +634,10 @@ public class QuestAnsw extends Application {
 		if (qArticles.isEmpty()) {
 			contentIsEmpty = true;
 		}
+		List<Comments> topUser = Comments.find("order by praiseNum desc").fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty);
+				contentIsEmpty,topUser,topQues);
 	}
 
 	public static void editComent(Long userid, String userType, Long quesid) {
@@ -805,7 +811,6 @@ System.out.println("不赞同这条回答");
 					tend.save();
 				}
 			}
-
 			showQuesInfo(quesid);
 		}
 	}
@@ -838,7 +843,27 @@ System.out.println("不赞同这条回答");
 		}
 		render();
 	}
+	
+	public static void userQues() {
+		long userId = Long.parseLong(session.get("logged"));
+		SimpleUser user = SimpleUser.findById(userId);
+		List<Ques> UQues = Ques.find(
+				"userid = ?  and usertype = ? order by id desc", userId,
+				"simple").fetch();
 
+		List<Comments> UComment = Comments
+				.find("userid = ? and usertype =? order by id desc", userId,
+						"simple").fetch();
+
+		List<FocusQues> FQues = FocusQues.find(
+				"userid = ? and userType = ? order by id desc", userId,
+				"simple").fetch();
+		notFoundIfNull(user);
+		render(user, UQues, UComment, FQues);
+	} 
+	
+	
+/**
 	public static void orderbyTime() {
 		List<Ques> anq = Ques.find("order by date desc").fetch(5);
 	}
@@ -875,22 +900,5 @@ System.out.println("不赞同这条回答");
 		List<Comments> com = Comments.find("order by praiseNum desc").fetch(10);
 		List<Ques> q = Ques.find("order by focusNum desc").fetch(10);
 	}
-	public static void userQues() {
-		long userId = Long.parseLong(session.get("logged"));
-		SimpleUser user = SimpleUser.findById(userId);
-		List<Ques> UQues = Ques.find(
-				"userid = ?  and usertype = ? order by id desc", userId,
-				"simple").fetch();
-
-		List<Comments> UComment = Comments
-				.find("userid = ? and usertype =? order by id desc", userId,
-						"simple").fetch();
-
-		List<FocusQues> FQues = FocusQues.find(
-				"userid = ? and userType = ? order by id desc", userId,
-				"simple").fetch();
-		notFoundIfNull(user);
-		render(user, UQues, UComment, FQues);
-	}
-
+	**/
 }

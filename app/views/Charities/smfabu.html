@@ -15,7 +15,7 @@
 <!--正文部分-->
  
 	<div class="op-left1">
-		<form action="@{Charities.WelSave}" method="post" id="index"
+		<form action="@{Charities.SmWelSave}" method="post" id="index"
 			enctype="multipart/form-data">
 			<div class="op-left2">
 
@@ -24,7 +24,7 @@
 				<div class="op-title">文章标题</div>
 
 				<input type="text" class="edit_text" placeholder="请输入文章标题,20字以内......"
-					name="title" value="${flash.title}"  maxlenth="20"/> 
+					name="title" value="${flash.title}"  maxlenth="20"/> <a style="color: red;">${flash.error}</a>
 				<br />
 
 				<div class="op-title">封面图片</div>
@@ -39,12 +39,17 @@
 					<input type="text" class="edit_text" placeholder="140字以内......"
 					name="generalize" value="${flash.generalize}"  maxlength="140"/> 
 
-				 <div class="float-1"></div>
+			 
+
+
+
+				<div class="float-1"></div>
 
 				<div class="op-c">文章内容</div>
 				<div class="wr-1">
 			 
 			  <textarea cols="50" id="area1" style="width:550px;" rows="10" name="content" value="${flash.content}" > </textarea>
+  
 
  
 

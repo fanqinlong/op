@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+#{set title:'welfare.html'/}
+ 
+	<link rel="stylesheet" href="@{'public/stylesheets/wel.css'}" />
+ 
+<div class="clearfix"></div>
+
+<div class="span5 offset3" style="margin-top: 110px; margin-bottom: 237px; margin-left: 320px;">
+	<img src="/public/images/ok.png" style="float: left; margin-top: -15px;">
+	<h4 style="color: #5282a5">您好，该的公益活动已经通过审核！</h4>
+
+	<h6 style="color: #e2e2e2; margin: 20px; font-size: 14px;">
+		温馨提示：您可以点击
+		<a href="@{Charities.pigination(1)}">查看</a>
+		其它公益活动
+	</h6>
+</div>
+
+
+	 
