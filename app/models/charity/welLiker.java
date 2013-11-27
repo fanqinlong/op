@@ -13,5 +13,6 @@ public class welLiker extends Model {
 	private static final long serialVersionUID = 1L;
 	public long aid;
     public long lid;
+    public String name;
     public String ltype;
 }
