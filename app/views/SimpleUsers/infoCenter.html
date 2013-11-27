@@ -41,27 +41,25 @@
 				</div>
 				#{/elseif} #{elseif trend.type.equals("fq")}
 				<div>
-					${trend.time} ,${trend.orderSU.name}关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题
+					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题
 					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
 				</div>
 				#{/elseif} #{elseif trend.type.equals("addques")}
 				<div>
-					${trend.time} ,${trend.orderSU.name}发布了一条问答
+					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}发布了一条问答
 					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
 				</div>
 				#{/elseif} #{elseif trend.type.equals("praise")}
 				<div>
-					${trend.time} ,${trend.orderSU.name}攒了${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 在
+					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}攒了${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 在
 					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
 					的回答
 					<br />
-					${trend.c.comment}
 				</div>
 				#{/elseif}
 				#{elseif trend.type.equals("wel")}
 					${trend.time}你关注了<a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a>这条公益活动
 				#{/elseif}
-
 		</div>
 		#{/list}
 	</div>

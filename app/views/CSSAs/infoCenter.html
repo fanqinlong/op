@@ -5,71 +5,77 @@
 <div class="row mg-top-3">
 	#{include 'CSSAs/infoCenterNav.html' /}
 	<div class="col-md-8">
-		<ul class="nav nav-tabs nav-tabs nav-tabs1">
+		<ul class="nav nav-tabs">
 			<li class="active"><a>我的最新动态</a></li>
 		</ul>
 		<div class="mg-top-5">#{list items:trends,as:'trend'}
-		<div class="row trend">
-				#{if trend.type.equals("activity")}
-				<div class="col-md-1 profile">
-					<a class="img-border img-w-5" href="">
-						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
-					</a>
-				</div>
-
-				<div class="col-md-11 activity">
-					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
-					${trend.action} ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+"CSSA")} 发布的活动：
-					<div class="detail">
-						<p>
-							"
-							<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-							"
-						</p>
-						<p>
-							<a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border">
-								<img src="${trend.a.poster}" />
-							</a>
-						</p>
-						<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 报名参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()}) 评论(${trend.a.comment.size()})</p>
-					</div>
-
-					<p>${trend.time}</p>
-				</div>
-				#{/if} #{elseif trend.type.equals("qa")}
-				<div>
-					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
-				</div>
-				#{/elseif} #{elseif trend.type.equals("fq")}
-				<div>
-					${trend.time} ,${trend.orderSU.name}关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
-				</div>
-				#{/elseif} #{elseif trend.type.equals("addques")}
-				<div>
-					${trend.time} ,${trend.orderCSSA.school.name} CSSA 发布了一条问答
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
-				</div>
-				#{/elseif} #{elseif trend.type.equals("praise")}
-				<div>
-					${trend.time} ,${trend.orderSU.name}攒了${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 在
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
-					的回答
-					<br />
-					
-				</div>
-				#{/elseif}
-
-
- 
-				#{elseif trend.type.equals("wel")}
-					${trend.time}你关注了<a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a>这条公益活动
-				#{/elseif}
-
-
-		</div>
-		
+			<div class="trend">
+			#{if trend.type.equals("activity")}
+			#{if trend.action.equals("allown")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 允许了 ${trend.relationSU.name}参加活动：
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			#{/if}
+			#{elseif trend.action.equals("disallown")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 将 ${trend.relationSU.name} 从 允许参加 人员中移除：
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			
+			#{/elseif}			
+			#{elseif  trend.action.equals("like")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")} 关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank">${trend.a.name}</a>
+			
+			#{/elseif}
+			#{elseif trend.action.equals("join")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderSU.name} 报名了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			
+			#{/elseif}
+			
+			#{elseif trend.action.equals("comment")}
+			<i class="icon-flag"></i>
+			${trend.time} ,${trend.orderSU.name} 评论了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}发布的活动
+			<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
+			
+			#{/elseif}
+			
+			#{/if}
+			
+			#{elseif trend.type.equals("qa")}
+			<i class="icon-flag"></i>
+			${trend.time},${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")}
+				回答了${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}
+				 提出的问题<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
+			#{/elseif}
+			
+			#{elseif trend.type.equals("fq")}
+			<i class="icon-flag"></i>
+			${trend.time},${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")}
+				关注了
+				${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}
+				 提出的问题<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
+			#{/elseif}
+			
+			
+			#{elseif trend.type.equals("addques")}
+			<i class="icon-flag"></i>
+			${trend.time},${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")}
+				发布了一条问答<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
+			#{/elseif}
+			
+			
+			#{elseif trend.type.equals("praise")}
+			<i class="icon-flag"></i>
+			${trend.time},${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+" CSSA")}赞了${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")}
+			在<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>的回答
+			<br />
+			#{/elseif}
+			
+			
+			</div>
 			#{/list}</div>
 
 	</div>
