@@ -167,6 +167,7 @@ GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 
+GET  /QuestAnsw/orderbyAnswerNumber                    QuestAnsw.orderbyAnswerNumber
 
 
 POST /UserSurvey/index               		       UserSurvey.index
