@@ -33,8 +33,17 @@
 			 	#{list items :we,as:'ac'}
 				 	
 				  	 <div class="b-1">
-				  		<h3 class="h3"><a class="goy-h3" href="@{Charities.welfare(ac.id)}">${ac.title}</a>
-					
+				  		
+						
+						
+				<blockquote style="border-left: 0px ;padding-left:0px;">
+			  <p style="margin:0px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:100%;display:block;"><a class="goy-h3" href="@{Charities.welfare(ac.id)}">${ac.title}</a></p>
+			 		 <small  class="pull-right"><strong>${ac.fromUser}</strong></small>
+			</blockquote>
+						
+						
+						
+						
 						#{if isAdmin&& !ac.isChecked}
 							 <a  class="btn btn-default pull-right" href="@{Charities.pass(ac.id)}">通过审核</a>
 						 #{/if}

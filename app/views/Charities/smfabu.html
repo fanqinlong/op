@@ -19,14 +19,19 @@
 			enctype="multipart/form-data">
 			<div class="op-left2">
 
-				<h3>发布公益性文章</h3>
+				<h3>发布公益性文章<small class="text-danger">（你所发的公益活动需要经过我们的严格审核）</small></h3>
 
 				<div class="op-title">文章标题</div>
 
 				<input type="text" class="edit_text" placeholder="请输入文章标题,20字以内......"
 					name="title" value="${flash.title}"  maxlenth="20"/> <a style="color: red;">${flash.error}</a>
 				<br />
+		<div class="op-title">文章来自于</div>
 
+				<input type="text" class="edit_text" placeholder="请输入作者姓名......"
+					name="fromUser" value="${flash.fromUser}"  maxlenth="20"/> 
+				<br />
+		
 				<div class="op-title">封面图片</div>
 
 				<input type="file" name="f" style="width: 798px; margin-left: 80px;"
