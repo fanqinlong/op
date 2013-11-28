@@ -36,7 +36,7 @@ public class Application extends Controller {
 		List<Ques> qNumber = Ques.findAll();
 		QuesNum = qNumber.size();
 
-		List<Wel> wel = Wel.find("order by views desc").fetch(6);
+		List<Wel> wel = Wel.find("isChecked=true order by views desc").fetch(6);
 		int WelNum;
 		List<Wel> wNumber = Wel.findAll();
 		WelNum = wNumber.size();

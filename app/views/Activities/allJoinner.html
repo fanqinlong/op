@@ -1,17 +1,16 @@
-#{extends 'main.html' /} #{set title:'wel.html'/} #{set 'Styles'}
+#{extends 'main.html' /} #{set title:'所有参与者'/} #{set 'Styles'}
 <link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
+
 #{/set} #{set 'Scripts'}
 <script type="text/javascript" src="/public/javascripts/holder.js"></script>
 <script type="text/javascript" src="/public/javascripts/bootstrapx-popoverx.js"></script>
 <script type="text/javascript">
-$(function() {
-	$('a[rel="popoverx"]').popoverx({
-		fire_on : 'hover',
-		hover_delay_close : 0
-	});
-})
-	
-
+	$(function() {
+		$('a[rel="popoverx"]').popoverx({
+			fire_on : 'hover',
+			hover_delay_close : 0
+		});
+	})
 </script>
 
 #{/set}
@@ -19,50 +18,79 @@ $(function() {
 
 <h3 class="sh_title">已经报名的同学</h3>
 <p class="sh_explain">
-	#{if isOwner} <span>（点击对方头像即可通过审核，再次点击取消）</span> #{/if} #{else} <span>（看看都有谁报名了，或许有你感兴趣的人）</span> #{/else}
+	#{if isOwner} <span>（点击对方头像查看基本资料）</span> #{/if} #{else} <span>（看看都有谁报名了，或许有你感兴趣的人）</span> #{/else}
 </p>
 
 <p class="sh_content">
-	<span>${joiners?.size()}</span><span class="sh_4">人已报名 </span><span>${allownCount}</span><span class="sh_4">人已通过审核</span>
+	<span>${allownedJoiners?.size()+disAllownedJoiners?.size()}</span><span class="sh_4">人已报名 </span><span>${allownedJoiners?.size()}</span><span class="sh_4">人已通过审核</span>
 </p>
 <div class="sh_width">
-	#{if isOwner} #{list items:joiners,as:'joiner'}
+	 #{list items:allownedJoiners,as:'joiner'}
 	<div class="sh_head">
-		#{if joiner.isAllown}
-		<img src="@{'/public/images/active_detailed_shenhe.png'}" class="sh_bottom">
-		<a href="@{Activities.disAllownJoiner(joiner.id)}" rel="popoverx" data-content="> ${joiner.selfIntro}"  title="" data-original-title="申请者自我介绍">
-			<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
-		</a>
-		<br />
+
+		<p>
+			<img src="@{'/public/images/active_detailed_shenhe.png'}" class="sh_bottom">
+			<a href="@{SimpleUsers.preview(joiner.joiner.id)}" rel="popoverx" title="${joiner.selfIntro}" data-toggle="modal" data-target="#modal" data-original-title="申请者自我介绍">
+				<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
+			</a>
+		</p>
+		<p>
+			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+		</p>
+		#{if isOwner}
+		#{if !joiner.isAllown}
+		<p>
+			<a href="@{Activities.allownJoiner(joiner.id)}" class="btn btn-success ">允许参加</a>
+		</p>
 		#{/if} #{else}
-		<a href="@{Activities.allownJoiner(joiner.id)}" rel="popoverx" data-content="> ${joiner.selfIntro}"  title="" data-original-title="申请者介绍">
-			<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
-		</a>
-		<br/>
-		
+		<p>
+			<a href="@{Activities.disallownJoiner(joiner.id)}" class="btn btn-danger ">取消允许</a>
+		</p>
 		#{/else}
-		#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null}
-				 <img alt="" src="@{'public/images/edu.png'}"> #{/if}
-		
-		 #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")}
-		<img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male">
-		#{/if} #{elseif joiner.joiner.gender!=null}
-		<img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male">
-		#{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+		#{/if} 
 	</div>
-	#{/list} #{/if} #{else} #{list items:joiners,as:'joiner'}
-	<div class="sh_head">
-		#{if joiner.isAllown}
-		<img src="@{'/public/images/active_detailed_shenhe.png'}" class="sh_bottom">
-		#{/if}
-		<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
-		<br />
-		#{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")}
-		<img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male">
-		#{/if} #{elseif joiner.joiner.gender!=null}
-		<img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male">
-		#{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
-	</div>
-	#{/list} #{/else}
+	#{/list} 
 
 </div>
+<p class="sh_content">
+	<span>${disAllownedJoiners?.size()}</span><span class="sh_4">人暂未通过审核</span>
+</p>
+<div class="sh_width">
+	 #{list items:disAllownedJoiners,as:'joiner'}
+	<div class="sh_head">
+
+		<p>
+			<a href="@{SimpleUsers.preview(joiner.joiner.id)}" rel="popoverx" title="${joiner.selfIntro}" data-toggle="modal" data-target="#modal" data-content="${joiner.selfIntro}" data-original-title="申请者自我介绍">
+				<img src="${joiner.joiner.profile}" class="img-rounded sh_head_pic">
+			</a>
+		</p>
+		<p>
+			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+		</p>
+		#{if isOwner}
+		#{if !joiner.isAllown}
+		<p>
+			<a href="@{Activities.allownJoiner(joiner.id)}" class="btn btn-success ">允许参加</a>
+		</p>
+		
+		#{/if} #{else}
+		<p>
+			<a href="@{Activities.disallownJoiner(joiner.id)}" class="btn btn-danger ">取消允许</a>
+		</p>
+		#{/else}
+		 #{/if} 
+	</div>
+	#{/list}
+
+</div>
+
+
+#{set 'Scripts'}
+
+<script type="text/javascript">
+	$('#modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
+</script>
+#{/set}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

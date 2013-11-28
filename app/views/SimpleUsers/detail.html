@@ -14,18 +14,16 @@
   
   
   
-  <div class="col-md-8 infocenter_8" style="">
-   #{list items:simple,as:'s'}
-  	<h3  class="center_left" style="">${s.name}发起的活动</h3>
-  	 #{/list}
-  	<hr>
+  <div class="col-md-8 infocenter_8" >
+  	<h3  class="center_left" > TA 发起的活动</h3>
+  	
   	
  <!--中间内容-------------------------------------------------------------------->
   <!--中间内容-------------------------------------------------------------------->
  
 		 #{list items:activities,as:'a'}
 		  <div class="infocenter_content_user"  > 
-		  <p  class="center_left">"<a href="@{Activities.detail(a.id)}">${s.name}</a>"</p>
+		  <p  class="center_left">"<a href="@{Activities.detail(a.id)}">${a.name}</a>"</p>
 		  <p> 
 		  <img class="infocenter_activity_pic center_left"    src="${a.poster}" class="img-polaroid">
 		  </p>

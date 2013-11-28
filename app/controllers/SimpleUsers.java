@@ -415,7 +415,7 @@ public class SimpleUsers extends Application {
 
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherSU.id = ? order by postAt desc ", userId)
+		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by postAt desc ", userId)
 				.fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "publish";
@@ -469,13 +469,13 @@ public class SimpleUsers extends Application {
 
 	public static void preview(long userid) {
 		SimpleUser user = SimpleUser.findById(userid);
-		List<Activity> activities = Activity.find("publisherSU.id = ? order by views", userid).fetch(3);
+		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by id desc,views desc", userid).fetch(3);
 		List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"simple").fetch(3);
 		render(user,activities,questions);
 	}
 	public static void detail(long id){
 		SimpleUser simple = SimpleUser.findById(id);
-		List<Activity> activities = Activity.find("publisherSU.id = ?",id).fetch();
+		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by id desc",id).fetch();
 		render(activities,simple);
 	}
 	public static void userQues(long id){

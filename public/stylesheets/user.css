@@ -116,7 +116,7 @@ border-bottom: 1px solid #e2e2e2;
 }
 
 .infocenter_left2_pic {
-	width: 163px;
+	width: 128px;
 	margin: 30px;
 }
 
@@ -124,6 +124,7 @@ border-bottom: 1px solid #e2e2e2;
 	border-left: 1px solid #e2e2e2;
 	border-right: 1px solid #e2e2e2;
 	padding: 0px;
+	min-height:500px;
 }
 
 .infocenter_left_content {
@@ -248,4 +249,15 @@ border-bottom: 1px solid #e2e2e2;
   margin: 0;
   text-decoration: none;
   text-align: center;
+}
+.card-title {
+	background-color: #CCF;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding: 5px 20px;
+}
+.card-content p{
+	font-size:12px;
+	line-height:36px;
+	margin:0px;
 }

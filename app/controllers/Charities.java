@@ -263,9 +263,11 @@ public class Charities extends Application {
 
 			if (pageNo < 1) {
 				pageNo = 1;
+				System.out.println(pageNo+"no");
 
 			} else if (pageNo >= pageCount) {
 				pageNo = (int) pageCount;
+				System.out.println(pageCount+"count");
 			}
 			List<Wel> we = Wel.find("isChecked=true order by time desc")
 					.from((pageNo - 1) * 5).fetch(5);
