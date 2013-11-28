@@ -316,19 +316,21 @@ public class Charities extends Application {
 
 	}
 
-	public static void like(long aid, int pageNo) {
-		if (session.get("logged") == null) {
+	public static void like(long aid,int pageNo) {
+		
+		 
+		if(session.get("logged") == null) {
 			SimpleUsers.login();
 		}
-
+		
 		String userType = session.get("usertype");
-		String username = session.get("username");
 		long userId = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");
 		List al_exist = welLiker.find(
-				"aid = ? and lid = ? and ltype = ? and name=? ", aid, userId,
-				usertype, username).fetch();
-
+				"aid = ? and lid = ? and ltype = ? ", aid, userId, usertype)
+				.fetch();
+	 
+		
 		if (!al_exist.isEmpty()) {
 			flash.error("您已关注");
 			pigination(pageNo);
@@ -336,30 +338,29 @@ public class Charities extends Application {
 		welLiker al = new welLiker();
 		al.aid = aid;
 		al.lid = userId;
-		al.name = username;
 		al.ltype = usertype;
 		al.save();
 		Wel w = Wel.findById(aid);
-
+	
 		w.likerCount = w.likerCount + 1;
 		w.save();
-
-		if (userType.equals("cssa")) {
+	
+		
+		if(userType.equals("cssa")){
 			CSSA cssa = CSSA.findById(userId);
-
-			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, null,
-					w, "关注了", "wel");
+		 
+			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, null, w,"关注了", "wel");
 			tend.save();
-		} else {
+		}else{
 			SimpleUser simp = SimpleUser.findById(userId);
-
-			Trend tend = new Trend(Utils.getNowTime(), simp, null, null, null,
-					w, "关注了", "wel");
+			
+			Trend tend = new Trend(Utils.getNowTime(), simp, null, null, null,w,"关注了", "wel");
 			tend.save();
 		}
-
+		
+		
 		flash.success("关注成功");
 		pigination(pageNo);
 	}
-
+	 
 }
