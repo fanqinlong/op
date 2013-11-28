@@ -61,13 +61,20 @@ public class Charities extends Application {
 
 		render();
 	}
+	public static void smindex() {
+		if (session.get("logged") == null) {
+			Charities.pigination(1);
+		}
+
+		render();
+	}
 
 	public static void WelSave(String title, String content, String time,
-			File f, String generalize, int likerCount, boolean isChecked) {
+			File f, String generalize, int likerCount, boolean isChecked,String fromUser) {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-
+ 
 		// 上传图片
 	 
 		if (title.equals("")) {
@@ -101,24 +108,25 @@ public class Charities extends Application {
 			String extName = fileName.substring(fileName.lastIndexOf("."));
 			UUID uuid = UUID.randomUUID();
 			fileName = uuid.toString() + extName;
-
+			
 			String path = "/public/images/upload/" + fileName;
 			Files.copy(f, Play.getFile(path));
 
 			Wel w = new Wel(title, content, d, path, generalize, likerCount,
-					true);
+					true,fromUser);
 			wel(1);
 		}
 
 	}
 
 	public static void SmWelSave(String title, String content, String time,
-			File f, String generalize, int likerCount, boolean isChecked) {
+			File f, String generalize, int likerCount, boolean isChecked,String fromUser) {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-
+		 
 		// 上传图片
+		
 
 		if (title.equals("")) {
 			validation.keep();
@@ -156,8 +164,8 @@ public class Charities extends Application {
 			Files.copy(f, Play.getFile(path));
 
 			Wel w = new Wel(title, content, d, path, generalize, likerCount,
-					true);
-			wel(1);
+					false,fromUser);
+			renderTemplate("Charities/SmWelSave.html");
 		}
 	}
 
@@ -284,7 +292,7 @@ public class Charities extends Application {
 				} else if (pageNo >= pageCount) {
 					pageNo = (int) pageCount;
 				}
-				List<Wel> we = Wel.find("order by likerCount desc")
+				List<Wel> we = Wel.find("order by time desc")
 						.from((pageNo - 1) * 5).fetch(5);
 				renderTemplate("Charities/wel.html", we, pageCount, pageNo);
 

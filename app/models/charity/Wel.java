@@ -20,8 +20,9 @@ public class Wel extends Model {
 	public boolean isChecked;
     public int likerCount;
     public long views;
+    public String fromUser;
 	 
-	public Wel(String title,String content,String time,String f,String generalize, int likerCount,boolean isChecked) {
+	public Wel(String title,String content,String time,String f,String generalize, int likerCount,boolean isChecked, String fromUser) {
 		
 		this.title = title;
 		this.content =content;
@@ -30,6 +31,7 @@ public class Wel extends Model {
 		this.generalize = generalize;
 		this.likerCount = likerCount;
 		this.isChecked = isChecked;
+		this.fromUser = fromUser;
 	 	create();
 	}
   
