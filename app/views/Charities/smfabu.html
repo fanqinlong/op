@@ -1,0 +1,104 @@
+#{extends 'main.html' /} #{set title:'index.html'/}
+
+ #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
+
+	<link href="@{'/public/stylesheets/font-awesome/css/font-awesome.css'}"
+	rel="stylesheet">
+<link href="@{'/public/stylesheets/index.css'}" rel="stylesheet">
+ 
+ 
+
+
+#{/set}
+
+<!--正文部分-->
+ 
+	<div class="op-left1">
+		<form action="@{Charities.SmWelSave}" method="post" id="index"
+			enctype="multipart/form-data">
+			<div class="op-left2">
+
+				<h3>发布公益性文章<small class="text-danger"></small></h3>
+
+				<div class="op-title">文章标题</div>
+
+				<input type="text" class="edit_text" placeholder="请输入文章标题,20字以内......"
+					name="title" value="${flash.title}"  maxlenth="20"/> <a style="color: red;">${flash.error}</a>
+				<br />
+		<div class="op-title">文章来自于</div>
+
+				<input type="text" class="edit_text" placeholder="请输入作者姓名......"
+					name="fromUser" value="${flash.fromUser}"  maxlenth="20"/> 
+				<br />
+		
+				<div class="op-title">封面图片</div>
+
+				<input type="file" name="f" style="width: 798px; margin-left: 80px;"
+					onchange="previewImage(this)" />
+				<div id="preview">
+					<img id="imghead" name="f1">
+				</div>
+
+				<div class="op-title">公益说明</div>
+					<input type="text" class="edit_text" placeholder="140字以内......"
+					name="generalize" value="${flash.generalize}"  maxlength="140"/> 
+
+			 
+
+
+
+				<div class="float-1"></div>
+
+				<div class="op-c">文章内容</div>
+				<div class="wr-1">
+			 
+			  <textarea cols="50" id="area1" style="width:550px;" rows="10" name="content" value="${flash.content}" > </textarea>
+  
+
+ 
+
+						 
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+
+				<div class="float-1"></div>
+				
+				
+			<input type="submit" class="we-btn btn-lg btn-primary" style="margin-left:121px;" value="发布" />
+				
+				
+				
+			</div>
+		</form>
+	</div>
+
+	 
+ 
+<!--这里是底部-->
+
+
+
+#{set 'Scripts'}
+<script type="text/javascript" src="@{'/public/javascripts/nicEdit.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/pic.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/key.js'}"></script>
+ <script type="text/javascript">
+//<![CDATA[
+  bkLib.onDomLoaded(function() {
+        new nicEditor().panelInstance('area1');
+        
+  });
+  //]]>
+  </script>
+ 
+					 
+					#{/set}
+</body>
+</html>

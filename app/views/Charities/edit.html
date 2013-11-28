@@ -21,6 +21,12 @@
 			<input type="text" class="edit_text"   placeholder="请输入文章标题......"
 			  name="w.title" value="${w.title}" /><br/>
 			
+			<div class="op-title">文章来自于</div>
+
+				<input type="text" class="edit_text" placeholder="请输入作者姓名......"
+					name="w.fromUser" value="${w.fromUser}"  maxlenth="20"/> 
+				<br />
+			
 		 
 			 <div  class="op-title">修改封面</div>
 			 
@@ -32,10 +38,12 @@
 								 
 			 
 			  <div  class="op-title"  >公益说明</div>
+			  <input type="text" class="edit_text" 
+					 name="w.generalize" value="${w.generalize}" maxlength="140"/> 
 		 
-			<textarea style="" class="edit_t"
+		<!--	<textarea style="" class="edit_t"
 			  name="w.generalize">${w.generalize}</textarea>
-			
+			-->
 			
 			
 			
@@ -56,7 +64,7 @@
   </div>
 	 
  	 
-			  <textarea cols="50" id="area1" style="width:550px;" rows="10" name="w.content" value="${flash.content}" >${w.content.raw()} </textarea>
+			  <textarea cols="50" id="area1" style="width:550px;" rows="10" name="w.content"  >${w.content.raw()} </textarea>
   
 	 
   </div>
@@ -64,7 +72,7 @@
 </div>
  
 			<div class="float-1"></div>
-					<input type="submit" class="we-btn btn-large btn-primary" id="tijiao" value="提交修改" > 
+					<input type="submit" class="btn we-btn btn-lg btn-primary" id="tijiao" value="提交修改" > 
 			 </div>
 			</form>
 		</div>

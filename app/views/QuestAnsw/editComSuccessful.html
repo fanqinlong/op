@@ -11,16 +11,19 @@
 <span id="div1" style="color:#5282a5"></span><span style="color:#5282a5" id="div2">秒后自动跳转问答首页</span></h4>
 </div>
 
-<script>
-var start = 3;
+<script type="text/javascript">
+var start = 4;
 var step = -1;
 function count()
 {
-	document.getElementById("div1").innerHTML = start;
+	var div1=document.getElementById("div1");
 	start += step;
-	if(start < 0)
-		start = 3;
-	setTimeout("count()",1000);
+	div1.innerHTML= start;
+	var end=window.setTimeout(count,1000);
+	if(start<=1){
+		window.clearTimeout(end);
+	}
+		
 }
-window.onload = count;
+window.onload=count();
 </script>

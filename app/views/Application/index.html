@@ -27,8 +27,8 @@
       <li class="item4"> <div class="wrapper"></div> </li>
       <li class="item5"> <div class="wrapper"></div> </li>
   </ul>
- <div id="banner_ctr"  style="">
-         <div id="drag_ctr" style=""> </div>
+ <div id="banner_ctr"   >
+         <div id="drag_ctr"  > </div>
        <ul>
             <li class="styclsa"><span> </span></li>
             <li class="styclsa"><span> </span></li>
@@ -40,7 +40,7 @@
 	 
 	</div>
  
- <div class="row index_row" style="">
+ <div class="row index_row"  >
 	
 			<div class="col-xs-6  col-sm-6  col-md-5  col-md-offset-1 col-sm-offset-1 col-xs-offset-1 logo" >
 				<img  class="img-responsive"  src="/public/images/logo-big.png"/  >
@@ -75,22 +75,22 @@
 				</div>
 			</form>
 			#{/if} #{else} #{if isSimpleUser}
-			<ul  class="user_exit" style=""> 
-				<li style="">
-					<img src="${userprofile}" class="img-circle">
-				</li>
-			</ul>
-			<div class="user_exit_infocenter" style=""><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
+			<div  class="user_exit text-center" > 
+				 
+					<img src="${userprofile}" class="img-circle" >
+				 
+			</div>
+			<div class="user_exit_infocenter text-center"  ><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
 			<ul  class="user_exit">
 				<li>
-					<img src="${userprofile}" class="img-circle" style="width: 90%;">
+					<img src="${userprofile}" class="img-circle" >
 				</li>
 			</ul>
 			<div  class="user_exit_infocenter"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
 		</div>
 	</div>
  
-	<div class="container hot-list" style="">
+	<div class="container hot-list"  >
 		<div class="mg-top-3">
 			<h3 class="text-primary">
 				最新活动<small class="text-info">ACTIVITY</small><small class="pull-right hd_small">进行着<span class="text-info">${AcNum}</span>个活动
@@ -123,6 +123,8 @@
 
 
 			</div>
+			
+			
 			<p class="text-right">
 				<a href="@{Activities.index}" class="btn  btn-primary">Read More</a>
 			</p>
@@ -136,10 +138,10 @@
 					</small>
 				</h3>
 				<hr />
-				<ul class="index-content-ul" style="">
+				<ul class="index-content-ul"  >
 				#{list items:ques,as:'q'}
 				<li>
-					<span class="label" style="">${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
+					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
 				</li>
 				#{/list}
 				<p class="text-right">
@@ -181,7 +183,7 @@
 		 
 		</div>
 	</footer>
-	<a onclick="window.scrollTo(0,0);">返回顶部</a>
+ 
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

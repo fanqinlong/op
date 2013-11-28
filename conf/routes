@@ -129,15 +129,18 @@ GET					/activity/comment										 Activities.comment
 
 
 #Charity
-GET 				/wel                                                  	Charities.wel
+
+GET					/charity/smindex										Charities.smindex
+GET 				/charity/fabu                                           Charities.fabu
+GET 				/charity/smfabu                                         Charities.smfabu
 POST 				/charity/{pageNo}                                       Charities.wel
 GET 				/charity/fabu                                           Charities.fabu
-POST        		/charity/add                 							Charities.wel
-GET                	/charity/add                                            Charities.wel
+POST        		/charity/add                 							Charities.wel 
+GET					/charity/Pass/{id}										Charities.pass
 GET         		/charity/welfare/{id}                                   Charities.welfare
 GET        		 	/charity/edit/{id}/{pageNo}                             Charities.edit
 GET                	/charity/del/{id}/{pageNo}                              Charities.wel
-GET                	/charity/{pageNo}                                                                         Charities.pigination
+GET                	/charity/{pageNo}                                       Charities.pigination
  
 
 #Question and answer
@@ -164,6 +167,7 @@ GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 
+GET  /QuestAnsw/orderbyAnswerNumber                    QuestAnsw.orderbyAnswerNumber
 
 
 POST /UserSurvey/index               		       UserSurvey.index

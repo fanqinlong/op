@@ -9,22 +9,22 @@
 		function showPraise(){
 		}
 	</script>
-<div style="width:700px; float:left;">
-		 <div style="width:600px;">
+<div class="col-md-8">
+		 <div>
 				#{list items:fQ,as:'findListQues'}
 				<ul style="padding-bottom:5px; padding-left:0px;"  >
 					<li  class="qatitle">	
-						<span  style="font-size:17px; color:#000000; font-weight:bold;" class="ql">${findListQues.title}</span>
+						<span  style="font-size:20px; color:#000000; class="ql">${findListQues.title}</span>
 						#{if isSimple}
 							#{if UserQues}
 								<a  class="btn btn-link linkf"  href="@{QuestAnsw.editQues(findListQues.id)}">
-						 	 	<i class="icon-edit"></i>修改</a>
+						 	 	<i class="icon-edit"></i>编辑</a>
 							#{/if}
 						#{/if}
 						#{elseif isCSSA}
 							#{if CssaQues}
 								<a  class="btn btn-link linkf"   href="@{QuestAnsw.editQues(findListQues.id)}">
-						 	 	<i class="icon-edit"></i>修改</a>
+						 	 	<i class="icon-edit"></i>编辑</a>
 						 	 #{/if}
 						#{/elseif}
 						 #{else}
@@ -33,28 +33,28 @@
 					</li>
 				
 					<li class="qatitle">
-							<span  class="ql">${findListQues.label}</span>
+							<span class="label label-primary" style="background-color:#62a3d2;">${findListQues.label}</span>
 					</li>
 					#{if findListQues.usertype == "cssa"}
 					<li class="qatitle">
-						<i class="icon-user"></i>
+						 
 						<a href="@{CSSAs.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
-						<img src="${findListQues.userprofile}" style="width:40px;"/></span>
+						 
 						</a>
-						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username},${findListQues.selfIntro}</div>
+						<div class="qatitlea linkf ql" style=" margin-top:-16px;padding-left:0px;">${findListQues.username},${findListQues.selfIntro}</div>
 
 					</li>
 					#{/if}
 					#{else}
 						<li class="qatitle">
 
-						<i class="icon-user  pull-left"></i>
+						 
 						<a href="@{SimpleUsers.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
 						<span class="qatitlea linkf ql">
-						<img src="${findListQues.userprofile}"  class="pull-left" style="width:40px;"/></span>
+						 
 						</a>
-						<div class="qatitlea linkf ql" style="margin-left:60px; margin-top:-16px;">${findListQues.username}
+						<div class="qatitlea linkf ql" style=" margin-top:-16px;padding-left:0px;">${findListQues.username}
 						${findListQues.selfIntro}
 						</div>
 
@@ -65,32 +65,36 @@
 						${findListQues.content.raw()}
 						</div>
 					</li>
-					<li class="qatitle"   style="border-top:1px solid #dddddd;  border-bottom:1px solid #dddddd; padding-bottom:15px;">
+					<li class="qatitle text-muted"   style="border-top:1px solid #dddddd;  border-bottom:1px solid #dddddd; padding-bottom:15px;">
 						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
 					</li>
 			 	</ul>
 			 	#{/list}
 		  </div>
-		  <div style="width:560px;">
+		  <div>
 		 		#{list items:listCom,as:'ac'}
 			 		<ul style="border-bottom:1px solid #dddddd; padding-bottom:15px;">
 					 		<li class="" style="margin-left:-40px;">
 				    			<h5>
 				    				#{if ac.usertype == "cssa"}
 				    				<a id="userInfo${ac.userid}" href="@{CSSAs.preview(ac.userid)}" data-target="#modal" data-toggle="modal" style="color:#336699;">
-				    				<img  src=${ac.userprofile} class="op2-right2" style="height:30px; width:30px;"> ${ac.username}：</a>
+				    				<img  src=${ac.userprofile} class="pull-right" style="width:32px;"> ${ac.username}：</a>
 				    				<span class="text-muted">${ac.userSelfIntro}</span>
 				    				#{/if}
 				    				#{else}
 				    					<a id="userInfo${ac.userid}" href="@{SimpleUsers.preview(ac.userid)}" data-target="#modal" data-toggle="modal" style="color:#336699;">
-				    					<img  src=${ac.userprofile} class="op2-right2" style="height:30px; width:30px;"> ${ac.username}：</a>
+				    					<img  src=${ac.userprofile} class="pull-right" style="width:32px;"> 
+				    					
+				    					<span style="font-size:13px;">${ac.username}</span>
+				    					
+				    					</a>
 				    					<span class="text-muted">${ac.userSelfIntro}</span>	
 				    				#{/else}
 				    			</h5>
 				    			 <span >
 				    			 <a href="@{QuestAnsw.notAgree(ac.id,ac.quesid)}" title="点击赞同"><img src="/public/images/1-2.png"> ${ac.praiseNum}票 ,</a>
 				    			 <span style="color:#999999;font-size:10px; margin-left:10px;">${ac.date}</span>
-				    			 <div style="float:right;margin-top:-30px;">
+				    			 <div style="float:right;margin-top:-32px;">
 	 								
 								 </div> 
 				    		</li>
@@ -101,7 +105,7 @@
 		  	   #{/list}	
 	  	  </div> 		
   			
-	  		<div style="padding-bottom:50px; width:600px;">
+	  		<div style="padding-bottom:50px; width:60%;">
 	  		 #{if isSimple}
 	  		 	#{if UserQues}
 	  		 		#{list items:fQ,as:'findListQues'}
@@ -127,14 +131,14 @@
 							#{/list}
 					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
 						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
-						 	style="width:80px;" />
+						 	style="margin-top: 20px;" />
 					 	</form>
 	  		 	#{/else}
 	  		 #{/if}
 	  		 #{elseif isCSSA}
 	  		 	#{if CssaQues}
 	  		 		#{list items:fQ,as:'findListQues'}
-	  		 			<span style="line-height: 50px;margin-left:50px;">用户不能回答自己的问题,但是可以对自己的问题进行
+	  		 			<span style="line-height: 50px;">用户不能回答自己的问题,但是可以对自己的问题进行
 	  		 			<a href="@{QuestAnsw.editQues(findListQues.id)}">修改或者补充</a></span>
 	  		 		#{/list}
 	  		 	#{/if}
@@ -156,7 +160,7 @@
 							#{/list}
 					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
 						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
-						 	style="width:80px;" />
+						 	style="margin-top: 20px;" />
 					 	</form>
 	  		 	#{/else}
 	  		 #{/elseif}
@@ -170,13 +174,13 @@
 							#{/list}
 					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
 						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
-						 	style="width:80px;" />
+						 	style="margin-top: 20px;" />
 					 	</form>
 	  		 #{/else}
 			</div>
 </div>
 
-<div style="float:left;">
+<div class="col-md-3 col-md-offset-1">
    #{list items:fQ,as:'fidid'}
 	<div class="op-right1">
 	#{if isSimple}
@@ -204,23 +208,36 @@
 		<span class="op-18">
 			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
 		<span>
-		<span class="op-13">人关注该问题</span>
+		<span class="op-13">人已关注</span>
 		</span></span>
 	</label>
 	#{/list}
-	 <div>
+	 <div style="height: 80px;overflow: hidden;">
 	  #{list items:FQ,as:'fidid'}
 	  #{if fidid == "cssa"}
 	  	<a href="@{CSSAs.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
-	  	<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	  	<img  src=${fidid.userprofile} class="op2-right2" style="width:32px;"></a>
 	  #{/if}
 	  #{else}
 	 		<a href="@{SimpleUsers.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
-	 		<img  src=${fidid.userprofile} class="op2-right2" style="height:30px; width:30px;"></a>
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:32px;margin:5px;"></a>
+	 			 
 	  #{/else}
 	 	
 	  #{/list}
 	 </div> 
+	    <hr>
+				    <h4 style="padding-bottom:10px;margin-top:0px;">相关问题</h4>
+				    #{list items : relatedQues,as:'rq'}
+				    <p style="margin-bottom:0px;">
+				   		 <a href="@{QuestAnsw.showQuesInfo(rq.id)}" style="font-size:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:100%;display:block;">${rq.title}</a>
+				   		 
+				    </p>
+				    <p>
+				    	<span class="text-muted">${rq.answerNum}个回答</span>
+				    </p>
+				    #{/list}
+				     
 </div>
 <div style=" clear:both;"></div>	
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

@@ -20,7 +20,11 @@ smaller than 960
 @media screen and (max-width: 960px) {
 	 
 	 
-	 
+	 	.bs-navbar-collapse{
+	width: 20%;float: right;
+	}
+	
+	
 	 
 	 
 	 
@@ -75,6 +79,14 @@ smaller than 560
 height: 229px !important;
  
 }
+.form-group1{
+	
+	width:100%	
+	
+}
+
+
+
  
  
 

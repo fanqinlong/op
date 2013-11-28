@@ -13,7 +13,7 @@
 #{/set}
 
 <!--正文部分-->
-<div class="oppcontent-2">
+ 
 	<div class="op-left1">
 		<form action="@{Charities.WelSave}" method="post" id="index"
 			enctype="multipart/form-data">
@@ -23,8 +23,13 @@
 
 				<div class="op-title">文章标题</div>
 
-				<input type="text" class="edit_text" placeholder="请输入文章标题......"
-					name="title" value="${flash.title}" /> <a style="color: red;">${flash.error}</a>
+				<input type="text" class="edit_text" placeholder="请输入文章标题,20字以内......"
+					name="title" value="${flash.title}"  maxlenth="20"/> 
+				<br />
+				<div class="op-title">文章来自于</div>
+
+				<input type="text" class="edit_text" placeholder="请输入作者姓名......"
+					name="fromUser" value="${flash.fromUser}"  maxlenth="20"/> 
 				<br />
 
 				<div class="op-title">封面图片</div>
@@ -36,22 +41,15 @@
 				</div>
 
 				<div class="op-title">公益说明</div>
+					<input type="text" class="edit_text" placeholder="140字以内......"
+					name="generalize" value="${flash.generalize}"  maxlength="140"/> 
 
-				<textarea class="edit_t" name="generalize"
-					value="${flash.generalize}" placeholder="140字以内"></textarea>
-
-
-
-
-
-
-				<div class="float-1"></div>
+				 <div class="float-1"></div>
 
 				<div class="op-c">文章内容</div>
 				<div class="wr-1">
 			 
 			  <textarea cols="50" id="area1" style="width:550px;" rows="10" name="content" value="${flash.content}" > </textarea>
-  
 
  
 
@@ -66,14 +64,18 @@
 
 
 				<div class="float-1"></div>
-				<input type="submit" class="we-btn btn-lg btn-primary" style="margin-left:121px;" value="发布" />
+				
+				
+			<input type="submit" class="we-btn btn-lg btn-primary" style="margin-left:121px;" value="发布" />
+				
+				
+				
 			</div>
 		</form>
 	</div>
 
-	<div style="clear: both;"></div>
-
-</div>
+	 
+ 
 <!--这里是底部-->
 
 
