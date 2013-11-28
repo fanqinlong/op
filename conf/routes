@@ -130,7 +130,7 @@ GET					/activity/comment										 Activities.comment
 
 #Charity
 
- 
+GET					/charity/smindex										Charities.smindex
 GET 				/charity/fabu                                           Charities.fabu
 GET 				/charity/smfabu                                         Charities.smfabu
 POST 				/charity/{pageNo}                                       Charities.wel

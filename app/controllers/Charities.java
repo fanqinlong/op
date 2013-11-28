@@ -61,6 +61,13 @@ public class Charities extends Application {
 
 		render();
 	}
+	public static void smindex() {
+		if (session.get("logged") == null) {
+			Charities.pigination(1);
+		}
+
+		render();
+	}
 
 	public static void WelSave(String title, String content, String time,
 			File f, String generalize, int likerCount, boolean isChecked,String fromUser) {
