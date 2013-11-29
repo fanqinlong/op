@@ -7,6 +7,11 @@
 	border-radius: 0;
 	border: 0;
 }
+.main-beta{
+	position: relative;right: 13px;
+top: 5px;
+}
+
 .mg-top-2{
 	color:#999;
 }
