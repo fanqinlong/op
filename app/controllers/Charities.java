@@ -50,7 +50,13 @@ public class Charities extends Application {
 		if (session.get("logged") == null) {
 			Charities.pigination(1);
 		}
-
+		else{
+			SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
+			if (su.isAdmin == false) {
+				Charities.smfabu();
+	
+			}
+	}
 		render();
 	}
 
