@@ -38,6 +38,7 @@ smaller than 800
 	
 	.bs-navbar-collapse{
 	width: 20%;float: right;
+	 
 	}
 	
 	
@@ -62,14 +63,27 @@ smaller than 560
 @media screen and (max-width: 480px) {
 	
 	/* disable webkit text size adjust (for iPhone) */
-	 #banner, .logo,.hd_small{
+	 #banner, .opporlinklog,.main-beta,.logo,.hd_small{
 	 
 	 	display:none;
 	 }
 	.login{
-	 	width:112%;
+	 	width:102%;
 	 	margin-top:0px;
 	 }
+	 .user_exit {
+  margin-top: 0px !important;
+   
+  }
+  .user_exit_infocenter {
+  margin-left: 6%;
+  margin-top: 0px !important;
+  text-align:center;
+  }
+  
+     .bs-navbar-collapse{
+    width: 30%;float: right;
+    }
 	 .index_dl{
 	 	margin-top:3% !important;
 	 

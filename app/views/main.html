@@ -10,18 +10,27 @@
 <script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
-#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
 	<header class="navbar  navbar-op" role="navigation" style="min-height: 40px;height: 40px !important;">
-		<div class="container">
+		<div class="container" style="min-height: 40px;height: 40px !important;">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}">
-				</a>
-				<img  class="img-responsive pull-right main-beta"  src="/public/images/beta.png" style=""/>
+			 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+				
 			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
+			
+			<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}"></a>
+				<img  class="img-responsive pull-left  main-beta"  src="/public/images/beta.png" />
+			<div class="navbar-collapse collapse bs-navbar-collapse" style="background-color:#336699;" >
+			
+	 	<ul class="nav navbar-nav ">
+	 	<li>
 					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
@@ -177,8 +186,7 @@
 	 	count();
 		});
 		
-
-$(function(){
+ 
     //点击回到顶部的元素
     $("#gotop").click(function(e) {
             //以1秒的间隔返回顶部
@@ -191,7 +199,7 @@ $(function(){
         $(this).css("background","url(images/backtop2013.png) no-repeat -70px 0px");
     });
     gobackTop();//实现回到顶部元素的渐显与渐隐
-});
+ 
 	
 	
 function onmouseoutTop(){
