@@ -50,7 +50,13 @@ public class Charities extends Application {
 		if (session.get("logged") == null) {
 			Charities.pigination(1);
 		}
-
+		else{
+			SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
+			if (su.isAdmin == false) {
+				Charities.smfabu();
+	
+			}
+	}
 		render();
 	}
 
@@ -61,13 +67,20 @@ public class Charities extends Application {
 
 		render();
 	}
+	public static void smindex() {
+		if (session.get("logged") == null) {
+			Charities.pigination(1);
+		}
+
+		render();
+	}
 
 	public static void WelSave(String title, String content, String time,
-			File f, String generalize, int likerCount, boolean isChecked) {
+			File f, String generalize, int likerCount, boolean isChecked,String fromUser) {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-
+ 
 		// 上传图片
 	 
 		if (title.equals("")) {
@@ -101,24 +114,25 @@ public class Charities extends Application {
 			String extName = fileName.substring(fileName.lastIndexOf("."));
 			UUID uuid = UUID.randomUUID();
 			fileName = uuid.toString() + extName;
-
+			
 			String path = "/public/images/upload/" + fileName;
 			Files.copy(f, Play.getFile(path));
 
-			Wel w = new Wel(title, content, d, path, generalize, likerCount,
-					true);
+			new Wel(title, content, d, path, generalize, likerCount,
+					true,fromUser);
 			wel(1);
 		}
 
 	}
 
 	public static void SmWelSave(String title, String content, String time,
-			File f, String generalize, int likerCount, boolean isChecked) {
+			File f, String generalize, int likerCount, boolean isChecked,String fromUser) {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-
+		 
 		// 上传图片
+		
 
 		if (title.equals("")) {
 			validation.keep();
@@ -155,9 +169,9 @@ public class Charities extends Application {
 			String path = "/public/images/upload/" + fileName;
 			Files.copy(f, Play.getFile(path));
 
-			Wel w = new Wel(title, content, d, path, generalize, likerCount,
-					true);
-			wel(1);
+			new Wel(title, content, d, path, generalize, likerCount,
+					false,fromUser);
+			renderTemplate("Charities/SmWelSave.html");
 		}
 	}
 
@@ -284,7 +298,7 @@ public class Charities extends Application {
 				} else if (pageNo >= pageCount) {
 					pageNo = (int) pageCount;
 				}
-				List<Wel> we = Wel.find("order by likerCount desc")
+				List<Wel> we = Wel.find("order by time desc")
 						.from((pageNo - 1) * 5).fetch(5);
 				renderTemplate("Charities/wel.html", we, pageCount, pageNo);
 
@@ -308,19 +322,20 @@ public class Charities extends Application {
 
 	}
 
-	public static void like(long aid, int pageNo) {
-		if (session.get("logged") == null) {
+	public static void like(long aid,int pageNo) {
+		System.out.print("/"+aid);
+		if(session.get("logged") == null) {
 			SimpleUsers.login();
 		}
-
+		
 		String userType = session.get("usertype");
-		String username = session.get("username");
 		long userId = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");
 		List al_exist = welLiker.find(
-				"aid = ? and lid = ? and ltype = ? and name=? ", aid, userId,
-				usertype, username).fetch();
-
+				"aid = ? and lid = ? and ltype = ? ", aid, userId, usertype)
+				.fetch();
+	 
+		
 		if (!al_exist.isEmpty()) {
 			flash.error("您已关注");
 			pigination(pageNo);
@@ -328,30 +343,29 @@ public class Charities extends Application {
 		welLiker al = new welLiker();
 		al.aid = aid;
 		al.lid = userId;
-		al.name = username;
 		al.ltype = usertype;
 		al.save();
 		Wel w = Wel.findById(aid);
-
+	
 		w.likerCount = w.likerCount + 1;
 		w.save();
-
-		if (userType.equals("cssa")) {
+	
+		
+		if(userType.equals("cssa")){
 			CSSA cssa = CSSA.findById(userId);
-
-			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, null,
-					w, "关注了", "wel");
+		 
+			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, null, w,"关注了", "wel");
 			tend.save();
-		} else {
+		}else{
 			SimpleUser simp = SimpleUser.findById(userId);
-
-			Trend tend = new Trend(Utils.getNowTime(), simp, null, null, null,
-					w, "关注了", "wel");
+			
+			Trend tend = new Trend(Utils.getNowTime(), simp, null, null, null,w,"关注了", "wel");
 			tend.save();
 		}
-
+		
+		
 		flash.success("关注成功");
 		pigination(pageNo);
 	}
-
+	 
 }

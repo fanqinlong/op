@@ -19,7 +19,7 @@
 	.gy-fb{
 		float:right;
  
-		
+		margin-right: 199px;
 		margin-top: -50px;
 	
 	}

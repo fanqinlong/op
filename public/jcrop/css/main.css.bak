@@ -107,3 +107,6 @@ input[type=submit]:active {
     box-shadow: inset 0 0 1px 1px #e3e3e3;
     color: #000;
 }
+.jcrop-holder img{
+max-width:500px;
+}

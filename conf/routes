@@ -141,6 +141,7 @@ GET         		/charity/welfare/{id}                                   Charities.
 GET        		 	/charity/edit/{id}/{pageNo}                             Charities.edit
 GET                	/charity/del/{id}/{pageNo}                              Charities.wel
 GET                	/charity/{pageNo}                                       Charities.pigination
+#GET					/charity/like/{aid}/{pageNo}							Charities.like
  
 
 #Question and answer
