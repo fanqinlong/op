@@ -130,7 +130,11 @@ GET					/activity/comment										 Activities.comment
 
 #Charity
 
+<<<<<<< HEAD
  
+=======
+GET					/charity/smindex										Charities.smindex
+>>>>>>> temp
 GET 				/charity/fabu                                           Charities.fabu
 GET 				/charity/smfabu                                         Charities.smfabu
 POST 				/charity/{pageNo}                                       Charities.wel
@@ -141,7 +145,7 @@ GET         		/charity/welfare/{id}                                   Charities.
 GET        		 	/charity/edit/{id}/{pageNo}                             Charities.edit
 GET                	/charity/del/{id}/{pageNo}                              Charities.wel
 GET                	/charity/{pageNo}                                       Charities.pigination
-#GET					/charity/like/{aid}/{pageNo}							Charities.like
+GET					/charity/like/{aid}/{pageNo}							Charities.like
  
 
 #Question and answer
