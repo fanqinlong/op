@@ -152,7 +152,7 @@ $('#modal').on('hidden', function() {
 			
 			
 				#{list items:qArticles,as:'qa'}
-				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}">${qa.ques.title}</a>
+				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
 					
 					</p>
 					#{if qa.ques.usertype == "cssa"}

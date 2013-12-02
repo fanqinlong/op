@@ -8,9 +8,9 @@
 	
 	}
 	 blockquote small:before {
-content: '' !important;
-}
-	 
+		content: '' !important;
+		}
+			 
 	.goy-h3{
 	
 		color:#333333;
@@ -32,7 +32,6 @@ content: '' !important;
 		border-top: 1px solid #e2e2e2;
 	}
 	
- 
 		.b-2{
 			width:auto;
 			margin-left:4%; 
@@ -80,10 +79,7 @@ content: '' !important;
  		margin-left:80px;
  	
  	}
- 	
- 	
- 	
- 	.goy-a{
+ 	 	.goy-a{
  		color:#666666 !important;
  		font-size: 12px;
  	 }
