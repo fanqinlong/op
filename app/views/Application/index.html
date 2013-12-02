@@ -50,7 +50,16 @@
 
 			#{if isNotLogin}
 			<div class="index_dl">
-				<h5 class="pull-left">Welcome</h5>
+			  
+			
+			
+			 
+			
+			
+				<h5 class="pull-left">
+				<img  class="img-responsive pull-right index-beta"  src="/public/images/beta.png" style=""/>
+					Welcome
+				</h5>
 				<h5 class="pull-right">
 					<a href="@{SimpleUsers.signup}" id="login-font1"> 注册<i class="icon-flag "></i>
 					</a>
@@ -102,7 +111,7 @@
 				<div class="col-xs-6 col-sm-4 col-md-2 activity" style="padding-right: 0px;" >
 
 					<div class="poster">
-						<a href="@{Activities.detail(a.id)}"> <img alt=""  src="${a.poster}" class="img-responsive ">
+						<a href="@{Activities.detail(a.id)}" target="_blank"> <img alt=""  src="${a.poster}" class="img-responsive ">
 						</a>
 					</div>
 					<div class="titles text-center">${a.name}</div>
@@ -141,7 +150,7 @@
 				<ul class="index-content-ul"  >
 				#{list items:ques,as:'q'}
 				<li>
-					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a>
+					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a>
 				</li>
 				#{/list}
 				<p class="text-right">
@@ -160,7 +169,7 @@
 				#{list items:wel,as:'w'}
 				
 					<li>
-					<span class="label">${w.views}</span> <a href="@{Charities.welfare(w.id)}">${w.title}</a>
+					<span class="label">${w.views}</span> <a href="@{Charities.welfare(w.id)}" target="_blank">${w.title}</a>
 					</li>
 				#{/list}
 				</ul>

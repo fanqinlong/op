@@ -2,7 +2,6 @@
 #{if flash.notconfirmed}
 <div class="alert alert-danger">
 <strong>邮箱尚未验证</strong>，<a href="@{SimpleUsers.resendConfirmation(flash.notconfirmed)}">重新发送</a>邮件。
-
 </div>
 #{/if}
 #{form @authenticate(),method:'POST',id:'login',class:'form-horizontal'}

@@ -94,10 +94,10 @@ $('#modal').on('hidden', function() {
 </form>
 
 <dl class="dl-horizontal" style="margin-top:30px;">
-  <dt style="width:30px;">标签</dt>
+  <dt style="width:40px;">标签:</dt>
   <dd style="margin-left:45px;">
 	  	#{list items:t,as:'tag'}
-			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="border-radius:20px">${tag.tagName}</a>
+			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="margin-top:5px;" >${tag.tagName}</a>
 	    #{/list}
   </dd>
 </dl>
@@ -152,7 +152,7 @@ $('#modal').on('hidden', function() {
 			
 			
 				#{list items:qArticles,as:'qa'}
-				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}">${qa.ques.title}</a>
+				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
 					
 					</p>
 					#{if qa.ques.usertype == "cssa"}
