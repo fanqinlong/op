@@ -200,9 +200,15 @@ public class SimpleUsers extends Application {
 				flash.put("email", email);
 				login();
 			} else {
-				connectSimple(user);
-				flash.success("欢迎回来， %s !", user.name);
-				infoCenter();
+				if (session.get("qusetionId")==null) {
+					connectSimple(user);
+					flash.success("欢迎回来， %s !", user.name);
+					infoCenter();
+				}else{
+					connectSimple(user);
+					QuestAnsw.showQuesInfo(Integer.parseInt(session.get("qusetionId")));
+					infoCenter();
+				}
 			}
 		} else if (!cssa.checkPassword(password)) {
 			flash.error("CSSA密码错误！");

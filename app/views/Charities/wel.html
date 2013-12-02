@@ -8,7 +8,7 @@
 		
 		<!--这里是内容-->
 <div class="">
-	<div class="col-md-6">
+	<div class="col-md-8">
 			<div class="control-group ">
 					  <h4 class="gy-title">公益活动
 					  
@@ -26,15 +26,24 @@
 			 	 
 			#{if !isAdmin} 	 
 				 #{if !islogged}
-				 		<h4><a  class="btn btn-info gy-fb"   href="@{Charities.smfabu()}">发布公益活动</a></h4>
+				 		<h4><a  class="btn btn-info gy-fb"   href="Charities/smindex">发布公益活动</a></h4>
 					 #{/if}
 				 #{/if} 
 				 
 			 	#{list items :we,as:'ac'}
 				 	
 				  	 <div class="b-1">
-				  		<h3 class="h3"><a class="goy-h3" href="@{Charities.welfare(ac.id)}">${ac.title}</a>
-					
+				  		
+						
+						
+				<blockquote style="border-left: 0px ;padding-left:0px;">
+			  <p style="margin:0px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:100%;display:block;"><a class="goy-h3" href="@{Charities.welfare(ac.id)}" target="_blank">${ac.title}</a></p>
+			 		 <small  class="pull-right"><span style="color:#999999;">来自于:</span><span style="color:#666666;">${ac.fromUser}</span></small>
+			</blockquote>
+						
+						
+						
+						
 						#{if isAdmin&& !ac.isChecked}
 							 <a  class="btn btn-default pull-right" href="@{Charities.pass(ac.id)}">通过审核</a>
 						 #{/if}

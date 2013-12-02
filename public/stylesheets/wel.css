@@ -7,12 +7,10 @@
 	color: white !important;
 	
 	}
-	  .form-horizontal{
-		width:700px;
-		float:left;
-	
-	}
-	 
+	 blockquote small:before {
+		content: '' !important;
+		}
+			 
 	.goy-h3{
 	
 		color:#333333;
@@ -28,13 +26,12 @@
 	.b-1{
 	margin-left: 28px;
 		height: 229px;
-		width: 520px;
+		 
 		position: relative; 
 		border-bottom: 1px solid #e2e2e2;
 		border-top: 1px solid #e2e2e2;
 	}
 	
- 
 		.b-2{
 			width:auto;
 			margin-left:4%; 
@@ -69,8 +66,7 @@
 		display: block;
 		height: 120px;
 		overflow : hidden;
-  		width: 251px;
-  	text-overflow: ellipsis;
+  	 text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp:7;
     -webkit-box-orient: vertical;
@@ -82,10 +78,7 @@
  		margin-left:80px;
  	
  	}
- 	
- 	
- 	
- 	.goy-a{
+ 	 	.goy-a{
  		color:#666666 !important;
  		font-size: 12px;
  	 }
