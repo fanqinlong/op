@@ -12,6 +12,7 @@ GET    				/simple/signup                                           SimpleUsers.
 POST        		/simple/signup                                           SimpleUsers.register
 GET                 /simple/login                                            SimpleUsers.login
 POST        		/simple/login                                            SimpleUsers.authenticate
+POST        		/simple/logins                                            SimpleUsers.logins
 GET                	/simple/logout                                           SimpleUsers.logout
 GET                	/simple/signup/{uuid}                                    SimpleUsers.confirmRegistration
 GET                	/simple/confirmation/{uuid}                              SimpleUsers.resendConfirmation

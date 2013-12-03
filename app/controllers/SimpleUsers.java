@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.image.RasterFormatException;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -183,7 +184,25 @@ public class SimpleUsers extends Application {
 		login();
 
 	}
-
+	public static void logins(String email) {
+		System.out.println(email);
+		CSSA cssa = (CSSA) CSSA.findByEmail(email);
+		if (cssa == null) {
+			SimpleUser user = (SimpleUser) SimpleUser.findByEmail(email);
+			if (user == null) {
+				flash.error("邮箱不存在。");
+				login();
+			} else {
+				connectSimple(user);
+				flash.success("欢迎回来， %s !", user.name);
+				infoCenter();
+			}
+		} else  {
+			CSSAs.connectCSSA(cssa);
+			flash.success("欢迎回来， %s CSSA!", cssa.school.name);
+			CSSAs.infoCenter();
+		}
+	}
 	public static void authenticate(String email, String password) {
 		CSSA cssa = (CSSA) CSSA.findByEmail(email);
 		if (cssa == null) {
@@ -391,7 +410,12 @@ public class SimpleUsers extends Application {
 			int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID()
 				+ f.getName().substring(f.getName().lastIndexOf("."));
+		try{
 		Images.crop(f, f, left, top, height, width);
+		}catch(Exception e){
+			flash.error("图片上传错误，请更换图片。");
+			changeProfile(id);
+		}
 		Images.resize(f, f, 150, 150, true);
 		Files.copy(f, Play.getFile(path));
 
@@ -486,5 +510,7 @@ public class SimpleUsers extends Application {
 		
 		render(ques,simple);
 	}
+
+
 
 }
