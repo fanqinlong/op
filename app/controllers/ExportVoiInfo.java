@@ -24,7 +24,6 @@ public class ExportVoiInfo extends Controller {
 		String __FILE_NAME__ = username + "_志愿者.xlsx";
 		renderArgs.put(RenderExcel.RA_ASYNC, true);
 		render(__FILE_NAME__, voi);
-
 	}
 
 }

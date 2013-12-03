@@ -1,4 +1,7 @@
- 
+body{
+	background:#FFF;
+}
+
 .slide {
 	position: absolute;
 }
@@ -9,9 +12,6 @@
 	 
 	top:100px;
 	
-}
-.index-beta{
-	position: relative;top: -13px;right: 12px;
 }
 
 .login {

@@ -75,7 +75,7 @@
 #{list items:frontpageActivity,as:'fa'}
 <div class="col-md-2 activity-item-frontpage ">
 			<div class="thumbnail">
-				<a href="@{Activities.detail(fa.id)}">
+				<a href="@{Activities.detail(fa.id)}" target="_blank">
 					<img alt="${fa.name}" src="${fa.poster}">
 				</a>
 				<div>
@@ -123,11 +123,11 @@
 				
 			</div>
 			<div class="thumbnail" style="margin-top: -100px; float: left;">
-				<a href="@{Activities.detail(a.id)}">
+				<a href="@{Activities.detail(a.id)}" target="_blank">
 					<img alt="${a.name}" src="${a.poster}">
 				</a>
 				<div class="caption">
-					<h4 style="width: 235px;height:19px;overflow: hidden;">${a.name}</h4>
+					<h4 style="width: 235px;height:19px;overflow: hidden;" target="_blank">${a.name}</h4>
 					<small>${a.time.first().date}至${a.time.last().date} </small>
 					<div>
 					<span class="pull-right mg-top-3">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>

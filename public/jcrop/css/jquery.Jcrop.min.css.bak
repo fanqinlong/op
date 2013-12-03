@@ -5,7 +5,7 @@
 .jcrop-holder{direction:ltr;text-align:left;}
 .jcrop-vline,.jcrop-hline{background:#FFF url(Jcrop.gif) top left repeat;font-size:0;position:absolute;}
 .jcrop-vline{height:100%;width:1px!important;}
-.jcrop-hline{height:1px!important;width:100%;}
+.jcrop-hline{height:1px!important;max-width:500px;width:100%;}
 .jcrop-vline.right{right:0;}
 .jcrop-hline.bottom{bottom:0;}
 .jcrop-handle{background-color:#333;border:1px #eee solid;font-size:1px;}

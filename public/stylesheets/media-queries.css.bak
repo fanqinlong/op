@@ -68,7 +68,7 @@ smaller than 560
 	 	display:none;
 	 }
 	.login{
-	 	width:112%;
+	 	width:102%;
 	 	margin-top:0px;
 	 }
 	 .user_exit {
@@ -82,7 +82,7 @@ smaller than 560
   }
   
      .bs-navbar-collapse{
-    width:100%;float: right;
+    width: 30%;float: right;
     }
 	 .index_dl{
 	 	margin-top:3% !important;

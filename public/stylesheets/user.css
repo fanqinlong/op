@@ -162,7 +162,6 @@ border-bottom: 1px solid #e2e2e2;
 }
 
 .gotop{
-    
     width:55px;
     height:55px;
 }
@@ -195,69 +194,5 @@ border-bottom: 1px solid #e2e2e2;
 .form-group1{
 	width:33%;
 }
-.button-wrap {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3e3e3), color-stop(100%, #f2f2f2));
-  background: -webkit-linear-gradient(top, #e3e3e3, #f2f2f2);
-  background: -moz-linear-gradient(top, #e3e3e3, #f2f2f2);
-  background: -o-linear-gradient(top, #e3e3e3, #f2f2f2);
-  background: linear-gradient(top, #e3e3e3, #f2f2f2);
-  -webkit-border-radius: 200px;
-  -moz-border-radius: 200px;
-  -ms-border-radius: 200px;
-  -o-border-radius: 200px;
-  border-radius: 200px;
-  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
-  -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
-  padding: 10px;
-  display: inline-block;
-}
-.button-primary {
-  background: -webkit-linear-gradient(top, #00b5e5, #008db2);
-  background: -moz-linear-gradient(top, #00b5e5, #008db2);
-  background: linear-gradient(top, #00b5e5, #008db2);
-  background-color: #00a1cb;
-  border-color: #007998;
-  color: white;
-  text-shadow: 0 -1px 1px rgba(0, 40, 50, 0.35);
-}
-.button-circle {
-  -webkit-border-radius: 240px;
-  -moz-border-radius: 240px;
-  -ms-border-radius: 240px;
-  -o-border-radius: 240px;
-  border-radius: 240px;
-  -webkit-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
-  width: 120px;
-  line-height: 120px;
-  height: 120px;
-  padding: 0px;
-  border-width: 4px;
-  font-size: 18px;
-}
-.button {
-  display: -moz-inline-stack;
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  zoom: 1;
-  *display: inline;
-  border: 1px solid #d4d4d4;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  margin: 0;
-  text-decoration: none;
-  text-align: center;
-}
-.card-title {
-	background-color: #CCF;
-	margin-left: -20px;
-	margin-right: -20px;
-	padding: 5px 20px;
-}
-.card-content p{
-	font-size:12px;
-	line-height:36px;
-	margin:0px;
-}
+
+
