@@ -20,24 +20,80 @@
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade in active" id="home">
 					#{list items:CQues,as:'q'}
-						<li style="list-style:none; margin-top:10px;">
-							<lable><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
-						</li>
+						<div class=" trend row">
+			
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${user.profile}" />
+					</a>
+				</div>
+				<div class="activity col-md-11">
+					<h5 style="margin-top:0px;" class="text-muted">我发布的问答：
+					</h5>
+			 
+			
+				<h4><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></h4>
+				
+				<p class="text-muted overflow-2">
+							 
+								${q.content.raw()}
+						</p>
+					<ul class="list-inline text-muted font-12">
+							<li>${q.date}</li>
+							<li> 关注(${q.focusNum})</li>
+							<li> 浏览(${q.views})</li>
+					</ul>		
+				</div>
+			</div>
+					
+					 
 					#{/list}
 				</div>
 				
 				<div class="tab-pane fade" id="profile">
 					#{list items:CComment,as:'q'}
-						<li style="list-style:none; margin-top:10px;">
-							<lable><a href="@{QuestAnsw.showQuesInfo(q.quesid)}">${q.quesTitle}</a></lable>
-						</li>
+						<div class=" trend row">
+			
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${user.profile}" />
+					</a>
+				</div>
+				<div class="activity col-md-11">
+					<h5 style="margin-top:0px;" class="text-muted">我回答的问题：
+					</h5>
+				<h4><a href="@{QuestAnsw.showQuesInfo(q.quesid)}">${q.quesTitle}</a></h4>
+				 
+				<ul class="list-inline text-muted font-12" >
+							<li>${q.date}</li>
+				</ul>					 
+			</div>
+					
+		</div>
+					 
+					
 					#{/list}		
 				</div>
 				<div class="tab-pane fade" id="profile1">
 					#{list items:CFQues,as:'q'}
-						<li style="list-style:none; margin-top:10px;">
-							<lable><a href="@{QuestAnsw.showQuesInfo(q.quesId)}">${q.quesTitle}</a></lable>
-						</li>
+						 
+							 
+				 <div class=" trend row">
+			
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${user.profile}" />
+					</a>
+				</div>
+				<div class="activity col-md-11">
+					<h5 style="margin-top:0px;" class="text-muted">我关注的问题：
+					</h5>
+				<h4><a href="@{QuestAnsw.showQuesInfo(q.quesId)}">${q.quesTitle}</a></h4>
+				 
+				 
+			</div>
+					
+		</div>
 					#{/list}
 				</div>
 			</div>
