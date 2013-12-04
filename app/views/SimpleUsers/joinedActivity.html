@@ -2,7 +2,7 @@
 <div class="row mg-top-3">
 	#{include 'SimpleUsers/infoCenterNav.html' /}
 	<div class="col-md-8 ">
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs nav-tabs1">
 			<li class="${tag=='publish'?'active':''}">
 				<a href="@{SimpleUsers.publishedActivity}">已发布活动</a>
 			</li>
@@ -13,7 +13,7 @@
 				<a href="@{SimpleUsers.likedActivity}">已关注活动</a>
 			</li>
 		</ul>
-		<div class="mg-top-2">
+		<div class="">
 		#{if activities.isEmpty()}您还未参加任何活动，<a href="@{Activities.index}">去看看</a>。#{/if}#{else}
 		%{String date = new Date().format("yyyy-MM-dd")}%
 		
@@ -21,22 +21,40 @@
 		#{if date > a.activity.time.last().date}
 		活动结束，去<a href="/activity/detail/${a.activity.id}#comment">晒晒 </a>你的此次活动经历吧？
 		#{/if}
-		<div style="border: solid 1px #e2e2e2;padding: 15px;padding-left:30px;">
-			<h4>
-				我参加了活动：
-				<a href="@{Activities.detail(a.activity.id)}"> ${a.activity.name} </a>
-				
-			</h4>
-			<a href="@{Activities.detail(a.activity.id)}">
-				<img alt="" style="width:150px;margin-bottom:15px; " src="${a.activity.poster}" class="img-polaroid">
-			</a>
-			<br>
-			<span style="font-size:12px;">${a.joinedAt} </span>
-			
-			<span style="margin-left:30px;font-size:12px;">（<a href="@{Activities.allJoinner(a.activity.id)}">${a.activity.joiner.size()}人报名参加 ， </a>
-				${a.activity.joiner.size()}人 关注， ${a.activity.views}人浏览）${a.isAllown?"已":"暂未"}通过审核。
 		
-		</span>
+		<div class=" trend row">
+			
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${user.profile}" />
+					</a>
+				</div>
+			<div class="activity col-md-11">
+					<h5 style="margin-top:0px;" class="text-muted">我参加了活动：
+					</h5>
+		
+		 	<h4><a href="@{Activities.detail(a.activity.id)}"> ${a.activity.name} </a></h4>
+		 <p class="text-muted overflow-2">
+							 
+								${a.activity.intro.raw()}
+						</p>
+						
+				 
+						<ul class="list-inline text-muted font-12">
+							  <li>${a.joinedAt} </li>
+							<li><a href="@{Activities.allJoinner(a.activity.id)}">参加(${a.activity.joiner.size()})  </a></li>
+							
+							<li> 关注(${a.activity.joiner.size()})</li>
+							<li> 浏览(  ${a.activity.views})</li>
+							<li class="text-danger">${a.isAllown?"已":"暂未"}通过审核。</li>
+							
+							</ul>		
+						
+						
+			 
+			
+ 
+		</div>
 		</div>
 		#{/list}
 		#{/else}

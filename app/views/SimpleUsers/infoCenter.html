@@ -22,15 +22,15 @@
 				 
 						 
 							
-							<h4><a href="@{Activities.detail(trend.a.id)}" target="_blank"> "${trend.a.name}"</a></h4>
+							<h4><a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a></h4>
 							 
 						 
-						<p class="text-muted">
+						<p class="text-muted overflow-2">
 							 
-								${trend.a.intro}
+								${trend.a.intro.raw()}
 						</p>
 						 
-						<ul class="list-inline text-muted" style="font-size:12px;">
+						<ul class="list-inline text-muted font-12">
 							  <li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
 							<li>${trend.a.time.first().date}</li>
 							<li>参加(${trend.a.joiner.size()})</li>
@@ -43,54 +43,141 @@
 			
 						</div>
 					 	#{/if} #{elseif trend.type.equals("qa")}
-			<div class=" trend row">
+			<div class="row">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
 			<div class="activity col-md-11 text-muted">
-				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题</h5>
+				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-				<p class="text-muted">
-					<!--sssssssssssssssssssssssssssssssssssssssssssssssssssssss-->		 
-							问答内容
+				<p class="text-muted overflow-2">
+					 	 
+							${trend.q.content.raw()}
 						</p>
 						 
-			<ul class="list-inline text-muted" style="font-size:12px;">
+			<ul class="list-inline text-muted font-12" >
 							 
 							<li>${trend.time}</li>
-							<li> 关注(1)</li>
-							<li> 评论(2)</li>
+							<li> 关注(${trend.q.focusNum})</li>
+							<li> 评论(${trend.q.answerNum})</li>
 							
 							</ul>
-			
-			
-			
 			</div>
 					
-					
-				</div>
+		</div>
 				#{/elseif} #{elseif trend.type.equals("fq")}
-				<div>
-					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}关注了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
+				
+				<div class=" row">
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
+					</a>
 				</div>
+			<div class="activity col-md-11 text-muted">
+				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
+			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
+				<p class="text-muted overflow-2">
+					 	 
+							${trend.q.content.raw()}
+						</p>
+						 
+			<ul class="list-inline text-muted font-12">
+							 
+							<li>${trend.time}</li>
+								<li> 关注(${trend.q.focusNum})</li>
+							<li> 评论(${trend.q.answerNum})</li>
+							
+							</ul>
+			</div>
+					
+		</div>
+				
+				
+				 
 				#{/elseif} #{elseif trend.type.equals("addques")}
-				<div>
-					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}发布了一条问答
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
+				<div class="  row">
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
+					</a>
 				</div>
+			<div class="activity col-md-11 text-muted">
+				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}发布了一条问答</h5>
+			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
+				<p class="text-muted overflow-2">
+					 	 
+							${trend.q.content.raw()}
+						</p>
+						 
+			<ul class="list-inline text-muted font-12" >
+							 
+							<li>${trend.time}</li>
+								<li> 关注(${trend.q.focusNum})</li>
+							<li> 评论(${trend.q.answerNum})</li>
+							
+							</ul>
+			</div>
+					
+		</div>
 				#{/elseif} #{elseif trend.type.equals("praise")}
-				<div>
-					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}攒了${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 在
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
-					的回答
-					<br />
+				<div class=" row">
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
+					</a>
 				</div>
+			<div class="activity col-md-11 text-muted">
+				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}赞了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} </h5>
+			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
+				<p class="text-muted overflow-2">
+					 	 
+							${trend.q.content.raw()}
+						</p>
+						 
+			<ul class="list-inline text-muted font-12">
+							 
+							<li>${trend.time}</li>
+								<li> 关注(${trend.q.focusNum})</li>
+							<li> 评论(${trend.q.answerNum})</li>
+							
+							</ul>
+			</div>
+					
+		</div>
+				 
 				#{/elseif}
 				#{elseif trend.type.equals("wel")}
-					${trend.time}你关注了<a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a>这条公益活动
+				
+				
+				<div class="row">
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
+					</a>
+				</div>
+			<div class="activity col-md-11 text-muted">
+				<h5 style="margin-top:0px;" class="text-muted">你关注了公益活动</h5>
+			<h4><a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a></h4>
+				<p class="text-muted overflow-2" style="">
+					 	 
+							${trend.w.content.raw()} 
+						</p>
+						 
+			<ul class="list-inline text-muted font-12">
+							 
+							<li>${trend.time}</li>
+							<li> 关注(${trend.w.likerCount})</li>
+							 
+							
+							</ul>
+			</div>
+					
+		</div>
+				
+				
+					 
 				#{/elseif}
 		</div>
 		#{/list}
