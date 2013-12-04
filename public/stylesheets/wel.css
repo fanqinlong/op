@@ -26,7 +26,7 @@
 	.b-1{
 	margin-left: 28px;
 		height: 229px;
-		width: 520px;
+		 
 		position: relative; 
 		border-bottom: 1px solid #e2e2e2;
 		border-top: 1px solid #e2e2e2;
@@ -66,8 +66,7 @@
 		display: block;
 		height: 120px;
 		overflow : hidden;
-  		width: 251px;
-  	text-overflow: ellipsis;
+  	 text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp:7;
     -webkit-box-orient: vertical;
@@ -217,7 +216,7 @@
 	
 		
 .edit_text{
-	width:798px; height:38px  !important;margin-bottom: 50px;margin-left:80px;
+	width:70%; height:38px  !important;margin-bottom: 50px;margin-left:80px;
 }
 #preview{width:200px;height:140px;overflow:hidden;margin-left:88px;}
 #imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);

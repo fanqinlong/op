@@ -5,39 +5,71 @@
 		<ul class="nav nav-tabs nav-tabs1" >
 			<li class="active"><a>#{if isInfoCenter} 我 #{/if}#{else} TA #{/else}的最新动态</a></li>
 		</ul>
-
+	
 		<div class=" mg-top-5">
 			#{list items:trends,as:'trend'}
 			<div class=" trend row">
 				#{if trend.type.equals("activity")}
 				<div class="col-md-1 profile ">
-					<a class="img-border img-w-5" href="">
+					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
-				<div class="activity col-md-11" style="margin-top:25px;">
-					<a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
-					${trend.action} ${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} 发布的活动：
-					<div class="detail">
-						<p>
-							"
-							<a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a>
-							"
+				<div class="activity col-md-11">
+					<h5 style="margin-top:0px;" class="text-muted"><a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
+					${trend.action}活动：
+					</h5>
+				 
+						 
+							
+							<h4><a href="@{Activities.detail(trend.a.id)}" target="_blank"> "${trend.a.name}"</a></h4>
+							 
+						 
+						<p class="text-muted">
+							 
+								${trend.a.intro}
 						</p>
-						<p>
-							<a href="@{Activities.detail(trend.a.id)}" target="_blank" class="img-w-20 img-border">
-								<img src="${trend.a.poster}" />
-							</a>
-						</p>
-						<p>活动日期：${trend.a.time.first().date}至${trend.a.time.last().date} ${trend.a.time.first().timeFrom}-${trend.a.time.first().timeTo} 报名参加(${trend.a.joiner.size()}) 关注(${trend.a.liker.size()}) 评论(${trend.a.comment.size()})</p>
-					</div>
-					<p>${trend.time}</p>
-					
+						 
+						<ul class="list-inline text-muted" style="font-size:12px;">
+							  <li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
+							<li>${trend.a.time.first().date}</li>
+							<li>参加(${trend.a.joiner.size()})</li>
+							
+							<li> 关注(${trend.a.liker.size()})</li>
+							<li> 评论(${trend.a.comment.size()})</li>
+							
+							
+							</ul>
+			
+						</div>
+					 	#{/if} #{elseif trend.type.equals("qa")}
+			<div class=" trend row">
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
+					</a>
 				</div>
-				#{/if} #{elseif trend.type.equals("qa")}
-				<div>
-					${trend.time} ,${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题
-					<a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a>
+			<div class="activity col-md-11 text-muted">
+				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} 提出的问题</h5>
+			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
+				<p class="text-muted">
+					<!--sssssssssssssssssssssssssssssssssssssssssssssssssssssss-->		 
+							问答内容
+						</p>
+						 
+			<ul class="list-inline text-muted" style="font-size:12px;">
+							 
+							<li>${trend.time}</li>
+							<li> 关注(1)</li>
+							<li> 评论(2)</li>
+							
+							</ul>
+			
+			
+			
+			</div>
+					
+					
 				</div>
 				#{/elseif} #{elseif trend.type.equals("fq")}
 				<div>

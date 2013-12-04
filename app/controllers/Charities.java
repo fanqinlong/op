@@ -338,6 +338,7 @@ public class Charities extends Application {
 	 
 		
 		if (!al_exist.isEmpty()) {
+			System.out.println("------------------------------------------");
 			flash.error("您已关注");
 			pigination(pageNo);
 		}
