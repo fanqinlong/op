@@ -268,15 +268,16 @@ public class Activities extends Application {
 
 	public static void allJoinner(long aid) {
 		boolean isOwner = false;
-		List<Joiner> joiners = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=?", aid).fetch();
+		List<Joiner> allownedJoiners = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = true", aid).fetch();
+		List<Joiner> disAllownedJoiners = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown != true", aid).fetch();
+		
 		Activity a = Activity.findById(aid);
 		notFoundIfNull(a);
 		if (Utils.getUserType().equals("simple") && a.publisherSU != null && a.publisherSU.id == Utils.getUserId())
 			isOwner = true;
 		else if (a.publisherCSSA != null && a.publisherCSSA.id == Utils.getUserId())
 			isOwner = true;
-		int allownCount = Joiner.find("select distinct j from Joiner j join j.activity as a where a.id=? and j.isAllown = ?", aid, true).fetch().size();
-		render(joiners, isOwner, allownCount);
+		render(allownedJoiners, isOwner,disAllownedJoiners);
 
 	}
 

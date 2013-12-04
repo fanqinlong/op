@@ -31,12 +31,7 @@ smaller than 960
 smaller than 800
 *************************************************************************************/
 @media screen and (max-width: 700px) {
-	
-	 
-	
-	
-	
-
+ 
 	 
 }
 	
@@ -75,7 +70,9 @@ smaller than 560
   }
   
      .bs-navbar-collapse{
+ 
     width: 100%;float: right;
+ 
     }
 	 .index_dl{
 	 	margin-top:3% !important;

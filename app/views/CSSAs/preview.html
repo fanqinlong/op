@@ -11,7 +11,7 @@
              
 				 <img alt="" src="@{'public/images/V-CSSA.png'}"> 
              
-             ${user.school.name} CSSA</h3><p>简介：${user.selfIntro==null?"TA 还没添加简介。":user.selfIntro}</p></div>
+             ${user.school.name} CSSA</h3><p>简介：${user.selfIntro==null?"暂无":user.selfIntro}</p></div>
             <div class="col-md-2"><a href="@{Messaging.sendTo('cssa',user.id)}"><i class=" icon-envelope-alt"></i>发私信</a></div>
             </div>
             <div class="mg-top-2">

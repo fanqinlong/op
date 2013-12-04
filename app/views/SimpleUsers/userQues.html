@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'userQues.html' /}
 
-<div class="row">
+<div class="row infocenter_1" >
   <div class="col-md-2 infocenter_left2" >
   #{list items:simple,as:'s'}
   	 <img src="${s.profile}" class="infocenter_left2_pic" >
@@ -13,16 +13,13 @@
   </div>
   
   <div class="col-md-8 infocenter_8">
-  	<h3 class="infocenter_title"  >TA发起的问答</h3>
+  	<h3 class="center_left"  >TA发起的问答</h3>
  <!--中间内容-------------------------------------------------------------------->
  
-		 #{list items:simple,as:'s'}
-		  <p>${s.name} 发起的问答</p>
-		 #{/list}
 		 #{list items:ques,as:'q'}
 		 <div class="infocenter_content_user"  > 
-		  <p><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></p>
-			<span class="infocenter_users">${q.date}</span> 
+		  <p  class="center_left"><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></p>
+			<span class="infocenter_users center_left">${q.date}</span> 
 			 <span class="infocenter_users1">回答(${q.answerNum}) </span>
 			 <span class="infocenter_users">关注(${q.focusNum})</span>
 			 <span class="infocenter_users">浏览(${q.views})</span>

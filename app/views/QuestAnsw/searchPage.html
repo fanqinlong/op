@@ -97,7 +97,9 @@ $('#modal').on('hidden', function() {
   <dt style="width:40px;">标签:</dt>
   <dd style="margin-left:45px;">
 	  	#{list items:t,as:'tag'}
-			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="margin-top:5px;" >${tag.tagName}</a>
+ 
+			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="margin-top:5px;border-radius:20px;" >${tag.tagName}</a>
+ 
 	    #{/list}
   </dd>
 </dl>
@@ -153,6 +155,7 @@ $('#modal').on('hidden', function() {
 			
 				#{list items:qArticles,as:'qa'}
 				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
+ 
 					
 					</p>
 					#{if qa.ques.usertype == "cssa"}

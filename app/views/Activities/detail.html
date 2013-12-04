@@ -1,20 +1,17 @@
 #{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} #{set 'Styles'} #{stylesheet 'activity.css' /} #{/set}
 <div class="row">
 	<div class="col-md-9">
- #{if a.isCanceled}
+		#{if a.isCanceled}
 		<div class="bs-callout bs-callout-info">
- 			<div>
-			<img src="/public/images/browsers_!.png" class="pull-left" style="margin-top: -15px;">
-			<h4 class="text-info">   Sorry，该活动已被
-${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}取消，您可以再看看其他活动 </h4>
-		
-			<h6 class="text-muted" style="margin: 20px;">
-				取消原因：${a.canceledReasion}
-			</h6>
+			<div>
+				<img src="/public/images/browsers_!.png" class="pull-left" style="margin-top: -15px;">
+				<h4 class="text-info">Sorry，该活动已被 ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}取消，您可以再看看其他活动</h4>
+
+				<h6 class="text-muted" style="margin: 20px;">取消原因：${a.canceledReasion}</h6>
+			</div>
 		</div>
-	</div> 
-	#{/if}
-	<!-- <div class="bs-callout bs-callout-info" style="">
+		#{/if}
+		<!-- <div class="bs-callout bs-callout-info" style="">
 #{if a.isCanceled}
 			 
       <h4 class="text-danger">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}  取消了活动，原因:</h4>
@@ -46,7 +43,7 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 					<div class="details">
 						<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
 					</div>
-					
+
 					#{if isAllown || isOwner}
 					<div class="details">
 						<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
@@ -60,7 +57,7 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 					<div class="details">
 						<span class="pic-leftTitle">是否需要报名：</span> <span class="At_info">${a.isOpen?"否":"是"}</span>
 					</div>
-					#{if !a.isOpen}
+						#{if !a.isOpen}
 					<div class="details clearfix">
 						<lable style="float:left;"> <span class="pic-leftTitle">参加者男女比例</span> 
 						%{int female=0;int male=0;}%
@@ -83,20 +80,20 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 				</div>
 				 
 					#{/if} 
-					
-					#{if date <= a.time.last().date}
+					 #{if date <= a.time.last().date}
 					<div class="details">
-						#{if !a.isOpen && !isOwner}
-						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
-						#{/if}
-						
-						#{if !a.isOpen}
-						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">参加者</a>
-						#{/if}
-						
+
+
 						#{if !isOwner}
-						<a href="@{Activities.like(a.id)}" class="btn btn-danger ${hasLiked?'disabled':''}" title="Link后，您将收到此活动最新的动态。">Link !</a>
+						<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}" title="Link后，您将收到此活动最新的动态。">
+							<i class=" icon-link"></i> Link !
+						</a>
+						#{/if} #{if !a.isOpen && !isOwner}
+						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
+						#{/if} #{if !a.isOpen}
+						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 						#{/if}
+
 					</div>
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -120,20 +117,19 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
-					#{/if} 
+					#{/if}
 				</div>
 
 			</div>
 		</div>
-		
+
 		<div>
 			<h3>活动介绍</h3>
 			<p>${a.intro.raw()}</p>
 		</div>
-		
+
 		<div id="comment">
-#{if date > a.time.last().date && (isAllown || isOwner) && !a.isCanceled}
-			#{form @comment(), method:'get',class:'form-horizontal'}
+			#{if date > a.time.last().date && (isAllown || isOwner) && !a.isCanceled} #{form @comment(), method:'get',class:'form-horizontal'}
 			<h4 style="color: #336699; margin-top: 30px;">参加了一次神奇的活动之后，我想说：</h4>
 			<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''}">
 				<label for="inputEmail3" class="col-sm-2 control-label">标签</label>
@@ -155,20 +151,16 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 					<input type="submit" class="btn btn-primary col-sm-offset-2" value="晒晒">
 				</div>
 			</div>
-		
-			#{/form}
-				#{/if}
-			#{if date > a.time.last().date}
-			 #{list items:a.comment,as:'comment'}
+
+			#{/form} #{/if} #{if date > a.time.last().date} #{list items:a.comment,as:'comment'}
 			<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
 				<img style="width: 40px; height: 40px;" src=${comment.publisher.profile} /> <strong>${comment.publisher.name}:${comment.tag}</strong><span style="float: right;">${comment.publishedAt}</span>
 				<br />
 				<span style="padding-left: 50px;">${comment.comment}</span>
 			</div>
-			#{/list}
-			#{/if}
+			#{/list} #{/if}
 		</div>
-		
+
 	</div>
 	<!--  地图  -->
 	<div class="col-md-3">
@@ -180,11 +172,11 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 		<div class="map">
 			<h4 class="activity-title3">
 				活动地图 #{if isAllown || isOwner}
-				
+
 				<a href="https://maps.google.com/?q=${a.location.replaceAll(" ","+")}" target="_blank">点击查看详细地图 </a>
 				#{/if}
 			</h4>
-			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(" ","+")}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll(" ","+")}&sensor=false" alt="">
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(" ","+")}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll( " ","+")}&sensor=false " alt="">
 		</div>
 
 		<div class="person">
@@ -198,20 +190,15 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 					</a>
 			</div>
 			<div>
-				
-			
-			
-			
-			
-				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"} <a href="@{Messaging.sendTo('cssa',a.publisherCSSA.id)}"><i class="icon-envelope-alt"></i><small class="name">发私信</small></a> #{/if}
-				#{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
-				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name}
-				 #{if a.publisherSU?.gender.equals("女")}	 
-				<img src="@{'public/images/active_detailed_gender-proportion_female.png'}">
-				#{/if}#{elseif a.publisherSU?.gender.equals("男")}
-				<img src="@{'public/images/active_detailed_gender-proportion_male.png'}">
-				#{/elseif}<a href="@{Messaging.sendTo('simple',a.publisherSU.id)}"><i class="icon-envelope-alt"></i><small class="name">发私信</small></a>
-				 #{/else}
+				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"}
+				<a href="@{Messaging.sendTo('cssa',a.publisherCSSA.id)}">
+					<i class="icon-envelope-alt"></i><small class="name">发私信</small>
+				</a>
+				#{/if} #{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name} #{if a.publisherSU?.gender.equals("女")} <img src="@{'public/images/active_detailed_gender-proportion_female.png'}"> #{/if}#{elseif a.publisherSU?.gender.equals("男")} <img src="@{'public/images/active_detailed_gender-proportion_male.png'}"> #{/elseif}
+				<a href="@{Messaging.sendTo('simple',a.publisherSU.id)}">
+					<i class="icon-envelope-alt"></i><small class="name">发私信</small>
+				</a>
+				#{/else}
 			</div>
 		</div>
 		#{if connectedSimpleUser?.isAdmin}
@@ -237,10 +224,8 @@ ${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")
 		#{/if}
 		<div class="numbers">
 			<h4 class="activity-title4">活动成员</h4>
-			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span>
-		
-				#{list items:allownJoiner,as:'joiner'}
-					<div  style="height: 110px;overflow: hidden;clear:both;">
+			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span> #{list items:allownJoiner,as:'joiner'}
+			<div style="height: 110px; overflow: hidden; clear: both;">
 				<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
 					<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
 				</a>

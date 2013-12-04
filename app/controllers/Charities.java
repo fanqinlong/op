@@ -50,6 +50,7 @@ public class Charities extends Application {
 		if (session.get("logged") == null) {
 			Charities.pigination(1);
 		}
+ 
 		else{
 			SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
 			if (su.isAdmin == false) {
@@ -71,10 +72,12 @@ public class Charities extends Application {
 		if (session.get("logged") == null) {
 			Charities.pigination(1);
 		}
+ 
 
 		render();
 	}
 
+ 
 	public static void WelSave(String title, String content, String time,
 			File f, String generalize, int likerCount, boolean isChecked,String fromUser) {
 
@@ -117,8 +120,9 @@ public class Charities extends Application {
 			
 			String path = "/public/images/upload/" + fileName;
 			Files.copy(f, Play.getFile(path));
-
-			Wel w = new Wel(title, content, d, path, generalize, likerCount,
+ 
+			new Wel(title, content, d, path, generalize, likerCount,
+ 
 					true,fromUser);
 			wel(1);
 		}
@@ -169,7 +173,9 @@ public class Charities extends Application {
 			String path = "/public/images/upload/" + fileName;
 			Files.copy(f, Play.getFile(path));
 
-			Wel w = new Wel(title, content, d, path, generalize, likerCount,
+ 
+			new Wel(title, content, d, path, generalize, likerCount,
+ 
 					false,fromUser);
 			renderTemplate("Charities/SmWelSave.html");
 		}
@@ -257,6 +263,7 @@ public class Charities extends Application {
 		w.delete();
 		pigination(pageNo);
 	}
+ 
 
 	public static void pigination(int pageNo) {
 
@@ -265,13 +272,16 @@ public class Charities extends Application {
 			int count = Wel.find("isChecked=true order by time desc").fetch()
 					.size();
 
+ 
 			int pageCount = count % 5 == 0 ? count / 5 : (count / 5 + 1);
 
 			if (pageNo < 1) {
 				pageNo = 1;
+				System.out.println(pageNo+"no");
 
 			} else if (pageNo >= pageCount) {
 				pageNo = (int) pageCount;
+				System.out.println(pageCount+"count");
 			}
 			List<Wel> we = Wel.find("isChecked=true order by time desc")
 					.from((pageNo - 1) * 5).fetch(5);
@@ -321,10 +331,8 @@ public class Charities extends Application {
 		}
 
 	}
-
+ 
 	public static void like(long aid,int pageNo) {
-		
-		 
 		if(session.get("logged") == null) {
 			SimpleUsers.login();
 		}

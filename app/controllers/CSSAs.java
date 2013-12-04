@@ -318,7 +318,7 @@ public class CSSAs extends Application {
 
 	public static void preview(long userid) {
 	CSSA user = CSSA.findById(userid);
-	List<Activity> activities = Activity.find("publisherCSSA.id = ? order by views", userid).fetch(3);
+	List<Activity> activities = Activity.find("publisherCSSA.id = ? and  isPublished=true order by id desc,views desc", userid).fetch(3);
 	List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"cssa").fetch(3);
 	render(user,activities,questions);
 	}
@@ -337,7 +337,7 @@ public class CSSAs extends Application {
 	
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherCSSA.id = ? order by postAt desc ", userId)
+		List<Activity> activities = Activity.find("publisherCSSA.id = ? order by postAt desc and  isPublished=true order by id desc", userId)
 				.fetch();
 		CSSA user = CSSA.findById(userId);
 		String tag = "publish";

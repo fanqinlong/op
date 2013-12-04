@@ -97,6 +97,7 @@ public class QuestAnsw extends Application {
 	public static void addComent(long quesid, String comment, long praiseNum,
 			long userid, String usertype, String username, String userprofile,
 			String userSelfIntro, String date) {
+		
 		if (session.get("logged") == null) {
 			flash.error("请登录后回答!");
 			SimpleUsers.login();
@@ -469,7 +470,6 @@ public class QuestAnsw extends Application {
 		Attention att = new Attention(userId, quesId);
 		render(att);
 	}
-
 	public static void Quespaging(int pageNum, String data ) {
 		List<Tag> t = Tag.findAll();
 		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
@@ -492,8 +492,10 @@ public class QuestAnsw extends Application {
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
+		List<Comments> topUser = Comments.find("order by praiseNum desc").fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				pageNum);
+				pageNum,topUser,topQues);
 	}
 
 	public static void editQues(long id) {

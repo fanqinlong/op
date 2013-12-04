@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.image.RasterFormatException;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -183,7 +184,25 @@ public class SimpleUsers extends Application {
 		login();
 
 	}
-
+	public static void logins(String email) {
+		System.out.println(email);
+		CSSA cssa = (CSSA) CSSA.findByEmail(email);
+		if (cssa == null) {
+			SimpleUser user = (SimpleUser) SimpleUser.findByEmail(email);
+			if (user == null) {
+				flash.error("邮箱不存在。");
+				login();
+			} else {
+				connectSimple(user);
+				flash.success("欢迎回来， %s !", user.name);
+				infoCenter();
+			}
+		} else  {
+			CSSAs.connectCSSA(cssa);
+			flash.success("欢迎回来， %s CSSA!", cssa.school.name);
+			CSSAs.infoCenter();
+		}
+	}
 	public static void authenticate(String email, String password) {
 		CSSA cssa = (CSSA) CSSA.findByEmail(email);
 		if (cssa == null) {
@@ -200,9 +219,15 @@ public class SimpleUsers extends Application {
 				flash.put("email", email);
 				login();
 			} else {
-				connectSimple(user);
-				flash.success("欢迎回来， %s !", user.name);
-				infoCenter();
+				if (session.get("qusetionId")==null) {
+					connectSimple(user);
+					flash.success("欢迎回来， %s !", user.name);
+					infoCenter();
+				}else{
+					connectSimple(user);
+					QuestAnsw.showQuesInfo(Integer.parseInt(session.get("qusetionId")));
+					infoCenter();
+				}
 			}
 		} else if (!cssa.checkPassword(password)) {
 			flash.error("CSSA密码错误！");
@@ -391,7 +416,12 @@ public class SimpleUsers extends Application {
 			int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID()
 				+ f.getName().substring(f.getName().lastIndexOf("."));
+		try{
 		Images.crop(f, f, left, top, height, width);
+		}catch(Exception e){
+			flash.error("图片上传错误，请更换图片。");
+			changeProfile(id);
+		}
 		Images.resize(f, f, 150, 150, true);
 		Files.copy(f, Play.getFile(path));
 
@@ -415,7 +445,7 @@ public class SimpleUsers extends Application {
 
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherSU.id = ? order by postAt desc ", userId)
+		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by postAt desc ", userId)
 				.fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "publish";
@@ -469,13 +499,13 @@ public class SimpleUsers extends Application {
 
 	public static void preview(long userid) {
 		SimpleUser user = SimpleUser.findById(userid);
-		List<Activity> activities = Activity.find("publisherSU.id = ? order by views", userid).fetch(3);
+		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by id desc,views desc", userid).fetch(3);
 		List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"simple").fetch(3);
 		render(user,activities,questions);
 	}
 	public static void detail(long id){
 		SimpleUser simple = SimpleUser.findById(id);
-		List<Activity> activities = Activity.find("publisherSU.id = ?",id).fetch();
+		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by id desc",id).fetch();
 		render(activities,simple);
 	}
 	public static void userQues(long id){
@@ -486,5 +516,7 @@ public class SimpleUsers extends Application {
 		
 		render(ques,simple);
 	}
+
+
 
 }
