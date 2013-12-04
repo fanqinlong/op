@@ -331,10 +331,8 @@ public class Charities extends Application {
 		}
 
 	}
-
-public static void like(long aid,int pageNo) {
-		
-		 
+ 
+	public static void like(long aid,int pageNo) {
 		if(session.get("logged") == null) {
 			SimpleUsers.login();
 		}
@@ -348,6 +346,7 @@ public static void like(long aid,int pageNo) {
 	 
 		
 		if (!al_exist.isEmpty()) {
+			System.out.println("------------------------------------------");
 			flash.error("您已关注");
 			pigination(pageNo);
 		}

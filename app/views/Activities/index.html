@@ -5,21 +5,21 @@
 <!-- tags -->
 
 <p class="tags">
-	<span class="tag-title"><i class=" icon-reorder"></i>分类</span>
+	<span class="tag-title"><img src="@{'public/images/number.png'}">分类</span>
 	<a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''}">全部</a>
 	#{list items:t,as:'t'}
 	<a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''}"> ${t.name} </a>
 	#{/list}
 </p>
 <p class="tags">
-	<span class="tag-title"><i class="  icon-user"></i>人数</span>
+	<span class="tag-title"><img src="@{'public/images/active_category.png'}">人数</span>
 	<a href="@{Activities.filterScope()}" class="${scope==''?'label label-primary':''}"> 全部</a>
 	#{list items:s,as:'s'}
 	<a href="@{Activities.filterScope(s.scope)}" class="${scope==s.scope?'label label-primary':''}"> ${s.scope}</a>
 	#{/list}
 </p>
 <p class="tags">
-	<span class="tag-title"><i class="  icon-time"></i>时间</span>
+	<span class="tag-title"><img src="@{'public/images/time.png'}">时间</span>
 	<a href="@{Activities.filterPeriod(-1)}" class="${days==-1?'label label-primary':''}"> 全部</a>
 	#{list items:p,as:'p'}
 	<a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''}"> ${p.period}</a>

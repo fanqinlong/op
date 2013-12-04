@@ -7,9 +7,7 @@
 		</p>
 		<p class="">
 		#{if user.eduMail!=null }
-		#{if user.eduMailConfirmation==null}
-		<img src="@{'/public/images/edu.png'}" /> ${user.eduMail.substring(0,1)+"***"+user.eduMail.substring(user.eduMail.indexOf("@"),user.eduMail.length())}
-		#{/if}#{else}
+		 #{else}
 		<a href="@{SimpleUsers.eduMail}" class="btn btn-success btn-sm" >激活Edu邮箱</a> 
 		#{/else}		
 		#{/if}#{else}
