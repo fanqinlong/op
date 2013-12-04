@@ -106,9 +106,9 @@
 	<div class="row ">
 		<!--下面部分-->
 		%{int row=0}% #{if !a.isEmpty()} #{list items:a,as:'a'} %{row++;}%
-		<div class="col-md-3 col-sm-4 col-xs-6 activity-item mg-top-2" style="position:relative;">
+		<div class="col-md-3 col-sm-4 col-xs-6 activity-item mg-top-2" style="">
 
-			<div style="position:absolute;">
+			<div class="mp-top-2-1">
 				#{if a.isTop}
 				<img src="@{'/public/images/active_detailed_tag.png'}">
 				#{/if}
