@@ -19,11 +19,10 @@ smaller than 960
 *************************************************************************************/
 @media screen and (max-width: 960px) {
 	 
+	 .main-beta,.opporlinklog{
 	 
-	 	.bs-navbar-collapse{
-	width: 20%;float: right;
-	}
-	
+	 	display:none !important;
+	 }
 	
 	 
 	 
@@ -35,16 +34,11 @@ smaller than 960
 smaller than 800
 *************************************************************************************/
 @media screen and (max-width: 700px) {
-	
-	.bs-navbar-collapse{
-	width: 20%;float: right;
+ 
+	 .main-beta,.opporlinklog,.hd_small{
 	 
-	}
-	
-	
-	
-
-	 
+	 	display:none;
+	 }
 }
 	
 	
@@ -53,8 +47,13 @@ smaller than 650
 *************************************************************************************/
 @media screen and (max-width: 650px) {
 
-
- 
+.user_exit li img{
+	margin-left:-20px;
+ }
+ .main-beta,.opporlinklog{
+	 
+	 	display:none !important;
+	 }
 }
 
 /************************************************************************************
@@ -68,7 +67,7 @@ smaller than 560
 	 	display:none;
 	 }
 	.login{
-	 	width:112%;
+	 	width:102%;
 	 	margin-top:0px;
 	 }
 	 .user_exit {
@@ -82,7 +81,9 @@ smaller than 560
   }
   
      .bs-navbar-collapse{
-    width:100%;float: right;
+ 
+    width: 100%;float: right;
+ 
     }
 	 .index_dl{
 	 	margin-top:3% !important;

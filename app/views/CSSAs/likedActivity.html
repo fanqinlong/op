@@ -5,7 +5,7 @@
 <div class="row mg-top-3">
 	#{include 'CSSAs/infoCenterNav.html' /}
 	<div class="col-md-8 ">
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs nav-tabs1">
 			<li class="${tag=='publish'?'active':''}">
 				<a href="@{CSSAs.publishedActivity}">已发布活动</a>
 			</li>
@@ -14,24 +14,42 @@
 				<a href="@{CSSAs.likedActivity}">已关注活动</a>
 			</li>
 		</ul>
-		<div class="mg-top-2">
+		<div class="">
 		#{if activities.isEmpty()}您还未关注任何活动，<a href="@{Activities.index}" target="_blank">去看看</a>。#{/if}#{else}
 		#{list items:activities,as:'a'}
-		<div style="border: solid 1px #e2e2e2;padding: 15px;padding-left:30px;">
-			<h4>
-			我关注了活动：
-				<a href="@{Activities.detail(a.activity.id)}" target="_blank"> ${a.activity.name} </a>
+		
+		
+		
+		<div class=" trend row">
+			
+				<div class="col-md-1 profile ">
+					<a class="img-border img-w-5">
+						<img src="${user.profile}" />
+					</a>
+				</div>
+				<div class="activity col-md-11">
+					<h5 style="margin-top:0px;" class="text-muted">我关注了活动：
+					</h5>
+			 
+			
+				<h4><a href="@{Activities.detail(a.activity.id)}"> ${a.activity.name} </a></h4>
 				
-			</h4>
-			<a href="@{Activities.detail(a.activity.id)}" target="_blank">
-				<img alt="" style="width:150px;margin-bottom:15px;" src="${a.activity.poster}" class="img-polaroid">
-			</a><br>
-				<span style="font-size:12px;"> ${a.likedAt}</span>
-				<span style="margin-left:30px;font-size:12px;">（<a href="@{Activities.allJoinner(a.activity.id)}" target="_blank">${a.activity.joiner.size()}人报名参加 ， </a>
-				${a.activity.joiner.size()}人 关注， ${a.activity.views}人浏览）</span>
-			
-			
-			
+				<p class="text-muted overflow-2">
+							 
+								${a.activity.intro.raw()}
+						</p>
+					<ul class="list-inline text-muted font-12">
+							  <li>${a.likedAt} </li>
+							<li><a href="@{Activities.allJoinner(a.activity.id)}">参加(${a.activity.joiner.size()})  </a></li>
+							
+							<li> 关注(${a.activity.joiner.size()})</li>
+							<li> 浏览(  ${a.activity.views})</li>
+						 
+							
+							</ul>		
+						
+				
+			</div>
 			</div>
 		#{/list}
 		#{/else}
