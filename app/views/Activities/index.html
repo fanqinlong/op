@@ -73,14 +73,14 @@
 <div class="container container-op1" >
 
 #{list items:frontpageActivity,as:'fa'}
-<div class="col-md-2 activity-item-frontpage ">
+<div class="col-md-2 col-sm-4 col-xs-6 activity-item-frontpage ">
 			<div class="thumbnail">
 				<a href="@{Activities.detail(fa.id)}" target="_blank">
-					<img alt="${fa.name}" src="${fa.poster}">
+					<img title="${fa.name}" src="${fa.poster}">
 				</a>
 				<div>
-					<h5><a href="@{Activities.detail(fa.id)}">${fa.name}</a></h5>
-					<div class="time">${fa.time.first().date}至${fa.time.last().date} </div>
+					<a href="@{Activities.detail(fa.id)}"><h5  class="overflow-100">${fa.name}擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦</h5></a>
+					<div class="time text-muted">${fa.time.first().date}至${fa.time.last().date} </div>
 					<div class="profile">
 					<span class="pull-right mg-top-2">已有 <a href="@{Activities.alljoinner(fa.id)}"> ${fa.joiner.size()}人 </a> 报名参加</span>
 						
@@ -89,10 +89,9 @@
 					#{/if}#{else}
 					<a data-toggle="modal" href="@{CSSAs.preview(fa.publisherCSSA.id)}" data-target="#modal">
 					#{/else}
-						<img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" class="img-polaroid ">
+						<img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" title="${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}" class="img-polaroid ">
 						</a>
-						<span><a> ${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}</a></span>
-						
+						 
 					</div>
 				</div>
 			</div>
@@ -124,11 +123,11 @@
 			</div>
 			<div class="thumbnail">
 				<a href="@{Activities.detail(a.id)}" target="_blank">
-					<img alt="${a.name}" src="${a.poster}" class="img-responsive">
+					<img title="${a.name}" src="${a.poster}" class="img-responsive">
 				</a>
 				<div class="caption">
-					<h4 style="width: 235px;height:19px;overflow: hidden;" target="_blank">${a.name}</h4>
-					<small>${a.time.first().date}至${a.time.last().date} </small>
+					<h4 class="overflow-100" target="_blank">${a.name}</h4>
+					<small class="text-muted">${a.time.first().date}至${a.time.last().date} </small>
 					<div>
 					<span class="pull-right mg-top-3">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>
 					#{if a.publisherCSSA==null}
@@ -136,9 +135,9 @@
 					#{/if}#{else}
 					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
 					#{/else}
-							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="img-polaroid" style="width: 45px; height: 45px;">
+							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}" class="img-polaroid" style="width: 45px; height: 45px;">
 						</a>
-						<div><a>${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}</a></div>
+						 
 					
 					</div>
 				</div>
