@@ -126,19 +126,24 @@
 					<img title="${a.name}" src="${a.poster}" class="img-responsive">
 				</a>
 				<div class="caption">
-					<h4 class="overflow-100" target="_blank">${a.name}</h4>
-					<small class="text-muted">${a.time.first().date}至${a.time.last().date} </small>
-					<div>
-					<span class="pull-right mg-top-3">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>
+					<h4 class="overflow-100" target="_blank">${a.name}擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦擦</h4>
+					
+					<div class="row">
+					
+					<div class="col-md-2 col-sm-3 col-xs-3">
 					#{if a.publisherCSSA==null}
 					<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal">
 					#{/if}#{else}
 					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
 					#{/else}
-							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}" class="img-polaroid" style="width: 45px; height: 45px;">
+							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}" style="width: 45px;">
 						</a>
-						 
-					
+					</div>
+					<div class="col-md-9  col-md-offset-1 col-sm-8 col-xs-9">
+					<small class="text-muted">${a.time.first().date}至${a.time.last().date} </small>
+					<span class="pull-right mg-top-1">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>
+					 
+					 </div>
 					</div>
 				</div>
 			</div>
