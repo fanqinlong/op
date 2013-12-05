@@ -184,25 +184,7 @@ public class SimpleUsers extends Application {
 		login();
 
 	}
-	public static void logins(String email) {
-		System.out.println(email);
-		CSSA cssa = (CSSA) CSSA.findByEmail(email);
-		if (cssa == null) {
-			SimpleUser user = (SimpleUser) SimpleUser.findByEmail(email);
-			if (user == null) {
-				flash.error("邮箱不存在。");
-				login();
-			} else {
-				connectSimple(user);
-				flash.success("欢迎回来， %s !", user.name);
-				infoCenter();
-			}
-		} else  {
-			CSSAs.connectCSSA(cssa);
-			flash.success("欢迎回来， %s CSSA!", cssa.school.name);
-			CSSAs.infoCenter();
-		}
-	}
+
 	public static void authenticate(String email, String password) {
 		CSSA cssa = (CSSA) CSSA.findByEmail(email);
 		if (cssa == null) {
