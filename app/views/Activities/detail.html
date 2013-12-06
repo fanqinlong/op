@@ -191,11 +191,11 @@
 			</div>
 			<div>
 				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"}
-				<a href="@{Messaging.sendTo('cssa',a.publisherCSSA.id)}">
+				<a href="@{Messaging.compose('cssa',a.publisherCSSA.id)}">
 					<i class="icon-envelope-alt"></i><small class="name">发私信</small>
 				</a>
 				#{/if} #{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name} #{if a.publisherSU?.gender.equals("女")} <img src="@{'public/images/active_detailed_gender-proportion_female.png'}"> #{/if}#{elseif a.publisherSU?.gender.equals("男")} <img src="@{'public/images/active_detailed_gender-proportion_male.png'}"> #{/elseif}
-				<a href="@{Messaging.sendTo('simple',a.publisherSU.id)}">
+				<a href="@{Messaging.compose('simple',a.publisherSU.id)}">
 					<i class="icon-envelope-alt"></i><small class="name">发私信</small>
 				</a>
 				#{/else}
@@ -237,9 +237,11 @@
 #{set 'Scripts'}
 
 <script type="text/javascript">
-	$('#modal').on('hidden', function() {
-		$(this).removeData('modal');
-	});
+
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+});
+
 </script>
 #{/set}
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

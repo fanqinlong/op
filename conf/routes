@@ -185,11 +185,8 @@ GET 				/jobs                                               Info.jobs
 #Messaging
 GET 			/msg                                                    Messaging.index
 GET 			/msg/mail                                               Messaging.mail
-GET				/msg/sendTo/{userType}/{userID}							Messaging.sendTo
 GET 			/msg/compose/{userType}/{userID}                        Messaging.compose
-GET 			/msg/notifications                                      Messaging.notifications
-GET 			/msg/announcements                                      Messaging.announcements
-GET 			/msg/settings                                           Messaging.settings
+GET 			/msg/notification                                       Messaging.notification
 
 POST 			/msg/sendMail                                           Messaging.sendMail
 POST			/msg/markRead											Messaging.markRead

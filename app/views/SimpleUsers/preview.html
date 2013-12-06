@@ -18,7 +18,7 @@
 				 <img alt="" src="@{'public/images/edu.png'}"> #{/if}
              
              </h3><p>签名：${user.selfIntro==null?"暂无":user.selfIntro}</p></div>
-            <div class="col-md-2"><a href="@{Messaging.sendTo('simple',user.id)}"><i class=" icon-envelope-alt"></i>发私信</a></div>
+            <div class="col-md-2"><a href="@{Messaging.compose('simple',user.id)}"><i class=" icon-envelope-alt"></i>发私信</a></div>
             </div>
             <div class="mg-top-2"><span>
 				#{if user.age}
