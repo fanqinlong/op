@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * 私信/消息模块
+ * 私信/消息模块 v2
  */
 public class Messaging extends Application {
 	// 验证
@@ -39,17 +39,29 @@ public class Messaging extends Application {
 	private static String getMyUserType() {
 		return session.get("usertype");
 	}
-
+	
 	// 业务
 	public static void index() {
+		long myID = getMyID();
+		String userType = getMyUserType();
+		
+		if (getMailCount(userType, myID) > 0) {
+			mail();
+		} else if (getNotificationCount(userType, myID) > 0) {
+			notification();
+		} else {
+			mail();
+		}
+	}
+	
+	public static void mail() {
 		render();
 	}
-
-	public static void sendTo(String userType, long userID) {
-		String frameSrc = "/msg/compose/" + userType + "/" + userID;
-		renderTemplate("Messaging/index.html", frameSrc);
+	
+	public static void notification() {
+		render();
 	}
-
+	
 	public static void compose(String userType, long userID) {
 		renderArgs.put("userType", userType);
 		renderArgs.put("userID", userID);
@@ -62,16 +74,16 @@ public class Messaging extends Application {
 		renderArgs.put("userName", userName);
 		render();
 	}
-
+	
 	public static void sendMail(String userType, long userID, String title, String content) {
 		setMailCount(userType, userID, getMailCount(userType, userID) + 1);
-		Mail mail = new Mail(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
+		Mail mailObj = new Mail(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
 			false, false, false);
-		mail.save();
+		mailObj.save();
 		flash.success("消息已发送");
 		mail();
 	}
-
+	
 	public static void markRead(List<Long> selectedMails) {
 		for (Long mailID : selectedMails) {
 			Mail mail = Mail.find("toID=? and toUserType=? and id=?", getMyID(), getMyUserType(), mailID).first();
@@ -89,7 +101,7 @@ public class Messaging extends Application {
 		PiggybackPacket pp = new PiggybackPacket(null, mailCount, getNotificationCount(getMyUserType(), getMyID()));
 		renderJSON(pp);
 	}
-
+	
 	public static void trashMail(List<Long> selectedMails) {
 		for (Long mailID : selectedMails) {
 			Mail mail = Mail.find("toID=? and toUserType=? and id=? and isDeleted=?", getMyID(), getMyUserType(),
@@ -110,15 +122,7 @@ public class Messaging extends Application {
 		PiggybackPacket pp = new PiggybackPacket(null, mailCount, getNotificationCount(getMyUserType(), getMyID()));
 		renderJSON(pp);
 	}
-
-	public static void mail() {
-		render();
-	}
-
-	public static void notifications() {
-		render();
-	}
-
+	
 	public static void deleteNotification(long notificationID) {
 		Notification notification = Notification.find("id=? and userID=? and userType=? and isDeleted=?",
 			notificationID, getMyID(), getMyUserType(), false).first();
@@ -135,23 +139,6 @@ public class Messaging extends Application {
 			false);
 		notification.create();
 		setNotificationCount(userType, userID, getNotificationCount(userType, userID) + 1);
-	}
-	
-	public static void nt() {
-		ArrayList<String> al = new ArrayList<String>();
-		al.add("test");
-		al.add("test");
-		addNotification(getMyUserType(), getMyID(), "test", al);
-	}
-
-	public static void announcements() {
-		// TODO-zhao: NYI
-		render();
-	}
-
-	public static void settings() {
-		// TODO-zhao: NYI
-		render();
 	}
 
 	// AJAX
@@ -215,12 +202,7 @@ public class Messaging extends Application {
 		renderText(response);
 	}
 
-	public static void fetchAnnouncements() {
-		// TODO-zhao: NYI
-	}
-
 	// 缓存
-	// TODO-zhao: CAS？
 	private static final String MAIL_CACHE_PREFIX = "mailCount_";
 	private static final String NOTIFICATION_CACHE_PREFIX = "notificationCount_";
 

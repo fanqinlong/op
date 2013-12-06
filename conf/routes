@@ -185,11 +185,8 @@ GET 				/jobs                                               Info.jobs
 #Messaging
 GET 			/msg                                                    Messaging.index
 GET 			/msg/mail                                               Messaging.mail
-GET				/msg/sendTo/{userType}/{userID}							Messaging.sendTo
 GET 			/msg/compose/{userType}/{userID}                        Messaging.compose
-GET 			/msg/notifications                                      Messaging.notifications
-GET 			/msg/announcements                                      Messaging.announcements
-GET 			/msg/settings                                           Messaging.settings
+GET 			/msg/notification                                       Messaging.notification
 
 POST 			/msg/sendMail                                           Messaging.sendMail
 POST			/msg/markRead											Messaging.markRead
@@ -200,14 +197,6 @@ GET 			/msg/ajax/inbox                                         Messaging.fetchIn
 GET 			/msg/ajax/outbox                                        Messaging.fetchOutbox
 GET 			/msg/ajax/notifications                                 Messaging.fetchNotifications
 GET 			/msg/ajax/announcements                                 Messaging.fetchAnnouncements
-
-
-#Messaging2
-GET		/m2			Messaging2.index
-GET		/m2/mail	Messaging2.mail
-GET		/m2/notification	Messaging2.notification
-GET		/m2/nt		Messaging.nt
-GET		/m2/compose/{userType}/{userID}		Messaging2.compose
 
 
 # Ignore favicon requests

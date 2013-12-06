@@ -1,33 +1,30 @@
-<!DOCTYPE html>
-<html>
+#{extends 'main.html' /} #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+#{/set}
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
-	<meta name="viewport" content="width=device-width initial-scale=1.0">
-	
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="@{'/public/stylesheets/op-theme.css'}" />
-	<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" />
-	<link rel="stylesheet" href="@{'/public/stylesheets/font-awesome/css/font-awesome.min.css'}" />
-	<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
-</head>
+<!-- 左侧导航 -->
+<div class="msg-left-nav">
+	<div class="msg-nav-title">消息中心</div>
+	<ul id="navMenu" class="msg-nav-list">
+		<a id="mailBtn" href="@{Messaging.mail}"><li class="selected">
+			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
+		</li></a>
+		<a id="notificationsBtn" href="@{Messaging.notification}"><li>
+			<img src="/public/images/msg/msg_icon_notification.png"/><span> 系统通知<span id="navNotificationCount">#{if notificationCount>0}(${notificationCount})#{/if}</span></span>
+		</li></a>
+	</ul>
+</div>
 
-<body class="msg-mod-body">
-	#{if flash?.success}
-	<div class="msg-alert alert alert-success fade">
-		${flash.success}
-	</div>
-	<script type="text/javascript">
-		setTimeout(function() {
-			$(".msg-alert").addClass("out");
-		}, 2000);
-	</script>
-	#{/if}
+<!-- 右侧广告 -->
+<div class="msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png"/>
+</div>
 
+<!-- 内容 -->
+<div class="msg-content-wrapper">
 	<!-- 顶部功能区 -->
 	<div class="mail-top-bar">
 		<div class="msg-mod-title">站内信箱</div>
-<!-- 		<div class="mail-compose-btn"><a href="@{Messaging.compose}">发站内信</a></div> -->
 		<ul class="mail-top-bar-tabs">
 			<li id="inboxTabBtn" onClick="javascript:showInbox();">收件箱</li>
 			<li id="outboxTabBtn" onClick="javascript:showOutbox();">发件箱</li>
@@ -45,38 +42,37 @@
 			<button id="markReadBtn" onClick="javascript:markRead();" class="btn">标记为已读</button>
 		</span>
 	</div>
-	
-	<!-- 模板 -->
-	<script id="inboxItemTmpl">
-		<div class="mail-wrapper">
-			<div class="mail-controls">
-				<input type="checkbox"/>
-			</div>
-			<div class="mail-title-bar {{^mail.isRead}}mail-unread{{/mail.isRead}}">
-				<div class="mail-sender">{{sender.name}}</div>
-				<div class="mail-title">{{mail.title}}</div>
-				<div class="mail-time">{{mail.time}}</div>
-			</div>
-			<div class="mail-content-inbox" style="display:none"></div>
+</div>
+
+<!-- 模板 -->
+<script id="inboxItemTmpl">
+	<div class="mail-wrapper">
+		<div class="mail-controls">
+			<input type="checkbox"/>
 		</div>
-		<hr/>
-	</script>
-	
-	<script id="outboxItemTmpl">
-		<div class="mail-wrapper">
-			<div class="mail-title-bar mail-read">
-				<div class="mail-sender">{{receiver.name}}</div>
-				<div class="mail-title">{{mail.title}}</div>
-				<div class="mail-time">{{mail.time}}</div>
-			</div>
-			<div class="mail-content-outbox" style="display:none"></div>
+		<div class="mail-title-bar {{^mail.isRead}}mail-unread{{/mail.isRead}}">
+			<div class="mail-sender">{{sender.name}}</div>
+			<div class="mail-title">{{mail.title}}</div>
+			<div class="mail-time">{{mail.time}}</div>
 		</div>
-		<hr/>
-	</script>
-	
-	<!-- JS -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<div class="mail-content-inbox" style="display:none"></div>
+	</div>
+	<hr/>
+</script>
+
+<script id="outboxItemTmpl">
+	<div class="mail-wrapper">
+		<div class="mail-title-bar mail-read">
+			<div class="mail-sender">{{receiver.name}}</div>
+			<div class="mail-title">{{mail.title}}</div>
+			<div class="mail-time">{{mail.time}}</div>
+		</div>
+		<div class="mail-content-outbox" style="display:none"></div>
+	</div>
+	<hr/>
+</script>
+
+#{set 'Scripts'}
 	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
 	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
 	<script type="text/javascript">
@@ -84,6 +80,4 @@
 			showInbox();
 		});
 	</script>
-</body>
-
-</html>
+#{/set}
