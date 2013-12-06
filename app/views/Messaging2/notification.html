@@ -22,10 +22,32 @@
 
 <!-- 内容 -->
 <div class="msg-content-wrapper">
+	<!-- 顶部功能区 -->
+	<div class="notification-top-bar">
+		<div class="msg-mod-title">系统通知</div>
+	</div>
+	
+	<!-- 消息列表 -->
+	<div id="notificationList"></div>
 </div>
 
+<!-- 模板 -->
+<script id="notificationTmpl">
+	<div class="notification-wrapper {{^isRead}}notification-unread{{/isRead}}">
+		<div class="notification-title">{{title}}</div>
+		<div class="notification-content">{{{content}}}</div>
+		<div class="notification-time">{{time}}</div>
+		<span class="notification-delete">删除</span>
+	</div>
+	<hr/>
+</script>
 
 #{set 'Scripts'}
+	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
+	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
 	<script type="text/javascript">
+		$(document).ready(function() {
+			showNotifications();
+		});
 	</script>
 #{/set}

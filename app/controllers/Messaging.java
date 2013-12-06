@@ -136,6 +136,13 @@ public class Messaging extends Application {
 		notification.create();
 		setNotificationCount(userType, userID, getNotificationCount(userType, userID) + 1);
 	}
+	
+	public static void nt() {
+		ArrayList<String> al = new ArrayList<String>();
+		al.add("test");
+		al.add("test");
+		addNotification(getMyUserType(), getMyID(), "test", al);
+	}
 
 	public static void announcements() {
 		// TODO-zhao: NYI
