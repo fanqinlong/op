@@ -207,6 +207,7 @@ GET		/m2			Messaging2.index
 GET		/m2/mail	Messaging2.mail
 GET		/m2/notification	Messaging2.notification
 GET		/m2/nt		Messaging.nt
+GET		/m2/compose/{userType}/{userID}		Messaging2.compose
 
 
 # Ignore favicon requests

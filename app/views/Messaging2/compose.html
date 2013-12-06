@@ -1,0 +1,48 @@
+#{extends 'main.html' /} #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+#{/set}
+
+<!-- 左侧导航 -->
+<div class="msg-left-nav">
+	<div class="msg-nav-title">消息中心</div>
+	<ul id="navMenu" class="msg-nav-list">
+		<a id="mailBtn" href="@{Messaging2.mail}"><li class="selected">
+			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
+		</li></a>
+		<a id="notificationsBtn" href="@{Messaging2.notification}"><li>
+			<img src="/public/images/msg/msg_icon_notification.png"/><span> 系统通知<span id="navNotificationCount">#{if notificationCount>0}(${notificationCount})#{/if}</span></span>
+		</li></a>
+	</ul>
+</div>
+
+<!-- 右侧广告 -->
+<div class="msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png"/>
+</div>
+
+<!-- 内容 -->
+<div class="msg-content-wrapper">
+	<div class="notification-top-bar">
+		<div class="msg-mod-title">发站内信</div>
+	</div>
+
+	<form id="composeForm" method="POST" action="@{Messaging2.sendMail}">
+		<div class="compose-form-field">
+			<label>收信人 </label>${userName}<br/>
+		</div>
+		<div class="compose-form-field">
+			<label>标题 </label><input name="title" type="text"/><br/>
+		</div>
+		<div class="compose-form-field">
+			<label>内容 </label><textarea id="content" name="content"></textarea>
+		</div>
+		<input name="userType" value="${userType}" type="hidden"/>
+		<input name="userID" value="${userID}" type="hidden"/>
+		<button id="sendMailButton" class="btn btn-primary">发送</button>
+	</form>
+</div>
+
+#{set 'Scripts'}
+	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
+	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
+#{/set}

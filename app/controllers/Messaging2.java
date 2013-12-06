@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import models.messaging.Mail;
 import models.messaging.Notification;
+import models.users.CSSA;
 import models.users.SimpleUser;
 import play.cache.Cache;
 import play.db.jpa.JPA;
@@ -59,6 +60,28 @@ public class Messaging2 extends Application {
 	
 	public static void notification() {
 		render();
+	}
+	
+	public static void compose(String userType, long userID) {
+		renderArgs.put("userType", userType);
+		renderArgs.put("userID", userID);
+		String userName = "";
+		if (userType.equals("simple")) {
+			userName = ((SimpleUser) SimpleUser.find("id=?", userID).first()).name;
+		} else if (userType.equals("cssa")) {
+			userName = ((CSSA) CSSA.find("id=?", userID).first()).school.name;
+		}
+		renderArgs.put("userName", userName);
+		render();
+	}
+	
+	public static void sendMail(String userType, long userID, String title, String content) {
+		setMailCount(userType, userID, getMailCount(userType, userID) + 1);
+		Mail mailObj = new Mail(userID, userType, getMyID(), getMyUserType(), title, content, new Date(), false,
+			false, false, false);
+		mailObj.save();
+		flash.success("消息已发送");
+		mail();
 	}
 	
 	public static void markRead(List<Long> selectedMails) {
