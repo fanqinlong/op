@@ -5,15 +5,19 @@
 #{/if}
 #{/if}
 </div>
-<div  style="height:500px;">
-	<div style="float:left; width:512px; height:430px; padding-top:70px;" >
-		<div style="width:500px; height:300px; padding-left:12px;">
-			<img src="../public/images/GIF_airplane.gif">
-		</div>
 
-<!--
-		#{if isSimpleUser}
-			<div style="margin-left:35%; margin-top:35px; ">
+
+
+	<div class="text-center">
+		<h3 class="text-primary">感谢各位同学和学生会的支持，我们的接机功能将于2014年3月份正式投入使用</h3>
+	</div>
+	
+	<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-6 mg-top-3" >
+		 		<img src="../public/images/GIF_airplane.gif" class="img-responsive">
+			<!--  		
+		 			#{if isSimpleUser}
+			<div class="text-center">
 				<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 				<img src="../public/images/feiji.png">
 	 					我需要接机
@@ -22,7 +26,7 @@
 		#{/if}
 		#{if isCSSA}
 			#{if isApproved}
-			<div style="margin-left:200px; margin-top:35px; ">
+			<div class="text-center">
 				<a  class="btn btn-info"  href="@{Airports.stuInfo(username)}">
 					<img src="../public/images/feiji.png"> 
 					查看需要接机人信息
@@ -30,7 +34,7 @@
 			</div>
 			#{/if}
 			#{else}
-			<div style="margin-left:150px; margin-top:35px;" >
+			<div class="text-center" >
 				<a  class="btn btn-info" >
 					<img src="../public/images/feiji.png"> 
 					对不起您还未认证，请认证
@@ -39,56 +43,51 @@
 			#{/else}
 		#{/if}
 		
-		-->
-	</div>
-	<div style="float:left; width:512px; height:430px;  padding-top:70px;" >
-			<div style="width:500px; height:300px; padding-right:12px;">
-				<img src="../public/images/GIF_car.gif">
+		 -->
+		 		
+		 		
 			</div>
-			<!-- 
+			 
+	
+			<div class="col-md-6 col-sm-6 col-xs-6 mg-top-3" >
+				<img src="../public/images/GIF_car.gif" class="img-responsive">
+			</div>
+		<!-- 
 			#{if isSimpleUser}
-			<div style="margin-left:35%; margin-top:35px;">
+			<div class="text-center">
 				  <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModa2">
-  						<img src="../public/images/button_car.png">
+  						<img src="../public/images/button_car.png" class="img-responsive">
 						我是志愿者
 				  </a>
 			</div>
 			#{/if}
 			#{if isCSSA}
 				#{if isApproved}
-				<div style="margin-left:200px; margin-top:35px;" >
+				<div class="text-center" >
 					<a class="btn btn-info"  href="@{Airports.volInfoInfo(username)}">
-						<img src="../public/images/button_car.png">
+						<img src="../public/images/button_car.png" class="img-responsive">
 						查看志愿者信息
 					 </a>
 				</div>
 				#{/if}
 				#{else}
-				<div style="margin-left:150px; margin-top:35px;" >
+				<div class="text-center" >
 					<a  class="btn btn-info" >
-						<img src="../public/images/feiji.png"> 
+						<img src="../public/images/feiji.png" class="img-responsive" > 
 						对不起您还未认证，请认证
 					</a>
 				</div>	
 				#{/else}
 			#{/if}
-			-->
+			 
+ 	-->	
 	</div>
-</div>
-<div style="text-align:center;float:left;margin-top:-45%;margin-left:15%;">
-	<h3 style="color:#428bca;">感谢各位同学和学生会的支持，我们的接机功能将于2014年3月份正式投入使用</h3>
-</div>
-<div style="text-align:center;">
-	<h4 style="color:#428bca;">接机板块的主旨是更高效的帮助学生会收集信息，请学生会成员点击 <a class="btn btn-info"  data-toggle="modal" data-target="#myModa3">这里</a > 了解详细流程</h4>
-</div>
-<!-- 
-<div  style="float:left;margin-top:-35%;margin-left:40%;">
-	<span class="button-wrap">
-		<a   class="button button-circle button-primary  "  data-toggle="modal" data-target="">接机流程</a >
-	</span>
-</div>
--->
+ 
 
+<div class="text-center mg-top-3">
+	<h4 class="text-primary">接机板块的主旨是更高效的帮助学生会收集信息，请学生会成员点击 <a class="btn btn-info"  data-toggle="modal" data-target="#myModa3">这里</a > 了解详细流程</h4>
+</div>
+ 
 <!-- 学生选择学校 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -135,8 +134,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">接机流程</h4>
       </div>
-      <div class="modal-body" style="text-align:center;">
-				<img src="../public/images/11.png">
+      <div class="modal-body" class="text-center">
+				<img src="../public/images/11.png" class="img-responsive">
       </div>
       
     </div><!-- /.modal-content -->

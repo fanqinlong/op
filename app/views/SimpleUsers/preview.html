@@ -79,7 +79,7 @@
             <div class="card-title"> TA 发起的活动<span class="pull-right"><a href="@{SimpleUsers.detail(user.id)}">查看更多>></a></span></div>
             <div class="card-content">
             #{list items:activities,as:'a'}
-            <p><span class="label label-info">${a.views}</span> &nbsp; <a href="@{Activities.detail(a.id)}" target="_blank">${a.name}</a> <span class="pull-right">${a.postAt}</span></p>
+            <p><span class="label label-primary">${a.views}</span> &nbsp; <a href="@{Activities.detail(a.id)}" target="_blank">${a.name}</a> <span class="pull-right">${a.postAt}</span></p>
             #{/list}
             </div>
             </div>
@@ -88,7 +88,7 @@
             <div class="card-content">
             ${questions.size()==0?"TA 还未提出问题":""}
              #{list items:questions,as:'q'}
-              <p><span class="label label-info">${q.views}</span> &nbsp; <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a> <span class="pull-right">${q.date}</span></p>
+              <p><span class="label label-primary">${q.views}</span> &nbsp; <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a> <span class="pull-right">${q.date}</span></p>
             #{/list}
             </div>
             </div>
