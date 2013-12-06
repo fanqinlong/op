@@ -3,7 +3,7 @@
 #{/set}
 
 <!-- 左侧导航 -->
-<div class="msg-left-nav">
+<div class="col-md-2">
 	<div class="msg-nav-title">消息中心</div>
 	<ul id="navMenu" class="msg-nav-list">
 		<a id="mailBtn" href="@{Messaging.mail}"><li class="selected">
@@ -16,12 +16,10 @@
 </div>
 
 <!-- 右侧广告 -->
-<div class="msg-ad-wrapper">
-	<img src="/public/images/msg/msg_ad.png"/>
-</div>
+
 
 <!-- 内容 -->
-<div class="msg-content-wrapper">
+<div class="col-md-8">
 	<div class="notification-top-bar">
 		<div class="msg-mod-title">发站内信</div>
 	</div>
@@ -41,7 +39,9 @@
 		<button id="sendMailButton" class="btn btn-primary">发送</button>
 	</form>
 </div>
-
+<div class="col-md-2">
+	<img src="/public/images/msg/msg_ad.png"/>
+</div>
 #{set 'Scripts'}
 	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
 	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>

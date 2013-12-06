@@ -2,6 +2,24 @@ hr {
 	margin: 0px;
 	border-bottom: none;
 }
+.col-md-2,.col-md-8{
+	padding-left:0px;
+	padding-right:0px;
+	
+}
+.col-md-2{
+	border-bottom: 1px solid #e2e2e2;
+	
+}
+.col-md-8{
+	border-left: 1px solid #e2e2e2;
+	 
+}
+.advertisement{
+	
+	border-left: 1px solid #e2e2e2;
+	
+}
 
 /* 布局 */
 .msg-left-nav {
@@ -40,7 +58,7 @@ hr {
 /* 导航 */
 .msg-nav-title {
 	font-size: 18px;
-	margin-top: 24px;
+	margin-top: 30px;
 	margin-bottom: 47px;
 	text-align: center;
 }
@@ -53,7 +71,7 @@ hr {
 .msg-nav-list li {
 	height: 30px;
 	line-height: 30px;
-	padding-left: 48px;
+	 
 	color: #808080;
 	list-style-type: none;
 }
