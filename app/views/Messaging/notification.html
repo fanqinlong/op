@@ -6,10 +6,10 @@
 <div class="msg-left-nav">
 	<div class="msg-nav-title">消息中心</div>
 	<ul id="navMenu" class="msg-nav-list">
-		<a id="mailBtn" href="@{Messaging.mail}"><li class="selected">
+		<a id="mailBtn" href="@{Messaging.mail}"><li>
 			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
 		</li></a>
-		<a id="notificationsBtn" href="@{Messaging.notification}"><li>
+		<a id="notificationsBtn" href="@{Messaging.notification}"><li class="selected">
 			<img src="/public/images/msg/msg_icon_notification.png"/><span> 系统通知<span id="navNotificationCount">#{if notificationCount>0}(${notificationCount})#{/if}</span></span>
 		</li></a>
 	</ul>
@@ -22,27 +22,32 @@
 
 <!-- 内容 -->
 <div class="msg-content-wrapper">
+	<!-- 顶部功能区 -->
 	<div class="notification-top-bar">
-		<div class="msg-mod-title">发站内信</div>
+		<div class="msg-mod-title">系统通知</div>
 	</div>
-
-	<form id="composeForm" method="POST" action="@{Messaging.sendMail}">
-		<div class="compose-form-field">
-			<label>收信人 </label>${userName}<br/>
-		</div>
-		<div class="compose-form-field">
-			<label>标题 </label><input name="title" type="text"/><br/>
-		</div>
-		<div class="compose-form-field">
-			<label>内容 </label><textarea id="content" name="content"></textarea>
-		</div>
-		<input name="userType" value="${userType}" type="hidden"/>
-		<input name="userID" value="${userID}" type="hidden"/>
-		<button id="sendMailButton" class="btn btn-primary">发送</button>
-	</form>
+	
+	<!-- 消息列表 -->
+	<div id="notificationList"></div>
 </div>
+
+<!-- 模板 -->
+<script id="notificationTmpl">
+	<div class="notification-wrapper {{^isRead}}notification-unread{{/isRead}}">
+		<div class="notification-title">{{title}}</div>
+		<div class="notification-content">{{{content}}}</div>
+		<div class="notification-time">{{time}}</div>
+		<span class="notification-delete">删除</span>
+	</div>
+	<hr/>
+</script>
 
 #{set 'Scripts'}
 	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
 	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			showNotifications();
+		});
+	</script>
 #{/set}

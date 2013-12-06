@@ -13,9 +13,11 @@ hr {
 
 .msg-content-wrapper {
 	height: 100%;
+	min-height: 600px;
 	margin-left: 185px;
 	margin-right: 201px;
 	border-left: 1px solid #CCC;
+	background: #FFFFFF  !important;
 	border-right: 1px solid #CCC;
 }
 
@@ -71,11 +73,6 @@ hr {
 }
 
 /* 内容模块公用 */
-.msg-mod-body {
-	background: #FFFFFF  !important;
-	margin-top: 24px;
-}
-
 .msg-mod-title {
 	display:inline;
 	font-size: 18px;
@@ -85,27 +82,15 @@ hr {
 /* 模块: 站内信 */
 .mail-top-bar {
 	margin: 0 22px;
+	padding-top: 24px;
 }
 
 .mail-list {
-	top: 100px;
-	bottom: 20px;
-	left: 0;
-	right: 0;
-	overflow-y: auto;
-	position: absolute;
 	padding: 0 22px;
 }
 
 #mailBottomBar {
-	height: 37px;
-	line-height: 37px;
 	padding: 0 22px;
-	background-color: #DBE3E9;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	position: absolute;
 }
 
 .mail-compose-btn {
@@ -206,18 +191,13 @@ hr {
 /* 模块: 系统通知 */
 .notification-top-bar {
 	margin: 0 22px;
-	height: 45px;
+	padding-top: 24px;
+	height: 69px;
 	border-bottom: 1px solid #CCC;
 }
 
 #notificationList {
-	top: 70px;
-	bottom: 20px;
-	left: 0;
-	right: 0;
-	overflow-y: auto;
-	margin: 0 22px;
-	position: absolute;
+	padding: 0 22px;
 }
 
 .notification-wrapper {
