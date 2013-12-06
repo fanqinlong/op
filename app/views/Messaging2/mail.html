@@ -1,0 +1,78 @@
+#{extends 'main.html' /} #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+#{/set}
+
+<!-- 左侧导航 -->
+<div class="msg-left-nav">
+	<div class="msg-nav-title">消息中心</div>
+	<ul id="navMenu" class="msg-nav-list">
+		<a id="mailBtn" href="@{Messaging2.mail}"><li class="selected">
+			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
+		</li></a>
+		<a id="notificationsBtn" href="@{Messaging2.notification}"><li>
+			<img src="/public/images/msg/msg_icon_notification.png"/><span> 系统通知<span id="navNotificationCount">#{if notificationCount>0}(${notificationCount})#{/if}</span></span>
+		</li></a>
+	</ul>
+</div>
+
+<!-- 右侧广告 -->
+<div class="msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png"/>
+</div>
+
+<!-- 内容 -->
+<div class="msg-content-wrapper">
+	<!-- 顶部功能区 -->
+	<div class="mail-top-bar">
+		<div class="msg-mod-title">站内信箱</div>
+		<ul class="mail-top-bar-tabs">
+			<li id="inboxTabBtn" onClick="javascript:showInbox();">收件箱</li>
+			<li id="outboxTabBtn" onClick="javascript:showOutbox();">发件箱</li>
+		</ul>
+	</div>
+	
+	<!-- 消息列表 -->
+	<form id="mailList" class="mail-list"></form>
+	
+	<!-- 底部功能区 -->
+	<div id="mailBottomBar">
+		<span id="bottomBarControls">
+			<button id="selectAllBtn" onClick="javascript:selectAll();" class="btn">全选</button>
+			<button id="trashBtn" onClick="javascript:trash();" class="btn">删除</button>
+			<button id="markReadBtn" onClick="javascript:markRead();" class="btn">标记为已读</button>
+		</span>
+	</div>
+</div>
+
+<!-- 模板 -->
+<script id="inboxItemTmpl">
+	<div class="mail-wrapper">
+		<div class="mail-controls">
+			<input type="checkbox"/>
+		</div>
+		<div class="mail-title-bar {{^mail.isRead}}mail-unread{{/mail.isRead}}">
+			<div class="mail-sender">{{sender.name}}</div>
+			<div class="mail-title">{{mail.title}}</div>
+			<div class="mail-time">{{mail.time}}</div>
+		</div>
+		<div class="mail-content-inbox" style="display:none"></div>
+	</div>
+	<hr/>
+</script>
+
+<script id="outboxItemTmpl">
+	<div class="mail-wrapper">
+		<div class="mail-title-bar mail-read">
+			<div class="mail-sender">{{receiver.name}}</div>
+			<div class="mail-title">{{mail.title}}</div>
+			<div class="mail-time">{{mail.time}}</div>
+		</div>
+		<div class="mail-content-outbox" style="display:none"></div>
+	</div>
+	<hr/>
+</script>
+
+#{set 'Scripts'}
+	<script type="text/javascript">
+	</script>
+#{/set}

@@ -202,6 +202,12 @@ GET 			/msg/ajax/notifications                                 Messaging.fetchNo
 GET 			/msg/ajax/announcements                                 Messaging.fetchAnnouncements
 
 
+#Messaging2
+GET		/m2			Messaging2.index
+GET		/m2/mail	Messaging2.mail
+GET		/m2/notification	Messaging2.notification
+
+
 # Ignore favicon requests
 GET 			/favicon.ico 											404
  
