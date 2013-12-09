@@ -3,9 +3,9 @@
 #{/set}
 
 <!-- 左侧导航 -->
-<div class="col-md-2">
+<div class="col-md-2 col-sm-2 col-xs-2 msg-left-nav">
 	<div class="msg-nav-title">消息中心</div>
-	<ul id="navMenu" class="msg-nav-list">
+	<ul id="navMenu" class="msg-nav-list text-center">
 		<a id="mailBtn" href="@{Messaging.mail}"><li class="selected">
 			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
 		</li></a>
@@ -15,11 +15,10 @@
 	</ul>
 </div>
 
-<!-- 右侧广告 -->
 
 
 <!-- 内容 -->
-<div class="col-md-8">
+<div class="col-md-8 col-sm-8 col-xs-8 msg-content-wrapper">
 	<div class="notification-top-bar">
 		<div class="msg-mod-title">发站内信</div>
 	</div>
@@ -39,8 +38,10 @@
 		<button id="sendMailButton" class="btn btn-primary">发送</button>
 	</form>
 </div>
-<div class="col-md-2">
-	<img src="/public/images/msg/msg_ad.png"/>
+<!-- 右侧广告 -->
+
+<div class="col-md-2 col-sm-2 col-xs-2 advertisement msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png"  class="img-responsive"/>
 </div>
 #{set 'Scripts'}
 	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
