@@ -9,16 +9,9 @@
 
 				<h6 class="text-muted" style="margin: 20px;">取消原因：${a.canceledReasion}</h6>
 			</div>
-		</div>
+		</div>	
 		#{/if}
-		<!-- <div class="bs-callout bs-callout-info" style="">
-#{if a.isCanceled}
-			 
-      <h4 class="text-danger">${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school?.name+"CSSA")}  取消了活动，原因:</h4>
-      <p>${a.canceledReasion}	</p>
-  #{/if}
-  </div>
-  -->
+ 
 		<div class="row">
 			<div class="col-md-5">
 				<img src="${a.poster}" class="img-thumbnail">
@@ -123,10 +116,10 @@
 			</div>
 		</div>
 
-		<div>
+		 
 			<h3>活动介绍</h3>
 			<p>${a.intro.raw()}</p>
-		</div>
+ 
 
 		<div id="comment">
 			#{if date > a.time.last().date && (isAllown || isOwner) && !a.isCanceled} #{form @comment(), method:'get',class:'form-horizontal'}
@@ -224,12 +217,21 @@
 		#{/if}
 		<div class="numbers">
 			<h4 class="activity-title4">活动成员</h4>
-			#{if !a.isOpen} <span class="canyuNO">${a.joiner.size()}</span><span class="canyu1">人报名;</span><span class="canyuNO">${allownJoiner.size()}</span> <span class="canyu1">人已通过;</span> #{/if} <span class="canyuNO">${a.liker.size()}</span><span class="canyu1">人已关注;</span> #{list items:allownJoiner,as:'joiner'}
-			<div style="height: 110px; overflow: hidden; clear: both;">
+			#{if !a.isOpen}
+				<span class="canyuNO">${a.joiner.size()}</span>
+				<span class="canyu1">人报名;</span>
+				<span class="canyuNO">${allownJoiner.size()}</span> 
+				<span class="canyu1">人已通过;</span> #{/if}
+				 <span class="canyuNO">${a.liker.size()}</span>
+				 <span class="canyu1">人已关注;</span>
+		 <div style="height: 110px; overflow: hidden; clear: both;">
+			 #{list items:allownJoiner,as:'joiner'}
 				<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
-					<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}"> #{/list}
+					<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}">
 				</a>
-			</div>
+			
+		 #{/list}
+		 </div>
 		</div>
 	</div>
 </div>
