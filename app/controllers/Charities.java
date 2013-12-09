@@ -277,9 +277,11 @@ public class Charities extends Application {
 
 			if (pageNo < 1) {
 				pageNo = 1;
+				System.out.println(pageNo+"no");
 
 			} else if (pageNo >= pageCount) {
 				pageNo = (int) pageCount;
+				System.out.println(pageCount+"count");
 			}
 			List<Wel> we = Wel.find("isChecked=true order by time desc")
 					.from((pageNo - 1) * 5).fetch(5);
@@ -329,10 +331,8 @@ public class Charities extends Application {
 		}
 
 	}
-
-public static void like(long aid,int pageNo) {
-		
-		 
+ 
+	public static void like(long aid,int pageNo) {
 		if(session.get("logged") == null) {
 			SimpleUsers.login();
 		}
@@ -346,6 +346,7 @@ public static void like(long aid,int pageNo) {
 	 
 		
 		if (!al_exist.isEmpty()) {
+			System.out.println("------------------------------------------");
 			flash.error("您已关注");
 			pigination(pageNo);
 		}

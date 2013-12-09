@@ -50,7 +50,7 @@
 
 			#{if isNotLogin}
 			<div class="index_dl">
-			  
+ 
 			
 			
 			 
@@ -90,12 +90,12 @@
 				 
 			</div>
 			<div class="user_exit_infocenter text-center"  ><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
-			<ul  class="user_exit">
+			<ul  class="user_exit" align="center">
 				<li>
-					<img src="${userprofile}" class="img-circle" >
+					<img src="${userprofile}" class="img-circle  " >
 				</li>
 			</ul>
-			<div  class="user_exit_infocenter"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
+			<div  class="user_exit_infocenter text-center"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
 		</div>
 	</div>
  

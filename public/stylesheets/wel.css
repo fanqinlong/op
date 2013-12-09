@@ -24,7 +24,7 @@
 	
 	}
 	.b-1{
-	margin-left: 28px;
+	 
 		height: 229px;
 		 
 		position: relative; 
@@ -345,21 +345,21 @@ width:200px;margin-top:5px;margin-bottom:5px;}
 	}
 	.sh_explain span{
 	margin-left: 47px;
-color: #C0B9B9;
+color: #333;
 	}
 	
 	.sh_content{
 	clear:both;border-top: 1px solid #e2e2e2;padding-top:20px;padding-bottom:20px;color:#336699;
 	}
 	.sh_4{
-		color: #C0B9B9;
+		color: #333;
 	}
 	.sh_bottom{
 	position:absolute;margin-left: 63px;margin-top: 63px;}
 	.sh_width{width: 720px;}
-	.sh_head{height:110px;float:left;}
+	.sh_head{min-height:110px;float:left;}
 	.sh_head_pic{margin-right:20px;width:86px;}
-	.sh_name{position:relative;color:#C0B9B9;}
+	.sh_name{position:relative;color:#333;}
 	.male{
 	
 		width:14px;

@@ -7,7 +7,7 @@
   	 <p  class="infocenter_left_content">${s.school.name}</p>
   	 <p class="infocenter_left_content"><a href="@{SimpleUsers.detail(s.id)}"><img src="@{'public/images/category.png'}"> 发起的活动</a></p>
 	 <p class="infocenter_left_content"><a href="@{SimpleUsers.userQues(s.id)}"><img src="@{'public/images/category.png'}"> 提出的问题</a></p>
-	 <p class="infocenter_left_content"> <a class="btn btn-primary" href="@{Messaging.sendTo('cssa',s.id)}">发站内信</a></p>
+	 <p class="infocenter_left_content"> <a class="btn btn-primary" href="@{Messaging.compose('cssa',s.id)}">发站内信</a></p>
   #{/list}
   </div>
   

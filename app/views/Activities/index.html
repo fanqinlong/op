@@ -4,21 +4,21 @@
 <!-- tags -->
 
 <p class="tags">
-	<span class="tag-title"><i class=" icon-reorder"></i>分类</span>
+	<span class="tag-title"><img src="@{'public/images/number.png'}">分类</span>
 	<a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''}">全部</a>
 	#{list items:t,as:'t'}
 	<a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''}"> ${t.name} </a>
 	#{/list}
 </p>
 <p class="tags">
-	<span class="tag-title"><i class="  icon-user"></i>人数</span>
+	<span class="tag-title"><img src="@{'public/images/active_category.png'}">人数</span>
 	<a href="@{Activities.filterScope()}" class="${scope==''?'label label-primary':''}"> 全部</a>
 	#{list items:s,as:'s'}
 	<a href="@{Activities.filterScope(s.scope)}" class="${scope==s.scope?'label label-primary':''}"> ${s.scope}</a>
 	#{/list}
 </p>
 <p class="tags">
-	<span class="tag-title"><i class="  icon-time"></i>时间</span>
+	<span class="tag-title"><img src="@{'public/images/time.png'}">时间</span>
 	<a href="@{Activities.filterPeriod(-1)}" class="${days==-1?'label label-primary':''}"> 全部</a>
 	#{list items:p,as:'p'}
 	<a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''}"> ${p.period}</a>
@@ -72,14 +72,21 @@
 <div class="container container-op1" >
 
 #{list items:frontpageActivity,as:'fa'}
+<<<<<<< HEAD
 <div class="col-md-2 activity-item-frontpage shadow">
 			<div class="thumbnail">
 				<a href="@{Activities.detail(fa.id)}" target="_blank">
 					<img alt="${fa.name}"  src="${fa.poster}" >
+=======
+<div class="col-md-2 col-sm-4 col-xs-6 activity-item-frontpage ">
+			<div class="thumbnail">
+				<a href="@{Activities.detail(fa.id)}" target="_blank">
+					<img title="${fa.name}" src="${fa.poster}">
+>>>>>>> 979e589884356d4a3fe91a95a8f14639a832f282
 				</a>
 				<div>
-					<h5><a href="@{Activities.detail(fa.id)}">${fa.name}</a></h5>
-					<div class="time">${fa.time.first().date}至${fa.time.last().date} </div>
+					<a href="@{Activities.detail(fa.id)}"><h5  class="overflow-100">${fa.name}</h5></a>
+					<div class="time text-muted">${fa.time.first().date}至${fa.time.last().date} </div>
 					<div class="profile">
 					<span class="pull-right mg-top-2">已有 <a href="@{Activities.alljoinner(fa.id)}"> ${fa.joiner.size()}人 </a> 报名参加</span>
 						
@@ -88,10 +95,9 @@
 					#{/if}#{else}
 					<a data-toggle="modal" href="@{CSSAs.preview(fa.publisherCSSA.id)}" data-target="#modal">
 					#{/else}
-						<img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" class="img-polaroid ">
+						<img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" title="${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}" class="img-polaroid ">
 						</a>
-						<span><a> ${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}</a></span>
-						
+						 
 					</div>
 				</div>
 			</div>
@@ -105,9 +111,9 @@
 	<div class="row ">
 		<!--下面部分-->
 		%{int row=0}% #{if !a.isEmpty()} #{list items:a,as:'a'} %{row++;}%
-		<div class="col-md-3 activity-item mg-top-2">
+		<div class="col-md-3 col-sm-4 col-xs-6 activity-item mg-top-2">
 
-			<div style="width: 100px; height: 100px;">
+			<div class="mp-top-2-1">
 				#{if a.isTop}
 				<img src="@{'/public/images/active_detailed_tag.png'}">
 				#{/if}
@@ -121,24 +127,29 @@
 				#{/elseif} 
 				
 			</div>
-			<div class="thumbnail" style="margin-top: -100px; float: left;">
+			<div class="thumbnail">
 				<a href="@{Activities.detail(a.id)}" target="_blank">
-					<img alt="${a.name}" src="${a.poster}">
+					<img title="${a.name}" src="${a.poster}" class="img-responsive">
 				</a>
 				<div class="caption">
-					<h4 style="width: 235px;height:19px;overflow: hidden;" target="_blank">${a.name}</h4>
-					<small>${a.time.first().date}至${a.time.last().date} </small>
-					<div>
-					<span class="pull-right mg-top-3">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>
+					<h4 class="overflow-100" target="_blank">${a.name}</h4>
+					
+					<div class="row">
+					
+					<div class="col-md-2 col-sm-3 col-xs-3">
 					#{if a.publisherCSSA==null}
 					<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal">
 					#{/if}#{else}
 					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
 					#{/else}
-							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="img-polaroid" style="width: 45px; height: 45px;">
+							<img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}" style="width: 45px;">
 						</a>
-						<div><a>${a.publisherSU==null?(a.publisherCSSA?.school.name+" CSSA"):a.publisherSU.name}</a></div>
-					
+					</div>
+					<div class="col-md-9  col-md-offset-1 col-sm-8 col-xs-9">
+					<small class="text-muted">${a.time.first().date}至${a.time.last().date} </small>
+					<span class="pull-right mg-top-1">已有 <a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()}人 </a> 报名参加</span>
+					 
+					 </div>
 					</div>
 				</div>
 			</div>

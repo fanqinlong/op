@@ -1,15 +1,24 @@
 <div class="row">
-	<div class=" col-md-2">
+	<div class=" col-md-2 text-center" >
+	<p>
 		<a href="@{SimpleUsers.changeProfile(user.id)}">
 			<img class="img-thumbnail profile-lg" src="${user.profile}">
 		</a>
+		</p>
+		<p class="">
+		#{if user.eduMail!=null }
+		 #{else}
+		<a href="@{SimpleUsers.eduMail}" class="btn btn-success btn-sm" >激活Edu邮箱</a> 
+		#{/else}		
+		#{/if}#{else}
+		<a href="@{SimpleUsers.eduMail}" class="btn btn-success btn-sm" >验证Edu邮箱</a> 
+		#{/else}
+		</p>
 	</div>
 	<div class="col-md-8">
 		<h3>
 			${user.name}
 			
-			#{if user.eduMail!=null && user.eduMailConfirmation==null}
-				 <img alt="" src="@{'public/images/edu.png'}"> #{/if}
 				 #{if user.gender.equals("女")}	 
 				<img src="@{'public/images/active_detailed_gender-proportion_female.png'}">
 				#{/if}#{elseif user.gender.equals("男")}
@@ -79,7 +88,7 @@
 		<h5>
 			签名：${user.selfIntro?user.selfIntro:'无'} &nbsp;
 		
-			<a href="@{SimpleUsers.eduMail}" >
+			<a href="@{SimpleUsers.updateProfile}" >
 				<i class="icon-edit">完善资料</i>
 			</a>
 			

@@ -1,18 +1,27 @@
-<!DOCTYPE html>
-<html>
+#{extends 'main.html' /} #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
+#{/set}
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
-	<meta name="viewport" content="width=device-width initial-scale=1.0">
-	
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="@{'/public/stylesheets/op-theme.css'}" />
-	<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" />
-	<link rel="stylesheet" href="@{'/public/stylesheets/font-awesome/css/font-awesome.min.css'}" />
-	<link rel="stylesheet" href="@{'/public/stylesheets/msg.css'}" />
-</head>
+<!-- 左侧导航 -->
+<div class="msg-left-nav">
+	<div class="msg-nav-title">消息中心</div>
+	<ul id="navMenu" class="msg-nav-list">
+		<a id="mailBtn" href="@{Messaging.mail}"><li class="selected">
+			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
+		</li></a>
+		<a id="notificationsBtn" href="@{Messaging.notification}"><li>
+			<img src="/public/images/msg/msg_icon_notification.png"/><span> 系统通知<span id="navNotificationCount">#{if notificationCount>0}(${notificationCount})#{/if}</span></span>
+		</li></a>
+	</ul>
+</div>
 
-<body class="msg-mod-body">
+<!-- 右侧广告 -->
+<div class="msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png"/>
+</div>
+
+<!-- 内容 -->
+<div class="msg-content-wrapper">
 	<div class="notification-top-bar">
 		<div class="msg-mod-title">发站内信</div>
 	</div>
@@ -31,4 +40,9 @@
 		<input name="userID" value="${userID}" type="hidden"/>
 		<button id="sendMailButton" class="btn btn-primary">发送</button>
 	</form>
-</body>
+</div>
+
+#{set 'Scripts'}
+	<script	type="text/javascript" src="@{'/public/javascripts/mustache-min.js'}"></script>
+	<script type="text/javascript" src="@{'/public/javascripts/messaging.js'}"></script>
+#{/set}
