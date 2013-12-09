@@ -3,9 +3,9 @@
 #{/set}
 
 <!-- 左侧导航 -->
-<div class="msg-left-nav">
+<div class="col-md-2 col-sm-2 col-xs-2 msg-left-nav">
 	<div class="msg-nav-title">消息中心</div>
-	<ul id="navMenu" class="msg-nav-list">
+	<ul id="navMenu" class="msg-nav-list text-center">
 		<a id="mailBtn" href="@{Messaging.mail}"><li class="selected">
 			<img src="/public/images/msg/msg_icon_mail.png"/><span> 站内信箱<span id="navMailCount">#{if mailCount>0}(${mailCount})#{/if}</span></span>
 		</li></a>
@@ -15,13 +15,9 @@
 	</ul>
 </div>
 
-<!-- 右侧广告 -->
-<div class="msg-ad-wrapper">
-	<img src="/public/images/msg/msg_ad.png"/>
-</div>
 
 <!-- 内容 -->
-<div class="msg-content-wrapper">
+<div class="col-md-8 col-sm-8 col-xs-8 msg-content-wrapper">
 	<!-- 顶部功能区 -->
 	<div class="mail-top-bar">
 		<div class="msg-mod-title">站内信箱</div>
@@ -35,7 +31,7 @@
 	<form id="mailList" class="mail-list"></form>
 	
 	<!-- 底部功能区 -->
-	<div id="mailBottomBar">
+	<div id="mailBottomBar" class="">
 		<span id="bottomBarControls">
 			<button id="selectAllBtn" onClick="javascript:selectAll();" class="btn">全选</button>
 			<button id="trashBtn" onClick="javascript:trash();" class="btn">删除</button>
@@ -43,7 +39,11 @@
 		</span>
 	</div>
 </div>
-
+	<!-- 右侧广告 -->
+<div class="col-md-2 col-sm-2 col-xs-2 advertisement msg-ad-wrapper">
+	<img src="/public/images/msg/msg_ad.png" class="img-responsive"/>
+</div>
+	
 <!-- 模板 -->
 <script id="inboxItemTmpl">
 	<div class="mail-wrapper">
@@ -58,6 +58,11 @@
 		<div class="mail-content-inbox" style="display:none"></div>
 	</div>
 	<hr/>
+	
+	
+	
+
+	
 </script>
 
 <script id="outboxItemTmpl">
@@ -70,6 +75,9 @@
 		<div class="mail-content-outbox" style="display:none"></div>
 	</div>
 	<hr/>
+	
+	
+
 </script>
 
 #{set 'Scripts'}

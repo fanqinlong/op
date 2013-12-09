@@ -1,22 +1,31 @@
 hr {
-	margin: 0px;
+	margin: 5px;
 	border-bottom: none;
 }
+.msg-left-nav ,.msg-content-wrapper,.msg-ad-wrapper{
+	padding-left:0px;
+	padding-right:0px;
+	
+}
+.msg-left-nav,.msg-ad-wrapper {
+	border-bottom: 1px solid #e2e2e2;
+	min-height:230px;
+	
+}
+.msg-content-wrapper{
+	border-left: 1px solid #e2e2e2;
+	min-height: 583px;
+	 
+}
+ 
 
 /* 布局 */
-.msg-left-nav {
-	width: 185px;
-	height: 245px;
-	float:left;
-	border-bottom: 1px solid #CCC;
-}
 
+ 
 .msg-content-wrapper {
 	height: 100%;
 	min-height: 600px;
-	margin-left: 185px;
-	margin-right: 201px;
-	border-left: 1px solid #CCC;
+ 	border-left: 1px solid #CCC;
 	background: #FFFFFF  !important;
 	border-right: 1px solid #CCC;
 }
@@ -27,11 +36,7 @@ hr {
 	border: none;
 }
 
-.msg-ad-wrapper {
-	width: 200px;
-	float: right;
-}
-
+ 
 .container-op {
 	clear: both;
 	padding: 0px;
@@ -40,7 +45,7 @@ hr {
 /* 导航 */
 .msg-nav-title {
 	font-size: 18px;
-	margin-top: 24px;
+	margin-top: 30px;
 	margin-bottom: 47px;
 	text-align: center;
 }
@@ -53,7 +58,7 @@ hr {
 .msg-nav-list li {
 	height: 30px;
 	line-height: 30px;
-	padding-left: 48px;
+	 
 	color: #808080;
 	list-style-type: none;
 }
@@ -90,7 +95,15 @@ hr {
 }
 
 #mailBottomBar {
-	padding: 0 22px;
+ 
+	height: 37px;
+line-height: 37px;
+padding: 0 22px;
+background-color: #DBE3E9;
+bottom: 0;
+left: 0;
+right: 0;
+position: absolute;
 }
 
 .mail-compose-btn {
