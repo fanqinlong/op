@@ -346,7 +346,7 @@ public class QuestAnsw extends Application {
 		List<Comments> topUser = Comments.find("order by praiseNum desc").fetch(5);
 		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty,topUser,topQues);
+				contentIsEmpty,topUser,topQues,tagid);
 	}
 
 	public static void showQuesInfo(long id) {

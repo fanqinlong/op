@@ -1,6 +1,5 @@
 #{extends 'main.html' /} #{set title:'index.html' /} #{set 'Styles'}
 <link rel="stylesheet" href="/public/stylesheets/activity.css" />
-
 #{/set}
 <!-- tags -->
 
@@ -73,10 +72,10 @@
 <div class="container container-op1" >
 
 #{list items:frontpageActivity,as:'fa'}
-<div class="col-md-2 activity-item-frontpage ">
+<div class="col-md-2 activity-item-frontpage shadow">
 			<div class="thumbnail">
 				<a href="@{Activities.detail(fa.id)}" target="_blank">
-					<img alt="${fa.name}" src="${fa.poster}">
+					<img alt="${fa.name}"  src="${fa.poster}" >
 				</a>
 				<div>
 					<h5><a href="@{Activities.detail(fa.id)}">${fa.name}</a></h5>

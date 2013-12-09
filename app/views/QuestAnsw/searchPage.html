@@ -80,10 +80,6 @@ $('#modal').on('hidden', function() {
 });
 	
 </script>
- 
-
-
-
 <form class="form-inline" role="form" action="@{QuestAnsw.searchQues}" method="post">
   <div class="form-group form-group1" >
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
@@ -97,7 +93,12 @@ $('#modal').on('hidden', function() {
   <dt style="width:40px;">标签:</dt>
   <dd style="margin-left:45px;">
 	  	#{list items:t,as:'tag'}
-			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="margin-top:5px;border-radius:20px;" >${tag.tagName}</a>
+	  		#{if tag.id == tagid}
+			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="margin-top:5px;border-radius:20px;background-color:#6699cc;color:#FFFFFF; " >${tag.tagName}</a>
+			#{/if}
+			#{else}
+			 <a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" onMouseOver="this.style.backgroundColor='#6699cc'" onMouseOut="this.style.backgroundColor='#ccc'"  style="margin-top:5px;border-radius:20px;background-color:#ccc;"  >${tag.tagName}</a>
+			#{/else}
 	    #{/list}
   </dd>
 </dl>
@@ -149,9 +150,8 @@ $('#modal').on('hidden', function() {
 			 #{else}
 			  <h3 class="text-primary" style="margin-top:0px;">热门问答</h3>
 			 <hr>
-			
-			
-				#{list items:qArticles,as:'qa'}
+							
+			#{list items:qArticles,as:'qa'}
 				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
 
 					
@@ -288,5 +288,4 @@ $('body').on('hidden.bs.modal', '.modal', function () {
 });
 </script>
 #{/set}
-
 
