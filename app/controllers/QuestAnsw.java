@@ -355,9 +355,13 @@ public class QuestAnsw extends Application {
 		qw.save();
 		if (session.get("logged") == null) {
 			Ques fQ = Ques.findById(id);
+			String s = new String(fQ.label);
+			String a[] = s.split(",");
+			List<Ques> relatedQues = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
+					"%" + a[0] + "%").fetch(5);
 			List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
 			List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
-			render(fQ, FQ, listCom);
+			render(fQ, FQ, listCom,relatedQues);
 		} else {
 			String comentUsertype = session.get("usertype");
 			long comentUserid = Long.parseLong(session.get("logged"));
