@@ -15,6 +15,7 @@
 				#{if trend.type.equals("activity")}
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
+					
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
@@ -160,7 +161,7 @@
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
-			<div class="activity col-md-11 text-muted">
+			<div class="activity col-md-11  text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">你关注了公益活动</h5>
 			<h4><a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a></h4>
 				<p class="text-muted overflow-2" style="">
