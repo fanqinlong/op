@@ -337,7 +337,7 @@ public class CSSAs extends Application {
 	
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherCSSA.id = ? order by postAt desc and  isPublished=true order by id desc", userId)
+		List<Activity> activities = Activity.find("publisherCSSA.id = ?  and  isPublished=true order by id desc", userId)
 				.fetch();
 		CSSA user = CSSA.findById(userId);
 		String tag = "publish";
