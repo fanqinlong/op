@@ -72,17 +72,10 @@
 <div class="container container-op1" >
 
 #{list items:frontpageActivity,as:'fa'}
-<<<<<<< HEAD
-<div class="col-md-2 activity-item-frontpage shadow">
-			<div class="thumbnail">
-				<a href="@{Activities.detail(fa.id)}" target="_blank">
-					<img alt="${fa.name}"  src="${fa.poster}" >
-=======
 <div class="col-md-2 col-sm-4 col-xs-6 activity-item-frontpage ">
 			<div class="thumbnail">
 				<a href="@{Activities.detail(fa.id)}" target="_blank">
 					<img title="${fa.name}" src="${fa.poster}">
->>>>>>> 979e589884356d4a3fe91a95a8f14639a832f282
 				</a>
 				<div>
 					<a href="@{Activities.detail(fa.id)}"><h5  class="overflow-100">${fa.name}</h5></a>
