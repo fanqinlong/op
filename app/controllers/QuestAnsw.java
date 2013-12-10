@@ -101,6 +101,10 @@ public class QuestAnsw extends Application {
 			flash.error("请登录后回答!");
 			SimpleUsers.login();
 		}
+		if (comment.equals("<br>")) {
+			flash.error("答案不能为空！");
+			showQuesInfo(quesid);
+		}
 		Long uid;
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsertype = session.get("usertype");
@@ -499,7 +503,6 @@ public class QuestAnsw extends Application {
 		}
 		List<Ques> aQues = Ques.find("order by date desc")
 				.from((pageNum - 1) * 5).fetch(5);
-
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
@@ -522,7 +525,6 @@ public class QuestAnsw extends Application {
 		Ques eQues = Ques.findById(id);
 		render(t, eQues);
 	}
-
 	public static void editSuccessful(Ques eQues) {
 		eQues.save();
 		render();
@@ -676,14 +678,18 @@ public class QuestAnsw extends Application {
 			username = com.username;
 		}
 		Comments findCom = Comments.findById(comid);
-
 		Ques fQ = Ques.findById(Quesid);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
-		System.out.println("编辑回答");
 		render(findCom, fQ, FQ, username);
 	}
 
 	public static void editComSuccessful(Comments c) {
+		System.out.println("kakka"+c.id);
+		System.out.println("内容"+c.comment);
+		if(c.comment.equals("<br>")){
+			flash.error("答案不能为空!");
+			editComent(c.userid, c.usertype, c.quesid);
+		}
 		c.save();
 		render();
 	}

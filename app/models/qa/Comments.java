@@ -7,8 +7,8 @@ import play.db.jpa.Model;
 
 @Entity
 public class Comments extends Model {
-
 	public long quesid;
+	@Required
 	public String comment;
 	public long praiseNum;
 	public long hateNum;

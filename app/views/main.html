@@ -54,16 +54,19 @@
 					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
 					</a></li>
 					<li><a href="@{SimpleUsers.logout}"> <i class=" icon-off"></i>
-					</a></li> #{/if} #{elseif connectedCSSA}
+					</a></li>
+					#{/if}
+					#{elseif connectedCSSA}
 					<li><a href="@{CSSAs.infoCenter()}"> ${connectedCSSA.school.name} CSSA</a></li>
 					<li><a href="@{Messaging.index}"> <i class=" icon-envelope"> <span id="mailCount">#{if mailCount+notificationCount>0}${mailCount+notificationCount}#{/if}</span></i>
 					</a></li>
 					<li><a href="@{CSSAs.logout}"> <i class=" icon-off"></i>
-					</a></li> #{/elseif} #{else}
-
+					</a></li> 
+					#{/elseif}
+					#{else}
 					<li><a href="@{SimpleUsers.signup}" class="cssa_1">注册</a></li>
-					<li><a href="@{SimpleUsers.login}" class="cssa_1">登录</a></li> #{/else}
-
+					<li><a href="@{SimpleUsers.login}" class="cssa_1">登录</a></li> 
+					#{/else}
 				</ul>
 			</div>
 
