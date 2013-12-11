@@ -1,15 +1,12 @@
 
 #{extends 'main.html' /}
 #{set title:'changeProfile.html' /}
-
+ 
       <link href=" @{'public/jcrop/css/main.css'}" rel="stylesheet" type="text/css">
         <link href="  @{'public/jcrop/css/jquery.Jcrop.min.css'}" rel="stylesheet" type="text/css">
 
-        <!-- add scripts -->
-        <script src="  @{'public/jcrop/js/jquery.min.js'}"></script>
-        <script src=" @{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
-        <script src="  @{'public/jcrop/js/script.js'}"></script>
- 
+       
+        
 
 <div> 
 <div class="row" >
@@ -64,3 +61,7 @@
         </div>
         </div>
      <div class="clearfix"></div>
+  	#{set 'Scripts'}
+     <script src="@{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
+	<script src="@{'public/jcrop/js/script.js'}"></script>
+  #{/set}

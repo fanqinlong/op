@@ -77,6 +77,14 @@ background-color: #fff;
 	border: 1px solid #ccc;
 	background-color: #FFF;
 }
+.container-op2 {
+ 	padding-left:0px;
+ 	padding-top:23px;
+ 	padding-bottom:23px;
+ 	padding-right:0px;
+	border: 1px solid #ccc;
+	background-color: #FFF;
+}
 img.profile-lg{
 	height:150px;
 }
