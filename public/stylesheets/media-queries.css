@@ -31,6 +31,16 @@ smaller than 960
 		display:none;
 	}
 	 
+	 .card-time {
+margin-top: 5px;
+}
+
+.activity-card .thumbnail {
+ 
+height: 330px;
+ 
+}
+
 	.card-time2{
 		display:block;
 	}

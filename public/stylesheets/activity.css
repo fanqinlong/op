@@ -9,6 +9,11 @@
 .tags>a {
 	margin: 15px;
 }
+.pic-height{
+	display: block;
+height: 272px;
+	
+}
 
 .tags>span {
  margin-top: -4px;margin-right: 5px;
