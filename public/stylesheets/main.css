@@ -61,6 +61,7 @@ top: 3px;
 	padding: 3px 8px;
 }
 .container-op {
+	 
 	padding: 20px;
 	margin: 20px auto;
 	border: 1px solid #ccc;
@@ -73,6 +74,15 @@ background-color: #fff;
  
 	padding: 20px;
 	margin: 20px auto;
+	border: 1px solid #ccc;
+	background-color: #FFF;
+}
+.container-op2 {
+	position:relative;
+ 	padding-left:0px;
+ 	padding-top:23px;
+ 	padding-bottom:23px;
+ 	padding-right:0px;
 	border: 1px solid #ccc;
 	background-color: #FFF;
 }

@@ -9,12 +9,30 @@
 .tags>a {
 	margin: 15px;
 }
-
-.tags>span {
-	margin: 15px;
-	color: #333;
+.pic-height{
+	display: block;
+height:auto;
+	
+}
+.top-thum-a{
+	display: block;
+height: 220px;
 }
 
+
+.tags>span {
+ margin-top: -4px;margin-right: 5px;
+	color: #333;
+}
+.thumbnail {
+ overflow:hidden;
+padding: 6px;
+}
+.top-tuijian{
+	position: absolute;
+z-index: 999;
+top: 0px;
+}
 a.detailed {
 	height: 300px;
 }
@@ -49,19 +67,81 @@ a {
 
 .activity-item-frontpage {
 	font-size: 11px;
+	padding-left:0px;padding-right:0px;
 }
 
 .activity-item-frontpage  .thumbnail {
 	border: none;
+	padding:0px;margin-left:25px;width:165px;
+	
 }
-
+.top-title{
+	color:#666666;margin-bottom:5px;
+}
+.profile .row{
+	
+	margin-top:5px;
+}
+.marginT5{
+	margin-top:5px;
+	}
+	 .activity-cards{
+	
+		width: 106%;
+	}
+	.activity-card{
+	width:19%;margin-right:10px;
+	}
+	.activity-card .thumbnail{
+	border-radius: 0px;width:99%;height:auto;margin-top: 20px;
+	}
+	.activity-card .thumbnail img{
+	 
+	}
+	.caption{
+	padding-left:7px;
+	}
+	.activity-name-width{
+	
+	margin-top:-4px;}
+	.activity-name{
+	  margin-bottom: 15px;font-size:17px;
+	}
+	.card-buttom{
+		margin-top:4px;
+	}
+	.card-user{
+	width: 32px;
+	}
+	.card-time{
+	margin-top: -6px;
+	
+	}
+	.card-time p{
+	margin:0px;}
+	.card-time img{
+	
+	width:32px;border:0px;
+	}
+	.card-time span{
+	position: relative;white-space:pre;
+top: 2px;
+	}
+	
+	
+.top-cssa{
+	
+	margin-bottom:0px; margin-top: 1px;
+}
+ 
 .activity-item-frontpage img {
 	width: 100%;
 	border: 1px solid #CCC;
 }
 
 .activity-item-frontpage .profile img {
-	width: 40px;
+	width:32px;
+	border:0px;
 }
 
 .order .checked {
