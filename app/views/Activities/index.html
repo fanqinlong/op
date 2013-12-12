@@ -80,7 +80,7 @@
 						</p>
 
 						<p class="text-right marginT5">
-							<span class="text-muted" style="white-space: pre;">参加 <a href="@{Activities.alljoinner(fa.id)}">${fa.joiner.size()}</a> 人气 <a href="@{Activities.alljoinner(fa.id)}">111</a></span>
+							<span class="text-muted" style="white-space: pre;">参加 <a href="@{Activities.alljoinner(fa.id)}">${fa.joiner.size()}</a> 人气 <a href="@{Activities.alljoinner(fa.id)}">${fa.views}</a></span>
 						</p>
 
 					</div>
@@ -126,7 +126,7 @@
 							<p class="text-left card-time1">
 								<small class="text-muted ">${a.time.first().date}至</small><small class="text-muted ">${a.time.last().date} </small>
 							</p>
-							<img title="推荐" src="@{'public/images/V-CSSA.png'}" class="img-responsive pull-left marginT5"> <span class="pull-right cjrq">参加<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a> 人气<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a></span>
+							<img title="推荐" src="@{'public/images/V-CSSA.png'}" class="img-responsive pull-left marginT5"> <span class="pull-right cjrq">参加<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a> 人气<a href="@{Activities.alljoinner(a.id)}"> ${a.views} </a></span>
 
 						</div>
 						 
