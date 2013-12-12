@@ -47,16 +47,19 @@
 </div>
 <a href="@{Activities.Create}" class="btn btn-success btn-lg pull-right">发起活动</a>
 </div>
-<img title="推荐" src="@{'public/images/tuijian.png'}" class="top-tuijian img-responsive">
-<div class="container container-op2">
 
+<div class="container container-op2" style="">
+	<img title="推荐" src="@{'public/images/tuijian.png'}" class="top-tuijian img-responsive">
 	#{list items:frontpageActivity,as:'fa'}
+
+	
 	<div class="pull-left activity-item-frontpage ">
 
 
 
 		<div class="thumbnail">
-			<a href="@{Activities.detail(fa.id)}" target="_blank"> <img title="${fa.name}" src="${fa.poster}" class="img-responsive">
+		
+			<a href="@{Activities.detail(fa.id)}" target="_blank" class="top-thum-a"> <img title="${fa.name}" src="${fa.poster}" class="img-responsive">
 			</a>
 			<div>
 				<h4 class="overflow-100 top-title">${fa.name}</h4>
@@ -115,15 +118,15 @@
 
 					<div class="row" class="card-buttom">
 
-						<div class="col-md-2 col-sm-3 col-xs-3">
-							#{if a.publisherCSSA==null} <a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal"> #{/if}#{else} <a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal"> #{/else} <img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="card-user " class="" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+"CSSA"):a.publisherSU.name}" >
+						<div class="col-md-2 col-sm-3 col-xs-3 xxxxx" style="">
+							#{if a.publisherCSSA==null} <a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal"> #{/if}#{else} <a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal"> #{/else} <img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="card-user " class="" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+"CSSA"):a.publisherSU.name}">
 							</a>
 						</div>
 						<div class="col-md-10 col-sm-9 col-xs-9 card-time">
 							<p class="text-left card-time1">
-								<small class="text-muted ">${a.time.first().date}至${a.time.last().date} </small>
+								<small class="text-muted ">${a.time.first().date}至</small><small class="text-muted ">${a.time.last().date} </small>
 							</p>
-							<img title="推荐" src="@{'public/images/V-CSSA.png'}" class="img-responsive pull-left"> <span class="pull-right">参加<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a> 人气<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a></span>
+							<img title="推荐" src="@{'public/images/V-CSSA.png'}" class="img-responsive pull-left marginT5"> <span class="pull-right cjrq">参加<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a> 人气<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a></span>
 
 						</div>
 						 

@@ -78,6 +78,7 @@ background-color: #fff;
 	background-color: #FFF;
 }
 .container-op2 {
+	position:relative;
  	padding-left:0px;
  	padding-top:23px;
  	padding-bottom:23px;

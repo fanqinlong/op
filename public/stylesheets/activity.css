@@ -11,16 +11,27 @@
 }
 .pic-height{
 	display: block;
-height: 272px;
+height:auto;
 	
 }
+.top-thum-a{
+	display: block;
+height: 220px;
+}
+
 
 .tags>span {
  margin-top: -4px;margin-right: 5px;
 	color: #333;
 }
+.thumbnail {
+ overflow:hidden;
+padding: 6px;
+}
 .top-tuijian{
-	position:absolute;margin-left: 6.7%;z-index: 999;
+	position: absolute;
+z-index: 999;
+top: 0px;
 }
 a.detailed {
 	height: 300px;
@@ -82,7 +93,7 @@ a {
 	width:19%;margin-right:10px;
 	}
 	.activity-card .thumbnail{
-	border-radius: 0px;width:92%;height:350px;margin-top: 20px;
+	border-radius: 0px;width:99%;height:auto;margin-top: 20px;
 	}
 	.activity-card .thumbnail img{
 	 
