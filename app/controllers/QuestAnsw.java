@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-
+import models.qa.Paging;
 import notifiers.Trend;
 import play.data.validation.Required;
 import play.data.validation.Validation;
@@ -72,6 +72,13 @@ public class QuestAnsw extends Application {
 			flash.error("错误:至少选择一个标签");
 			QuesIndex();
 		}
+		
+		if(!school.isEmpty()){
+			String s = new String(school);
+			String a[] = s.split(" - ");
+			school = a[0] + a[1] + a[2];	
+		}
+		System.out.println("看看学校："+school);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
 		new Ques(title, Tag, school, content, d, userid, usertype, username,
@@ -274,96 +281,6 @@ public class QuestAnsw extends Application {
 				relatedQues);
 	}
 
-	public static void searchPage(long id, long question_id) {
-		List<Tag> t = Tag.find("order by themeid desc").fetch();
-		List<Ques> aQues = Ques.find("order by date desc").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		Iterator iterator = aQues.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques ques = (Ques) iterator.next();
-			List<Comments> comments = Comments.find("quesid = ?", ques.id)
-					.fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(ques, comment);
-			qArticles.add(qa);
-		}
-		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()) {
-			contentIsEmpty = true;
-		}
-		List<Comments> topUser = Comments.find("order by praiseNum desc")
-				.fetch(5);
-		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		render(t, qArticles, pageCount, contentIsEmpty, topQues, topUser);
-	}
-
-	public static void searchQues(String ques) {
-		List<Tag> t = Tag.find("order by themeid desc").fetch();
-		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE title LIKE ?",
-				"%" + ques + "%").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		Iterator iterator = anq.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques qu = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", qu.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(qu, comment);
-			qArticles.add(qa);
-		}
-		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()) {
-			contentIsEmpty = true;
-		}
-		List<Comments> topUser = Comments.find("order by praiseNum desc")
-				.fetch(5);
-		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty, topUser, topQues);
-	}
-
-	public static void searchTag(String tag) {
-		List<Tag> tg = Tag.find("tagName = ?", tag).fetch();
-		Iterator iter = tg.iterator();
-		Long tagid = null;
-		while (iter.hasNext()) {
-			Tag ta = (Tag) iter.next();
-			tagid = ta.id;
-		}
-		Tag tagg = Tag.findById(tagid);
-		tagg.themeid = tagg.themeid + 1;
-		tagg.save();
-		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
-				"%" + tag + "%").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		Iterator iterator = anq.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques qu = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", qu.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(qu, comment);
-			qArticles.add(qa);
-		}
-		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()) {
-			contentIsEmpty = true;
-		}
-		List<Tag> t = Tag.find("order by themeid desc").fetch();
-		List<Comments> topUser = Comments.find("order by praiseNum desc")
-				.fetch(5);
-		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty, topUser, topQues, tagid);
-	}
-
 	public static void showQuesInfo(long id) {
 		Ques qw = Ques.findById(id);
 		qw.views = qw.views + 1;
@@ -525,6 +442,7 @@ public class QuestAnsw extends Application {
 		Ques eQues = Ques.findById(id);
 		render(t, eQues);
 	}
+
 	public static void editSuccessful(Ques eQues) {
 		eQues.save();
 		render();
@@ -636,33 +554,6 @@ public class QuestAnsw extends Application {
 		showQuesInfo(id);
 	}
 
-	public static void searchSchool(String school) {
-		List<Tag> t = Tag.find("order by themeid desc").fetch();
-		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE school LIKE ?",
-				"%" + school + "%").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		Iterator iterator = anq.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques qu = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", qu.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(qu, comment);
-			qArticles.add(qa);
-		}
-		boolean contentIsEmpty = false;
-		if (qArticles.isEmpty()) {
-			contentIsEmpty = true;
-		}
-		List<Comments> topUser = Comments.find("order by praiseNum desc")
-				.fetch(5);
-		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				contentIsEmpty, topUser, topQues);
-	}
-
 	public static void editComent(Long userid, String userType, Long quesid) {
 		List<Comments> come = Comments
 				.find("SELECT a FROM Comments a WHERE userid LIKE ? and usertype like ? and quesid like ?",
@@ -684,9 +575,9 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void editComSuccessful(Comments c) {
-		System.out.println("kakka"+c.id);
-		System.out.println("内容"+c.comment);
-		if(c.comment.equals("<br>")){
+		System.out.println("kakka" + c.id);
+		System.out.println("内容" + c.comment);
+		if (c.comment.equals("<br>")) {
 			flash.error("答案不能为空!");
 			editComent(c.userid, c.usertype, c.quesid);
 		}
@@ -913,4 +804,214 @@ public class QuestAnsw extends Application {
 	 * Comments.find("order by praiseNum desc").fetch(10); List<Ques> q =
 	 * Ques.find("order by focusNum desc").fetch(10); }
 	 **/
+	public static void searchPage(int flag, int currentPage, int pageSize) {
+		String sign = "searchPage";
+		long rowsCount = Ques.count(); // 总记录数
+		long pageCount = rowsCount % pageSize == 0 ? rowsCount / pageSize
+				: (rowsCount / pageSize + 1);// 总页数
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		List<Ques> aQues = null;
+		if (flag == 1) {
+			aQues = Ques.find("order by id desc").fetch(currentPage, pageSize);
+		} else if (flag == 2) {
+			aQues = Ques.find("order by date desc")
+					.fetch(currentPage, pageSize);
+		} else if (flag == 3) {
+			aQues = Ques.find("order by answerNum desc").fetch(currentPage,
+					pageSize);
+		} else if (flag == 4) {
+			aQues = Ques.find("order by focusNum desc").fetch(currentPage,
+					pageSize);
+		}
+		Iterator iterator = aQues.iterator();
+		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
+		while (iterator.hasNext()) {
+			Ques ques = (Ques) iterator.next();
+			List<Comments> comments = Comments.find("quesid = ?", ques.id)
+					.fetch();
+			Comments comment = comments.isEmpty() ? null : (Comments) comments
+					.get(0);
+			QuestionArticle qa = new QuestionArticle(ques, comment);
+			qArticles.add(qa);
+		}
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()) {
+			contentIsEmpty = true;
+		}
+		List<Comments> topUser = Comments.find("order by praiseNum desc")
+				.fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
+		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		render(t, qArticles, pageCount, contentIsEmpty, topQues, topUser, flag,
+				sign, currentPage, inter);
+	}
+
+	public static void searchQues(int quesSortFlag, String ques,
+			int currentPage, int pageSize) {
+		String sign = "searchQues";
+		long rowsCount = Ques
+				.find("SELECT a FROM Ques a WHERE title LIKE ?",
+						"%" + ques + "%").fetch().size();// 总记录数
+		long pageCount = rowsCount % pageSize == 0 ? rowsCount / pageSize
+				: (rowsCount / pageSize + 1);// 总共多少页
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		List<Ques> anq = null;
+		if (quesSortFlag == 1) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE title LIKE  ?  order by id desc",
+							"%" + ques + "%").fetch(currentPage, pageSize);
+		} else if (quesSortFlag == 2) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE title LIKE  ?  order by date desc",
+							"%" + ques + "%").fetch(currentPage, pageSize);
+		} else if (quesSortFlag == 3) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE title LIKE  ?  order by answerNum desc",
+							"%" + ques + "%").fetch(currentPage, pageSize);
+		} else if (quesSortFlag == 4) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE title LIKE  ?  order by focusNum desc",
+							"%" + ques + "%").fetch(currentPage, pageSize);
+		}
+		Iterator iterator = anq.iterator();
+		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
+		while (iterator.hasNext()) {
+			Ques qu = (Ques) iterator.next();
+			List comments = Comments.find("quesid = ?", qu.id).fetch();
+			Comments comment = comments.isEmpty() ? null : (Comments) comments
+					.get(0);
+			QuestionArticle qa = new QuestionArticle(qu, comment);
+			qArticles.add(qa);
+		}
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()) {
+			contentIsEmpty = true;
+		}
+		List<Comments> topUser = Comments.find("order by praiseNum desc")
+				.fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
+		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty, topUser, topQues, sign, quesSortFlag, ques,
+				inter, currentPage);
+	}
+
+	public static void searchSchool(int shoolSortFlag, String myschool,
+			int currentPage, int pageSize) {
+		String sign = "searchSchool";
+		String s = new String(myschool);
+		String a[] = s.split(" - ");
+		myschool = a[0] + a[1] + a[2];
+		System.out.println("看看学校是:"+myschool);
+		long rowsCount = Ques
+				.find("SELECT a FROM Ques a WHERE school LIKE ?",
+						"%" + myschool + "%").fetch().size();// 总记录数
+		long pageCount = rowsCount % pageSize == 0 ? rowsCount / pageSize
+				: (rowsCount / pageSize + 1);// 总共多少页
+		List<Ques> anq = null;
+		if (shoolSortFlag == 1) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE school LIKE  ?  order by id desc",
+							"%" + myschool + "%").fetch(currentPage, pageSize);
+		} else if (shoolSortFlag == 2) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE school LIKE  ?  order by date desc",
+							"%" + myschool + "%").fetch(currentPage, pageSize);
+		} else if (shoolSortFlag == 3) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE school LIKE  ?  order by answerNum desc",
+							"%" + myschool + "%").fetch(currentPage, pageSize);
+		} else if (shoolSortFlag == 4) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE school LIKE  ?  order by focusNum desc",
+							"%" + myschool + "%").fetch(currentPage, pageSize);
+		}
+		Iterator iterator = anq.iterator();
+		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
+		while (iterator.hasNext()) {
+			Ques qu = (Ques) iterator.next();
+			List comments = Comments.find("quesid = ?", qu.id).fetch();
+			Comments comment = comments.isEmpty() ? null : (Comments) comments
+					.get(0);
+			QuestionArticle qa = new QuestionArticle(qu, comment);
+			qArticles.add(qa);
+		}
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()) {
+			contentIsEmpty = true;
+		}
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		List<Comments> topUser = Comments.find("order by praiseNum desc")
+				.fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
+		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty, topUser, topQues, sign, shoolSortFlag,
+				myschool, inter, currentPage);
+	}
+
+	public static void searchTag(int sortFlag, String tag, int currentPage,
+			int pageSize) {
+		String sign = "searchTag";
+		// 寻找tag的id
+		List<Tag> tg = Tag.find("tagName = ?", tag).fetch();
+		Iterator iter = tg.iterator();
+		Long tagid = null;
+		while (iter.hasNext()) {
+			Tag ta = (Tag) iter.next();
+			tagid = ta.id;
+		}
+		Tag tagg = Tag.findById(tagid);
+		tagg.themeid = tagg.themeid + 1;
+		tagg.save();
+
+		String tagname = null;
+		tagname = tagg.tagName;
+		long rowsCount = Ques
+				.find("SELECT a FROM Ques a WHERE label LIKE ?",
+						"%" + tag + "%").fetch().size(); // 总记录数
+		long pageCount = rowsCount % pageSize == 0 ? rowsCount / pageSize
+				: (rowsCount / pageSize + 1);
+		List<Ques> anq = null;
+		if (sortFlag == 1) {
+			anq = Ques.find(
+					"SELECT a FROM Ques a WHERE label LIKE ? order by id desc",
+					"%" + tag + "%").fetch(currentPage, pageSize);
+		} else if (sortFlag == 2) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE label LIKE ? order by date desc",
+							"%" + tag + "%").fetch(currentPage, pageSize);
+		} else if (sortFlag == 3) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE label LIKE ? order by answerNum desc",
+							"%" + tag + "%").fetch(currentPage, pageSize);
+		} else if (sortFlag == 4) {
+			anq = Ques
+					.find("SELECT a FROM Ques a WHERE label LIKE ? order by focusNum desc",
+							"%" + tag + "%").fetch(currentPage, pageSize);
+
+		}
+		Iterator iterator = anq.iterator();
+		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
+		while (iterator.hasNext()) {
+			Ques qu = (Ques) iterator.next();
+			List comments = Comments.find("quesid = ?", qu.id).fetch();
+			Comments comment = comments.isEmpty() ? null : (Comments) comments
+					.get(0);
+			QuestionArticle qa = new QuestionArticle(qu, comment);
+			qArticles.add(qa);
+		}
+		boolean contentIsEmpty = false;
+		if (qArticles.isEmpty()) {
+			contentIsEmpty = true;
+		}
+		List<Tag> t = Tag.find("order by themeid desc").fetch();
+		List<Comments> topUser = Comments.find("order by praiseNum desc")
+				.fetch(5);
+		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
+		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+				contentIsEmpty, topUser, topQues, tagid, tagname, sortFlag,
+				sign, inter, currentPage);
+	}
 }

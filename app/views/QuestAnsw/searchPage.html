@@ -78,13 +78,8 @@ $(document).ready(function(){
 $('#modal').on('hidden', function() {
     $(this).removeData('modal');
 });
-	
 </script>
- 
-
-
-
-<form class="form-inline" role="form" action="@{QuestAnsw.searchQues}" method="post">
+<form class="form-inline" role="form" action="@{QuestAnsw.searchQues(1,ques,1,5)}" method="post">
   <div class="form-group form-group1" >
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
     <input type="text" class="form-control" placeholder="输入你想知道的问题..." id="ques" name="ques"  value="${flash.ques}"  >
@@ -96,21 +91,21 @@ $('#modal').on('hidden', function() {
 <dl class="dl-horizontal" style="margin-top:30px;">
   <dt style="width:40px;">标签:</dt>
   <dd style="margin-left:45px;">
-	  	#{list items:t,as:'tag'}
+	    #{list items:t,as:'tag'}
 	  		#{if tag.id == tagid}
-			<a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" style="margin-top:5px;border-radius:20px;color:#FFFFFF;background-Color:#6699cc " >${tag.tagName}</a>
+			<a class="btn btn-default" href="@{QuestAnsw.searchTag(1,tag.tagName,1,10)}" role="button" style="margin-top:5px;border-radius:20px;background-color:#6699cc;" >${tag.tagName}</a>
 			#{/if}
 			#{else}
-			 <a class="btn btn-default" href="@{QuestAnsw.searchTag(tag.tagName)}" role="button" onMouseOver="this.style.backgroundColor='#6699cc'" onMouseOut="this.style.backgroundColor='#FFFFFF'"  style="margin-top:5px;border-radius:20px;"  >${tag.tagName}</a>
+			 <a class="btn btn-default" href="@{QuestAnsw.searchTag(1,tag.tagName,1,10)}" role="button" onMouseOver="this.style.backgroundColor='#6699cc'" onMouseOut="this.style.backgroundColor='#ccc'"  style="margin-top:5px;border-radius:20px;background-color:#ccc;"  >${tag.tagName}</a>
 			#{/else}
 	    #{/list}
   </dd>
 </dl>
 	 
-<form class="form-inline" role="form" action="@{QuestAnsw.searchSchool}" method="post" style="margin-top:30px;">
+<form class="form-inline" role="form" action="@{QuestAnsw.searchSchool(1,school,1,10)}" method="post" style="margin-top:30px;">
   <div class="form-group form-group1">
     <label class="sr-only" for="exampleInputEmail2">Email address</label>
-    <input type="text" class="form-control" placeholder="点击选择学校"  id="txtSc" name="school"
+    <input type="text" class="form-control" placeholder="点击选择学校"  id="txtSc" name="myschool"
     value="${flash.school}" readonly  style="cursor:auto;background-color:#FFFFFF;"  />
     <div id="gj"  class="form-control" style=" border:1px #5885a5 solid; padding:10px; height:100%; line-height:25px; display:none;"></div>
     <div id="sheng" class="form-control" style="word-break:break-all; border:1px #5885a5 solid; padding:10px;height:100%; line-height:25px;display:none;"></div>
@@ -119,29 +114,34 @@ $('#modal').on('hidden', function() {
   <button type="submit" class="btn btn-primary">搜索学校</button>
 </form>
 	 
-
+ 
 <div class="btn-group order" style="margin-top:20px;">
-<a href="/activities/orderbydefault">
-	<button type="button" class="btn btn-default btn-sm checked">默认排序</button>
-	</a>
-	<a href="/activities/orderbyscope ">
-	<button type="button" class="btn btn-default btn-sm ">
-		发布时间<i class=" icon-arrow-down"></i>
-	</button>
-	</a>
-	<a href="/activities/orderbytime">
-	<button type="button" class="btn btn-default btn-sm  ">
-		回答数量 <i class=" icon-arrow-down"></i>
-	</button>
-	</a>
-	<a>
-	<button type="button" class="btn btn-default btn-sm">
-		关注人数 <i class=" icon-arrow-down"></i>
-	</button>
-	</a>
+	#{if sign=="searchPage"}
+		<a href="@{QuestAnsw.searchPage(1,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
+		<a href="@{QuestAnsw.searchPage(2,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchPage(3,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchPage(4,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+	#{/if}
+	#{elseif sign=="searchTag"}
+		<a href="@{QuestAnsw.searchTag(1,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
+		<a href="@{QuestAnsw.searchTag(2,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchTag(3,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchTag(4,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+	#{/elseif}
+	#{elseif sign=="searchQues"}
+		<a href="@{QuestAnsw.searchQues(1,ques,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
+		<a href="@{QuestAnsw.searchQues(2,ques,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchQues(3,ques,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchQues(4,ques,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+	#{/elseif}
+	#{elseif sign=="searchSchool"}
+		<a href="@{QuestAnsw.searchSchool(1,school,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
+		<a href="@{QuestAnsw.searchSchool(2,school,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchSchool(3,school,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchSchool(4,school,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+	#{/elseif}
 </div>
 
-</div>
 
 
 
@@ -154,9 +154,8 @@ $('#modal').on('hidden', function() {
 			 #{else}
 			  <h3 class="text-primary" style="margin-top:0px;">热门问答</h3>
 			 <hr>
-			
-			
-				#{list items:qArticles,as:'qa'}
+							
+			#{list items:qArticles,as:'qa'}
 				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
  
 					
@@ -197,7 +196,6 @@ $('#modal').on('hidden', function() {
 									<span class="keywords">
 									<span style="font-size:14px;"><strong>${qa.ques.username}</strong></span>
 							 
-									
 									</span>
 								</li>
 							
@@ -261,7 +259,6 @@ $('#modal').on('hidden', function() {
 				    </p>
 					#{/list}
 			 </div>
-			 
 			 #{if contentIsEmpty}
 			 	<a></a>
 			 #{/if}
@@ -272,20 +269,95 @@ $('#modal').on('hidden', function() {
 							<a></a>
 							#{/if}
 							#{else}
-							<ul class="pagination pagination-lg ">
-							  <li ><a href="@{QuestAnsw.Quespaging(1)}">&laquo;</a></li>
-							  #{list items:1..pageCount,as:'page'}
-							  	<li ><a href="@{QuestAnsw.Quespaging(page)}">${page}</a></li>
-							  #{/list}
-							  <li ><a href="@{QuestAnsw.Quespaging(pageCount)}">&raquo;</a></li>
-							</ul>
+								#{if sign=="searchPage"}
+									<ul class="pagination" style="margin:0px;">
+									#{if currentPage==1}
+									  <li ><a href="@{QuestAnsw.searchPage(flag,1,10)}">&laquo;</a></li>
+									 #{/if}
+									 #{elseif currentPage>1}
+									  <li ><a href="@{QuestAnsw.searchPage(flag,currentPage-1,10)}">&laquo;</a></li>
+									 #{/elseif}
+									 %{for(int i=inter[0];i<=inter[1];i++){}%
+									 	<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchPage(flag,i,10)}">${i}</a></li>
+									 %{}}%
+									 <!--  #{list items:1..pageCount,as:'page'}
+									  	<li ><a href="@{QuestAnsw.searchPage(flag,page,10)}">${page}</a></li>
+									  #{/list} -->
+									  #{if currentPage>=pageCount}
+									  <li ><a href="@{QuestAnsw.searchPage(flag,pageCount,10)}">&raquo;</a></li>
+									  #{/if}
+									   #{elseif currentPage < pageCount}
+									   <li ><a href="@{QuestAnsw.searchPage(flag,currentPage+1,10)}">&raquo;</a></li>
+									   #{/elseif}
+									</ul>
+								#{/if}
+								#{elseif sign=="searchTag"}
+									<ul class="pagination" style="margin:0px;">
+									#{if currentPage==1}
+									<li ><a href="@{QuestAnsw.searchTag(sortFlag,tagname,1,10)}">&laquo;</a></li>
+									#{/if}
+									#{elseif currentPage>1}
+									 <li ><a href="@{QuestAnsw.searchTag(sortFlag,tagname,currentPage-1,10)}">&laquo;</a></li>
+									#{/elseif}
+									%{for(int i=inter[0];i<=inter[1];i++){}%
+									<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchTag(sortFlag,tagname,i,10)}">${i}</a></li>
+									%{}}%
+									#{if currentPage>=pageCount}
+									<li ><a href="@{QuestAnsw.searchTag(sortFlag,tagname,pageCount,10)}">&raquo;</a></li>
+									#{/if}
+									#{elseif currentPage < pageCount}
+									<li ><a href="@{QuestAnsw.searchTag(sortFlag,tagname,currentPage+1,10)}">&raquo;</a></li>
+									#{/elseif}
+									</ul>
+								#{/elseif}
+								#{elseif sign=="searchQues"}
+									<ul class="pagination" style="margin:0px;">
+									#{if currentPage==1}
+									<li ><a href="@{QuestAnsw.searchQues(quesSortFlag,ques,1,10)}">&laquo;</a></li>
+									#{/if}
+									#{elseif currentPage>1}
+									<li ><a href="@{QuestAnsw.searchQues(quesSortFlag,ques,currentPage-1,10)}">&laquo;</a></li>
+									#{/elseif}
+									%{for(int i=inter[0];i<=inter[1];i++){}%
+									<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchQues(quesSortFlag,ques,i,10)}">${i}</a></li>
+									%{}}%
+									#{if currentPage>=pageCount}
+									<li ><a href="@{QuestAnsw.searchQues(quesSortFlag,ques,pageCount,10)}">&raquo;</a></li>
+									#{/if}
+									#{elseif currentPage < pageCount}
+									<li ><a href="@{QuestAnsw.searchQues(quesSortFlag,ques,currentPage+1,10)}">&raquo;</a></li>
+									#{/elseif}
+									</ul>
+								#{/elseif}
+								#{elseif sign=="searchSchool"}
+								<ul class="pagination" style="margin:0px;">
+									#{if currentPage==1}
+									<li ><a href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,1,10)}">&laquo;</a></li>
+									#{/if}
+									#{elseif currentPage>1}
+									<li ><a href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,currentPage-1,10)}">&laquo;</a></li>
+									#{/elseif}
+									%{for(int i=inter[0];i<=inter[1];i++){}%
+									<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,i,10)}">${i}</a></li>
+									%{}}%
+									#{if currentPage>=pageCount}
+									<li ><a href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,pageCount,10)}">&raquo;</a></li>
+									#{/if}
+									#{elseif currentPage < pageCount}
+									<li ><a href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,currentPage+1,10)}">&raquo;</a></li>
+									#{/elseif}
+									
+									</ul>
+								#{/elseif}
 							#{/else}
 				       </div>
 				   </div>
 				   #{/else}
 				</div>
-			 
+</div>	 
  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+</script>
 #{set 'Scripts'}
 <script type="text/javascript">
 $('body').on('hidden.bs.modal', '.modal', function () {
@@ -293,5 +365,4 @@ $('body').on('hidden.bs.modal', '.modal', function () {
 });
 </script>
 #{/set}
-
 
