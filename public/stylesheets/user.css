@@ -49,9 +49,14 @@
 	border-right: 1px solid rgb(100,100,100);
 	border-bottom: 0px solid rgb(100,100,100);
 }
+.now_page{
+	background-color: #336699 !important;
+	color: white !important;
+}
+
 
 .huida-num {
-	background-color: #4b7390;
+	background-color: #336699;
 	height: 40px;
 	width: 60px;
 	text-align: center;
@@ -213,7 +218,6 @@ border-bottom: 1px solid #e2e2e2;
 .mp-top-2-1{
 	position:absolute;
 	z-index:999;
-	margin-top: 20px;
 }
 .nav-tabs li a {
 	background-color: #ddd;

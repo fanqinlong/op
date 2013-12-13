@@ -168,9 +168,14 @@ height: 229px !important;
  
 	
 }
+.activity-card .thumbnail{
+	height:216px !important;
+	}
 
-
- 
+ 	.mp-top-2-1 img{
+	
+	width:60px;
+	}
  
 
 }

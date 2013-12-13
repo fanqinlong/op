@@ -19,3 +19,22 @@
 </div>
  
 #{/else}
+#{set 'Scripts'}
+    <script type="text/javascript">		
+		var start = 5;
+		var step = -1;
+	function count()
+	{
+		document.getElementById("div1").innerHTML = start;
+		start += step;
+		if(start < 0)
+			start = 5;
+		setTimeout("count()",1000);
+	}
+	
+	 $(document).ready(function(){
+	 	
+	 	count();
+		});
+		</script>
+  #{/set}

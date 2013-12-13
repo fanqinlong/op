@@ -89,11 +89,14 @@ a {
 	
 		width: 106%;
 	}
+	
+
+	
 	.activity-card{
 	width:19%;margin-right:10px;
 	}
 	.activity-card .thumbnail{
-	border-radius: 0px;width:99%;height:auto;margin-top: 20px;
+	border-radius: 0px;width:99%;height:365px;margin-top: 20px;
 	}
 	.activity-card .thumbnail img{
 	 

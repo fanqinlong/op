@@ -168,23 +168,7 @@
 		$(document).ready(function() {
 			$(".alert").delay(30000).slideUp("slow");
 		});
-		
-		var start = 5;
-		var step = -1;
-	function count()
-	{
-		document.getElementById("div1").innerHTML = start;
-		start += step;
-		if(start < 0)
-			start = 5;
-		setTimeout("count()",1000);
-	}
-	
-	 $(document).ready(function(){
-	 	
-	 	count();
-		});
-		
+
  
     //点击回到顶部的元素
     $("#gotop").click(function(e) {
