@@ -159,9 +159,7 @@ $('#modal').on('hidden', function() {
 			#{list items:qArticles,as:'qa'}
 				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
  
-					
-					</p>
-					#{if qa.ques.usertype == "cssa"}
+ 			#{if qa.ques.usertype == "cssa"}
 					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal"  title="${qa.ques.username}">
 					 <img src="${qa.ques.userprofile}" style="width:30px;float:right;">
 					</a>
@@ -171,6 +169,11 @@ $('#modal').on('hidden', function() {
 							<img src="${qa.ques.userprofile}" style="width:30px;float:right;"> 
 						</a>
 					#{/else}
+ 
+ 
+					
+					</p>
+					
 						<label class="userinforleft">
 							<div class="guanzhu-num">
 								<a class="guanzhuNO2">${qa.ques.answerNum}</a>

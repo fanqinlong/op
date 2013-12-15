@@ -95,7 +95,7 @@
 	<label for="name" class="col-md-2 control-label">选择学校</label>
 	<div class="col-md-3 qaw">
 	
-	<label class="checkbox-inline btn btn-default" style=" margin-left:0px;border-radius: 20px;">
+	<label class="checkbox-inline btn btn-default" style=" margin-left:0px;">
 			<input style="float:none;margin-left:0px;" id="checkschool" type="checkbox"  onClick="showSchool()">选择学校
 	</label>
 	<lable>
@@ -120,7 +120,7 @@
 	<div class="col-md-3 qaw">
 		 <div class="controls " style="width:560px;" id="ulname">
 			#{list items:t,as:'tag'}	 
-				<label class="checkbox-inline btn btn-default" style=" margin-left:0px; margin-top:5px;border-radius: 20px;">
+				<label class="checkbox-inline btn btn-default" style=" margin-left:0px; margin-top:5px;">
 		  			<input style="float:none;margin-left:0px;" type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
 				</label>
 			#{/list}
