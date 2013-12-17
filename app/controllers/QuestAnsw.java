@@ -108,10 +108,10 @@ public class QuestAnsw extends Application {
 			flash.error("请登录后回答!");
 			SimpleUsers.login();
 		}
-		if (comment.equals("<br>")) {
-			flash.error("答案不能为空！");
-			showQuesInfo(quesid);
-		}
+//		if (!Comments.isComment(comment)) {
+//			flash.error("不能重复提交!");
+//			showQuesInfo(quesid);
+//		}
 		Long uid;
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsertype = session.get("usertype");
@@ -124,12 +124,18 @@ public class QuestAnsw extends Application {
 			comentUserprofile = simp.profile;
 			comentUserSelfIntro = simp.selfIntro;
 			uid = simp.id;
-		} else {
+		}else {
 			CSSA cssa = CSSA.findById(comentUserid);
 			comentUsername = cssa.school.name;
 			comentUserprofile = cssa.profile;
 			comentUserSelfIntro = cssa.selfIntro;
 			uid = cssa.id;
+		}
+		if(!Comments.isComment(comment)){
+			validation.keep();
+			params.flash();
+			flash.error("不能重复提交或者答案不能为空！");
+			showQuesInfo(quesid);
 		}
 		String QuesTitle;
 		Ques ques = Ques.findById(quesid);
@@ -137,16 +143,13 @@ public class QuestAnsw extends Application {
 		ques.answerNum = ques.answerNum + 1;
 		ques.focusNum = ques.focusNum + 1;
 		ques.save();
-
 		String s = new String(ques.label);
 		String a[] = s.split(",");
 		List<Ques> relatedQues = Ques.find(
 				"SELECT a FROM Ques a WHERE label LIKE ?", "%" + a[0] + "%")
 				.fetch(5);
-
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-
 		new Comments(quesid, comment, 0, comentUserid, comentUsertype,
 				comentUsername, comentUserprofile, comentUserSelfIntro, d,
 				QuesTitle, 0);
@@ -162,7 +165,6 @@ public class QuestAnsw extends Application {
 		} else {
 			isCSSA = true;
 		}
-
 		// 判断当前用户是否可以修改删除问题问题
 		Boolean UserQues = false;
 		Boolean CssaQues = false;
@@ -575,10 +577,8 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void editComSuccessful(Comments c) {
-		System.out.println("kakka" + c.id);
-		System.out.println("内容" + c.comment);
-		if (c.comment.equals("<br>")) {
-			flash.error("答案不能为空!");
+		if (!Comments.isComment(c.comment)) {
+			flash.error("答案不能为空！");
 			editComent(c.userid, c.usertype, c.quesid);
 		}
 		c.save();

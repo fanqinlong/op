@@ -36,4 +36,11 @@ public class Comments extends Model {
 		this.hateNum = hateNum;
 		create();
 	}
+	
+	public static Comments findByComment(String comment) {
+		return find("comment", comment).first();
+	}
+	public static boolean isComment(String comment) {
+		return findByComment(comment) == null;
+	}
 }
