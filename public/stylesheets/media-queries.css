@@ -66,6 +66,8 @@ smaller than 800
 width: 30% !important;
 margin-right: 10px;
 }
+	.global-search .form-group .form-control,.global-search .btn{
+margin-left: 0px;
 	
 }
 	
@@ -97,8 +99,11 @@ margin-right: 10px;
 width: 31%;
 margin-right: 10px;
 }
+.global-search .form-group .form-control,.global-search .btn{
+margin-left: 0px;
+	
 }
-
+}
 /************************************************************************************
 smaller than 560
 *************************************************************************************/
@@ -176,6 +181,12 @@ height: 229px !important;
 	
 	width:60px;
 	}
- 
+.global-search .form-group .form-control,.global-search .btn{
+margin-left: 0px;
+	
+}
+
+
+
 
 }

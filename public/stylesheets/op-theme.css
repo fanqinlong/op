@@ -29,8 +29,8 @@ padding-bottom: 10px;
 .navbar-brand>img {
 	height: 31px;
 }
-.navbar-form {
-	padding-top: 5px;
+.global-search{margin-top: 8px;
+margin-bottom: 0px;
 }
 .form-control, .btn ,.alert, .img-thumbnail{
 	border-radius:2px;

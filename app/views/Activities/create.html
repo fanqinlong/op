@@ -126,14 +126,14 @@
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-3 control-label"><b class="text-danger">*</b> 联系电话</label>
 	<div class="col-md-4 ">
-		<input class="form-control" type="text" name="a.contract" value="${flash['a.contract']}" maxlength="15"/>
+		<input class="form-control" type="text" name="a.contract" value="${flash['a.contract']}" maxlength="48"/>
 	</div>
 </div>
 
 <div class="form-group ${errors.forKey('money') ? 'has-error' : ''}">
 	<label for="password" class="col-md-3 control-label"><b class="text-danger">*</b> 活动地点</label>
 	<div class="col-md-6 ">
-		<input class="form-control"  type="text" name="a.location" value="${flash['a.location']}" maxlength="40"/>
+		<input class="form-control"  type="text" name="a.location" value="${flash['a.location']}" maxlength="120"/>
 	</div>
 </div>
 <!--
@@ -147,8 +147,8 @@
 <div class="form-group ${errors.forKey('summary') ? 'has-error' : ''}">
 	<label for="password" class="col-md-3 control-label"><b class="text-danger">*</b>  活动概要</label>
 	<div class="col-md-8 ">
-		<textarea name="a.summary" cols="60" rows="2" id="luggage" maxlength="40" class="form-control">${flash['a.summary']}</textarea>
-		<span class="help-block">40字以内的活动概要在活动列表中显示，精彩的概要让您的活动脱颖而出。</span>
+		<textarea name="a.summary" cols="60" rows="2" id="luggage" maxlength="120" class="form-control">${flash['a.summary']}</textarea>
+		<span class="help-block">120字以内的活动概要在活动列表中显示，精彩的概要让您的活动脱颖而出。</span>
 	</div>
 </div>
 

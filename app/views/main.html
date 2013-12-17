@@ -34,12 +34,12 @@
 					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
-					<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage(1,1,5)}">问答</a></li>
+					<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage(1,1,10)}">问答</a></li>
 					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
 				</ul>
-<!--  
-				<form class="navbar-form navbar-left global-search" role="search">
-					<div class="form-group">
+ 
+		 	<form class="navbar-form navbar-left global-search" role="search" style="margin-top: 8px;margin-bottom: 0px;">
+					<div class="form-group pull-left">
 						<input class="form-control" type="text" placeholder="搜索感兴趣的活动、话题或人...">
 					</div>
 
@@ -47,7 +47,11 @@
 						<i class=" icon-search"></i>
 					</button>
 				</form>
--->
+ 
+ 	 
+ 
+ 
+ 
 				<ul class="nav navbar-nav navbar-right navbar-no-bg">
 					#{if connectedSimpleUser}
 					<li><a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a></li>
@@ -148,11 +152,11 @@
 	<footer class="navbar-op-footer  col-md-12 ">
 		<div class="container col-md-offset-4" >
 		
-			<ul class="nav navbar-nav">
-				<li><a href="@{Info.about}" class="list3 pull-left" >&copy; opporlink&nbsp; 奥噗</a></li>
-				<li><a href="@{Info.contact}" class="list3 pull-left">联系我们</a></li>
-				<li><a href="@{Info.jobs}" class="list3 pull-left">加入奥噗</a></li>
-				<li><a href="http://weibo.com/u/3630148044" target="view_window" class="list3 pull-left"> <img src="/public/images/share_weibo.png"   class="list-3"/></a> </li>
+			<ul class="nav navbar-nav" style="padding-top:8px;padding-bottom:0px;">
+				<li><a href="@{Info.about}" class=" pull-left main-bottom" style="" >&copy; opporlink&nbsp; 奥噗</a></li>
+				<li><a href="@{Info.contact}" class=" pull-left main-bottom" style=" ">联系我们</a></li>
+				<li><a href="@{Info.jobs}" class=" pull-left main-bottom" style=" ">加入奥噗</a></li>
+				<li><a href="http://weibo.com/u/3630148044" target="view_window" class="pull-left main-bottom" style=" "> <img src="/public/images/share_weibo.png"   class="list-3"/></a> </li>
 				 		</ul>
 		
 		 
@@ -161,31 +165,14 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-git.min.js"></script>
-	<script src="@{'public/jcrop/js/jquery.Jcrop.min.js'}"></script>
-	<script src="@{'public/jcrop/js/script.js'}"></script>
+	
 
 	#{get 'Scripts' /}
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$(".alert").delay(3000).slideUp("slow");
+			$(".alert").delay(30000).slideUp("slow");
 		});
-		
-		var start = 5;
-		var step = -1;
-	function count()
-	{
-		document.getElementById("div1").innerHTML = start;
-		start += step;
-		if(start < 0)
-			start = 5;
-		setTimeout("count()",1000);
-	}
-	
-	 $(document).ready(function(){
-	 	
-	 	count();
-		});
-		
+
  
     //点击回到顶部的元素
     $("#gotop").click(function(e) {
@@ -193,10 +180,10 @@
             $('body,html').animate({scrollTop:0},1000);
     });
     $("#gotop").mouseover(function(e) {
-        $(this).css("background","url(images/backtop2013.png) no-repeat 0px 0px");
+        $(this).css("background","url(@{'public/images/backtop2013.png'}) no-repeat 0px 0px");
     });
     $("#gotop").mouseout(function(e) {
-        $(this).css("background","url(images/backtop2013.png) no-repeat -70px 0px");
+        $(this).css("background","url(@{'public/images/backtop2013.png'}) no-repeat -70px 0px");
     });
     gobackTop();//实现回到顶部元素的渐显与渐隐
  

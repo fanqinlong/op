@@ -30,8 +30,26 @@
 	 
 }
 
-.userinforright {
- 
+.font-14{
+	font-size:14px;
+}
+.col-md-7 .input-group-lg{
+	padding-top:40px;
+}
+ .ltt{
+	 border-bottom: 1px solid #e2e2e2;
+}
+.ltt li{
+	
+	
+	margin:21px 50px;position: relative;
+}
+.ltt li img{
+	
+	position:absolute;left: 14px;bottom: -22px;
+}
+.bbp{
+	margin: 16px 0px 10px 20px;
 }
 
 .guanzhu-question {
