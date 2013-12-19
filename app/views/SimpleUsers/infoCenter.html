@@ -1,4 +1,4 @@
-#{extends 'main.html' /} #{set title:user.name /} #{set 'Styles'} #{stylesheet 'user.css' /} #{/set} #{include 'SimpleUsers/infoCenterTop.html' /}
+#{extends 'main.html' /} #{set title:user.name /}  #{include 'SimpleUsers/infoCenterTop.html' /}
 <div class="row mg-top-3">
 	#{include 'SimpleUsers/infoCenterNav.html' /}
 	<div class="col-md-8">
@@ -43,7 +43,7 @@
 			
 						</div>
 					 	#{/if} #{elseif trend.type.equals("qa")}
-			<div class="row">
+			<div class=" ">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
@@ -69,7 +69,7 @@
 		</div>
 				#{/elseif} #{elseif trend.type.equals("fq")}
 				
-				<div class=" row">
+				<div class=" ">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
@@ -97,7 +97,7 @@
 				
 				 
 				#{/elseif} #{elseif trend.type.equals("addques")}
-				<div class="  row">
+				<div class="  ">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
@@ -122,7 +122,7 @@
 					
 		</div>
 				#{/elseif} #{elseif trend.type.equals("praise")}
-				<div class=" row">
+				<div class="  ">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
@@ -151,7 +151,7 @@
 				#{elseif trend.type.equals("wel")}
 				
 				
-				<div class="row">
+				<div class=" ">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />

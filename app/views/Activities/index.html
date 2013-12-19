@@ -1,7 +1,4 @@
-#{extends 'main.html' /} #{set title:'index.html' /} #{set 'Styles'}
-<link rel="stylesheet" href="/public/stylesheets/activity.css" />
-
-#{/set}
+#{extends 'main.html' /} #{set title:'index.html' /}  
 <!-- tags -->
 
 
@@ -18,11 +15,7 @@
 
 <!-- ./tags -->
 
-	 <div class="btn-group btn-group-xs pull-right bbp" style="">
-			  <button type="button" class="btn btn-default">默认排序</button>
-			  <button type="button" class="btn btn-default">时间排序<span class="glyphicon glyphicon-arrow-down"></span></button>
-			  <button type="button" class="btn btn-default">关注热度<span class="glyphicon glyphicon-arrow-down"></span></button>
-			</div>
+	 
 <div class="btn-group order">
 	<a href="@{Activities.orderByDefault}" class="btn btn-default btn-sm ${orderName=='default'?'checked':''}">
 		 默认排序 

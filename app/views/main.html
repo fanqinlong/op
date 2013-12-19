@@ -10,11 +10,11 @@
 <script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
-#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+#{stylesheet 'user.css' /}   #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
 	<header class="navbar  navbar-op" role="navigation" style="min-height: 40px;height: 40px !important;">
-		<div class="container" style="min-height: 40px;height: 40px !important;">
+		<div class="container">
 			<div class="navbar-header">
 			 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
 		        <span class="sr-only">Toggle navigation</span>
@@ -38,7 +38,7 @@
 					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
 				</ul>
  
-		 	<form class="navbar-form navbar-left global-search" role="search" style="margin-top: 8px;margin-bottom: 0px;">
+		 	<form class="navbar-form navbar-left global-search" role="search"  >
 					<div class="form-group pull-left">
 						<input class="form-control" type="text" placeholder="搜索感兴趣的活动、话题或人...">
 					</div>
@@ -185,7 +185,7 @@
     $("#gotop").mouseout(function(e) {
         $(this).css("background","url(@{'public/images/backtop2013.png'}) no-repeat -70px 0px");
     });
-    gobackTop();//实现回到顶部元素的渐显与渐隐
+  //实现回到顶部元素的渐显与渐隐
  
 	
 	

@@ -6,12 +6,10 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>欢迎来到奥噗</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/public/stylesheets/shou.css" />
+ 
  <link href="/public/stylesheets/media-queries.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="@{'public/IE/iealert/style.css'}" />
-	 
-
-#{stylesheet 'op-theme.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /}
+	  #{stylesheet 'user.css' /}
  
 
  
@@ -149,8 +147,8 @@
 				<hr />
 				<ul class="index-content-ul"  >
 				#{list items:ques,as:'q'}
-				<li>
-					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a>
+				<li class="overflow-100">
+					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank" >${q.title}</a>
 				</li>
 				#{/list}
 				<p class="text-right">
