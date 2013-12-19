@@ -78,11 +78,11 @@
 
 
 						#{if !isOwner}
-						<a href="@{Activities.like(a.id)}" class="btn btn-info ${hasLiked?'disabled':''}" title="Link后，您将收到此活动最新的动态。">
+						<a href="@{Activities.like(a.id)}" class="btn btn-success ${hasLiked?'disabled':''}" title="Link后，您将收到此活动最新的动态。">
 							<i class=" icon-link"></i> Link !
 						</a>
 						#{/if} #{if !a.isOpen && !isOwner}
-						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success ${hasJoined?'disabled':''}">报名参加</a>
+						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-info ${hasJoined?'disabled':''}">报名参加</a>
 						#{/if} #{if !a.isOpen}
 						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
 						#{/if}
@@ -158,7 +158,7 @@
 	<!--  地图  -->
 	<div class="col-md-3">
 		<div class="right-top">
-			<a href="@{Activities.Create}" class="btn btn-success btn-lg  faqi">
+			<a href="@{Activities.Create}" class="btn btn-info btn-lg  faqi">
 				<i class="icon-flag"></i> 发起活动
 			</a>
 		</div>

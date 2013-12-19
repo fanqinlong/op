@@ -37,7 +37,7 @@ function showInbox() {
 			$("#mailList").append(mailDiv);
 		});
 
-		updateMessageCounts(data.unreadMail, data.unreadNotification);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 	});
 }
 
@@ -64,7 +64,7 @@ function showOutbox() {
 			$("#mailList").append(mailDiv);
 		});
 
-		updateMessageCounts(data.unreadMail, data.unreadNotification);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 	});
 }
 
@@ -76,7 +76,7 @@ function showMail(mailObj, mailDiv) {
 				"selectedMails" : [ mailObj.mail.id ]
 			}, function(data) {
 				// piggyback
-				updateMessageCounts(data.unreadMail, data.unreadNotification);
+				window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 			});
 		}
 		$(mailDiv).children(".mail-content-inbox, .mail-content-outbox").html(mailObj.mail.content).show(100);
@@ -98,7 +98,7 @@ function trash() {
 		"selectedMails" : selectedMails
 	}, function(data) {
 		// piggyback
-		updateMessageCounts(data.unreadMail, data.unreadNotification);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 		showInbox();
 	});
 }
@@ -108,7 +108,7 @@ function markRead() {
 		"selectedMails" : selectedMails
 	}, function(data) {
 		// piggyback
-		updateMessageCounts(data.unreadMail, data.unreadNotification);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 		showInbox();
 	});
 }
@@ -130,32 +130,12 @@ function showNotifications() {
 				}, function(data) {
 					// piggyback
 					$(notificationDiv).hide(100);
-					updateMessageCounts(data.unreadMail, data.unreadNotification);
+					window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 				});
 			});
 			$("#notificationList").append(notificationDiv);
 		});
 
-		updateMessageCounts(data.unreadMail, data.unreadNotification);
+		window.parent.updateMessageCounts(data.unreadMail, data.unreadNotification);
 	});
-}
-
-function updateMessageCounts(mailCount, notificationCount) {
-	if (mailCount > 0) {
-		$("#navMailCount").html("(" + mailCount + ")");
-	} else {
-		$("#navMailCount").html("");
-	}
-	
-	if (notificationCount > 0) {
-		$("#navNotificationCount").html("(" + notificationCount + ")");
-	} else {
-		$("#navNotificationCount").html("");
-	}
-	
-	if (mailCount + notificationCount > 0) {
-		$("#mailCount").html(mailCount + notificationCount);
-	} else {
-		$("#mailCount").html("");
-	}
 }

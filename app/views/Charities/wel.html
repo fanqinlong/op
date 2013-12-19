@@ -18,12 +18,12 @@
 					
 			 </div> 
 			 	 #{if isAdmin}
-			 		<h4><a  class="btn btn-primary gy-fb" href="@{Charities.fabu()}">发布公益活动</a></h4>
+			 		<h4><a  class="btn btn-primary gy-fb" href="@{Charities.fabu()}">发布公益</a></h4>
 			 	 #{/if}
 			 	 
 			#{if !isAdmin} 	 
 				 #{if !islogged}
-				 		<h4><a  class="btn btn-info gy-fb"   href="Charities/smindex">发布公益活动</a></h4>
+				 		<h4><a  class="btn btn-info gy-fb"   href="Charities/smindex">发布公益</a></h4>
 					 #{/if}
 				 #{/if} 
 				 
