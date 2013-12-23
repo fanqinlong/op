@@ -10,7 +10,7 @@
  <link href="/public/stylesheets/media-queries.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="@{'public/IE/iealert/style.css'}" />
 	  #{stylesheet 'user.css' /}
- 
+	 #{stylesheet 'op-theme.css' /}
 
  
 <body>
@@ -82,15 +82,17 @@
 				</div>
 			</form>
 			#{/if} #{else} #{if isSimpleUser}
-			<div  class="user_exit text-center" > 
+			<div  class="user_exit text-center img-w-128 user_exit1" style="background-image:url(../public/images/touxiang.png);
+	background-position:center;
+	background-repeat: no-repeat;" > 
 				 
-					<img src="${userprofile}" class="img-circle" >
+					<img src="${userprofile}" class="img-circle ">
 				 
 			</div>
-			<div class="user_exit_infocenter text-center"  ><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
+			<div class="user_exit_infocenter text-center user_exit1"  ><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
 			<ul  class="user_exit" align="center">
 				<li>
-					<img src="${userprofile}" class="img-circle  " >
+					<img src="${userprofile}" class="img-circle"  >
 				</li>
 			</ul>
 			<div  class="user_exit_infocenter text-center"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}

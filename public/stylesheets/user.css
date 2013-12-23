@@ -1336,7 +1336,11 @@ margin-top: -5px;}
 .container-op {
 	font-size: 14px
 }
-
+.user_exit1{
+	background-image:url(../public/images/touxiang.png);
+	background-position:center;
+	background-repeat: no-repeat;
+}
 .main-bottom {
 	padding-top: 0;
 	padding-bottom: 0
