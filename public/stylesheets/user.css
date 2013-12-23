@@ -1013,10 +1013,7 @@ blockquote small:before {
 	color: #333
 }
 
-.male {
-	width: 14px
-}
-
+ 
 .activity-item .thumbnail>a>img {
 	width: 100%
 }
@@ -1321,16 +1318,21 @@ img.profile-sm {
 	max-height: 426px
 }
 
-body {
-	color: #000;
-	background: #f3f3f3;
-	font-family: "΢���ź�",Tahoma,Verdana,Arial,sans-serif
-}
-
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
-	font-family: "΢���ź�",Tahoma,Verdana,Arial,sans-serif
-}
-
+ .progress{
+ 
+ 
+ width: 130px; float: left; margin-left: 10px;margin-top:6px;height:8px;}
+  .progress img{
+	 margin-left: 5px;margin-top: -5px;
+  }
+  .male{
+  margin-top: 5px;margin-left: 10px;
+  
+  }
+  .female{
+  
+  margin-left: 5px;
+margin-top: -5px;}
 .container-op {
 	font-size: 14px
 }
