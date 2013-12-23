@@ -290,11 +290,11 @@ hr {
 body {
 	color: #000;
 	background: #f3f3f3;
-	font-family: "Î¢ÈíÑÅºÚ",Tahoma,Verdana,Arial,sans-serif
+	font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½",Tahoma,Verdana,Arial,sans-serif
 }
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
-	font-family: "Î¢ÈíÑÅºÚ",Tahoma,Verdana,Arial,sans-serif
+	font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½",Tahoma,Verdana,Arial,sans-serif
 }
 
 .container-op {
@@ -1206,7 +1206,7 @@ img {
 
 img:hover {
 	opacity: .8
-}¡£mp-top-2-1 img:hover {
+}ï¿½ï¿½mp-top-2-1 img:hover {
 	opacity: 1
 }
 
@@ -1258,7 +1258,7 @@ img:hover {
 }
 
 .global-search .btn {
-	margin-left: 45px;
+	margin-left: 22px;
 	border-radius: 0;
 	background-color: #369;
 	border: 1px solid #000;
@@ -1269,7 +1269,7 @@ img:hover {
 }
 
 .container-op {
-	padding: 20px;
+	padding: 20px 40px;
 	margin: 20px auto;
 	border: 1px solid #ccc;
 	background-color: #FFF
@@ -1324,11 +1324,11 @@ img.profile-sm {
 body {
 	color: #000;
 	background: #f3f3f3;
-	font-family: "Î¢ÈíÑÅºÚ",Tahoma,Verdana,Arial,sans-serif
+	font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½",Tahoma,Verdana,Arial,sans-serif
 }
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
-	font-family: "Î¢ÈíÑÅºÚ",Tahoma,Verdana,Arial,sans-serif
+	font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½",Tahoma,Verdana,Arial,sans-serif
 }
 
 .container-op {
@@ -1463,7 +1463,7 @@ li {
 }
 
 .color5 {
-	color: #333333;
+	color: #666666;
 }
 
 .color6 {

@@ -20,39 +20,35 @@
 				<div class="activity-weight acpading">
 					<h3 class="mg-top-0 height-47" >${a.name}</h3>
 					<div class="details ">
-						<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
+						<span class="pic-leftTitle color4">时间：</span> <span class="color5  At_info ">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 					</div>
 					#{if isAllown || isOwner}
 					<div class="details ">
-						<span class="pic-leftTitle">地点：</span> <span class="At_info">${a.location}</span>
+						<span class="pic-leftTitle color4">地点：</span> <span class="color5  At_info">${a.location}</span>
 					</div>
 					#{/if}
 					<div class="details">
-						<span class="pic-leftTitle">费用：</span> <span class="At_info">$ ${a.money}</span>
+						<span class="pic-leftTitle color4">费用：</span> <span class="color5  At_info">$ ${a.money}</span>
 					</div>
 					<div class="details">
-						<span class="pic-leftTitle">人数：</span> <span class="At_info">${a.scope.scope}</span>
+						<span class="pic-leftTitle color4">人数：</span> <span class="color5  At_info">${a.scope.scope}</span>
 					</div>
 					<div class="details">
-						<span class="pic-leftTitle">类型：</span> <span class="At_info">${a.type.name}</span>
+						<span class="pic-leftTitle color4">类型：</span> <span class="color5  At_info">${a.type.name}</span>
 					</div>
 
 					#{if isAllown || isOwner}
 					<div class="details">
-						<span class="pic-leftTitle">联系方式：</span> <span class="At_info">${a.contract}</span>
+						<span class="pic-leftTitle color4">联系方式：</span> <span class="color5  At_info">${a.contract}</span>
 					</div>
 					#{/if}
-					<!-- 
+					 
 					<div class="details">
-						<span class="pic-leftTitle">是否通过审核：</span> <span class="At_info">${a.isChecked?"是":"否"}</span>
-					</div>
-					!-->
-					<div class="details">
-						<span class="pic-leftTitle">是否需要报名：</span> <span class="At_info">${a.isOpen?"否":"是"}</span>
+						<span class="pic-leftTitle color4">是否需要报名：</span> <span class="color5  At_info">${a.isOpen?"否":"是"}</span>
 					</div>
 						#{if !a.isOpen}
 					<div class="details clearfix">
-						<lable class="pull-left"> <span class="pic-leftTitle">参加者男女比例</span> 
+						<lable class="pull-left"> <span class="pic-leftTitle color4">参加者男女比例</span> 
 						%{int female=0;int male=0;}%
 						 #{list items:a.joiner,as:'joiner'} 
 						%{joiner.joiner.gender=="女"?female++:male++;}%  
@@ -231,11 +227,11 @@
 			<h4 class="activity-title4">活动成员</h4>
 			#{if !a.isOpen}
 				<span class="canyuNO">${a.joiner.size()}</span>
-				<span class="canyu1">人报名;</span>
+				<span class="canyu1 color4">人报名;</span>
 				<span class="canyuNO">${allownJoiner.size()}</span> 
-				<span class="canyu1">人已通过;</span> #{/if}
+				<span class="canyu1 color4">人已通过;</span> #{/if}
 				 <span class="canyuNO">${a.liker.size()}</span>
-				 <span class="canyu1">人已关注;</span>
+				 <span class="canyu1 color4">人已关注;</span>
 		 <div style="height: 110px; overflow: hidden; clear: both;">
 			 #{list items:allownJoiner,as:'joiner'}
 				<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
