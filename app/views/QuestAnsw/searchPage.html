@@ -117,28 +117,28 @@ $('#modal').on('hidden', function() {
  
 <div class="btn-group order" style="margin-top:20px;">
 	#{if sign=="searchPage"}
-		<a href="@{QuestAnsw.searchPage(1,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
-		<a href="@{QuestAnsw.searchPage(2,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchPage(3,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchPage(4,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+		 <a href="@{QuestAnsw.searchPage(1,1,10)}"  class="btn btn-default btn-sm checked">默认排序</a>
+		 <a href="@{QuestAnsw.searchPage(2,1,10)}"  class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></a>
+		 <a href="@{QuestAnsw.searchPage(3,1,10)}" type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></a>
+		 <a href="@{QuestAnsw.searchPage(4,1,10)}" type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></a>
 	#{/if}
 	#{elseif sign=="searchTag"}
-		<a href="@{QuestAnsw.searchTag(1,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
-		<a href="@{QuestAnsw.searchTag(2,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchTag(3,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchTag(4,tagname,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+		 <a href="@{QuestAnsw.searchTag(1,tagname,1,10)}" type="button" class="btn btn-default btn-sm checked">默认排序</a>
+		 <a href="@{QuestAnsw.searchTag(2,tagname,1,10)}" type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></a>
+		 <a href="@{QuestAnsw.searchTag(3,tagname,1,10)}" type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></a>
+		 <a href="@{QuestAnsw.searchTag(4,tagname,1,10)}" type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></a>
 	#{/elseif}
 	#{elseif sign=="searchQues"}
-		<a href="@{QuestAnsw.searchQues(1,ques,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
-		<a href="@{QuestAnsw.searchQues(2,ques,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchQues(3,ques,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchQues(4,ques,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchQues(1,ques,1,10)}" type="button" class="btn btn-default btn-sm checked">默认排序</a>
+		<a href="@{QuestAnsw.searchQues(2,ques,1,10)}" type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></a>
+		<a href="@{QuestAnsw.searchQues(3,ques,1,10)}" type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></a>
+		<a href="@{QuestAnsw.searchQues(4,ques,1,10)}" type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></a>
 	#{/elseif}
 	#{elseif sign=="searchSchool"}
-		<a href="@{QuestAnsw.searchSchool(1,school,1,10)}"><button type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
-		<a href="@{QuestAnsw.searchSchool(2,school,1,10)}"><button type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchSchool(3,school,1,10)}"><button type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></button></a>
-		<a href="@{QuestAnsw.searchSchool(4,school,1,10)}"><button type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></button></a>
+		<a href="@{QuestAnsw.searchSchool(1,school,1,10)}" type="button" class="btn btn-default btn-sm checked">默认排序</button></a>
+		<a href="@{QuestAnsw.searchSchool(2,school,1,10)}" type="button" class="btn btn-default btn-sm ">发布时间<i class=" icon-arrow-down"></i></a>
+		<a href="@{QuestAnsw.searchSchool(3,school,1,10)}" type="button" class="btn btn-default btn-sm  ">回答数量 <i class=" icon-arrow-down"></i></a>
+		<a href="@{QuestAnsw.searchSchool(4,school,1,10)}" type="button" class="btn btn-default btn-sm">关注人数 <i class=" icon-arrow-down"></i></a>
 	#{/elseif}
 </div>
 
@@ -156,17 +156,17 @@ $('#modal').on('hidden', function() {
 			 <hr>
 							
 			#{list items:qArticles,as:'qa'}
-				<p style="font-size:16px;"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
+				<p classs="font-16"><a href="@{QuestAnsw.showQuesInfo(qa.ques.id)}" target="_blank">${qa.ques.title}</a>
  			
  			
  			#{if qa.ques.usertype == "cssa"}
-					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal"  title="${qa.ques.username}">
-					 <img src="${qa.ques.userprofile}" style="width:30px;float:right;">
+					<a href="@{CSSAs.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal" class="img-w-3"  title="${qa.ques.username}">
+					 <img src="${qa.ques.userprofile}" class="pull-right">
 					</a>
 					#{/if}
 					#{else}
-						<a href="@{SimpleUsers.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal" title="${qa.ques.username}">
-							<img src="${qa.ques.userprofile}" style="width:30px;float:right;"> 
+						<a href="@{SimpleUsers.preview(qa.ques.userid)}" data-target="#modal" data-toggle="modal" class="img-w-3" title="${qa.ques.username}">
+							<img src="${qa.ques.userprofile}" class="pull-right"> 
 						</a>
 					#{/else}
 					

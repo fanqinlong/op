@@ -117,7 +117,7 @@
 						<p>
 							<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
 						</p>
-						<p>${a.summary}</p>
+						<p>${a.summary.raw()}</p>
 						<p>
 							<small>${a.time.first().date}至${a.time.last().date}</small><br /> 已有<b> ${a.joiner.size()}</b>人报名参加
 						</p>

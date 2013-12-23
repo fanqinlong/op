@@ -13,12 +13,12 @@
 		#{/if}
  
 		<div class="row">
-			<div class="col-md-4">
-				<img src="${a.poster}" class="img-thumbnail">
+			<div class="col-md-3  img-w-210 mg-right-10">
+				<img src="${a.poster}" >
 			</div>
 			<div class="col-md-8">
 				<div class="activity-weight acpading">
-					<h3>${a.name}</h3>
+					<h3 class="mg-top-0">${a.name}</h3>
 					<div class="details ">
 						<span class="pic-leftTitle">时间：</span> <span class="At_info">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 					</div>
@@ -76,16 +76,17 @@
 					 #{if date <= a.time.last().date}
 					<div class="details">
 
-
+				 #{if !a.isOpen && !isOwner}
+						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-info ${hasJoined?'disabled':''}">报名参加</a>
+						#{/if}
+						#{if !a.isOpen}
+						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
+						#{/if}
 						#{if !isOwner}
 						<a href="@{Activities.like(a.id)}" class="btn btn-success ${hasLiked?'disabled':''}" title="Link后，您将收到此活动最新的动态。">
 							<i class=" icon-link"></i> Link !
 						</a>
-						#{/if} #{if !a.isOpen && !isOwner}
-						<a href="#myModal" role="button" data-toggle="modal" class="btn btn-info ${hasJoined?'disabled':''}">报名参加</a>
-						#{/if} #{if !a.isOpen}
-						<a class="btn btn-primary" href="@{Activities.allJoinner(a.id)}" target="_bank">查看参加者</a>
-						#{/if}
+						#{/if} 
 
 					</div>
 					<div id="myModal" class="modal  fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -172,26 +173,37 @@
 			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(" ","+")}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll( " ","+")}&sensor=false " alt="">
 		</div>
 
-		<div class="person">
+		<div class="person row mg-left-0">
 			<h4 class="activity-title3">活动组织者</h4>
-			<div class="activity-userpic">
+			<div class="activity-userpic col-md-2 pad-left-0">
 				#{if a.publisherCSSA==null}
-				<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal">
+				<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal" class="img-w-4">
 					#{/if}#{else}
-					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
-						#{/else} <img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} alt="" style="height: 60px; width: 60px;">
+					<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal" class="img-w-4">
+						#{/else} <img src=${a.publisherCSSA==null?a.publisherSU.profile:a.publisherCSSA.profile} >
 					</a>
 			</div>
-			<div>
-				#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"}
+			<div class="col-md-9 pad-left-0">
+				<p class="mg-top-05"> ${a.publisherSU.name}</p>
+				<p class="mg-top-05">
+				
+						#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"}
 				<a href="@{Messaging.compose('cssa',a.publisherCSSA.id)}">
 					<i class="icon-envelope-alt"></i><small class="name">发私信</small>
 				</a>
-				#{/if} #{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} ${a.publisherSU.name} #{if a.publisherSU?.gender.equals("女")} <img src="@{'public/images/active_detailed_gender-proportion_female.png'}"> #{/if}#{elseif a.publisherSU?.gender.equals("男")} <img src="@{'public/images/active_detailed_gender-proportion_male.png'}"> #{/elseif}
-				<a href="@{Messaging.compose('simple',a.publisherSU.id)}">
+				#{/if} #{else} #{if a.publisherSU.eduMail!=null && a.publisherSU.eduMailConfirmation==null}
+				 <img alt="" src="@{'public/images/edu.png'}"> #{/if} 
+				 
+				 #{if a.publisherSU?.gender.equals("女")}<img src="@{'public/images/active_detailed_gender-proportion_female.png'}"><span class="font-12 text-muted">女</span> #{/if}#{elseif a.publisherSU?.gender.equals("男")}<img src="@{'public/images/active_detailed_gender-proportion_male.png'}"><span class="font-12 text-muted">男</span> #{/elseif}
+				<a href="@{Messaging.compose('simple',a.publisherSU.id)}" class="text-muted">
 					<i class="icon-envelope-alt"></i><small class="name">发私信</small>
 				</a>
 				#{/else}
+				
+				</p>
+			
+			
+			
 			</div>
 		</div>
 		#{if connectedSimpleUser?.isAdmin}
