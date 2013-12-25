@@ -21,15 +21,18 @@
 		<div class="msg-mod-title">发站内信</div>
 	</div>
 
-	<form id="composeForm" method="POST" action="@{Messaging.sendMail}">
+	<form id="composeForm" method="POST" class="form-horizontal"  action="@{Messaging.sendMail}">
 		<div class="compose-form-field">
 			<label>收信人 </label>${userName}<br/>
 		</div>
-		<div class="compose-form-field">
-			<label>标题 </label><input name="title" type="text"/><br/>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">标题 </label><input name="title" class="form-control input-lg" type="text"/><br/>
 		</div>
-		<div class="compose-form-field">
-			<label>内容 </label><textarea id="content" name="content"></textarea>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">内容 </label>
+			<div style="margin-left:70px;">
+			<textarea id="content" name="content" ></textarea>
+			</div>
 		</div>
 		<input name="userType" value="${userType}" type="hidden"/>
 		<input name="userID" value="${userID}" type="hidden"/>

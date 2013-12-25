@@ -1,201 +1,187 @@
 /************************************************************************************
 smaller than 1380
 *************************************************************************************/
-@media screen and (max-width: 1380px) {
-
-	.card-time2,.index-infocenter{
-		display:none;
-	}
-	 
-
+@media screen and (max-width:1380px) {
+	.card-time2,.index-infocenter {
+	display:none;
 }
-/************************************************************************************
+}/************************************************************************************
 smaller than 1200
 *************************************************************************************/
-@media screen and (max-width: 1200px) {
-
- 	.card-time2,.index-infocenter{
-		display:none;
-	}
+@media screen and (max-width:1200px) {
+	.card-time2,.index-infocenter,.main-beta,.opporlinklog {
+	display:none !important;
 }
-/************************************************************************************
+}/************************************************************************************
 smaller than 960
 *************************************************************************************/
-@media screen and (max-width: 960px) {
-	 
-	 .main-beta,.opporlinklog,.index-infocenter{
-	 
-	 	display:none !important;
-	 }
-	 .card-time1{
-		display:none;
-	}
-	 
-	 .card-time {
-margin-top: 5px;
+@media screen and (max-width:990px) {
+	
+	.main-beta,.opporlinklog,.index-infocenter,.login {
+	display:none !important;
+}
+.login, .login1 {
+ 
+padding-top: 86px;
+}
+.container {
+max-width: 859px;
 }
 
+.card-time1 {
+	display:none;
+}
+.user_exit {
+margin-top: 0% !important;
+padding-top:9%;
+}
+
+.card-time {
+	margin-top:5px;
+}
 .activity-card .thumbnail {
- 
-height: 330px;
- 
+	height:330px;
 }
-
-	 	.activity-card {
-width: 30% !important;
-margin-right: 10px;
+.activity-card {
+	width:30% !important;
+	margin-right:10px;
 }
-	
-	 
-	 
-	 
-	
+	#banner,.opporlinklog,.main-beta,.logo,.hd_small,.index_dl,.login-form {
+	display:none;
+}
+.card-time2 {
+	display:none;
+}
+.main-beta,.opporlinklog,.hd_small {
+	display:none;
+}
+.activity-card {
+	width:30% !important;
+	margin-right:10px;
+}
+.global-search .form-group .form-control,.global-search .btn {
+	margin-left:0px;
+}
+.index-infocenter {
+	display:block !important;
+}
 }
 /************************************************************************************
 smaller than 800
 *************************************************************************************/
-@media screen and (max-width: 800px) {
-	 #banner, .opporlinklog,.main-beta,.logo,.hd_small,.index_dl,.login-form{
-	 
-	 	display:none;
-	 }
- 	.card-time2{
-		display:none;
-	}
-	 .main-beta,.opporlinklog,.hd_small{
-	 
-	 	display:none;
-	 }
-	 	.activity-card {
-width: 30% !important;
-margin-right: 10px;
+@media screen and (max-width:800px) {
+	#banner,.opporlinklog,.main-beta,.logo,.hd_small,.index_dl,.login-form {
+	display:none;
 }
-	.global-search .form-group .form-control,.global-search .btn{
-margin-left: 0px;
-	
+.card-time2 {
+	display:none;
 }
-.index-infocenter{
+.main-beta,.opporlinklog,.hd_small {
+	display:none;
+}
+.activity-card {
+	width:30% !important;
+	margin-right:10px;
+}
+.global-search .form-group .form-control,.global-search .btn {
+	margin-left:0px;
+}
+.index-infocenter {
 	display:block !important;
-	
 }
-	
-}	
-/************************************************************************************
+}/************************************************************************************
 smaller than 650
 *************************************************************************************/
-@media screen and (max-width: 650px) {
+@media screen and (max-width:650px) {
 	.activity-card {
-width: 30% !important;
-margin-right: 10px;
+	width:30% !important;
+	margin-right:10px;
 }
-	
-	.card-time1{
-		display:none;
-	}
-		.card-time2{
-		display:block;
-	}
-	
-.user_exit li img{
+.card-time1 {
+	display:none;
+}
+.card-time2 {
+	display:block;
+}
+.user_exit li img {
 	margin-left:-20px;
- }
- .main-beta,.opporlinklog{
-	 
-	 	display:none !important;
-	 }
-	 .activity-card {
-width: 31%;
-margin-right: 10px;
 }
-.global-search .form-group .form-control,.global-search .btn{
-margin-left: 0px;
-	
+.main-beta,.opporlinklog {
+	display:none !important;
 }
+.activity-card {
+	width:31%;
+	margin-right:10px;
 }
-/************************************************************************************
+.global-search .form-group .form-control,.global-search .btn {
+	margin-left:0px;
+}
+}/************************************************************************************
 smaller than 560
 *************************************************************************************/
-@media screen and (max-width: 480px) {
-	
+@media screen and (max-width:480px) {
 	/* disable webkit text size adjust (for iPhone) */
-	 #banner, .opporlinklog,.main-beta,.logo,.hd_small{
-	 
-	 	display:none;
-	 }
-	.activity-card {
-width: 45% !important;
-margin-right: 10px;
+	 #banner,.opporlinklog,.main-beta,.logo,.hd_small {
+	display:none;
 }
-	.activity-card .thumbnail{
-	border-radius: 0px;width:92%;height:350px;margin-top: 20px;
-	}
-	.card-time2{
-		display:block;
-	}
-	.login{
-	 	width:104%;
-	 	margin-top:0px;
-	 	padding-right:0px;
-	 }
-	 .user_exit {
-  margin-top: 0px !important;
-   
-  }
-  .user_exit_infocenter {
-  margin-left: 6%;
-  margin-top: 0px !important;
-  text-align:center;
-  }
-  
-     .bs-navbar-collapse{
- 
-    width: 100%;float: right;
- 
-    }
-	 .index_dl{
-	 	margin-top:3% !important;
-	 
-	 }
-  .login {
- 
-height: 300px !important;
- 
+.activity-card {
+	width:45% !important;
+	margin-right:10px;
 }
-.form-group1{
-	
-	width:100%	
-	
+.activity-card .thumbnail {
+	border-radius:0px;
+	width:92%;
+	height:350px;
+	margin-top:20px;
 }
-.marginT5,.card-user,.xxxxx{
+.card-time2 {
+	display:block;
+}
+.login {
+	width:104%;
+	margin-top:0px;
+	padding-right:0px;
+}
+.user_exit {
+	margin-top:0px !important;
+}
+.user_exit_infocenter {
+	margin-left:6%;
+	margin-top:0px !important;
+	text-align:center;
+}
+.bs-navbar-collapse {
+	width:100%;
+	float:right;
+}
+.index_dl {
+	margin-top:3% !important;
+}
+.login {
+	height:300px !important;
+}
+.form-group1 {
+	width:100%
+}
+.marginT5,.card-user,.xxxxx {
 	display:none !important;
 }
 .card-time span {
-  text-align:left !important;
- 
+	text-align:left !important;
 }
-.cjrq{
-	float: left !important;
-	
+.cjrq {
+	float:left !important;
 }
-.card-time{
+.card-time {
 	padding-right:0px;
- 
-	
 }
-.activity-card .thumbnail{
+.activity-card .thumbnail {
 	height:216px !important;
-	}
-
- 	.mp-top-2-1 img{
-	
-	width:60px;
-	}
-.global-search .form-group .form-control,.global-search .btn{
-margin-left: 0px;
-	
 }
-
-
-
-
+.mp-top-2-1 img {
+	width:60px;
+}
+.global-search .form-group .form-control,.global-search .btn {
+	margin-left:0px;
+}
 }

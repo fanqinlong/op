@@ -48,7 +48,7 @@
 			</div>	
 	
 		
-		<div  class="login col-xs-4 col-sm-3 col-md-2  col-md-offset-1  col-sm-offset-1 col-xs-offset-1" >
+		
 			#{if isNotLogin}
 			
 			<div class="index-infocenter text-center" style="">
@@ -63,7 +63,7 @@
 		 </div>
 	
 			
-			
+			<div  class="login col-xs-4 col-sm-3 col-md-2  col-md-offset-1  col-sm-offset-1 col-xs-offset-1" >
 			<div class="index_dl">
  
 			 <h5 class="pull-left">
@@ -94,11 +94,12 @@
 				</div>
 			</form>
 			#{/if} #{else} #{if isSimpleUser}
+				<div  class="login1 col-md-2  col-md-offset-1  " >
 			<div  class="user_exit text-center img-w-128 user_exit1" > 
 				 	
 					<img alt="" src="@{'public/images/touxiang.png'}" class="pa">
 					<img src="${userprofile}" class="img-circle ">
-				 <p class="size4 mg-top-1">你好，yuqianyi</p>
+				 <p class="size4 mg-top-1">你好，${}</p>
 			</div>
 			
 			<div class="user_exit_infocenter text-center"  >
