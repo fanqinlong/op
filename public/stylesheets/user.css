@@ -184,6 +184,23 @@ table {
 	height: 450px;
 	color: #fff
 }
+.btn-infocenter{
+	width: 70px;
+	height: 24px;
+	-webkit-border-radius: 11px;
+	-moz-border-radius:11px;
+	border-radius: 11px;
+	background-color: rgba(204,204,255,.3);
+	color:#ccc;
+	padding: 5px 7px;
+	font-family:宋体;
+
+}
+.btn-infocenter:hover{
+	color:#fff;
+	background-color: rgba(204,204,255,.4);
+}
+
 
 .index_dl {
 	margin-top: 55%
@@ -275,14 +292,10 @@ table {
 }
 
 .user_exit {
-	margin-top: 20%
+	margin-top: 50%
 }
 
-.user_exit_infocenter {
-	margin-left: 6%;
-	margin-top: 15%
-}
-
+ 
 hr {
 	margin-top: 0
 }
@@ -1201,10 +1214,8 @@ img {
 	filter: alpha(opacity=40)
 }
 
-img:hover {
+a img:hover {
 	opacity: .8
-}��mp-top-2-1 img:hover {
-	opacity: 1
 }
 
 .navbar-op {
@@ -1218,11 +1229,15 @@ img:hover {
 	left: -13px;
 	top: 3px
 }
-
-.mg-top-2 {
-	color: #999
+.pa{
+	position:absolute;
+}
+.pr{
+	position:relative;
 }
 
+
+ 
 .navbar-nav>li {
 	padding: 0 1px
 }
@@ -1402,6 +1417,35 @@ hr {
 
 .mg-top-1 {
 	margin-top: 10px
+}
+.mg-top-01{
+	
+	margin-top: 1px
+}
+.mg-right-02{
+	margin-right: 2px;
+}
+.small-index-login{
+	padding: 8px 9px;
+	width: 30%;
+	height: 38px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: #69c;
+	-webkit-box-shadow: inset 0 1px rgba(255,255,255,.4);
+	-moz-box-shadow: inset 0 1px rgba(255,255,255,.4);
+	box-shadow: inset 0 1px rgba(255,255,255,.4);
+	border: solid 1px #336;
+	color:#ccc;
+}
+.small-index-login:hover{
+	color:#fff;
+	
+}
+.index-infocenter{
+	
+	height:300px;width:100%;background-color:#336699;
 }
 
 .modal-header {

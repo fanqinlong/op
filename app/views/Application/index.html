@@ -40,21 +40,33 @@
  
  <div class="row index_row"  >
 	
+		
+	
+	
 			<div class="col-xs-6  col-sm-6  col-md-5  col-md-offset-1 col-sm-offset-1 col-xs-offset-1 logo" >
-				<img  class="img-responsive"  src="/public/images/logo-big.png"/  >
+				<img  class="img-responsive"  src="/public/images/logo-big.png">
 			</div>	
 	
+		
 		<div  class="login col-xs-4 col-sm-3 col-md-2  col-md-offset-1  col-sm-offset-1 col-xs-offset-1" >
-
 			#{if isNotLogin}
+			
+			<div class="index-infocenter text-center" style="">
+			<div class="pr">
+					<img alt="" src="@{'public/images/small-logo.png'}" class=" mg-top-4">
+					<img  class="pa  mg-top-3 mg-left-05"  src="/public/images/beta.png" style=""/>
+				</div>	
+				<div>
+				<a href="SimpleUsers/login" class="btn mg-top-3 small-index-login" >登录奥噗</a>
+				</div>
+				<a href="SimpleUsers/signup"  class="btn small-index-login  mg-top-2">快速注册</a>
+		 </div>
+	
+			
+			
 			<div class="index_dl">
  
-			
-			
-			 
-			
-			
-				<h5 class="pull-left">
+			 <h5 class="pull-left">
 				<img  class="img-responsive pull-right index-beta"  src="/public/images/beta.png" style=""/>
 					Welcome
 				</h5>
@@ -82,14 +94,18 @@
 				</div>
 			</form>
 			#{/if} #{else} #{if isSimpleUser}
-			<div  class="user_exit text-center img-w-128 user_exit1" style="background-image:url(../public/images/touxiang.png);
-	background-position:center;
-	background-repeat: no-repeat;" > 
-				 
+			<div  class="user_exit text-center img-w-128 user_exit1" > 
+				 	
+					<img alt="" src="@{'public/images/touxiang.png'}" class="pa">
 					<img src="${userprofile}" class="img-circle ">
-				 
+				 <p class="size4 mg-top-1">你好，yuqianyi</p>
 			</div>
-			<div class="user_exit_infocenter text-center user_exit1"  ><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
+			
+			<div class="user_exit_infocenter text-center"  >
+			<p>
+			<a  class="size4 btn-infocenter btn-sm"  href="@{SimpleUsers.infoCenter()}"><img alt="" src="@{'public/images/login_1.png'}" class="mg-top-04 mg-right-02">个人中心</a>
+			</p><p class="mg-top-2"> <a  class="size4 btn-infocenter btn-sm " href="@{SimpleUsers.logout}"><img alt="" src="@{'public/images/login_2.png'}" class="mg-top-04 mg-right-02">退出登录</a></p></div> 
+			 #{/if} #{elseif isCssa}
 			<ul  class="user_exit" align="center">
 				<li>
 					<img src="${userprofile}" class="img-circle"  >
@@ -196,7 +212,7 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="public/javascripts/jquery.validate.js"></script>
+ 
 		<script type="text/javascript" src="public/javascripts/banner.js"></script>
 	
   	<script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
@@ -213,29 +229,7 @@
 				$(".fm").submit()
 			});
 
-			$(".fm").validate({
-				rules : {
-					'email' : {
-						required : true,
-						email : true
-					},
-					'password' : {
-						required : true,
-						rangelength : [ 7, 18 ]
-					}
-				},
-				messages : {
-					email : {
-						required : '请输入电子邮件地址',
-						email : '电子邮件格式错误'
-					},
-					password : {
-						required : "请输入密码",
-						rangelength : "密码长度为7~18位"
-					}
-
-				}
-			});
+			 
 		});
 
 		function change() {

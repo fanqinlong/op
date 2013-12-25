@@ -3,7 +3,7 @@ smaller than 1380
 *************************************************************************************/
 @media screen and (max-width: 1380px) {
 
-	.card-time2{
+	.card-time2,.index-infocenter{
 		display:none;
 	}
 	 
@@ -14,7 +14,7 @@ smaller than 1200
 *************************************************************************************/
 @media screen and (max-width: 1200px) {
 
- 	.card-time2{
+ 	.card-time2,.index-infocenter{
 		display:none;
 	}
 }
@@ -23,7 +23,7 @@ smaller than 960
 *************************************************************************************/
 @media screen and (max-width: 960px) {
 	 
-	 .main-beta,.opporlinklog{
+	 .main-beta,.opporlinklog,.index-infocenter{
 	 
 	 	display:none !important;
 	 }
@@ -54,7 +54,11 @@ margin-right: 10px;
 /************************************************************************************
 smaller than 800
 *************************************************************************************/
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
+	 #banner, .opporlinklog,.main-beta,.logo,.hd_small,.index_dl,.login-form{
+	 
+	 	display:none;
+	 }
  	.card-time2{
 		display:none;
 	}
@@ -70,8 +74,12 @@ margin-right: 10px;
 margin-left: 0px;
 	
 }
+.index-infocenter{
+	display:block !important;
 	
+}
 	
+}	
 /************************************************************************************
 smaller than 650
 *************************************************************************************/
@@ -125,8 +133,9 @@ margin-right: 10px;
 		display:block;
 	}
 	.login{
-	 	width:102%;
+	 	width:104%;
 	 	margin-top:0px;
+	 	padding-right:0px;
 	 }
 	 .user_exit {
   margin-top: 0px !important;
@@ -149,7 +158,7 @@ margin-right: 10px;
 	 }
   .login {
  
-height: 229px !important;
+height: 300px !important;
  
 }
 .form-group1{
