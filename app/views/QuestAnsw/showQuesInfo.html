@@ -1,8 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'showQuesInfo.html' /}
 #{set 'Styles'}
-<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="../../../public/javascripts/nicEdit.js"></script>
+ 
+<script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
 #{/}
 	<script language="javascript" type="text/javascript">
 		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
@@ -130,7 +130,7 @@
 						 		<input type="hidden"  id="quesid" name="quesid" value="${findListQues.id}" />
 							#{/list}
 					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
-						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
+						 	<input id="submitbutton" value="发布回答" type="submit" class="btn btn-primary bt1"
 						 	style="margin-top: 20px;" />
 					 	</form>
 	  		 	#{/else}
@@ -182,25 +182,32 @@
 
 <div class="col-md-3 col-md-offset-1">
    #{list items:fQ,as:'fidid'}
-	<div class="op-right1">
+	<div class="details">
 	#{if isSimple}
 		#{if UserFocusQues}
-		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
+			<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}" class="btn btn-success"  style="background-color: #ffffff;color: #333333; title="取消Link后，您将不能收到此问答的最新动态。">
+				<i class=" icon-link"></i>Cancel Link !
+			</a>
 		#{/if}
 		#{else}
-			<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
+				<i class=" icon-link"></i> Link !
+			</a>
 		#{/else}
 	#{/if}
 	#{elseif isCSSA}
 		#{if CSSAFocusQues}
-		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
+		<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}"  class="btn btn-success"  style="background-color: #ffffff;color: #333333; title="取消Link后，您将不能收到此问答的最新动态。">
+				<i class=" icon-link"></i>Cancel Link !</a>
 		#{/if}
 		#{else}
-			<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
+				<i class=" icon-link"></i> Link !</a>
 		#{/else}
 	#{/elseif}
 	#{else}
-		<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+		<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
+				<i class=" icon-link"></i> Link !</a>
 	#{/else}
 	
 	</div>
@@ -208,7 +215,7 @@
 		<span class="op-18">
 			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
 		<span>
-		<span class="op-13">人已关注</span>
+		<span class="op-13">人已Link</span>
 		</span></span>
 	</label>
 	#{/list}
