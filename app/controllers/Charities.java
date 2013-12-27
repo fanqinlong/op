@@ -236,7 +236,7 @@ public class Charities extends Application {
             if (pageNo < 1) {
     			pageNo = 1;
 
-    		} else if (pageNo >= pageCount) {
+    		} else if (pageNo >= pageCount && pageNo > 1) {
     			pageNo = (int) pageCount;
     		}
 
@@ -259,7 +259,7 @@ public class Charities extends Application {
                 if (pageNo < 1) {
         			pageNo = 1;
 
-        		} else if (pageNo >= pageCount) {
+        		} else if (pageNo >= pageCount&& pageNo > 1) {
         			pageNo = (int) pageCount;
         		}
                 List<Wel> we = Wel.find("order by time desc")
@@ -276,7 +276,7 @@ public class Charities extends Application {
                 if (pageNo < 1) {
         			pageNo = 1;
 
-        		} else if (pageNo >= pageCount) {
+        		} else if (pageNo >= pageCount && pageNo > 1) {
         			pageNo = (int) pageCount;
         		}
                 List<Wel> we = Wel.find(
