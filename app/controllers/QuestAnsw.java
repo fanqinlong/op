@@ -32,7 +32,7 @@ public class QuestAnsw extends Application {
 		List<Tag> t = Tag.findAll();
 		render(t);
 	}
-
+//测试一下下
 	public static void dispAddQues(@Required String title,
 			@Required String Tag, @Required String content, String school,
 			String date, Long id, long answerNum, long focusNum,
