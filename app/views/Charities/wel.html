@@ -7,16 +7,8 @@
 <div class="">
 	<div class="col-md-8">
 			<div class="control-group ">
-					  <h4 class="gy-title">公益活动
-					  
-					  </h4>
-					   		
-					   		
-					   		
-					   		
-					   		
-					
-			 </div> 
+					  <h3>公益活动</h3>
+				 </div> 
 			 	 #{if isAdmin}
 			 		<h4><a  class="btn btn-primary gy-fb" href="@{Charities.fabu()}">发布公益</a></h4>
 			 	 #{/if}
@@ -33,9 +25,9 @@
 				  		
 						
 						
-				<blockquote style="border-left: 0px ;padding-left:0px;">
-			  <p class="overfloat-100"><a class="goy-h3" href="@{Charities.welfare(ac.id)}" target="_blank">${ac.title}</a></p>
-			 		 <small  class="pull-right"><span style="color:#999999;">来自于:</span><span style="color:#666666;">${ac.fromUser}</span></small>
+				<blockquote style="" class="pb0">
+			  <p class="overfloat-100 mb0 pad-bottom-0 "><a class="goy-h3" href="@{Charities.welfare(ac.id)}" target="_blank">${ac.title}</a></p>
+			 		 <small  class="pull-right"><span class="color4">来自于:</span><span class="color5">${ac.fromUser}</span></small>
 			</blockquote>
 						
 						
@@ -85,12 +77,12 @@
 								<li >
 									<a href="@{Charities.pigination(pageNo-1 )}" pagenum="${pageNo}"   id="shangyiye" class="paging">上一页</a>
 								</li>
-						  		#{list items:1..pageCount,as:'page'}
+						  	 
+						   	 %{for(int i=inter[0];i<=inter[1];i++){}%
 								<li class="panduan" >
-									<a href="@{Charities.pigination(page)}"  class="paging  ${pageNo==page?"now_page":""} "   id="page_gy"  >${page}</a>
+							 		<a href="@{Charities.pigination(i)}"  class="paging  ${pageNo==i?"now_page":""} "   id="page_gy"  >${i}</a>
 								</li>
-								
-								#{/list}
+						 	 %{}}%
 						 	<li>
 									<a href="@{Charities.pigination(pageNo+1 )}" id="xiayiye" pageNumber="${pageCount}"  class="paging">下一页</a>
 								</li>

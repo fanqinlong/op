@@ -1,7 +1,7 @@
 #{extends 'main.html' /} #{set title:'index.html' /}  
 <!-- tags -->
 
-
+ 
 <p class="tags">
 
 	<span class="tag-title"><img src="@{'public/images/active_category.png'}">分类</span> <a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''}">全部</a> #{list items:t,as:'t'} <a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''}"> ${t.name} </a> #{/list}
@@ -14,7 +14,7 @@
 </p>
 
 <!-- ./tags -->
-
+ 
 	 
 <div class="btn-group order">
 	<a href="@{Activities.orderByDefault}" class="btn btn-default btn-sm ${orderName=='default'?'checked':''}">
@@ -28,13 +28,7 @@
 			发布时间 <i class=" icon-arrow-down"></i>
 		 
 	</a>
-	<!-- 
-	<a>
-	<button type="button" class="btn btn-default btn-sm">
-		距离远近 <i class=" icon-arrow-down"></i>
-	</button>
-	</a>
-	 -->
+	 
 	<a href="@{Activities.orderByCSSA} ">
 		<button type="button" class="btn btn-default btn-sm ${orderName=='cssa'?'checked':''}">
 			CSSA活动 <i class=" icon-arrow-down"></i>

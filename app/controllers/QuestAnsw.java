@@ -409,33 +409,7 @@ public class QuestAnsw extends Application {
 		render(att);
 	}
 
-	public static void Quespaging(int pageNum) {
-		List<Tag> t = Tag.findAll();
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
-		if (pageNum < 1) {
-			pageNum = 1;
-		} else if (pageNum >= pageCount) {
-			pageNum = (int) pageCount;
-		}
-		List<Ques> aQues = Ques.find("order by date desc")
-				.from((pageNum - 1) * 5).fetch(5);
-		Iterator iterator = aQues.iterator();
-		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
-		while (iterator.hasNext()) {
-			Ques ques = (Ques) iterator.next();
-			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
-			QuestionArticle qa = new QuestionArticle(ques, comment);
-			qArticles.add(qa);
-		}
-		List<Comments> topUser = Comments.find("order by praiseNum desc")
-				.fetch(5);
-		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				pageNum, topUser, topQues);
-	}
+
 
 	public static void editQues(long id) {
 		List<Tag> t = Tag.findAll();
@@ -448,22 +422,7 @@ public class QuestAnsw extends Application {
 		render();
 	}
 
-	/**
-	 * public static void deleteQues(long id, int pageNum) { Ques dques =
-	 * Ques.findById(id); dques.delete(); List<Tag> t = Tag.findAll(); long
-	 * pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques .count() / 5
-	 * + 1); if (pageNum < 1) { pageNum = 1; } else if (pageNum >= pageCount) {
-	 * pageNum = (int) pageCount; } List<Ques> aQues =
-	 * Ques.find("order by date desc") .from((pageNum - 1) * 5).fetch(5);
-	 * Iterator iterator = aQues.iterator(); List<QuestionArticle> qArticles =
-	 * new ArrayList<QuestionArticle>(); while (iterator.hasNext()) { Ques ques
-	 * = (Ques) iterator.next(); List comments = Comments.find("quesid = ?",
-	 * ques.id).fetch(); Comments comment = comments.isEmpty() ? null :
-	 * (Comments) comments .get(0); QuestionArticle qa = new
-	 * QuestionArticle(ques, comment); qArticles.add(qa); }
-	 * renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-	 * pageNum); }
-	 **/
+	 
 	public static void deleteComent() {
 		render();
 	}
@@ -575,8 +534,7 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void editComSuccessful(Comments c) {
-		System.out.println("kakka" + c.id);
-		System.out.println("内容" + c.comment);
+		 
 		if (c.comment.equals("<br>")) {
 			flash.error("答案不能为空!");
 			editComent(c.userid, c.usertype, c.quesid);

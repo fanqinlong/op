@@ -1,34 +1,23 @@
 package controllers;
 
 import models.*;
-
 import models.activity.Activity;
 import models.activity.Liker;
-
 import models.charity.Wel;
 import models.charity.welLiker;
-
+import models.qa.Paging;
 import models.qa.Ques;
-
 import models.users.CSSA;
 import models.users.SimpleUser;
-
 import notifiers.Trend;
-
 import play.*;
-
 import play.db.jpa.JPABase;
-
 import play.libs.Files;
-
 import play.mvc.*;
-
 import play.mvc.Scope.Session;
 
 import java.io.File;
-
 import java.text.SimpleDateFormat;
-
 import java.util.*;
 
 import javax.servlet.http.HttpServlet;
@@ -36,6 +25,11 @@ import javax.servlet.http.HttpSession;
 
 
 public class Charities extends Application {
+	
+	static int Number = 5;
+	
+	
+	
     @Before
     public static void isAdmin() {
         if ((session.get("logged") != null) &&
@@ -128,7 +122,7 @@ public class Charities extends Application {
 
             new Wel(title, content, d, path, generalize, likerCount, true,
                 fromUser);
-            wel(1);
+            pigination(1);
         }
     }
 
@@ -183,22 +177,10 @@ public class Charities extends Application {
         render(w);
     }
 
-    public static void wel(int pageNo) {
-        int count = Wel.find("isChecked=true order by time desc").fetch().size();
-
-        int pageCount = ((count % 5) == 0) ? (count / 5) : ((count / 5) + 1);
-
-        if (pageNo < 1) {
-            pageNo = 1;
-        } else if (pageNo >= pageCount) {
-            pageNo = (int) pageCount;
-        }
-
-        List<Wel> we = Wel.find("isChecked=true order by time desc")
-                          .from((pageNo - 1) * 5).fetch(5);
-
-        renderTemplate("Charities/wel.html", we, pageCount, pageNo);
-    }
+    
+    
+   
+  
 
     public static void edit(long id, int pageNo) {
         if (session.get("logged") == null) {
@@ -240,39 +222,28 @@ public class Charities extends Application {
         w.save();
         render(w);
     }
-
-    public static void del(long id, int pageNo) {
-        SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
-
-        if (su.isAdmin == false) {
-            Charities.pigination(1);
-        }
-
-        Wel w = Wel.findById(id);
-        w.delete();
-        pigination(pageNo);
-    }
-
+ 
+    
+    
     public static void pigination(int pageNo) {
         if (session.get("logged") == null) {
             int count = Wel.find("isChecked=true order by time desc").fetch()
                            .size();
 
-            int pageCount = ((count % 5) == 0) ? (count / 5) : ((count / 5) +
+            int pageCount = ((count % Number) == 0) ? (count / Number) : ((count / Number) +
                 1);
 
             if (pageNo < 1) {
-                pageNo = 1;
-                System.out.println(pageNo + "no");
-            } else if (pageNo >= pageCount) {
-                pageNo = (int) pageCount;
-                System.out.println(pageCount + "count");
-            }
+    			pageNo = 1;
+
+    		} else if (pageNo >= pageCount) {
+    			pageNo = (int) pageCount;
+    		}
 
             List<Wel> we = Wel.find("isChecked=true order by time desc")
-                              .from((pageNo - 1) * 5).fetch(5);
-
-            renderTemplate("Charities/wel.html", we, pageCount, pageNo);
+                              .from((pageNo - 1) * Number).fetch(Number);
+            int[] inter = Paging.getRount(8, pageCount, pageNo);
+            renderTemplate("Charities/wel.html", we, pageCount, pageNo,inter);
         }
 
         SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
@@ -281,35 +252,41 @@ public class Charities extends Application {
                 session.get("usertype").equals("simple")) ||
                 session.get("usertype").equals("cssa")) {
             if (su.isAdmin) {
-                long pageCount = ((Wel.count() % 5) == 0) ? (Wel.count() / 5)
-                                                          : ((Wel.count() / 5) +
+                long pageCount = ((Wel.count() % Number) == 0) ? (Wel.count() / Number)
+                                                          : ((Wel.count() / Number) +
                     1);
 
                 if (pageNo < 1) {
-                    pageNo = 1;
-                } else if (pageNo >= pageCount) {
-                    pageNo = (int) pageCount;
-                }
+        			pageNo = 1;
 
+        		} else if (pageNo >= pageCount) {
+        			pageNo = (int) pageCount;
+        		}
                 List<Wel> we = Wel.find("order by time desc")
-                                  .from((pageNo - 1) * 5).fetch(5);
-                renderTemplate("Charities/wel.html", we, pageCount, pageNo);
+                                  .from((pageNo - 1) * Number).fetch(Number);
+                
+                int[] inter = Paging.getRount(8, (int)pageCount, pageNo);
+                renderTemplate("Charities/wel.html", we, pageCount, pageNo,inter);
             } else {
                 int count = Wel.find("isChecked=true order by likerCount desc")
                                .fetch().size();
-                int pageCount = ((count % 5) == 0) ? (count / 5) : ((count / 5) +
+                int pageCount = ((count % Number) == 0) ? (count / Number) : ((count / Number) +
                     1);
 
                 if (pageNo < 1) {
-                    pageNo = 1;
-                } else if (pageNo >= pageCount) {
-                    pageNo = (int) pageCount;
-                }
+        			pageNo = 1;
 
+        		} else if (pageNo >= pageCount) {
+        			pageNo = (int) pageCount;
+        		}
                 List<Wel> we = Wel.find(
                         "isChecked=true order by likerCount desc")
-                                  .from((pageNo - 1) * 5).fetch(5);
-                renderTemplate("Charities/wel.html", we, pageCount, pageNo);
+                                  .from((pageNo - 1) * Number).fetch(Number);
+                
+                int[] inter = Paging.getRount(8, pageCount, pageNo);
+
+                renderTemplate("Charities/wel.html", we, pageCount, pageNo,inter);
+              
             }
         }
     }
@@ -326,7 +303,6 @@ public class Charities extends Application {
                 aid, userId, usertype).fetch();
 
         if (!al_exist.isEmpty()) {
-            System.out.println("------------------------------------------");
             flash.error("您已关注");
             pigination(pageNo);
         }

@@ -99,7 +99,7 @@
 				 	
 					<img alt="" src="@{'public/images/touxiang.png'}" class="pa">
 					<img src="${userprofile}" class="img-circle ">
-				 <p class="size4 mg-top-1">你好，${}</p>
+				 <p class="size4 mg-top-1">你好，${username}</p>
 			</div>
 			
 			<div class="user_exit_infocenter text-center"  >
@@ -110,6 +110,7 @@
 			<ul  class="user_exit" align="center">
 				<li>
 					<img src="${userprofile}" class="img-circle"  >
+					<p class="size4 mg-top-1">你好，${username}</p>
 				</li>
 			</ul>
 			<div  class="user_exit_infocenter text-center"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
