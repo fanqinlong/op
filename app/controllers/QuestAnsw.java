@@ -32,7 +32,7 @@ public class QuestAnsw extends Application {
 		List<Tag> t = Tag.findAll();
 		render(t);
 	}
-//修改测试的文字，测试是否能够提交
+//修
 	public static void dispAddQues(@Required String title,
 			@Required String Tag, @Required String content, String school,
 			String date, Long id, long answerNum, long focusNum,
