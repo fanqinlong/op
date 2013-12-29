@@ -50,18 +50,17 @@
 		  </div>
   			
 	  		<div style="margin-left:40px;padding-bottom:50px; width:600px;">
-					 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
-					  		${username} ,回答问题
-					 	</li>
-					 	<form id="comments" action="@{QuestAnsw.editComSuccessful}" method="post">
-						 	<input type="hidden"  id="quesid" name="c.id" value="${findCom.id}" />
-					 		<textarea rows="5" style="width:570px;" id="area1" name="c.comment">${findCom.comment}</textarea>
-						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
-						 	style="width:80px;" />
-					 	</form>
+			 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
+			  		${username} ,回答问题
+			 	</li>
+			 	<form id="comments" action="@{QuestAnsw.editComSuccessful}" method="post">
+				 	<input class="hide"  id="quesid" name="c.id" value="${findCom.id}" />
+			 		<textarea rows="5" style="width:570px;" id="area1" name="c.comment">${findCom.comment}</textarea>
+				 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
+				 	style="width:80px;" />
+			 	</form>
 			</div>
 </div>
-	 
 
 <div style="float:left;">
    #{list items:fQ,as:'fidid'}
