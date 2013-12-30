@@ -314,7 +314,6 @@ public class QuestAnsw extends Application {
 			long comentUserid = Long.parseLong(session.get("logged"));
 			String comentUsername;
 			isLoged = false;
-			System.out.println(isLoged);
 			Long userid;
 			if (comentUsertype.equals("simple")) {
 				SimpleUser su = SimpleUser.findById(comentUserid);
@@ -606,13 +605,10 @@ public class QuestAnsw extends Application {
 	 */
 
 	public static void notAgree(Long id, Long quesid) {
-		System.out.println("不赞同这条回答");
-
 		if (session.get("logged") == null) {
 			flash.error("请登录!");
 			SimpleUsers.login();
 		}
-
 		// 传过来的id是回答的id
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
