@@ -31,7 +31,11 @@
 						</p>
 						 
 						<ul class="list-inline text-muted font-12">
+						<!-- -- -->
+						
 							  <li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
+							
+							
 							<li>${trend.a.time.first().date}</li>
 							<li>参加(${trend.a.joiner.size()})</li>
 							
@@ -50,7 +54,7 @@
 					</a>
 				</div>
 			<div class="activity col-md-11 text-muted">
-				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
+				<h5 class="text-muted mg-top-0">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
 				<p class="text-muted overflow-2">
 					 	 

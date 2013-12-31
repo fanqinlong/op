@@ -1,25 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'welfare.html'/}
-  
- 
-		
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
  <div class="col-md-8 col-md-offset-1">
- 
- 
-			<h2>${w.title} </h2>
-				<input type="hidden" name="w.id" value="${w.id}" />
-			 
+	 <h2>${w.title} </h2>
+	 <p class="p-1">${w.content.raw()}</p>
+  </div>
+	 
+	 
+	 
 		 
-		<p class="p-1">${w.content.raw()}</p>
-
-	 
-	 
-	 
-	 </div>
-	 
-	 
-	 
-		<!--这里是底部-->
-	 
