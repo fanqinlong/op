@@ -411,7 +411,7 @@ public class QuestAnsw extends Application {
 		render(t, eQues);
 	}
 
-	public static void editSuccessful(Ques eQues) {
+	public static void editSuccessful(Ques eQues,String Tag) {
 		Long quesid = Long.parseLong(session.get("quesid"));
 		if(quesid!=eQues.id){
 			flash.error("操作错误，请正确操作!");
@@ -422,6 +422,16 @@ public class QuestAnsw extends Application {
 			editQues(eQues.id);
 		}else if(eQues.content.equals("")){
 			flash.error("内容不能为空!");
+			editQues(eQues.id);
+		}
+		Ques q = Ques.findById(eQues.id);
+		q.label="";
+		q.label = Tag;
+		System.out.println(Tag);
+		System.out.println(q.label);
+		q.save();
+		if(Tag==null){
+			flash.error("至少要选择一个标签!");
 			editQues(eQues.id);
 		}
 		eQues.save();

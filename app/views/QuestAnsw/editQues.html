@@ -124,8 +124,14 @@
 		 <div class="controls " style="width:550px;" id="ulname">
 			#{list items:t,as:'tag'}
 				<label class="checkbox-inline btn btn-default" style="border-radius:20px;margin-left:0px;">
+		  			#{if eQues.label==tag.tagName}
 		  			<input style="float:none;margin-left:0px;" type="checkbox" name="Tag" id="Tag"
-					value="${eQues.label}" ${flash.Tag=="eQues"?"checked":""}  > ${tag.tagName}
+					 value="${tag.tagName}" checked="true">${tag.tagName}
+					 #{/if}
+					 #{else}
+		  			 <input style="float:none;margin-left:0px;" type="checkbox" name="Tag" id="Tag"
+					 value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}>${tag.tagName}
+					 #{/else}
 				</label>
 			#{/list}
 		  </div>
