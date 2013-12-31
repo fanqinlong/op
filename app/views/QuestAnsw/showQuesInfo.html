@@ -106,10 +106,6 @@
 	  	  </div> 		
   			
 	  		<div style="padding-bottom:50px; width:60%;">
-	  		#{if isLoged}
-	  			<span style="line-height: 50px;margin-left:50px;">用户<a href="@{SimpleUsers.login}">登录</a>后才能回答。还没奥普账号?<a href="@{SimpleUsers.signup}">立即注册！</a></span>
-	  		#{/if}
-	  		#{else}
 	  		 #{if isSimple}
 	  		 	#{if UserQues}
 	  		 		#{list items:fQ,as:'findListQues'}
@@ -134,7 +130,7 @@
 						 		<input type="hidden"  id="quesid" name="quesid" value="${findListQues.id}" />
 							#{/list}
 					 		<textarea rows="5" style="width:570px;" id="area1" name="comment" value="${flash.comment}"></textarea>
-						 	<input id="submitbutton" value="发布回答" type="submit" class="btn btn-primary bt1"
+						 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
 						 	style="margin-top: 20px;" />
 					 	</form>
 	  		 	#{/else}
@@ -181,38 +177,30 @@
 						 	style="margin-top: 20px;" />
 					 	</form>
 	  		 #{/else}
-	  		 #{/else}
 			</div>
 </div>
 
 <div class="col-md-3 col-md-offset-1">
    #{list items:fQ,as:'fidid'}
-	<div class="details">
+	<div class="op-right1">
 	#{if isSimple}
 		#{if UserFocusQues}
-			<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}" class="btn btn-default"  style="background-color: #ffffff;color: #333333;">
-				<i class=" icon-link"></i>Cancel Link !
-			</a>
+		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
 		#{/if}
 		#{else}
-			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-info"  title="Link后，您将收到此问答最新的动态。">
-				<i class=" icon-link"></i> Link !
-			</a>
+			<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
 		#{/else}
 	#{/if}
 	#{elseif isCSSA}
 		#{if CSSAFocusQues}
-		<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}"  class="btn btn-default"  style="background-color: #ffffff;color: #333333; title="取消Link后，您将不能收到此问答的最新动态。">
-				<i class=" icon-link"></i>Cancel Link !</a>
+		<a class="btn btn-default" href="@{QuestAnsw.cancelFqcusQues(fidid.id)}">取消关注</a>
 		#{/if}
 		#{else}
-			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-info"  title="Link后，您将收到此问答最新的动态。">
-				<i class=" icon-link"></i> Link !</a>
+			<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
 		#{/else}
 	#{/elseif}
 	#{else}
-		<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-info"  title="Link后，您将收到此问答最新的动态。">
-				<i class=" icon-link"></i> Link !</a>
+		<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
 	#{/else}
 	
 	</div>
@@ -220,7 +208,7 @@
 		<span class="op-18">
 			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
 		<span>
-		<span class="op-13">人已Link</span>
+		<span class="op-13">人已关注</span>
 		</span></span>
 	</label>
 	#{/list}

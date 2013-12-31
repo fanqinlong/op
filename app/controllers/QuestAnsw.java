@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-
 import models.qa.Paging;
 import notifiers.Trend;
 import play.data.validation.Required;
@@ -29,20 +28,18 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void QuesIndex() {
-		if (session.get("logged") == null) {
-			session.put("Askquestions", "goToQuesindex");
-			flash.error("请登录!");
-			SimpleUsers.login();
-		} else {
-			List<Tag> t = Tag.findAll();
-			render(t);
-		}
+		List<Tag> t = Tag.findAll();
+		render(t);
 	}
 
 	public static void dispAddQues(@Required String title,
 			@Required String Tag, @Required String content, String school,
 			String date, Long id, long answerNum, long focusNum,
 			String selfIntro) {
+		if (session.get("logged") == null) {
+			flash.error("请登录!");
+			SimpleUsers.login();
+		}
 		String usertype = session.get("usertype");
 		long userid = Long.parseLong(session.get("logged"));
 		String username;
@@ -75,12 +72,13 @@ public class QuestAnsw extends Application {
 			flash.error("错误:至少选择一个标签");
 			QuesIndex();
 		}
-
-		if (!school.isEmpty()) {
+		
+		if(!school.isEmpty()){
 			String s = new String(school);
 			String a[] = s.split(" - ");
-			school = a[0] + a[1] + a[2];
+			school = a[0] + a[1] + a[2];	
 		}
+		System.out.println("看看学校："+school);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
 		new Ques(title, Tag, school, content, d, userid, usertype, username,
@@ -110,6 +108,10 @@ public class QuestAnsw extends Application {
 			flash.error("请登录后回答!");
 			SimpleUsers.login();
 		}
+		if (comment.equals("<br>")) {
+			flash.error("答案不能为空！");
+			showQuesInfo(quesid);
+		}
 		Long uid;
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsertype = session.get("usertype");
@@ -129,34 +131,22 @@ public class QuestAnsw extends Application {
 			comentUserSelfIntro = cssa.selfIntro;
 			uid = cssa.id;
 		}
-
-		// if(!userThisComment.isEmpty() || !cssaThisComment.isEmpty()){
-		// validation.keep();
-		// params.flash();
-		// flash.error("不能重复提交或者答案不能为空！");
-		// showQuesInfo(quesid);
-		// }
-
-		if (comment.equals("")) {
-			validation.keep();
-			params.flash();
-			flash.error("不能重复提交或者答案不能为空！");
-			showQuesInfo(quesid);
-		}
-
 		String QuesTitle;
 		Ques ques = Ques.findById(quesid);
 		QuesTitle = ques.title;
 		ques.answerNum = ques.answerNum + 1;
 		ques.focusNum = ques.focusNum + 1;
 		ques.save();
+
 		String s = new String(ques.label);
 		String a[] = s.split(",");
 		List<Ques> relatedQues = Ques.find(
 				"SELECT a FROM Ques a WHERE label LIKE ?", "%" + a[0] + "%")
 				.fetch(5);
+
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
+
 		new Comments(quesid, comment, 0, comentUserid, comentUsertype,
 				comentUsername, comentUserprofile, comentUserSelfIntro, d,
 				QuesTitle, 0);
@@ -171,26 +161,6 @@ public class QuestAnsw extends Application {
 			isSimple = true;
 		} else {
 			isCSSA = true;
-		}
-
-		// 判断是否回答过这个问题
-		Boolean UserComments = false;
-		Boolean CssaComment = false;
-
-		List<Comments> userThisComment = Comments.find(
-				"quesid = ? and userid = ? and usertype = ? ", quesid, uid,
-				"simple").fetch();
-
-		List<Comments> cssaThisComment = Comments.find(
-				"quesid = ? and userid = ? and usertype = ? ", quesid, uid,
-				"cssa").fetch();
-		if (!userThisComment.isEmpty() || !cssaThisComment.isEmpty()) {
-			if (!userThisComment.isEmpty() && comentUsertype.equals("simple")) {
-				UserComments = true;
-			} else if (!cssaThisComment.isEmpty()
-					&& comentUsertype.equals("cssa")) {
-				CssaComment = true;
-			}
 		}
 
 		// 判断当前用户是否可以修改删除问题问题
@@ -211,6 +181,26 @@ public class QuestAnsw extends Application {
 				CssaQues = true;
 			}
 		}
+		// 判断是否回答过这个问题
+		Boolean UserComments = false;
+		Boolean CssaComment = false;
+
+		List<Comments> userThisComment = Comments.find(
+				"quesid = ? and userid = ? and usertype = ? ", quesid, uid,
+				"simple").fetch();
+
+		List<Comments> cssaThisComment = Comments.find(
+				"quesid = ? and userid = ? and usertype = ? ", quesid, uid,
+				"cssa").fetch();
+		if (!userThisComment.isEmpty() || !cssaThisComment.isEmpty()) {
+			if (!userThisComment.isEmpty() && comentUsertype.equals("simple")) {
+				UserComments = true;
+			} else if (!cssaThisComment.isEmpty()
+					&& comentUsertype.equals("cssa")) {
+				CssaComment = true;
+			}
+		}
+
 		// 这里是判断是否已关注
 		Boolean UserFocusQues = false;
 		Boolean CSSAFocusQues = false;
@@ -292,12 +282,9 @@ public class QuestAnsw extends Application {
 	}
 
 	public static void showQuesInfo(long id) {
-		session.put("qusetionId", id);
 		Ques qw = Ques.findById(id);
 		qw.views = qw.views + 1;
 		qw.save();
-		boolean isLoged = false;
-		
 		if (session.get("logged") == null) {
 			Ques fQ = Ques.findById(id);
 			String s = new String(fQ.label);
@@ -307,14 +294,11 @@ public class QuestAnsw extends Application {
 							"%" + a[0] + "%").fetch(5);
 			List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
 			List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
-			isLoged = true;
-			render(fQ, FQ, listCom, relatedQues,isLoged);
+			render(fQ, FQ, listCom, relatedQues);
 		} else {
 			String comentUsertype = session.get("usertype");
 			long comentUserid = Long.parseLong(session.get("logged"));
 			String comentUsername;
-			isLoged = false;
-			System.out.println(isLoged);
 			Long userid;
 			if (comentUsertype.equals("simple")) {
 				SimpleUser su = SimpleUser.findById(comentUserid);
@@ -325,12 +309,36 @@ public class QuestAnsw extends Application {
 				comentUsername = cssa.school.name;
 				userid = cssa.id;
 			}
+
+			Ques fQ = Ques.findById(id);
+
+			String s = new String(fQ.label);
+			String a[] = s.split(",");
+
+			List<Ques> relatedQues = Ques
+					.find("SELECT a FROM Ques a WHERE label LIKE ?",
+							"%" + a[0] + "%").fetch(5);
+
+			List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
+			List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
+
+			boolean isSimple = false;
+			boolean isCSSA = false;
+
+			if (comentUsertype.equals("simple")) {
+				isSimple = true;
+			} else {
+				isCSSA = true;
+			}
+
 			// 判断当前用户是否可以修改删除问题问题
 			Boolean UserQues = false;
 			Boolean CssaQues = false;
+
 			List<Ques> userThisQues = Ques.find(
 					"id = ? and userid = ? and usertype = ? ", id, userid,
 					"simple").fetch();
+
 			List<Ques> cssaThisQues = Ques.find(
 					"id = ? and userid = ? and usertype = ? ", id, userid,
 					"cssa").fetch();
@@ -345,9 +353,11 @@ public class QuestAnsw extends Application {
 			// 判断是否回答过这个问题
 			Boolean UserComments = false;
 			Boolean CssaComment = false;
+
 			List<Comments> userThisComment = Comments.find(
 					"quesid = ? and userid = ? and usertype = ? ", id, userid,
 					"simple").fetch();
+
 			List<Comments> cssaThisComment = Comments.find(
 					"quesid = ? and userid = ? and usertype = ? ", id, userid,
 					"cssa").fetch();
@@ -360,15 +370,19 @@ public class QuestAnsw extends Application {
 					CssaComment = true;
 				}
 			}
+
 			// 这里是判断是否已关注
 			Boolean UserFocusQues = false;
 			Boolean CSSAFocusQues = false;
+
 			List<FocusQues> userThisFocusQues = FocusQues.find(
 					"quesId = ? and userid = ? and userType = ? ", id, userid,
 					"simple").fetch();
+
 			List<FocusQues> cssaThisFocusQues = FocusQues.find(
 					"quesId = ? and userid = ? and userType = ? ", id, userid,
 					"cssa").fetch();
+
 			if (!userThisFocusQues.isEmpty() || !cssaThisFocusQues.isEmpty()) {
 				if (!userThisFocusQues.isEmpty()
 						&& comentUsertype.equals("simple")) {
@@ -378,25 +392,15 @@ public class QuestAnsw extends Application {
 					CSSAFocusQues = true;
 				}
 			}
-			Ques fQ = Ques.findById(id);
-			String s = new String(fQ.label);
-			String a[] = s.split(",");
-			List<Ques> relatedQues = Ques
-					.find("SELECT a FROM Ques a WHERE label LIKE ?",
-							"%" + a[0] + "%").fetch(5);
-			List<FocusQues> FQ = FocusQues.find("quesId = ?", id).fetch(5);
-			List<Comments> listCom = Comments.find("quesid = ?", id).fetch();
-			boolean isSimple = false;
-			boolean isCSSA = false;
-			if (comentUsertype.equals("simple")) {
-				isSimple = true;
-			} else {
-				isCSSA = true;
-			}
+
+			List<Ques> aboutQues = Ques.find(
+					"SELECT a FROM Ques a WHERE label LIKE ?",
+					"%" + qw.label + "%").fetch(5);
+
 			render(fQ, listCom, comentUsername, FQ, UserQues, CssaQues,
 					UserComments, CssaComment, userid, comentUsertype,
 					UserFocusQues, CSSAFocusQues, comentUserid, isSimple,
-					isCSSA, relatedQues,isLoged);
+					isCSSA, aboutQues, relatedQues);
 		}
 	}
 
@@ -405,27 +409,21 @@ public class QuestAnsw extends Application {
 		render(att);
 	}
 
+
+
 	public static void editQues(long id) {
 		List<Tag> t = Tag.findAll();
 		Ques eQues = Ques.findById(id);
-		session.put("quesid", id);
 		render(t, eQues);
 	}
 
 	public static void editSuccessful(Ques eQues) {
-		Long quesid = Long.parseLong(session.get("quesid"));
-		if(quesid!=eQues.id){
-			flash.error("操作错误，请正确操作!");
-			editQues(eQues.id);
-		}
-		if(eQues.title.equals("")){
-			flash.error("标题不能为空!");
-			editQues(eQues.id);
-		}else if(eQues.content.equals("")){
-			flash.error("内容不能为空!");
-			editQues(eQues.id);
-		}
 		eQues.save();
+		render();
+	}
+
+	 
+	public static void deleteComent() {
 		render();
 	}
 
@@ -460,6 +458,7 @@ public class QuestAnsw extends Application {
 		ques.focusNum = ques.focusNum + 1;
 		ques.save();
 		flash.success("关注成功");
+
 		new FocusQues(fquserType, fquserid, fquserprofile, id, QuesTitle);
 		/**
 		 * 通知关注了用户的问题
@@ -503,6 +502,7 @@ public class QuestAnsw extends Application {
 		notification.add("关注了你的问题");
 		notification.add(ques.id + "");
 		notification.add(QuesTitle);
+
 		if (fquserType.equals("simple")) {
 			Messaging.addNotification(ques.usertype, ques.userid, "qa",
 					notification);
@@ -530,22 +530,16 @@ public class QuestAnsw extends Application {
 		Comments findCom = Comments.findById(comid);
 		Ques fQ = Ques.findById(Quesid);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
-		session.put("commentId", findCom.id);
 		render(findCom, fQ, FQ, username);
 	}
 
 	public static void editComSuccessful(Comments c) {
-		long cid = Long.parseLong(session.get("commentId"));
-		if(cid!=c.id){
-			flash.error("操作错误!请正确操作");
-			editComent(c.userid, c.usertype, c.quesid);
-		}
-		if (c.comment.equals("")) {
-			flash.error("答案不能为空！");
+		 
+		if (c.comment.equals("<br>")) {
+			flash.error("答案不能为空!");
 			editComent(c.userid, c.usertype, c.quesid);
 		}
 		c.save();
-		session.remove("commentId");
 		render();
 	}
 
@@ -743,6 +737,31 @@ public class QuestAnsw extends Application {
 		render(user, UQues, UComment, FQues);
 	}
 
+	/**
+	 * public static void orderbyTime() { List<Ques> anq =
+	 * Ques.find("order by date desc").fetch(5); }
+	 * 
+	 * public static void orderbyAnswerNumber() { System.out.println("1111");
+	 * List<Ques> anq = Ques.find("order by answerNum desc").fetch(5); List<Tag>
+	 * t = Tag.find("order by themeid desc").fetch(); long pageCount =
+	 * Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques .count() / 5 + 1);
+	 * Iterator iterator = anq.iterator(); List<QuestionArticle> qArticles = new
+	 * ArrayList<QuestionArticle>(); while (iterator.hasNext()) { Ques qu =
+	 * (Ques) iterator.next(); List comments = Comments.find("quesid = ?",
+	 * qu.id).fetch(); Comments comment = comments.isEmpty() ? null : (Comments)
+	 * comments .get(0); QuestionArticle qa = new QuestionArticle(qu, comment);
+	 * qArticles.add(qa); } boolean contentIsEmpty = false; if
+	 * (qArticles.isEmpty()) { contentIsEmpty = true; }
+	 * renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
+	 * contentIsEmpty); }
+	 * 
+	 * public static void orderbyFocusNumber() { List<Ques> anq =
+	 * Ques.find("order by focusNum desc").fetch(5); }
+	 * 
+	 * public static void bestRespondents(){ List<Comments> com =
+	 * Comments.find("order by praiseNum desc").fetch(10); List<Ques> q =
+	 * Ques.find("order by focusNum desc").fetch(10); }
+	 **/
 	public static void searchPage(int flag, int currentPage, int pageSize) {
 		String sign = "searchPage";
 		long rowsCount = Ques.count(); // 总记录数
@@ -787,7 +806,6 @@ public class QuestAnsw extends Application {
 
 	public static void searchQues(int quesSortFlag, String ques,
 			int currentPage, int pageSize) {
-		
 		String sign = "searchQues";
 		long rowsCount = Ques
 				.find("SELECT a FROM Ques a WHERE title LIKE ?",
@@ -838,16 +856,11 @@ public class QuestAnsw extends Application {
 
 	public static void searchSchool(int shoolSortFlag, String myschool,
 			int currentPage, int pageSize) {
-		if(myschool.equals("")){
-			flash.error("学校不能为空!");
-			searchPage(1, 10, 1);
-		}
-
 		String sign = "searchSchool";
 		String s = new String(myschool);
 		String a[] = s.split(" - ");
 		myschool = a[0] + a[1] + a[2];
-		
+		System.out.println("看看学校是:"+myschool);
 		long rowsCount = Ques
 				.find("SELECT a FROM Ques a WHERE school LIKE ?",
 						"%" + myschool + "%").fetch().size();// 总记录数
