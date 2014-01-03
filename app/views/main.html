@@ -9,11 +9,11 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
-<script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
+ 
 #{stylesheet 'user.css' /}  #{stylesheet 'op-theme.css' /}   #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
-	<header class="navbar  navbar-op" role="navigation" style="min-height: 40px;height: 40px !important;">
+	<header class="navbar  navbar-op" role="navigation" style="min-height: 40px;">
 		<div class="container">
 			<div class="navbar-header">
 			 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
@@ -30,14 +30,14 @@
 			<div class="navbar-collapse collapse bs-navbar-collapse" style="background-color:#336699;" >
 			
 	 	<ul class="nav navbar-nav ">
-	 	<li>
+	 	 
 					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
 					<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage(1,1,10)}">问答</a></li>
 					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
 				</ul>
- 
+ <!-- 
 		 	<form class="navbar-form navbar-left global-search" role="search"  >
 					<div class="form-group pull-left">
 						<input class="form-control" type="text" placeholder="搜索感兴趣的活动、话题或人...">
@@ -50,7 +50,7 @@
  
  	 
  
- 
+  -->
  
 				<ul class="nav navbar-nav navbar-right navbar-no-bg">
 					#{if connectedSimpleUser}

@@ -1,18 +1,29 @@
-#{extends 'main.html' /} #{set title:'index.html' /}  
-<!-- tags -->
+﻿#{extends 'main.html' /} #{set title:'index.html' /}  
 
- 
-<p class="tags">
-
-	<span class="tag-title"><img src="@{'public/images/active_category.png'}">分类</span> <a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''}">全部</a> #{list items:t,as:'t'} <a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''}"> ${t.name} </a> #{/list}
-</p>
-<p class="tags">
-	<span class="tag-title"><img src="@{'public/images/number.png'}">人数</span> <a href="@{Activities.filterScope()}" class="${scope==''?'label label-primary':''}"> 全部</a> #{list items:s,as:'s'} <a href="@{Activities.filterScope(s.scope)}" class="${scope==s.scope?'label label-primary':''}"> ${s.scope}</a> #{/list}
-</p>
-<p class="tags">
-	<span class="tag-title"><img src="@{'public/images/time.png'}">时间</span> <a href="@{Activities.filterPeriod(-1)}" class="${days==-1?'label label-primary':''}"> 全部</a> #{list items:p,as:'p'} <a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''}"> ${p.period}</a> #{/list} <a href="@{Activities.filterPeriodWeekend}" class="${days==-2?'label label-primary':''}"> 周末</a>
-</p>
-
+<div class="row mb10 mt-20">
+	<div class="col-md-1">
+		<span class="tag-title"><img src="@{'public/images/active_category.png'}">分类</span> 
+		</div>
+		<div class="col-md-11">
+		<a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''} mr20">全部</a> #{list items:t,as:'t'} <a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''} mr20"> ${t.name} </a> #{/list}
+	</div>
+	</div>
+<div class="row mb10">
+	<div class="col-md-1">
+	<span class="tag-title"><img src="@{'public/images/number.png'}">人数</span>
+	</div>
+	<div class="col-md-11"> 
+	<a href="@{Activities.filterScope()}" class="${scope==''?'label label-primary':''} mr20"> 全部</a> #{list items:s,as:'s'} <a href="@{Activities.filterScope(s.scope)}" class="${scope==s.scope?'label label-primary':''} mr20"> ${s.scope}</a> #{/list}
+</div>
+</div>
+<div class="row mb10">
+	<div class="col-md-1">
+	<span class="tag-title"><img src="@{'public/images/time.png'}">时间</span>
+	</div>
+	<div class="col-md-11"> 
+	 <a href="@{Activities.filterPeriod(-1)}" class="${days==-1?'label label-primary':''} mr20"> 全部</a> #{list items:p,as:'p'} <a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''} mr20"> ${p.period}</a> #{/list} <a href="@{Activities.filterPeriodWeekend}" class="${days==-2?'label label-primary':''}"> 周末</a>
+</div>
+</div>
 <!-- ./tags -->
  
 	 

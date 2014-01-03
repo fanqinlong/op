@@ -26,6 +26,7 @@ table {
 	margin: 0 auto
 }
 
+
 #banner {
 	width: 100%;
 	height: 450px;
@@ -736,10 +737,18 @@ blockquote small:before {
 	margin-left: 150px;
 	margin-top: -20px
 }
+.minh140{
+	min-height:140px;
+}
+.maxh170{
+	
+	max-height:170px;
+	
+}
+
 
 .goy-3 {
-	display: block;
-	height: 120px;
+	 
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -1144,7 +1153,9 @@ a {
 
 .activity-card .thumbnail {
 	border-radius: 0;
-	width: 99%;
+	width: 100%;
+	padding-right: 0px;
+ 
 	height: 365px;
 	margin-top: 20px;
 	position: relative
