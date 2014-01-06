@@ -59,12 +59,12 @@ public class QuestAnsw extends Application {
 			userprofile = cssa.profile;
 			userselfIntro = cssa.selfIntro;
 		}
-		if (!Ques.isTitle(title)) {
+		if (title.equals("")) {
 			validation.keep();
 			params.flash();
 			flash.error("错误:请输入标题名");
 			QuesIndex();
-		} else if (!Ques.isContent(content)) {
+		} else if (content.equals("")) {
 			validation.keep();
 			params.flash();
 			flash.error("错误:请输入内容");
