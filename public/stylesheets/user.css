@@ -232,11 +232,15 @@ table {
 	padding: 5px 0
 }
 
-.activity {
+.activity,.top-thum-a {
 	position: relative;
 	height: 165px;
 	overflow: hidden;
 	font-size: 12px
+}
+ 
+.top-thum-a1 {
+	height:290px !important;
 }
 
 .activity .poster img {
@@ -246,6 +250,9 @@ table {
 .activity .poster {
 	position: relative;
 	top: 0
+}
+.activity-top-png{
+	height:220px !important;
 }
 
 .activity .titles {
@@ -257,14 +264,17 @@ table {
 	color: #FFF;
 	width: 100%
 }
+.top-thum-a1 {
+	background: #000000 !important;
+	opacity: 0.4;
+}
 
-.activity .detail {
+.activity .detail,.top-thum-a1 {
 	position: absolute;
 	background: #428bca;
 	width: 100%;
 	height: 165px;
-	top: 165px;
-	color: #FFF;
+ 	color: #FFF;
 	cursor: pointer
 }
 
@@ -1057,12 +1067,12 @@ blockquote small:before {
 
 .pic-height {
 	display: block;
-	height: auto
+	height: 290px;
 }
 
 .top-thum-a {
 	display: block;
-	height: 220px
+	 
 }
 
 .tags>span {
@@ -1097,7 +1107,16 @@ a.detailed {
 .details {
 	margin-bottom: 2px
 }
-
+.activity-intro{
+	width:66%;
+}
+.activity-comment{
+	
+	width: 70%; border-top: 1px dashed #dddddd;
+}
+.activity-comment a span{
+	
+}
 .ac_wid {
 	width: 600px
 }
