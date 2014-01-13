@@ -115,26 +115,27 @@
 
 		 
 			<h3>活动介绍</h3>
-			<p style="width:66%">${a.intro.raw()}</p>
+			<p class="activity-intro">${a.intro.raw()}</p>
  
-<hr />
+
 		<div id="comment">
 			 #{form @comment(), method:'get',class:'form-horizontal'}
 			
 			<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''} mg-top-3" >
 				<div class="col-sm-8">
-					<textarea class="form-control " name="c.comment" rows="1"></textarea>
+					<textarea class="form-control " name="c.comment" rows="3"></textarea>
 					<input type="hidden" name="activity" value="${a.id}" />
+					<input type="submit" class="btn btn-primary mt10" value="聊聊">
 				</div>
-				<div class="">
-					<input type="submit" class="btn btn-primary " value="聊聊">
-				</div>
+				 
 				<span>#{error 'comment' /}</span>
 			</div>
 
 			#{/form}  #{list items:a.comment,as:'comment'}
-			<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
-				<img style="width: 40px; " src=${comment.publisher.profile} /> <strong>${comment.publisher.name}:${comment.tag}</strong><span class="pull-right">${comment.publishedAt}</span>
+			<div style=" " class="img-w-3 pt20 pb40 activity-comment">
+				<a><img class="pull-left" src=${comment.publisher.profile} />
+				 <span class="db pull-left mt0 ml10">${comment.publisher.name}:${comment.tag}</span></a>
+				 <span class="pull-right">${comment.publishedAt}</span>
 				<br />
 				<span class="pl40">${comment.comment}</span>
 			</div>

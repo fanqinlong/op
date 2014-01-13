@@ -1107,7 +1107,16 @@ a.detailed {
 .details {
 	margin-bottom: 2px
 }
-
+.activity-intro{
+	width:66%;
+}
+.activity-comment{
+	
+	width: 70%; border-top: 1px dashed #dddddd;
+}
+.activity-comment a span{
+	
+}
 .ac_wid {
 	width: 600px
 }
