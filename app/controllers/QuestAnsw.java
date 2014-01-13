@@ -260,6 +260,7 @@ public class QuestAnsw extends Application {
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
 				CssaComment, userid, UserFocusQues, CSSAFocusQues,
 				comentUserid, comentUsertype, isSimple, isCSSA,aboutQues);
+		
 	}
 
 	public static void searchPage(long id, long question_id) {

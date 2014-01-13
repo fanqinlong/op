@@ -15,7 +15,6 @@
 				#{if trend.type.equals("activity")}
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
-					
 						<img src="${trend.orderCSSA==null?trend.orderSU.profile:trend.orderCSSA.profile}" />
 					</a>
 				</div>
@@ -23,28 +22,17 @@
 					<h5 style="margin-top:0px;" class="text-muted"><a>${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}</a>
 					${trend.action}活动：
 					</h5>
-				 
-						 
-							
 							<h4><a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a></h4>
-							 
-						 
 						<p class="text-muted overflow-2">
-							 
 								${trend.a.intro.raw()}
 						</p>
-						 
 						<ul class="list-inline text-muted font-12">
-							  <li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
+							<li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
 							<li>${trend.a.time.first().date}</li>
 							<li>参加(${trend.a.joiner.size()})</li>
-							
 							<li> 关注(${trend.a.liker.size()})</li>
 							<li> 评论(${trend.a.comment.size()})</li>
-							
-							
 							</ul>
-			
 						</div>
 					 	#{/if} #{elseif trend.type.equals("qa")}
 			<div class="row">

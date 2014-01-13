@@ -47,7 +47,6 @@ public class Activities extends Application {
 		String orderName = session.get("orderName") == null ? "default" : session.get("orderName");
 		String type = session.get("type") == null ? "" : session.get("type");
 		String scope = session.get("scope") == null ? "" : session.get("scope");
-		String zip = session.get("zip") == null ? "" : session.get("location");
 		String deadline = "";
 		String nowtime = Utils.getNowDate();
 
