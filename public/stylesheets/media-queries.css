@@ -28,7 +28,7 @@ smaller than 960
 	display:none !important;
 }
 .login, .login1 {
- 
+ background-color: #336699 !important;
 padding-top: 86px;
 }
 .container {
@@ -74,10 +74,10 @@ padding-top:9%;
 }
 }
 /************************************************************************************
-smaller than 800
+smaller than 760
 *************************************************************************************/
-@media screen and (max-width:800px) {
-	#banner,.opporlinklog,.main-beta,.logo,.hd_small,.index_dl,.login-form {
+@media screen and (max-width:760px) {
+	#banner,.opporlinklog,.main-beta,.logo,.hd_small,.index_dl,.login-form{
 	display:none;
 }
 .card-time2 {
@@ -86,7 +86,24 @@ smaller than 800
 .main-beta,.opporlinklog,.hd_small {
 	display:none;
 }
-.activity-card {
+.nav>li>a{
+	padding-left:0px;
+}
+.main-list{
+	margin-left:0px;
+	
+}
+.a-logo img,.a-logo1{
+	position: absolute;
+	top: 5px;
+}
+
+
+
+
+.navbar-nav {
+margin:0px;
+}.activity-card {
 	width:30% !important;
 	margin-right:10px;
 }
@@ -104,6 +121,10 @@ smaller than 650
 	width:30% !important;
 	margin-right:10px;
 }
+ 
+
+
+
 .card-time1 {
 	display:none;
 }
@@ -158,7 +179,7 @@ smaller than 560
 	text-align:center;
 }
 .bs-navbar-collapse {
-	width:100%;
+	width:107%;
 	float:right;
 }
 .index_dl {

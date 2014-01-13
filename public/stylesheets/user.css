@@ -25,7 +25,9 @@ table {
 	width: 100%;
 	margin: 0 auto
 }
-
+.minh40{
+	min-height: 40px;
+}
 
 #banner {
 	width: 100%;
@@ -353,7 +355,12 @@ hr {
 
 .navbar-op-footer {
 	background-color: #369;
-	color: #FFF
+	color: #FFF;
+	
+}
+.navbar {
+	
+	min-height: 40px !important;
 }
 
 .navbar-op-footer .nav>li>a,.navbar-op-footer .nav>li>a:hover,.navbar-op-footer .nav>li>a:focus {
@@ -1225,16 +1232,23 @@ img {
 	filter: alpha(opacity=40)
 }
 
-a img:hover {
+.top-thum-a  img:hover,.pic-height img:hover{
 	opacity: .8
 }
+.Activity-time-people tr,.Activity-time-people tbody>tr>td{
+	padding:0px;
+	width:20px;
+}
+
 
 .navbar-op {
 	background-color: #369;
 	border-radius: 0;
 	border: 0
 }
-
+.width70{
+	width:70px;
+}
 .main-beta {
 	position: relative;
 	left: -13px;
@@ -1989,6 +2003,7 @@ li {
 .size4 {
 	font-size: 12px;
 }
+
 
 .avatar1 {
 	width: 128px;

@@ -144,9 +144,9 @@
 
 			#{/form} #{/if} #{if date > a.time.last().date} #{list items:a.comment,as:'comment'}
 			<div style="width: 70%; padding-top: 15px; border-top: 1px solid #dddddd; padding-bottom: 10px;">
-				<img style="width: 40px; height: 40px;" src=${comment.publisher.profile} /> <strong>${comment.publisher.name}:${comment.tag}</strong><span style="float: right;">${comment.publishedAt}</span>
+				<img style="width: 40px; " src=${comment.publisher.profile} /> <strong>${comment.publisher.name}:${comment.tag}</strong><span class="pull-right">${comment.publishedAt}</span>
 				<br />
-				<span style="padding-left: 50px;">${comment.comment}</span>
+				<span class="pl40">${comment.comment}</span>
 			</div>
 			#{/list} #{/if}
 		</div>
@@ -180,7 +180,7 @@
 					</a>
 			</div>
 			<div class="col-md-9 pad-left-0">
-				<p class="mg-top-05"> ${a.publisherSU.name}</p>
+				<p class="mg-top-05"> ${a.publisherSU?.name}</p>
 				<p class="mg-top-05">
 				
 						#{if a.publisherSU==null} ${a.publisherCSSA?.school.name+" CSSA"}
@@ -232,10 +232,10 @@
 				<span class="canyu1 color4">人已通过;</span> #{/if}
 				 <span class="canyuNO">${a.liker.size()}</span>
 				 <span class="canyu1 color4">人已关注;</span>
-		 <div style="height: 110px; overflow: hidden; clear: both;">
+		 <div style="height: 70px; overflow: hidden; clear: both;">
 			 #{list items:allownJoiner,as:'joiner'}
 				<a data-toggle="modal" href="@{SimpleUsers.preview(joiner.joiner.id)}" data-target="#modal">
-					<img src="${joiner.joiner.profile}" style="width: 50px;" alt="${joiner.joiner.name}">
+					<img src="${joiner.joiner.profile}" class="avatar4 mb5" alt="${joiner.joiner.name}">
 				</a>
 			
 		 #{/list}

@@ -97,7 +97,7 @@
 				<div  class="login1 col-md-2  col-md-offset-1  " >
 			<div  class="user_exit text-center img-w-128 user_exit1" > 
 				 	
-					<img alt="" src="@{'public/images/touxiang.png'}" class="pa">
+					<img alt="" src="@{'public/images/touxiang.png'}" style="position:absolute;">
 					<img src="${userprofile}" class="img-circle ">
 				 <p class="size4 mg-top-1">你好，${username}</p>
 			</div>
@@ -126,7 +126,7 @@
 			
 			<div class="row">
 				#{list items:activities,as:'a'}
-				<div class="col-xs-6 col-sm-4 col-md-2 activity" style="padding-right: 0px;" >
+				<div class="col-xs-6 col-sm-4 col-md-2 activity pr0" >
 
 					<div class="poster">
 						<a href="@{Activities.detail(a.id)}" target="_blank"> <img alt=""  src="${a.poster}" class="img-responsive ">
@@ -225,28 +225,7 @@
 		$("body").iealert();
 	});
  
-		$(function() {
-
-			$(".btn-denglu").click(function() {
-				$(".fm").submit()
-			});
-
-			 
-		});
-
-		function change() {
-			$("#fir").fadeOut(1000);
-			$("#denglu_page").addClass("hide");
-			$("#send").fadeIn(1000);
-			$("#zuce_page").removeClass("hide");
-
-		}
-		function change_page() {
-			$("#fir").fadeIn();
-			$("#denglu_page").removeClass("hide");
-			$("#send").fadeOut();
-			$("#zuce_page").addClass("hide");
-		}
+	 
 		$(".activity").hover(function() {
 			$(this).children().last().clearQueue();
 			$(this).children().last().stop(true, true).animate({
