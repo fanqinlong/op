@@ -6,13 +6,11 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title>欢迎来到奥噗</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/public/stylesheets/shou.css" />
+ 
  <link href="/public/stylesheets/media-queries.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="@{'public/IE/iealert/style.css'}" />
-	 
-
-#{stylesheet 'op-theme.css' /} #{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{stylesheet 'index.css' /}
- 
+	  #{stylesheet 'user.css' /}
+	 #{stylesheet 'op-theme.css' /}
 
  
 <body>
@@ -42,21 +40,33 @@
  
  <div class="row index_row"  >
 	
+		
+	
+	
 			<div class="col-xs-6  col-sm-6  col-md-5  col-md-offset-1 col-sm-offset-1 col-xs-offset-1 logo" >
-				<img  class="img-responsive"  src="/public/images/logo-big.png"/  >
+				<img  class="img-responsive"  src="/public/images/logo-big.png">
 			</div>	
 	
-		<div  class="login col-xs-4 col-sm-3 col-md-2  col-md-offset-1  col-sm-offset-1 col-xs-offset-1" >
-
+		
+		
 			#{if isNotLogin}
+			
+			<div class="index-infocenter text-center" style="">
+			<div class="pr">
+					<img alt="" src="@{'public/images/small-logo.png'}" class=" mg-top-4">
+					<img  class="pa  mg-top-3 mg-left-05"  src="/public/images/beta.png" style=""/>
+				</div>	
+				<div>
+				<a href="SimpleUsers/login" class="btn mg-top-3 small-index-login" >登录奥噗</a>
+				</div>
+				<a href="SimpleUsers/signup"  class="btn small-index-login  mg-top-2">快速注册</a>
+		 </div>
+	
+			
+			<div  class="login col-xs-4 col-sm-3 col-md-2  col-md-offset-1  col-sm-offset-1 col-xs-offset-1" >
 			<div class="index_dl">
  
-			
-			
-			 
-			
-			
-				<h5 class="pull-left">
+			 <h5 class="pull-left">
 				<img  class="img-responsive pull-right index-beta"  src="/public/images/beta.png" style=""/>
 					Welcome
 				</h5>
@@ -84,21 +94,29 @@
 				</div>
 			</form>
 			#{/if} #{else} #{if isSimpleUser}
-			<div  class="user_exit text-center" > 
-				 
-					<img src="${userprofile}" class="img-circle" >
-				 
+				<div  class="login1 col-md-2  col-md-offset-1  " >
+			<div  class="user_exit text-center img-w-128 user_exit1" > 
+				 	
+					<img alt="" src="@{'public/images/touxiang.png'}" style="position:absolute;">
+					<img src="${userprofile}" class="img-circle ">
+				 <p class="size4 mg-top-1">你好，${username}</p>
 			</div>
-			<div class="user_exit_infocenter text-center"  ><a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{SimpleUsers.logout}">退出登录</a></div> #{/if} #{elseif isCssa}
+			
+			<div class="user_exit_infocenter text-center"  >
+			<p>
+			<a  class="size4 btn-infocenter btn-sm"  href="@{SimpleUsers.infoCenter()}"><img alt="" src="@{'public/images/login_1.png'}" class="mg-top-04 mg-right-02">个人中心</a>
+			</p><p class="mg-top-2"> <a  class="size4 btn-infocenter btn-sm " href="@{SimpleUsers.logout}"><img alt="" src="@{'public/images/login_2.png'}" class="mg-top-04 mg-right-02">退出登录</a></p></div> 
+			 #{/if} #{elseif isCssa}
 			<ul  class="user_exit" align="center">
 				<li>
-					<img src="${userprofile}" class="img-circle  " >
+					<img src="${userprofile}" class="img-circle"  >
+					<p class="size4 mg-top-1">你好，${username}</p>
 				</li>
 			</ul>
 			<div  class="user_exit_infocenter text-center"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
 		</div>
 	</div>
- 
+ </div>
 	<div class="container hot-list"  >
 		<div class="mg-top-3">
 			<h3 class="text-primary">
@@ -108,7 +126,7 @@
 			
 			<div class="row">
 				#{list items:activities,as:'a'}
-				<div class="col-xs-6 col-sm-4 col-md-2 activity" style="padding-right: 0px;" >
+				<div class="col-xs-6 col-sm-4 col-md-2 activity pr0" >
 
 					<div class="poster">
 						<a href="@{Activities.detail(a.id)}" target="_blank"> <img alt=""  src="${a.poster}" class="img-responsive ">
@@ -119,7 +137,7 @@
 						<p>
 							<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
 						</p>
-						<p>${a.summary}</p>
+						<p>${a.summary.raw()}</p>
 						<p>
 							<small>${a.time.first().date}至${a.time.last().date}</small><br /> 已有<b> ${a.joiner.size()}</b>人报名参加
 						</p>
@@ -149,12 +167,12 @@
 				<hr />
 				<ul class="index-content-ul"  >
 				#{list items:ques,as:'q'}
-				<li>
-					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank">${q.title}</a>
+				<li class="overflow-100">
+					<span class="label"  >${q.views}</span> <a href="@{QuestAnsw.showQuesInfo(q.id)}" target="_blank" >${q.title}</a>
 				</li>
 				#{/list}
 				<p class="text-right">
-					<a href="@{QuestAnsw.searchPage}" class="btn  btn-primary">Read More</a>
+					<a href="@{QuestAnsw.searchPage(1,1,10)}" class="btn  btn-primary">Read More</a>
 				</p>
 
 			</div>
@@ -196,7 +214,7 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="public/javascripts/jquery.validate.js"></script>
+ 
 		<script type="text/javascript" src="public/javascripts/banner.js"></script>
 	
   	<script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
@@ -207,50 +225,7 @@
 		$("body").iealert();
 	});
  
-		$(function() {
-
-			$(".btn-denglu").click(function() {
-				$(".fm").submit()
-			});
-
-			$(".fm").validate({
-				rules : {
-					'email' : {
-						required : true,
-						email : true
-					},
-					'password' : {
-						required : true,
-						rangelength : [ 7, 18 ]
-					}
-				},
-				messages : {
-					email : {
-						required : '请输入电子邮件地址',
-						email : '电子邮件格式错误'
-					},
-					password : {
-						required : "请输入密码",
-						rangelength : "密码长度为7~18位"
-					}
-
-				}
-			});
-		});
-
-		function change() {
-			$("#fir").fadeOut(1000);
-			$("#denglu_page").addClass("hide");
-			$("#send").fadeIn(1000);
-			$("#zuce_page").removeClass("hide");
-
-		}
-		function change_page() {
-			$("#fir").fadeIn();
-			$("#denglu_page").removeClass("hide");
-			$("#send").fadeOut();
-			$("#zuce_page").addClass("hide");
-		}
+	 
 		$(".activity").hover(function() {
 			$(this).children().last().clearQueue();
 			$(this).children().last().stop(true, true).animate({

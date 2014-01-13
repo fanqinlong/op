@@ -2,24 +2,32 @@
 #{extends 'main.html' /}
 #{set title:'dispAddQues.html'/}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv='refresh' content='3;URL= http://www.opporlink.com/questansw/searchpage'>
+<meta http-equiv='refresh' content='3;URL= http://www.opporlink.com/questansw/searchpage?flag=1&pageSize=10&currentPage=1'>
 
-<div class="span5 offset3" style="margin-top: 110px;margin-bottom: 237px;margin-left:320px;">
-<img src="@{'public/images/ok.png'}" style="float:left; margin-top: -15px;">
-<h4 style="color:#5282a5" >您好，您的问题已经提交，奥噗社区正在为你解答...<br>
-<span id="div1" style="color:#5282a5"></span><span style="color:#5282a5" id="div2">秒后自动跳转问答首页</span></h4>
+
+<div class="text-center" style="margin-top: 110px; margin-bottom: 237px;">
+	
+	<h4 style="color: #5282a5"><img src="@{'public/images/ok.png'}">您好，您的问题已经提交，奥噗社区正在为你解答...</h4>
+
+	<span id="div1" style="color:#5282a5"></span><span style="color:#5282a5" id="div2">秒后自动跳转问答首页</span></h4>
 </div>
-	 
-<script>
-var start = 3;
-var step = -1;
-function count()
-{
-	document.getElementById("div1").innerHTML = start;
-	start += step;
-	if(start < 0)
-		start = 3;
-	setTimeout("count()",1000);
-}
-window.onload = count;
-</script>
+
+#{set 'Scripts'}
+    <script type="text/javascript">		
+		var start = 3;
+		var step = -1;
+	function count()
+	{
+		document.getElementById("div1").innerHTML = start;
+		start += step;
+		if(start < 0)
+			start = 3;
+		setTimeout("count()",1000);
+	}
+	
+	 $(document).ready(function(){
+	 	
+	 	count();
+		});
+		</script>
+  #{/set}

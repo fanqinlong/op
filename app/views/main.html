@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <script type="text/javascript" src="@{'public/javascripts/jquery.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
-<script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
-#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet 'main.css' /} #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+ 
+#{stylesheet 'user.css' /}  #{stylesheet 'op-theme.css' /}   #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 </head>
 <body>
-	<header class="navbar  navbar-op" role="navigation" style="min-height: 40px;height: 40px !important;">
-		<div class="container" style="min-height: 40px;height: 40px !important;">
+	<header class="navbar  navbar-op " role="navigation" >
+		<div class="container">
 			<div class="navbar-header">
 			 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
 		        <span class="sr-only">Toggle navigation</span>
@@ -25,21 +25,25 @@
 				
 			</div>
 			
-			<a class="navbar-brand" href="/"> <img class="opporlinklog" src="@{'/public/images/logo.png'}"></a>
+			<a class="navbar-brand a-logo ${request?.controller == 'Application' ? 'active' : ''} " id="a-logo" href="@{Application.index}">
+			 
+			 <img src="@{'/public/images/logo.png'}" class="a-logo"></a>
+			
+			<a class="navbar-brand dn" href="@{Application.index}" id="a-logo1"> <img alt="" src="@{'/public/images/logo-hover.png'}" class="a-logo1"></a>
 				<img  class="img-responsive pull-left  main-beta"  src="/public/images/beta.png" />
 			<div class="navbar-collapse collapse bs-navbar-collapse" style="background-color:#336699;" >
 			
-	 	<ul class="nav navbar-nav ">
-	 	<li>
-					<li><a class="${request?.controller == 'Application' ? 'active' : ''} " href="@{Application.index}">首页</a></li>
-					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
-					<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">活动</a></li>
-					<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage}">问答</a></li>
+	 	<ul class="nav navbar-nav ml30 main-list">
+	  
+				<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">一起玩</a></li>
+				<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage(1,1,10)}">找答案</a></li>
 					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
+					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
+				
 				</ul>
-<!--  
-				<form class="navbar-form navbar-left global-search" role="search">
-					<div class="form-group">
+ <!-- 
+		 	<form class="navbar-form navbar-left global-search" role="search"  >
+					<div class="form-group pull-left">
 						<input class="form-control" type="text" placeholder="搜索感兴趣的活动、话题或人...">
 					</div>
 
@@ -47,7 +51,11 @@
 						<i class=" icon-search"></i>
 					</button>
 				</form>
--->
+ 
+ 	  -->
+ 
+ 
+ 
 				<ul class="nav navbar-nav navbar-right navbar-no-bg">
 					#{if connectedSimpleUser}
 					<li><a href="@{SimpleUsers.infoCenter()}"> ${connectedSimpleUser.name}</a></li>
@@ -168,36 +176,30 @@
 		$(document).ready(function() {
 			$(".alert").delay(30000).slideUp("slow");
 		});
-		
-		var start = 5;
-		var step = -1;
-	function count()
-	{
-		document.getElementById("div1").innerHTML = start;
-		start += step;
-		if(start < 0)
-			start = 5;
-		setTimeout("count()",1000);
-	}
+
 	
-	 $(document).ready(function(){
-	 	
-	 	count();
-		});
+		$("#a-logo").mouseover(function(){
+			$("#a-logo").css("display","none");
+			$("#a-logo1").css("display","inline");
+		 });
+	 	$("#a-logo1").mouseout(function(){
+	 		$("#a-logo1").css("display","none");
+			$("#a-logo").css("display","inline");
+	 	})
 		
- 
+	
     //点击回到顶部的元素
     $("#gotop").click(function(e) {
             //以1秒的间隔返回顶部
             $('body,html').animate({scrollTop:0},1000);
     });
     $("#gotop").mouseover(function(e) {
-        $(this).css("background","url(images/backtop2013.png) no-repeat 0px 0px");
+        $(this).css("background","url(@{'public/images/backtop2013.png'}) no-repeat 0px 0px");
     });
     $("#gotop").mouseout(function(e) {
-        $(this).css("background","url(images/backtop2013.png) no-repeat -70px 0px");
+        $(this).css("background","url(@{'public/images/backtop2013.png'}) no-repeat -70px 0px");
     });
-    gobackTop();//实现回到顶部元素的渐显与渐隐
+  //实现回到顶部元素的渐显与渐隐
  
 	
 	
