@@ -33,12 +33,11 @@
 					<img id="imghead" name="f1">
 				</div>
 		</div>
-		</div>
 			<div class="form-group">
 			    <label class="col-sm-2 control-label">公益说明</label>
 			    <div class="col-sm-6">
-			      <input type="text" class="form-control" placeholder="140字以内......"
-					name="generalize" value="${flash.generalize}">
+			      <input type="text" class="form-control"placeholder="140字以内......"
+					name="generalize" value="${flash.generalize}"  maxlength="140">
 			    </div>
 			  </div>
 
@@ -47,7 +46,7 @@
  			<div class="form-group">
 				 <label class="col-sm-2 control-label">文章内容</label>
 				  <div class="col-sm-6">
-				   <textarea cols="50" id="area1" style="width:550px;" rows="10" name="content"  > </textarea>
+				   <textarea cols="50" id="area1" style="width:550px;" rows="10" name="content" value="${flash.content}" > </textarea>
 		
 		 		 </div>
 			</div>
@@ -62,7 +61,7 @@
 		</form>
 	 
 </div>
- 
+</div>
 	 
  
 <!--这里是底部-->

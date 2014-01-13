@@ -61,8 +61,13 @@
 
 		<div class="thumbnail">
 		
-			<a href="@{Activities.detail(fa.id)}" target="_blank" class="top-thum-a"> <img title="${fa.name}" src="${fa.poster}" class="img-responsive">
+			<a href="@{Activities.detail(fa.id)}" target="_blank" class="top-thum-a activity-top-png" >
+			
+			 <img title="${fa.name}" src="${fa.poster}" class="img-responsive">
+			
+			<span class="top-thum-a1" >${a.intro.raw()}</span>
 			</a>
+			
 			<div>
 				<h4 class="overflow-100 top-title">${fa.name}</h4>
 				<div class="time text-muted">${fa.time.first().date}至${fa.time.last().date}</div>
@@ -111,7 +116,10 @@
 
 			</div>
 			<div class="thumbnail">
-				<a href="@{Activities.detail(a.id)}" target="_blank" class="pic-height"> <img title="${a.name}" src="${a.poster}" class="img-responsive" style="">
+				<a href="@{Activities.detail(a.id)}" target="_blank" class="pic-height top-thum-a" > <img title="${a.name}" src="${a.poster}" class="img-responsive" style="">
+					<span class="top-thum-a1" >${a.intro.raw()}</span>
+				
+				
 				</a>
 				<div class="caption">
 					<div class="overflow-100 activity-name-width" class="">
@@ -138,10 +146,28 @@
 		</div>
 		#{/list} #{/if} 
 </div>
-
+ 
 
 #{set 'Scripts'}
 <script type="text/javascript">
+
+
+
+$(".top-thum-a").hover(function() {
+	$(this).children().last().clearQueue();
+	$(this).children().last().stop(true, true).animate({
+		top : '0'
+	}, "slow");
+
+}, function() {
+	$(this).children().last().clearQueue();
+	$(this).children().last().stop(true, true).animate({
+		top : '290'
+	});
+
+});
+
+
 $('body').on('hidden.bs.modal', '.modal', function () {
     $(this).removeData('bs.modal');
 });
