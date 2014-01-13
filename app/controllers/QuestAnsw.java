@@ -277,8 +277,10 @@ public class QuestAnsw extends Application {
 		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
 				comentUsername, FQ, UserQues, CssaQues, UserComments,
 				CssaComment, userid, UserFocusQues, CSSAFocusQues,
+
 				comentUserid, comentUsertype, isSimple, isCSSA, aboutQues,
 				relatedQues);
+
 	}
 
 	public static void showQuesInfo(long id) {
