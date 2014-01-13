@@ -1,7 +1,6 @@
 #{extends 'main.html' /} 
-#{set title:'welfare.html'/}
-
-<link rel="stylesheet" href="@{'public/stylesheets/wel.css'}" />
+#{set title:'500.html'/}
+ 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv='refresh' content='5;URL= javascript:history.go(-1)'>
 
@@ -14,8 +13,27 @@
 		</div>
 	</div>
 	<div class="float-1"></div>
-	<div id="div1"></div>
-	<span id="div2">秒后返回上级页面</span>
+	<h2 id="div1"></h2>
+	<h2 id="div2">秒后返回上级页面</h2>
 </div>
  
 #{/else}
+#{set 'Scripts'}
+    <script type="text/javascript">		
+		var start = 5;
+		var step = -1;
+	function count()
+	{
+		document.getElementById("div1").innerHTML = start;
+		start += step;
+		if(start < 0)
+			start = 5;
+		setTimeout("count()",1000);
+	}
+	
+	 $(document).ready(function(){
+	 	
+	 	count();
+		});
+		</script>
+  #{/set}

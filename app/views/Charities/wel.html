@@ -1,84 +1,62 @@
 #{extends 'main.html' /}
 #{set title:'wel.html'/}
- #{set 'Styles'}
- <link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
- #{/set}
  
 
 		
 		<!--这里是内容-->
-<div class="">
+<div class="row">
 	<div class="col-md-8">
-			<div class="control-group ">
-					  <h4 class="gy-title">公益活动
-					  
-					  </h4>
-					   		
-					   		
-					   		
-					   		
-					   		
-					
-			 </div> 
-			 	 #{if isAdmin}
-			 		<h4><a  class="btn btn-primary gy-fb" href="@{Charities.fabu()}">发布公益活动</a></h4>
-			 	 #{/if}
+		 <h3>公益活动</h3><hr>
+			  #{if isAdmin}
+			 	<h4><a  class="btn btn-primary gy-fb" href="@{Charities.fabu()}">发布公益</a></h4>
+			  #{/if}
 			 	 
 			#{if !isAdmin} 	 
 				 #{if !islogged}
-				 		<h4><a  class="btn btn-info gy-fb"   href="Charities/smindex">发布公益活动</a></h4>
+				 		<h4><a  class="btn btn-info gy-fb"   href="Charities/smindex">发布公益</a></h4>
 					 #{/if}
-				 #{/if} 
+			 #{/if} 
 				 
 			 	#{list items :we,as:'ac'}
-				 	
-				  	 <div class="b-1">
-				  		
-						
-						
-				<blockquote style="border-left: 0px ;padding-left:0px;">
-			  <p class="overfloat-100"><a class="goy-h3" href="@{Charities.welfare(ac.id)}" target="_blank">${ac.title}</a></p>
-			 		 <small  class="pull-right"><span style="color:#999999;">来自于:</span><span style="color:#666666;">${ac.fromUser}</span></small>
-			</blockquote>
-						
-						
-						
-						
-						#{if isAdmin&& !ac.isChecked}
-							 <a  class="btn btn-default pull-right" href="@{Charities.pass(ac.id)}">通过审核</a>
-						 #{/if}
-						</h3>
-					 	
-						<a href="@{Charities.welfare(ac.id)}"> <img src="${ac.f}" class="b-pic img-responsive "/></a>
-						
-						 	 	 <div class="goy-3"> 
-									  	<span class="goy-a">${ac.generalize}</span>
-									 </div>		
-								 <div class="goy-4">
-							 
-								 	<span class="link">${ac.time}更新 </span>
-								 
-								 <span class="goy-6">
-									 	<a class="link" href="@{charities.like(ac.id,pageNo)}"> +关注活动(<span style="color:red;font-size:14px;">${ac.likerCount}</span>) </a>
-								 	</span><br/>
-									 		
+				
+				<blockquote style="" class="pb0">
+				  <p class="overfloat-100 mb0 pad-bottom-0 "><a class="goy-h3" href="@{Charities.welfare(ac.id)}" target="_blank">${ac.title}</a></p>
+				 <small  class="pull-right"><span class="color4">来自于:</span><span class="color5">${ac.fromUser}</span></small>
+				</blockquote>
+			#{if isAdmin&& !ac.isChecked}
+				 <a  class="btn btn-default pull-right" href="@{Charities.pass(ac.id)}">通过审核</a>
+			#{/if}
+						 
+			<div class="row">
+				<div class="col-md-4 col-sm-4 ">
+					<a href="@{Charities.welfare(ac.id)}"> <img src="${ac.f}" class=" img-responsive maxh170"/></a>
+				</div>
+				<div class="col-md-8 col-sm-8 pl0">
+			 	 	 <div class="goy-3 minh140" > 
+					  	<span class="goy-a ">${ac.generalize}</span>
+					 </div>		
+				 	<span class="link">${ac.time}更新 </span>
+			    	 <span class="ml30">
+						 	<a class="link" href="@{charities.like(ac.id,pageNo)}"> +关注活动(<span style="color:red;font-size:14px;">${ac.likerCount}</span>) </a>
 					 	#{if isAdmin }
 					 	  	<a href="@{Charities.edit(ac.id,pageNo)}">编辑</a>
-						 
-					  			 #{/if}					
-							 	</div>
-							 
-						 
-				  </div>
+					  #{/if}			
+					</span>
+				</div>
+			</div>	
+		<hr>	 
+			#{/list}	
+	</div>
+</div>
 					
-				 	<div class="float-1"></div>
+				 	 
 				 
-						#{/list}
+					
 			
 
 			 
 		 
-	  	#{if pageCount!=1}
+	  	#{if pageCount != 1}
 			  <div class="pagination">
 						<ul>
 							<li>
@@ -88,12 +66,12 @@
 								<li >
 									<a href="@{Charities.pigination(pageNo-1 )}" pagenum="${pageNo}"   id="shangyiye" class="paging">上一页</a>
 								</li>
-						  		#{list items:1..pageCount,as:'page'}
+						  	 
+						   	 %{for(int i=inter[0];i<=inter[1];i++){}%
 								<li class="panduan" >
-									<a href="@{Charities.pigination(page)}"  class="paging  ${pageNo==page?"now_page":""} "   id="page_gy"  >${page}</a>
+							 		<a href="@{Charities.pigination(i)}"  class="paging  ${pageNo==i?"now_page":""} "   id="page_gy"  >${i}</a>
 								</li>
-								
-								#{/list}
+						 	 %{}}%
 						 	<li>
 									<a href="@{Charities.pigination(pageNo+1 )}" id="xiayiye" pageNumber="${pageCount}"  class="paging">下一页</a>
 								</li>
@@ -114,10 +92,6 @@
  
  
  
- 
-	<div class="float-1"></div>
-
-</div>
  
 		<!--这里是底部-->
 	
