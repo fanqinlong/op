@@ -90,7 +90,7 @@ $('#modal').on('hidden', function() {
   	<a type="button" href="@{QuestAnsw.QuesIndex}" class="btn btn-info bt2" onMouseOver="this.style.backgroundColor='#66FF66'" onMouseOut="this.style.backgroundColor='#33cc33'">我要提问</a>
 </form>
 <dl class="dl-horizontal" style="margin-top:30px;">
-  <dt style="width:40px;">标签:</dt>
+  <dt style="width:40px;margin-top:10px; margin-right:10px;">标签:</dt>
   <dd style="margin-left:45px;">
 	    #{list items:t,as:'tag'}
 	  		#{if tag.id == tagid}
