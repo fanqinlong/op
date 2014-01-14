@@ -1067,7 +1067,7 @@ blockquote small:before {
 
 .pic-height {
 	display: block;
-	height: 290px;
+	height: 280px;
 }
 
 .top-thum-a {
@@ -1180,7 +1180,7 @@ a {
 .activity-card .thumbnail {
 	border-radius: 0;
 	width: 100%;
-	padding-right: 0px;
+	padding-right:-1px;
  
 	height: 365px;
 	margin-top: 20px;
