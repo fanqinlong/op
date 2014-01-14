@@ -274,6 +274,7 @@ table {
 	background: #428bca;
 	width: 100%;
 	height: 165px;
+	z-index:9999;
  	color: #FFF;
 	cursor: pointer
 }
@@ -342,9 +343,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 	padding-top: 4px
 }
 
-.navbar-brand>img {
-	height: 31px
-}
+ 
 
 .global-search {
 	margin-top: 8px;
@@ -1270,8 +1269,8 @@ img {
 }
 .main-beta {
 	position: relative;
-	left: -13px;
-	top: 3px
+	left: -10px;
+top: 2px;
 }
 .pa{
 	position:absolute;
@@ -1853,10 +1852,7 @@ margin-top: -5px;}
 	padding-top: 4px
 }
 
-.navbar-brand>img {
-	height: 31px
-}
-
+ 
 .form-control,.btn,.alert,.img-thumbnail {
 	border-radius: 2px
 }
