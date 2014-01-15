@@ -1272,13 +1272,9 @@ img {
 	left: -10px;
 top: 2px;
 }
-.pa{
-	position:absolute;
+.mh10{
+	min-height:10px;
 }
-.pr{
-	position:relative;
-}
-
 
  
 .navbar-nav>li {
@@ -1945,6 +1941,9 @@ hr {
 li {
 	list-style: none
 }
+.ml50{
+	margin-left:50px;
+}
 
 .mb0{
 	margin-bottom:0px;	
@@ -1978,7 +1977,9 @@ li {
 .img-border img {
 	border: 1px solid #CCC
 }
-
+.color-red{
+	color:red;
+}
 .color1 {
 	color: #336699;
 }

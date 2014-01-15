@@ -37,7 +37,7 @@
 					 </div>		
 				 	<span class="link">${ac.time}更新 </span>
 			    	 <span class="ml30">
-						 	<a class="link" href="@{charities.like(ac.id,pageNo)}"> +关注活动(<span style="color:red;font-size:14px;">${ac.likerCount}</span>) </a>
+						 	<a class="link" href="@{charities.like(ac.id,pageNo)}"> +关注活动(<span class="size3 color-red">${ac.likerCount}</span>) </a>
 					 	#{if isAdmin }
 					 	  	<a href="@{Charities.edit(ac.id,pageNo)}">编辑</a>
 					  #{/if}			
@@ -48,14 +48,7 @@
 			#{/list}	
 	</div>
 </div>
-					
-				 	 
-				 
-					
-			
-
-			 
-		 
+  
 	  	#{if pageCount != 1}
 			  <div class="pagination">
 						<ul>
