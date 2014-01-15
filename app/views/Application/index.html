@@ -107,13 +107,21 @@
 			<a  class="size4 btn-infocenter btn-sm"  href="@{SimpleUsers.infoCenter()}"><img alt="" src="@{'public/images/login_1.png'}" class="mg-top-04 mg-right-02">个人中心</a>
 			</p><p class="mg-top-2"> <a  class="size4 btn-infocenter btn-sm " href="@{SimpleUsers.logout}"><img alt="" src="@{'public/images/login_2.png'}" class="mg-top-04 mg-right-02">退出登录</a></p></div> 
 			 #{/if} #{elseif isCssa}
-			<ul  class="user_exit" align="center">
-				<li>
+			<div  class="login1 col-md-2  col-md-offset-1  " >
+			<div  class="user_exit text-center img-w-128 user_exit1" > 
+				 	
+					<img alt="" src="@{'public/images/touxiang.png'}" style="position:absolute;">
 					<img src="${userprofile}" class="img-circle"  >
 					<p class="size4 mg-top-1">你好，${username}</p>
-				</li>
-			</ul>
-			<div  class="user_exit_infocenter text-center"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
+				</div>
+			<div class="user_exit_infocenter text-center"  >
+			<p>
+			<a  class="size4 btn-infocenter btn-sm"  href="@{CSSAs.infoCenter()}"><img alt="" src="@{'public/images/login_1.png'}" class="mg-top-04 mg-right-02">个人中心</a>
+			</p><p class="mg-top-2"> <a  class="size4 btn-infocenter btn-sm " href="@{CSSAs.logout}"><img alt="" src="@{'public/images/login_2.png'}" class="mg-top-04 mg-right-02">退出登录</a></p></div> 	
+			
+			
+			
+			 #{/elseif} #{/else}
 		</div>
 	</div>
  </div>
