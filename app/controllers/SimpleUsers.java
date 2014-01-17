@@ -204,10 +204,7 @@ public class SimpleUsers extends Application {
 			} else {
 				if (session.get("Meal_test")!=null) {
 					connectSimple(user);
-					String shopName = session.get("Meal_test");
-					List<FoodName> foodname = FoodName.findAll();
-					renderTemplate("Meal/test/sellerInfo.html", shopName,
-							foodname);
+					Meal.sellerInfo();
 				} else if (session.get("qusetionId") == null) {
 					connectSimple(user);
 					flash.success("欢迎回来， %s !", user.name);
