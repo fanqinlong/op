@@ -26,6 +26,7 @@ import play.libs.Crypto;
 import play.libs.Files;
 import play.libs.Images;
 import play.mvc.*;
+import models.Meal.FoodName;
 import models.activity.Activity;
 import models.activity.Joiner;
 import models.activity.Liker;
@@ -38,7 +39,7 @@ public class SimpleUsers extends Application {
 	@Before(unless = { "login", "signup", "register", "confirmRegistration",
 			"authenticate", "resendConfirmation", "forgetPassword",
 			"doForgetPassword", "resetPasswordConfirmation", "resetPassword",
-			"confirmEduMail","preview" })
+			"confirmEduMail", "preview" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			login();
@@ -201,13 +202,20 @@ public class SimpleUsers extends Application {
 				flash.put("email", email);
 				login();
 			} else {
-				if (session.get("qusetionId")==null) {
+				if (session.get("Meal_test")!=null) {
+					connectSimple(user);
+					String shopName = session.get("Meal_test");
+					List<FoodName> foodname = FoodName.findAll();
+					renderTemplate("Meal/test/sellerInfo.html", shopName,
+							foodname);
+				} else if (session.get("qusetionId") == null) {
 					connectSimple(user);
 					flash.success("欢迎回来， %s !", user.name);
 					infoCenter();
-				}else{
+				} else {
 					connectSimple(user);
-					QuestAnsw.showQuesInfo(Integer.parseInt(session.get("qusetionId")));
+					QuestAnsw.showQuesInfo(Integer.parseInt(session
+							.get("qusetionId")));
 					infoCenter();
 				}
 			}
@@ -225,6 +233,11 @@ public class SimpleUsers extends Application {
 			flash.success("欢迎回来， %s CSSA!", cssa.school.name);
 			CSSAs.infoCenter();
 		}
+
+	}
+
+	private static void sellerinfo() {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -398,9 +411,9 @@ public class SimpleUsers extends Application {
 			int height, int width) {
 		String path = "public/images/profile/" + Codec.UUID()
 				+ f.getName().substring(f.getName().lastIndexOf("."));
-		try{
-		Images.crop(f, f, left, top, height, width);
-		}catch(Exception e){
+		try {
+			Images.crop(f, f, left, top, height, width);
+		} catch (Exception e) {
 			flash.error("图片上传错误，请更换图片。");
 			changeProfile(id);
 		}
@@ -418,8 +431,8 @@ public class SimpleUsers extends Application {
 		List<Trend> trends = Trend
 				.find("select distinct t from Trend t left join t.a.liker as l "
 						+ "where l.likerSU.id = ? or t.orderSU.id = ? or t.relationSU.id = ? order by time desc",
-						id, id,id).fetch();
-		
+						id, id, id).fetch();
+
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
 		render(user, trends);
@@ -427,8 +440,9 @@ public class SimpleUsers extends Application {
 
 	public static void publishedActivity() {
 		long userId = Utils.getUserId();
-		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by postAt desc ", userId)
-				.fetch();
+		List<Activity> activities = Activity
+				.find("publisherSU.id = ? and  isPublished=true order by postAt desc ",
+						userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "publish";
 		render(user, activities, tag);
@@ -436,7 +450,8 @@ public class SimpleUsers extends Application {
 
 	public static void joinedActivity() {
 		long userId = Utils.getUserId();
-		List<Joiner> activities = Joiner.find("joiner.id = ? order by joinedAt desc ", userId).fetch();
+		List<Joiner> activities = Joiner.find(
+				"joiner.id = ? order by joinedAt desc ", userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "join";
 		render(user, activities, tag);
@@ -444,14 +459,12 @@ public class SimpleUsers extends Application {
 
 	public static void likedActivity() {
 		long userId = Utils.getUserId();
-		List<Liker> activities = Liker.find("likerSU.id = ? order by likedAt desc ", userId).fetch();
+		List<Liker> activities = Liker.find(
+				"likerSU.id = ? order by likedAt desc ", userId).fetch();
 		SimpleUser user = SimpleUser.findById(userId);
 		String tag = "like";
 		render(user, activities, tag);
 	}
-	
-
-	
 
 	public static void getActivityJoiner(long aid) {
 
@@ -464,8 +477,8 @@ public class SimpleUsers extends Application {
 	public static void homePage(long userid) {
 		SimpleUser user = SimpleUser.findById(userid);
 		notFoundIfNull(user);
-		render("@infoCenter",user);
-	
+		render("@infoCenter", user);
+
 	}
 
 	public static void homePageActivity(long userid) {
@@ -476,29 +489,35 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void homePageQa(long userid) {
-	
+
 	}
 
 	public static void preview(long userid) {
 		SimpleUser user = SimpleUser.findById(userid);
-		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by id desc,views desc", userid).fetch(3);
-		List<Ques> questions =Ques.find("userid = ? and usertype=? order by views", userid,"simple").fetch(3);
-		render(user,activities,questions);
+		List<Activity> activities = Activity
+				.find("publisherSU.id = ? and  isPublished=true order by id desc,views desc",
+						userid).fetch(3);
+		List<Ques> questions = Ques.find(
+				"userid = ? and usertype=? order by views", userid, "simple")
+				.fetch(3);
+		render(user, activities, questions);
 	}
-	public static void detail(long id){
+
+	public static void detail(long id) {
 		SimpleUser simple = SimpleUser.findById(id);
-		List<Activity> activities = Activity.find("publisherSU.id = ? and  isPublished=true order by id desc",id).fetch();
-		render(activities,simple);
+		List<Activity> activities = Activity
+				.find("publisherSU.id = ? and  isPublished=true order by id desc",
+						id).fetch();
+		render(activities, simple);
 	}
-	public static void userQues(long id){
+
+	public static void userQues(long id) {
 		SimpleUser simple = SimpleUser.findById(id);
-		List<Ques> ques = Ques.find("userid = ?",id).fetch();
-		
+		List<Ques> ques = Ques.find("userid = ?", id).fetch();
+
 		System.out.println(ques);
-		
-		render(ques,simple);
+
+		render(ques, simple);
 	}
-
-
 
 }

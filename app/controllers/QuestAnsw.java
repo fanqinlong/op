@@ -571,9 +571,7 @@ public class QuestAnsw extends Application {
 			}
 		}
 		
-		System.out.println("看看这个是什么普通用户"+UserFocusQues);
-		System.out.println("看看这个是什么CSSA用户"+CSSAFocusQues);
-		render(findCom, fQ, FQ, username,relatedQues,UserFocusQues,CSSAFocusQues);
+		render(findCom, fQ, FQ, username,relatedQues,UserFocusQues,CSSAFocusQues,isSimple,isCSSA);
 	}
 
 	public static void editComSuccessful(Comments c) {

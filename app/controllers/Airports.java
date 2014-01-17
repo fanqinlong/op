@@ -11,7 +11,6 @@ import play.data.validation.Validation;
 import play.mvc.*;
 
 public class Airports extends Application {
-
 	@Before
 	public static void isCSSA() {
 		if (session.get("logged") != null
@@ -21,7 +20,6 @@ public class Airports extends Application {
 				renderArgs.put("isCSSA", true);
 		}
 	}
-
 	@Before
 	public static void isSimpleUser() {
 		if (session.get("logged") != null
@@ -32,14 +30,12 @@ public class Airports extends Application {
 				renderArgs.put("isSimpleUser", true);
 		}
 	}
-
 	@Before
 	public static void isLogged() {
 		if (session.get("usertype") == null) {
 			SimpleUsers.login();
 		}
 	}
-
 	public static void index() {
 		String usertype = session.get("usertype");
 		String username = null;
@@ -58,7 +54,6 @@ public class Airports extends Application {
 		String explain = sch.synopsis;
 		Long schoolId = sch.id;
 		String schoolName = sch.name;
-		
 		String stuName;
 		String stuhometown;
 		SimpleUser simp = SimpleUser.findById(Long.parseLong(session
@@ -71,16 +66,6 @@ public class Airports extends Application {
 
 	public static void doAddStuInfo(StuInfo s, Long schoolId) {
 		Long sid = schoolId;
-		
-//		final Validation.ValidationResult validationResult = validation
-//				.valid(s);
-//		if (!validationResult.ok) {
-//			validation.keep();
-//			params.flash();
-//			flash.error("请更正错误。");
-//			addStuInfo(sid);
-//		}
-		
 		if(s.name.equals("")){
 			System.out.println("111111");
 			validation.keep();
@@ -142,13 +127,6 @@ public class Airports extends Application {
 
 	public static void doAddVolInfo(VolInfo v, Long schoolId) {
 		Long sid = schoolId;
-//		final Validation.ValidationResult vr = validation.valid(v);
-//		if (!vr.ok) {
-//			validation.keep();
-//			params.flash();
-//			flash.error("请更正错误。");
-//			addVolInfo(sid);
-//		}
 		if(v.name.equals("")){
 			validation.keep();
 			params.flash();

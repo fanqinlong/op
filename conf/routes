@@ -87,6 +87,7 @@ GET     /Airports/check/{file_path}                 Airports.check
 
 GET     /export/exportStu/{username}                      ExportStuinfo.exportStu
 GET     /ExportVoiInfo/exportVoiInfo/{username}           ExportVoiInfo.exportVoiInfo
+GET     /ExportOrder/exportOrder                               ExportOrder.exportOrder
 
 GET     /Airports/stuInfo/{username}                Airports.stuInfo
 GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
@@ -147,7 +148,6 @@ GET					/charity/like/{aid}/{pageNo}							Charities.like
  
 
 #Question and answer
-
 POST /QuestAnsw/QuesIndex                              QuestAnsw.dispAddQues
 GET	 /QuestAnsw/dispAddQues               		       QuestAnsw.comments
 GET  /QuestAnsw/showQuesInfo/{id}                      QuestAnsw.showQuesInfo
@@ -169,9 +169,21 @@ GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
 GET  /QuestAnsw/orderbyAnswerNumber                    QuestAnsw.orderbyAnswerNumber
-POST /UserSurvey/index               		       UserSurvey.index
-#Info and Jobs
+POST /UserSurvey/index               		           UserSurvey.index
 
+
+#Meal
+GET	 /Meal/test/index               		           Meal.index
+GET	 /Meal/test/inputFrom               		       Meal.inputFrom
+POST /Meal/test/doOrder               		           Meal.doOrder
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+POST /Meal/test/searchOrder               		       Meal.searchOrder
+GET	 /Meal/test/deleteOrder/{id}               		   Meal.deleteOrder
+GET	 /Meal/test/doSend/{id}               		       Meal.doSend
+GET	 /Meal/test/doSuccessful/{id}               	   Meal.doSuccessful
+POST /simple/authenticate               	         SimpleUsers.authenticate
+#Info and Jobs
 GET 				/about    					                        Info.about
 GET 				/contact                                            Info.contact
 GET 				/jobs                                               Info.jobs
