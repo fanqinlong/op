@@ -1,4 +1,4 @@
-#{extends 'main.html' /} #{set title:'detail.html' /}  
+#{extends 'main.html' /} #{set title:a.name /}  %{String date = new Date().format("yyyy-MM-dd")}%
 <div class="row">
 	<div class="col-md-9">
 		#{if a.isCanceled}
@@ -22,11 +22,13 @@
 					<div class="details ">
 						<span class="pic-leftTitle color4">时间：</span> <span class="color5  At_info ">${a.time.first().date}至${a.time.last().date} ${a.time.first().timeFrom}-${a.time.first().timeTo}</span>
 					</div>
-					#{if isAllown || isOwner}
+					
 					<div class="details ">
-						<span class="pic-leftTitle color4">地点：</span> <span class="color5  At_info">${a.location}</span>
+						<span class="pic-leftTitle color4">地点：</span> 
+						#{if isAllown || isOwner} <span class="color5  At_info ">${a.location}</span> #{/if}
+						#{else}<span class="text-danger  At_info ">报名后通过审核可见哦～ </span>#{/else}
 					</div>
-					#{/if}
+					
 					<div class="details">
 						<span class="pic-leftTitle color4">费用：</span> <span class="color5  At_info">$ ${a.money}</span>
 					</div>
@@ -37,11 +39,11 @@
 						<span class="pic-leftTitle color4">类型：</span> <span class="color5  At_info">${a.type.name}</span>
 					</div>
 
-					#{if isAllown || isOwner}
 					<div class="details">
-						<span class="pic-leftTitle color4">联系方式：</span> <span class="color5  At_info">${a.contract}</span>
+					<span class="pic-leftTitle color4">联系方式：</span>
+					#{if isAllown || isOwner} <span class="color5  At_info ">${a.contract}</span> #{/if}
+						#{else}<span class="text-danger  At_info ">报名后通过审核可见哦～ </span>#{/else}
 					</div>
-					#{/if}
 					 
 					<div class="details">
 						<span class="pic-leftTitle color4">是否需要报名：</span> <span class="color5  At_info">${a.isOpen?"否":"是"}</span>
@@ -118,7 +120,21 @@
 			<p class="activity-intro">${a.intro.raw()}</p>
  
 
-		<div id="comment">
+		<div id="comment" class="mg-top-3">
+		<h2 class="text-success">讨论区</h2>
+		
+			
+			 #{list items:a.comment,as:'comment'}
+			<div style=" " class="img-w-3 pt20 pb40 activity-comment">
+				<a data-toggle="modal" href="@{SimpleUsers.preview(comment.publisher.id)}" data-target="#modal"><img class="pull-left" src=${comment.publisher.profile} />
+				 <span class="db pull-left mt0 ml10">${comment.publisher.name}:${comment.tag}</span></a>
+				 <span class="pull-right">${comment.publishedAt}</span>
+				<br />
+				<span class="pl40">${comment.comment}</span>
+			</div>
+			#{/list}
+			
+			#{if connectedSimpleUser}
 			 #{form @comment(), method:'get',class:'form-horizontal'}
 			
 			<div class="form-group ${errors.forKey('tag') ? 'has-error' : ''} mg-top-3" >
@@ -131,15 +147,15 @@
 				<span>#{error 'comment' /}</span>
 			</div>
 
-			#{/form}  #{list items:a.comment,as:'comment'}
-			<div style=" " class="img-w-3 pt20 pb40 activity-comment">
-				<a><img class="pull-left" src=${comment.publisher.profile} />
-				 <span class="db pull-left mt0 ml10">${comment.publisher.name}:${comment.tag}</span></a>
-				 <span class="pull-right">${comment.publishedAt}</span>
-				<br />
-				<span class="pl40">${comment.comment}</span>
-			</div>
-			#{/list}
+			#{/form} 
+			#{/if}#{elseif connectedCSSA}
+			
+			<h4>CSSA 用户暂不能加入讨论。</h4>
+			#{/elseif}
+			#{else}
+			<h5>请<a href="@{SimpleUsers.login}"> 登录 </a>参与讨论，或者<a href="@{SimpleUsers.signup}">注册</a></h5>
+			#{/else}
+			
 		</div>
 
 	</div>
@@ -157,7 +173,7 @@
 				<a href="https://maps.google.com/?q=${a.location.replaceAll(" ","+")}" target="_blank">点击查看详细地图 </a>
 				#{/if}
 			</h4>
-			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(" ","+")}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll( " ","+")}&sensor=false " alt="">
+			<img src="http://maps.googleapis.com/maps/api/staticmap?center=${a.location.replaceAll(' ','+')}&zoom=11&size=235x165&markers=color:green%7Clabel:A%7C${a.location.replaceAll( ' ','+')}&sensor=false " title="报名通过审核后才能看到详细位置哦～">
 		</div>
 
 		<div class="person row mg-left-0">

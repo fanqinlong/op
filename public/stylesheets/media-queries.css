@@ -204,7 +204,11 @@ smaller than 560
 	padding-right:0px;
 }
 .activity-card .thumbnail {
-	height:216px !important;
+	height:225px !important;
+}
+.pic-height {
+ 
+height: 162px;
 }
 .mp-top-2-1 img {
 	width:60px;

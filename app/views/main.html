@@ -25,11 +25,11 @@
 				
 			</div>
 			
-			<a class="navbar-brand a-logo ${request?.controller == 'Application' ? 'active' : ''} " id="a-logo" href="@{Application.index}">
+			<a class="navbar-brand mt4 a-logo ${request?.controller == 'Application' ? 'active' : ''} " id="a-logo" href="@{Application.index}" >
 			 
 			 <img src="@{'/public/images/logo.png'}" class="a-logo"></a>
 			
-			<a class="navbar-brand dn" href="@{Application.index}" id="a-logo1"> <img alt="" src="@{'/public/images/logo-hover.png'}" class="a-logo1"></a>
+			<a class="navbar-brand dn mt4" href="@{Application.index}" id="a-logo1"> <img alt="" src="@{'/public/images/logo-hover.png'}" class="a-logo1"></a>
 				<img  class="img-responsive pull-left  main-beta"  src="/public/images/beta.png" />
 			<div class="navbar-collapse collapse bs-navbar-collapse" style="background-color:#336699;" >
 			
@@ -37,6 +37,7 @@
 	  
 				<li><a class="${request?.controller == 'Activities' ? 'active' : ''} " href="@{Activities.index}">一起玩</a></li>
 				<li><a class="${request?.controller == 'QuestAnsw' ? 'active' : ''} " href="@{QuestAnsw.searchPage(1,1,10)}">找答案</a></li>
+				
 					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 				
@@ -93,10 +94,9 @@
 	<!-- container end -->
 	<div class="gobackTop" id="gobackTop">
 		<div id="gotop" ><img src="/public/images/button_top_.png" id="Top" onmouseout="onmouseoutTop()" onmouseover="onmouseoverTop()"> </div>
-		<div style="margin-top:2px;"  data-toggle="modal" data-target="#myModa2"><img src="/public/images/button_suggest_.png" id="opinion"  onmouseout="mouseout()" onmouseover="mouseover()"> </div>
+		<div style="margin-top:2px;"  data-toggle="modal" data-target="#myModaOpinion"><img src="/public/images/button_suggest_.png" id="opinion"  onmouseout="mouseout()" onmouseover="mouseover()"> </div>
 	</div>
-	
-<div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModaOpinion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -180,11 +180,11 @@
 	
 		$("#a-logo").mouseover(function(){
 			$("#a-logo").css("display","none");
-			$("#a-logo1").css("display","inline");
+			$("#a-logo1").css("display","block");
 		 });
 	 	$("#a-logo1").mouseout(function(){
 	 		$("#a-logo1").css("display","none");
-			$("#a-logo").css("display","inline");
+			$("#a-logo").css("display","block");
 	 	})
 		
 	

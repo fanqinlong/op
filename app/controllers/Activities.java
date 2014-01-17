@@ -468,7 +468,6 @@ public class Activities extends Application {
 		}
 
 		t.save();
-
 		detail(activity);
 	}
 

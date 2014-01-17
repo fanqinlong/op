@@ -87,6 +87,7 @@ GET     /Airports/check/{file_path}                 Airports.check
 
 GET     /export/exportStu/{username}                      ExportStuinfo.exportStu
 GET     /ExportVoiInfo/exportVoiInfo/{username}           ExportVoiInfo.exportVoiInfo
+GET     /ExportOrder/exportOrder                               ExportOrder.exportOrder
 
 GET     /Airports/stuInfo/{username}                Airports.stuInfo
 GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
@@ -147,36 +148,42 @@ GET					/charity/like/{aid}/{pageNo}							Charities.like
  
 
 #Question and answer
-
 POST /QuestAnsw/QuesIndex                              QuestAnsw.dispAddQues
 GET	 /QuestAnsw/dispAddQues               		       QuestAnsw.comments
 GET  /QuestAnsw/showQuesInfo/{id}                      QuestAnsw.showQuesInfo
-POST /QuestAnsw/searchpage               		       QuestAnsw.answerRapidly
 GET	 /QuestAnsw/{pageNum}		                       QuestAnsw.Quespaging
 GET  /QuestAnsw/deleteQues/{id}                        QuestAnsw.deleteQues
 GET  /QuestAnsw/editQues/{id}                          QuestAnsw.editQues
 POST /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
 GET  /QuestAnsw/editComent/{comentUserid}/{comentUsertype}/{quesid}		   QuestAnsw.editComent
-POST /QuestAnsw/editComSuccessful	                   QuestAnsw.editComSuccessful
+POST /QuestAnsw/editComSuccessful                   QuestAnsw.editComSuccessful
 GET  /QuestAnsw/cancelFqcusQues/{quesid}		       QuestAnsw.cancelFqcusQues
-GET  /QuestAnsw/notAgree/{id}/{quesid}	               QuestAnsw.notAgree
-GET  /QuestAnsw/changeComent/{comentUserid}/{comentUsertype} QuestAnsw.changeComent
+GET  /QuestAnswtAgree/{id}/{quesid}	               QuestAnsw.notAgree
+GET  /QuestAnswangeComent/{comentUserid}/{comentUsertype} QuestAnsw.changeComent
 GET  /QuestAnsw/fcousOnQuestion/{id}                   QuestAnsw.fcousOnQuestion
 POST /QuestAnsw/addComent                              QuestAnsw.addComent
 GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
-GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool 
+GET  /QuestAnsw/searchSchool                              QuestAnsw.searchSchool 
 GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
 GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
 GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
 GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
-
 GET  /QuestAnsw/orderbyAnswerNumber                    QuestAnsw.orderbyAnswerNumber
+POST /UserSurvey/index               		           UserSurvey.index
 
 
-POST /UserSurvey/index               		       UserSurvey.index
-
+#Meal
+GET	 /Meal/test/index               		           Meal.index
+GET	 /Meal/test/inputFrom               		       Meal.inputFrom
+POST /Meal/test/doOrder               		           Meal.doOrder
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+POST /Meal/test/searchOrder               		       Meal.searchOrder
+GET	 /Meal/test/deleteOrder/{id}               		   Meal.deleteOrder
+GET	 /Meal/test/doSend/{id}               		       Meal.doSend
+GET	 /Meal/test/doSuccessful/{id}               	   Meal.doSuccessful
+POST /simple/authenticate               	         SimpleUsers.authenticate
 #Info and Jobs
-
 GET 				/about    					                        Info.about
 GET 				/contact                                            Info.contact
 GET 				/jobs                                               Info.jobs

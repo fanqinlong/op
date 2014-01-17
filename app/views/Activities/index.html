@@ -1,46 +1,56 @@
-﻿
-﻿#{extends 'main.html' /} #{set title:'index.html' /}  
+﻿﻿#{extends 'main.html' /} #{set title:'index.html' /}  
+
 
 <div class="row mb10 mt-20">
 	<div class="col-md-1 width70">
-		<span class="tag-title"><img src="@{'public/images/active_category.png'}">分类</span> 
-		</div>
-		<div class="col-md-11">
-		<a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''} mr20">全部</a> #{list items:t,as:'t'} <a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''} mr20"> ${t.name} </a> #{/list}
+		<span class="tag-title"><img src="@{'public/images/active_category.png'}">分类</span>
 	</div>
+	<div class="col-md-11">
+		<a href="@{Activities.filterType()}" class="${type==''?'label label-primary':''} mr20">全部</a>
+		#{list items:t,as:'t'}
+		<a href="@{Activities.filterType(t.name)}" class="${type==t.name?'label label-primary':''} mr20"> ${t.name} </a>
+		#{/list}
 	</div>
-<div class="row mb10">
-	<div class="col-md-1 width70">
-	<span class="tag-title"><img src="@{'public/images/number.png'}">人数</span>
-	</div>
-	<div class="col-md-11"> 
-	<a href="@{Activities.filterScope()}" class="${scope==''?'label label-primary':''} mr20"> 全部</a> #{list items:s,as:'s'} <a href="@{Activities.filterScope(s.scope)}" class="${scope==s.scope?'label label-primary':''} mr20"> ${s.scope}</a> #{/list}
-</div>
 </div>
 <div class="row mb10">
 	<div class="col-md-1 width70">
-	<span class="tag-title"><img src="@{'public/images/time.png'}">时间</span>
+		<span class="tag-title"><img src="@{'public/images/number.png'}">人数</span>
 	</div>
-	<div class="col-md-11"> 
-	 <a href="@{Activities.filterPeriod(-1)}" class="${days==-1?'label label-primary':''} mr20"> 全部</a> #{list items:p,as:'p'} <a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''} mr20"> ${p.period}</a> #{/list} <a href="@{Activities.filterPeriodWeekend}" class="${days==-2?'label label-primary':''}"> 周末</a>
+	<div class="col-md-11">
+		<a href="@{Activities.filterScope()}" class="${scope==''?'label label-primary':''} mr20"> 全部</a>
+		#{list items:s,as:'s'}
+		<a href="@{Activities.filterScope(s.scope)}" class="${scope==s.scope?'label label-primary':''} mr20"> ${s.scope}</a>
+		#{/list}
+	</div>
 </div>
+<div class="row mb10">
+	<div class="col-md-1 width70">
+		<span class="tag-title"><img src="@{'public/images/time.png'}">时间</span>
+	</div>
+	<div class="col-md-11">
+		<a href="@{Activities.filterPeriod(-1)}" class="${days==-1?'label label-primary':''} mr20"> 全部</a>
+		#{list items:p,as:'p'}
+		<a href="@{Activities.filterPeriod(p.days)}" class="${days==p.days?'label label-primary':''} mr20"> ${p.period}</a>
+		#{/list}
+		<a href="@{Activities.filterPeriodWeekend}" class="${days==-2?'label label-primary':''}"> 周末</a>
+	</div>
 </div>
 <!-- ./tags -->
- 
-	 
+
+
 <div class="btn-group order">
-	<a href="@{Activities.orderByDefault}" class="btn btn-default btn-sm ${orderName=='default'?'checked':''}">
-		 默认排序 
-	</a> <a href="@{Activities.orderByScope}" class="btn btn-default btn-sm ${orderName=='scope'?'checked':''} ">
-		 
-			参与人数 <i class=" icon-arrow-down"></i>
-		 
-	</a> <a href="@{Activities.orderByTime}" class="btn btn-default btn-sm  ${orderName=='time'?'checked':''}">
-	 
-			发布时间 <i class=" icon-arrow-down"></i>
-		 
+	<a href="@{Activities.orderByDefault}" class="btn btn-default btn-sm ${orderName=='default'?'checked':''}"> 默认排序 </a>
+	<a href="@{Activities.orderByScope}" class="btn btn-default btn-sm ${orderName=='scope'?'checked':''} ">
+
+		参与人数 <i class=" icon-arrow-down"></i>
+
 	</a>
-	 
+	<a href="@{Activities.orderByTime}" class="btn btn-default btn-sm  ${orderName=='time'?'checked':''}">
+
+		发布时间 <i class=" icon-arrow-down"></i>
+
+	</a>
+
 	<a href="@{Activities.orderByCSSA} ">
 		<button type="button" class="btn btn-default btn-sm ${orderName=='cssa'?'checked':''}">
 			CSSA活动 <i class=" icon-arrow-down"></i>
@@ -52,10 +62,9 @@
 </div>
 
 <div class="container container-op2" style="">
-	<img title="推荐" src="@{'public/images/tuijian.png'}" class="top-tuijian img-responsive">
-	#{list items:frontpageActivity,as:'fa'}
+	<img title="推荐" src="@{'public/images/tuijian.png'}" class="top-tuijian img-responsive"> #{list items:frontpageActivity,as:'fa'}
 
-	
+
 	<div class="pull-left activity-item-frontpage ">
 
 
@@ -65,10 +74,12 @@
 			<a href="@{Activities.detail(fa.id)}" target="_blank" class="top-thum-a activity-top-png" >
 			
 			 <img title="${fa.name}" src="${fa.poster}" class="img-responsive">
-			
-			<span class="top-thum-a1" >${a.intro.raw()}</span>
+ 	
+			<span class="top-thum-a1" >${fa.summary.raw()}</span>
+		 
+
 			</a>
-			
+
 			<div>
 				<h4 class="overflow-100 top-title">${fa.name}</h4>
 				<div class="time text-muted">${fa.time.first().date}至${fa.time.last().date}</div>
@@ -78,13 +89,17 @@
 
 
 					<div class="pull-left">
-						#{if fa.publisherCSSA==null} <a data-toggle="modal" href="@{SimpleUsers.preview(fa.publisherSU.id)}" data-target="#modal"> #{/if}#{else} <a data-toggle="modal" href="@{CSSAs.preview(fa.publisherCSSA.id)}" data-target="#modal"> #{/else} <img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" title="${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}" class="img-polaroid img-responsive">
-						</a>
+						#{if fa.publisherCSSA==null}
+						<a data-toggle="modal" href="@{SimpleUsers.preview(fa.publisherSU.id)}" data-target="#modal">
+							#{/if}#{else}
+							<a data-toggle="modal" href="@{CSSAs.preview(fa.publisherCSSA.id)}" data-target="#modal">
+								#{/else} <img src="${fa.publisherCSSA?.profile}${fa.publisherSU?.profile}" title="${fa.publisherSU==null?(fa.publisherCSSA?.school.name+" CSSA"):fa.publisherSU.name}" class="img-polaroid img-responsive">
+							</a>
 					</div>
 					<div class="pull-left">
 						<!------------------------------v-cssa.png--------------------------------->
-						<p class="top-cssa">
-							<img title="cssa" src="@{'public/images/V-CSSA.png'}" class="img-responsive">
+						<p class="top-cssa mh10">
+							#{if fa.publisherCSSA!=null} <img title="cssa" src="@{'public/images/V-CSSA.png'}" class="img-responsive"> #{/if}
 						</p>
 
 						<p class="text-right marginT5">
@@ -92,11 +107,6 @@
 						</p>
 
 					</div>
-
-
-
-
-
 				</div>
 			</div>
 		</div>
@@ -109,29 +119,36 @@
 	<!-- users activity -->
 	<div class="row activity-cards">
 		<!--下面部分-->
-		#{if !a.isEmpty()} #{list items:a,as:'a'} 
+		#{if !a.isEmpty()} #{list items:a,as:'a'}
 		<div class="pull-left activity-card">
 
 			<div class="mp-top-2-1">
-				#{if a.isTop} <img src="@{'/public/images/active_detailed_tag.png'}" class="img-responsive"  > #{/if} #{elseif a.isCanceled} <img src="@{'/public/images/active_detailed_tag3.png'}" class="img-responsive"> #{/elseif} #{elseif a.isHot} <img src="@{'/public/images/active_detailed_tag1.png'}" class="img-responsive"> #{/elseif}#{elseif a.isChecked} <img src="@{'/public/images/active_detailed_tag2.png'}" class="img-responsive"> #{/elseif}
+				#{if a.isTop} <img src="@{'/public/images/active_detailed_tag.png'}" class="img-responsive"> #{/if} #{elseif a.isCanceled} <img src="@{'/public/images/active_detailed_tag3.png'}" class="img-responsive"> #{/elseif} #{elseif a.isHot} <img src="@{'/public/images/active_detailed_tag1.png'}" class="img-responsive"> #{/elseif}#{elseif a.isChecked} <img src="@{'/public/images/active_detailed_tag2.png'}" class="img-responsive"> #{/elseif}
 
 			</div>
 			<div class="thumbnail">
-				<a href="@{Activities.detail(a.id)}" target="_blank" class="pic-height top-thum-a" > <img title="${a.name}" src="${a.poster}" class="img-responsive" style="">
-					<span class="top-thum-a1" >${a.intro.raw()}</span>
+				<a href="@{Activities.detail(a.id)}" target="_blank" class="pic-height top-thum-a" > 
+				<img title="${a.name}" src="${a.poster}" class="img-responsive" style="">
+					 
+					<div class="top-thum-a1" style="padding:20px" >${a.summary.raw()}</div>
 				
-				
+			 
+
 				</a>
 				<div class="caption">
-					<div class="overflow-100 activity-name-width" class="">
+					<div class="overflow-100 activity-name-width">
 						<span target="_blank" class="activity-name">${a.name}</span>
 					</div>
 
 					<div class="row" class="card-buttom">
 
 						<div class="col-md-2 col-sm-3 col-xs-3 xxxxx" style="">
-							#{if a.publisherCSSA==null} <a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal"> #{/if}#{else} <a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal"> #{/else} <img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="card-user " class="" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+"CSSA"):a.publisherSU.name}">
-							</a>
+							#{if a.publisherCSSA==null}
+							<a data-toggle="modal" href="@{SimpleUsers.preview(a.publisherSU.id)}" data-target="#modal">
+								#{/if}#{else}
+								<a data-toggle="modal" href="@{CSSAs.preview(a.publisherCSSA.id)}" data-target="#modal">
+									#{/else} <img src="${a.publisherCSSA?.profile}${a.publisherSU?.profile}" class="card-user " class="" title="${a.publisherSU==null?(a.publisherCSSA?.school.name+"CSSA"):a.publisherSU.name}">
+								</a>
 						</div>
 						<div class="col-md-10 col-sm-9 col-xs-9 card-time">
 							<p class="text-left card-time1">
@@ -140,39 +157,34 @@
 							<img title="推荐" src="@{'public/images/V-CSSA.png'}" class="img-responsive pull-left marginT5"> <span class="pull-right cjrq">参加<a href="@{Activities.alljoinner(a.id)}"> ${a.joiner.size()} </a> 人气<a href="@{Activities.alljoinner(a.id)}"> ${a.views} </a></span>
 
 						</div>
-						 
+
 					</div>
 				</div>
 			</div>
 		</div>
-		#{/list} #{/if} 
-</div>
- 
-
-#{set 'Scripts'}
-<script type="text/javascript">
+		#{/list} #{/if}
+	</div>
 
 
+	#{set 'Scripts'}
+	<script type="text/javascript">
+		$(".top-thum-a").hover(function() {
+			$(this).children().last().clearQueue();
+			$(this).children().last().stop(true, true).animate({
+				top : '0'
+			}, "slow");
 
-$(".top-thum-a").hover(function() {
-	$(this).children().last().clearQueue();
-	$(this).children().last().stop(true, true).animate({
-		top : '0'
-	}, "slow");
+		}, function() {
+			$(this).children().last().clearQueue();
+			$(this).children().last().stop(true, true).animate({
+				top : '290'
+			});
 
-}, function() {
-	$(this).children().last().clearQueue();
-	$(this).children().last().stop(true, true).animate({
-		top : '290'
-	});
+		});
 
-});
-
-
-$('body').on('hidden.bs.modal', '.modal', function () {
-    $(this).removeData('bs.modal');
-});
-</script>
-#{/set}
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-
+		$('body').on('hidden.bs.modal', '.modal', function() {
+			$(this).removeData('bs.modal');
+		});
+	</script>
+	#{/set}
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

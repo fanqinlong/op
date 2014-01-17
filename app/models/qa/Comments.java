@@ -7,8 +7,8 @@ import play.db.jpa.Model;
 
 @Entity
 public class Comments extends Model {
-
 	public long quesid;
+	@Required
 	public String comment;
 	public long praiseNum;
 	public long hateNum;
@@ -35,5 +35,12 @@ public class Comments extends Model {
 		this.quesTitle = quesTitle;
 		this.hateNum = hateNum;
 		create();
+	}
+	
+	public static Comments findByComment(String comment) {
+		return find("comment", comment).first();
+	}
+	public static boolean isComment(String comment) {
+		return findByComment(comment) == null;
 	}
 }

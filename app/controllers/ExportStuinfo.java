@@ -14,7 +14,6 @@ public class ExportStuinfo extends Controller {
 		List<StuInfo> contacts = StuInfo.findAll();
 		render(contacts);
 	}
-
 	public static void exportStu(String username) {
 		request.format = "xlsx";
 		List<StuInfo> stu = StuInfo.find(
@@ -25,5 +24,4 @@ public class ExportStuinfo extends Controller {
 		render(__FILE_NAME__, stu);
 
 	}
-
 }
