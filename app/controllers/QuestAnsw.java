@@ -290,7 +290,6 @@ public class QuestAnsw extends Application {
 
 				comentUserid, comentUsertype, isSimple, isCSSA, aboutQues,
 				relatedQues);
-
 	}
 
 	public static void showQuesInfo(long id) {
@@ -542,7 +541,39 @@ public class QuestAnsw extends Application {
 		Ques fQ = Ques.findById(Quesid);
 		List<FocusQues> FQ = FocusQues.find("quesId = ?", Quesid).fetch(5);
 		session.put("commentId", findCom.id);
-		render(findCom, fQ, FQ, username);
+
+		String comentUsertype = session.get("usertype");
+		boolean isSimple = false;
+		boolean isCSSA = false;
+		if (comentUsertype.equals("simple")) {
+			isSimple = true;
+		} else {
+			isCSSA = true;
+		}
+		String s = new String(fQ.label);
+		String a[] = s.split(",");
+		List<Ques> relatedQues = Ques.find(
+				"SELECT a FROM Ques a WHERE label LIKE ?", "%" + a[0] + "%")
+				.fetch(5);
+		Boolean UserFocusQues = false;
+		Boolean CSSAFocusQues = false;
+		List<FocusQues> userThisFocusQues = FocusQues.find(
+				"quesId = ? and userid = ? and userType = ? ", fQ.id, userid,
+				"simple").fetch();
+		List<FocusQues> cssaThisFocusQues = FocusQues.find(
+				"quesId = ? and userid = ? and userType = ? ", fQ.id, userid,
+				"cssa").fetch();
+		if (!userThisFocusQues.isEmpty() || !cssaThisFocusQues.isEmpty()) {
+			if (!userThisFocusQues.isEmpty()
+					&& comentUsertype.equals("simple")) {
+				UserFocusQues = true;
+			} else if (!cssaThisFocusQues.isEmpty()
+					&& comentUsertype.equals("cssa")) {
+				CSSAFocusQues = true;
+			}
+		}
+		
+		render(findCom, fQ, FQ, username,relatedQues,UserFocusQues,CSSAFocusQues,isSimple,isCSSA);
 	}
 
 	public static void editComSuccessful(Comments c) {

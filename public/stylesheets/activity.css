@@ -180,6 +180,7 @@ a {
 	background: #EEE;
 }
 
+<<<<<<< HEAD
 img {
 	opacity: 1;
 	filter: alpha(opacity =   40);
@@ -187,6 +188,24 @@ img {
 
 img:hover {
 	opacity: 0.8;
+=======
+.card-title {
+	background-color: #CCF;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding: 5px 20px;
+}
+.card-content p{
+	font-size:12px;
+	line-height:36px;
+	margin:0px;
+}
+img{
+opacity:1;
+}
+img:hover{
+opacity:0.8;
+>>>>>>> temp
 }
 
 。mp-top-2-1 img:hover {

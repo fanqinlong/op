@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 ﻿#{extends 'main.html' /} #{set title:'index.html' /}  
 
 <div class="row mb10 mt-20">
@@ -121,6 +121,7 @@
 			</div>
 			<div class="thumbnail">
 				<a href="@{Activities.detail(a.id)}" target="_blank" class="pic-height top-thum-a" > <img title="${a.name}" src="${a.poster}" class="img-responsive" style="">
+
 					 
 					<div class="top-thum-a1" style="padding:20px" >${a.summary.raw()}</div>
 				

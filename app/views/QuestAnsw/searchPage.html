@@ -91,16 +91,17 @@ $('#modal').on('hidden', function() {
 </form>
 <dl class="dl-horizontal" style="margin-top:30px;">
   <dt style="width:40px; margin-top:10px; margin-right:10px;">标签:</dt>
+
   <dd style="margin-left:45px;">
 	    #{list items:t,as:'tag'}
 	  		#{if tag.id == tagid}
-			<a class="btn btn-default" href="@{QuestAnsw.searchTag(1,tag.tagName,1,10)}" role="button" 
-			style="margin-top:5px;border-radius:20px;background-color:#6699ff; color:#ffffff;border:0px !important;" >${tag.tagName}</a>
+			<a class="btn btn-default" href="@{QuestAnsw.searchTag(1,tag.tagName,1,10)}" role="button" 	style="margin-top:5px;border-radius:20px;background-color:#6699ff; color:#ffffff;border:0px !important;" >${tag.tagName}</a>
+
 			#{/if}
 			#{else}
-			 <a class="btn btn-default color7" href="@{QuestAnsw.searchTag(1,tag.tagName,1,10)}" role="button" 
-			 onMouseOver="this.style.backgroundColor='#6699ff';this.style.color='#ffffff'" 
+			 <a class="btn btn-default color7" href="@{QuestAnsw.searchTag(1,tag.tagName,1,10)}" role="button" 	 onMouseOver="this.style.backgroundColor='#6699ff';this.style.color='#ffffff'" 
 			 onMouseOut="this.style.backgroundColor='#FFFFFF';this.style.color='#6699cc'"  style="margin-top:5px;border-radius:20px;color:#6699ff;"  >${tag.tagName}</a>
+
 			#{/else}
 	    #{/list}
   </dd>
@@ -201,6 +202,7 @@ $('#modal').on('hidden', function() {
 							 <li  class="sq" style="width:100%">
 									<div  class="content overflow-2" >
 										<span class="size3">${qa.ques.content.raw()}</span>
+
 									</div>
 								</li>
 								<li class="sq">
@@ -236,6 +238,7 @@ $('#modal').on('hidden', function() {
 							  		</a>
 							  	#{/else}
 							  			<span class="size3"  style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:69%;margin-bottom: 	0px;display:block;">
+
 							  				<a href="@{QuestAnsw.showQuesInfo(tu.quesid)}">${tu.quesTitle}</a>
 							  			</span>
 							  			<img src="@{'public/images/1-2.PNG'}">
@@ -247,6 +250,7 @@ $('#modal').on('hidden', function() {
 				    <span class="size1">热门回答</span>
  					#{list items:topQues,as:'tq'}
  					<span class="size3">
+
 				   		 <a href="@{QuestAnsw.showQuesInfo(tq.id)}" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:100%;display:block;">${tq.title}</a>
 				   	</span>
 				     <span class="size4 color4">${tq.focusNum}个回答</span>
