@@ -266,7 +266,7 @@ table {
 }
 .top-thum-a1 {
 	background: #000000 !important;
-	opacity: 0.4;
+	opacity: 0.7;
 }
 
 .activity .detail,.top-thum-a1 {
@@ -1440,6 +1440,18 @@ position: absolute;
 	background-color: #F2F2F2;
 	color: #9F9F9F;
 }
+tbody>tr>td,thead>tr>th{
+	text-align:center;
+}
+.width-50{
+width:50% !important;}
+.padding0{
+	padding:0px !important;
+}
+.table-top{
+color: #333;
+background-color: #f7f7f7;
+border-color: #ddd;}
 
 .mail-top-bar-tabs li:hover {
 	background-color: #F8F8F8;
@@ -1730,7 +1742,11 @@ html {
 .jobs-java {
 	color: #97B4F4;
 }
+.ml64{
 
+margin-left:64px;}
+.mt80{
+margin-top:80px;}
 .jobs-android {
 	color: #CEE466;
 }
@@ -2015,11 +2031,16 @@ li {
 .size3 {
 	font-size: 14px;
 }
+.width70{
+width:70px !important;}
+.ml70{
+margin-left:70px !important;}
 
 .size4 {
 	font-size: 12px;
 }
-
+.size30{
+font-size:30px;}
 
 .avatar1 {
 	width: 128px;

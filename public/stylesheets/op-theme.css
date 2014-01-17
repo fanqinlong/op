@@ -9,11 +9,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 }
 .container-op{
 	font-size:14px;
+	 
 }
+.width70{
+width:70px;}
 .navbar-brand {
 	padding: 2px;
 }
-
+.panel-primary>.panel-heading {
+color: #fff;
+background-color: #369;
+border-color: #369;
+}
  
 .navbar-form {
 	padding-top: 0px;
@@ -150,7 +157,7 @@ list-style:none;
 .img-border img{
 	border:1px solid #CCC;
 }
-.ml0{margin-left:0px;}
+.ml0{margin-left:0px !important;}
 .ml5{margin-left:5px;}
 .ml10{margin-left:10px;}
 .ml15{margin-left:15px;}
@@ -281,6 +288,30 @@ list-style:none;
 .pr{position: relative}
 .dn{display: none}
 .db{display: block}
+.di{display:inline;}
+.fwb{
+	font-weight: bold;
+}
+.label-warning{
+	
+	-webkit-border-radius: 12px 11px 11px 12px/12px;
+	-moz-border-radius: 12px 11px 11px 12px/12px;
+	border-radius: 12px 11px 11px 12px/12px;
+	background-color: #E0E7FD;;
+	color: #369;
+	
+}
+
+.color-yellow{
+	color:yellow;
+}
+.color-green{
+	color:green;
+}
+
+.small-default{
+	padding: 2px 12px;
+}
 .width100{width:100%}
 .pagination {
 display: inline;
@@ -373,6 +404,14 @@ padding: 10px 16px !important;
 
 
  }
+ .nocontainer{
+ 	margin:-21px -41px;
+ }
+ input[type="checkbox"] {
+margin: 1px 0 0;
+ 
+}
+ 
 .btn-success{
  	padding: 6px 12px;
 	-webkit-border-radius: 3px;
@@ -392,5 +431,7 @@ padding: 10px 16px !important;
 background-color: #3BE71A;
  
 }
-
+.fwn{
+	font-weight: normal;
+}
  
