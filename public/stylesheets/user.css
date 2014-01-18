@@ -15,6 +15,13 @@ em,i,dfn,cite,strong,small {
 fieldset,img,button,input,select,option {
 	vertical-align: middle
 }
+.bottom-list li a {
+	color:#AFAFAF;
+}
+.bottom-list li a:hover {
+	color:#369;
+}
+
 
 table {
 	border-collapse: collapse;
@@ -324,9 +331,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 	font-family: "微软雅黑",Tahoma,Verdana,Arial,sans-serif
 }
 
-.container-op {
-	font-size: 14px
-}
+ 
 
 .main-bottom {
 	padding-top: 0;
@@ -1346,11 +1351,6 @@ hr {
 }
 
  
-.container-op {
-	clear: both;
-	padding: 0px;
-}
-
 /* 导航 */
 .msg-nav-title {
 	font-size: 18px;
@@ -1600,14 +1600,7 @@ border-color: #ddd;}
 html {
 	overflow-y:scroll;
 }
-
-.container-op {
-	clear: both;
-	border: none;
-	background-color: transparent;
-	padding: 0px;
-}
-
+ 
 .info-wrapper {
 	float: left;
 	padding: 20px 20px 50px 20px;
@@ -1834,9 +1827,7 @@ img.profile-sm {
   
   margin-left: 5px;
 margin-top: -5px;}
-.container-op {
-	font-size: 14px
-}
+ 
 .user_exit1{
 	background-image:url(../public/images/touxiang.png);
 	background-position:center;
