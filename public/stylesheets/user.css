@@ -21,7 +21,13 @@ fieldset,img,button,input,select,option {
 .bottom-list li a:hover {
 	color:#369;
 }
-
+.height28{
+	height:28px;
+}
+.pt2{
+	padding-top:2px;
+	
+}
 
 table {
 	border-collapse: collapse;
@@ -319,12 +325,6 @@ table {
  
 hr {
 	margin-top: 0
-}
-
-body {
-	color: #000;
-	background: #f3f3f3;
-	font-family: "微软雅黑",Tahoma,Verdana,Arial,sans-serif
 }
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {

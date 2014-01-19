@@ -1,7 +1,7 @@
 
 body {
 	color: #000;
-	background: #f3f3f3;
+	
 	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif;
 	
 }
@@ -283,13 +283,24 @@ list-style:none;
 .bottom30{bottom:30px;}
 .bottom35{bottom:35px;}
 .bottom40{bottom:40px;}
-
+.fwb{
+	font-weight: bold;
+}
 .oh{overflow: hidden;}
 .pa{position: absolute}
 .pr{position: relative}
 .dn{display: none}
 .db{display: block}
 .width100{width:100%}
+.color-blue{
+	
+	color:blue;
+}
+.color-green{
+	color:#0f0;
+}
+
+
 .pagination {
 display: inline;
 padding-left: 0;
