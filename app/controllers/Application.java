@@ -28,6 +28,9 @@ public class Application extends Controller {
 			renderArgs.put("connectedCSSA", connectedCSSA());
 		}
 
+		// 防止登出+后退
+		response.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
 	}
 
 	public static void index() {
