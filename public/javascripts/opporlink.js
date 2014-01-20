@@ -66,7 +66,7 @@ function checkCar(){
 function checkDate(){
 	var date = $("#pkDate").val();
 	if(date=="" || date=="${flash.pkDate}" ){
-		alert("请填写可接机的实践");
+		alert("请填写可接机的时间");
 		return false;
 	}
 }
