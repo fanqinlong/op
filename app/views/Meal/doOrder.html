@@ -1,25 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'doOrder.html' /}
-#{list items:mealOrder,as:'m'}
 <div class="row">
-  <div class="col-md-10 col-md-offset-1 size4 text-center">
-    <h3 class="color1">您的订单已生成，请确认订单信息</h3>
-    <h4 class="color1 mt10 mb10">请牢记您的订单编号 : <span class="color-red size1">${m.orNumber}</span></h4>
-    <div class="panel panel-default size4">
-      <div class="panel-body text-left">
-        <div> <span class="text-muted">姓名：</span>${m.username} <span class="text-muted ml20">联系电话：</span>${m.phone}<span class="text-muted ml20">QQ:</span>${m.QQ}<span class="text-muted ml20">微信：</span>${m.weixin}<span class="text-muted ml20">E-mail：</span>${m.email}</div>
-        <div class="mt30"> <span class="text-muted">送餐地点：</span>${m.address}<span class="text-muted ml20">送餐时间:</span>${m.meals_date}</div>
-        <div class="mt30"> <span class="text-muted">菜单：</span>
-          <lable  class="mr20">${m.food}</lable>
-        </div>
-        <div class="mt30"> <span class="text-muted">备注:</span>${m.note}</div>
-      </div>
-      <div class="panel-footer text-right fwb size3"> 订单总额： <span class="color-red fwb size3">$${m.money}</span> </div>
-    </div>
-	<p class="mt80 mb40">
-	<a type="button" href="@{Meal.editOrder(m.id)}" class="btn btn-default btn-lg size4">重置信息</a>
-    <a type="button" href="@{Meal.orderSuccessful(m.id)}" class="btn btn-primary btn-lg ml40 size4">确认提交</a>
-</p>
-  </div>
+	 <div class="col-md-12 col-md-offset-2 mt80">
+		<dl class="dl-horizontal">
+		  <dt><img src="/public/images/ok.png"></dt>
+		  <dd><h4 class="color1">您好,您已经建立订餐服务，订单提交成功！</h4>
+		<h5 class="color1">请牢记您的订单编号:<span class="color-red">${orNumber}</span></h5>
+		<h6 class="text-muted ">温馨提示：商家将会按时为您送餐，请耐心等待</h6></dd>
+		</dl>
 </div>
-#{/list}
+</div>

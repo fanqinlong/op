@@ -114,56 +114,13 @@
 
 	#{/list}
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container ">
 
 	<!-- users activity -->
 	<div class="row activity-cards">
 		<!--下面部分-->
-		
-		
-		#{if !a.isEmpty()}
-		
-		<div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span><span class="text-muted">正在吃奶，请稍后...</span></div>
-			
-			<div id="hiddenresult" style="display:none;">
-		 #{list items:a,as:'a'}
-		<div class="pull-left activity-card result">
+		#{if !a.isEmpty()} #{list items:a,as:'a'}
+		<div class="pull-left activity-card">
 
 			<div class="mp-top-2-1">
 				#{if a.isTop} <img src="@{'/public/images/active_detailed_tag.png'}" class="img-responsive"> #{/if} #{elseif a.isCanceled} <img src="@{'/public/images/active_detailed_tag3.png'}" class="img-responsive"> #{/elseif} #{elseif a.isHot} <img src="@{'/public/images/active_detailed_tag1.png'}" class="img-responsive"> #{/elseif}#{elseif a.isChecked} <img src="@{'/public/images/active_detailed_tag2.png'}" class="img-responsive"> #{/elseif}
@@ -205,58 +162,29 @@
 				</div>
 			</div>
 		</div>
-		
-		#{/list}
-	 
-		</div>
-		<div class="clearfix"></div>
-			<div class="width100" style=" margin:20px 50px;">
-			 	<div id="Pagination" class="pagination text-center"></div>	
-		  </div>
-	 
-		 #{/if}
-	 
+		#{/list} #{/if}
 	</div>
 
- 
+
 	#{set 'Scripts'}
-	<script type="text/javascript" src="@{'public/javascripts/jquery.pagination.js'}"></script>
 	<script type="text/javascript">
-	function pageselectCallback(page_index, jq){
-		  $('#Searchresult').empty();
-		  var items_per_page = 10;
-        var max_elem = Math.min((page_index+1) * items_per_page, $("#hiddenresult div.result").length);
-       
-        
-        // Iterate through a selection of the content and build an HTML string
-        for(var i=page_index*items_per_page;i<max_elem;i++)
-        {
-      	  var new_content = $("#hiddenresult div.result:eq("+i+")").clone();
-      	  $('#Searchresult').append(new_content);
-        }
-        
-        
-		return false;
-	}
-       /** 
-        * Initialisation function for pagination
-        */
-       function initPagination() {
-           // count entries inside the hidden content
-           var num_entries = jQuery('#hiddenresult div.result').length;
-           // Create content inside pagination element
-           $("#Pagination").pagination(num_entries, {
-               callback: pageselectCallback,
-               items_per_page:10 // Show only one item per page
-           });
-        }
-       
-       // When document is ready, initialize pagination
-       $(document).ready(function(){      
-           initPagination();
-       });
-       
- 
+		$(".top-thum-a").hover(function() {
+			$(this).children().last().clearQueue();
+			$(this).children().last().stop(true, true).animate({
+				top : '0'
+			}, "slow");
+
+		}, function() {
+			$(this).children().last().clearQueue();
+			$(this).children().last().stop(true, true).animate({
+				top : '290'
+			});
+
+		});
+
+		$('body').on('hidden.bs.modal', '.modal', function() {
+			$(this).removeData('bs.modal');
+		});
 	</script>
 	#{/set}
 	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
