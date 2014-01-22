@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'shopPage.html' /}
+#{if isAdmin}
+<h4>查看商家</h4>
+#{list items:s,as:'s'}
+#{if s.isManager}
+<a href="@{Meal.index(s.id)}">${s.shopName}</a></br>
+#{/if}
+#{/list}
+#{/if}

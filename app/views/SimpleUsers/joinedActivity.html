@@ -15,9 +15,14 @@
 		</ul>
 		<div class="">
 		#{if activities.isEmpty()}您还未参加任何活动，<a href="@{Activities.index}">去看看</a>。#{/if}#{else}
+	<div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span></div>
+			
+				<div id="hiddenresult" style="display: none;">
+	
+	
 		#{list items:activities,as:'a'}
 		
-		<div class=" trend row">
+		<div class=" trend row result">
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${user.profile}" />
@@ -41,17 +46,58 @@
 							<li> 浏览(  ${a.activity.views})</li>
 							<li class="text-danger">${a.isAllown?"已":"暂未"}通过审核。</li>
 							
-							</ul>		
-						
-						
-			 
-			
+							</ul>	
+					</div>
+				</div>
+				#{/list}
+				</div>  
+			<div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>	
+			 <div class="clearfix"></div>
+				#{/else}
+				
+				</div>
+			</div>
+		</div>
+#{set 'Scripts'}
+<script type="text/javascript" src="@{'public/javascripts/jquery.pagination.js'}"></script>
+<script type="text/javascript">
  
-		</div>
-		</div>
-		#{/list}
-		#{/else}
-		
-		</div>
-	</div>
-</div>
+function pageselectCallback(page_index, jq){
+	  $('#Searchresult').empty();
+	  var items_per_page =4;
+    var max_elem = Math.min((page_index+1) * items_per_page, $("#hiddenresult div.result").length);
+   
+    
+    // Iterate through a selection of the content and build an HTML string
+    for(var i=page_index*items_per_page;i<max_elem;i++)
+    {
+  	  var new_content = $("#hiddenresult div.result:eq("+i+")").clone();
+  	  $('#Searchresult').append(new_content);
+    }
+    
+    
+	return false;
+}
+
+/** 
+ * Initialisation function for pagination
+ */
+function initPagination() {
+    // count entries inside the hidden content
+    var num_entries = jQuery('#hiddenresult div.result').length;
+    // Create content inside pagination element
+    $("#Pagination").pagination(num_entries, {
+        callback: pageselectCallback,
+        items_per_page:4 // Show only one item per page
+    });
+ }
+
+// When document is ready, initialize pagination
+$(document).ready(function(){      
+    initPagination();
+});
+
+
+
+</script>
+#{/set}

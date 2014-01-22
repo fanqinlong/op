@@ -1,8 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'index.html' /}
-#{if isMerchants}
-<a href="@{Meal.lookOr(user_id)}">查看订单</a>
-#{/if}
+
 <div class="row">
   <div class="col-md-6">
     <h4>订餐服务流程</h4>
@@ -13,9 +11,32 @@
 	<!--<button type="button" class="btn btn-primary btn-lg btn-block"></button>-->
 </div>
   <div class="col-md-6">
- 
+#{if isMerchants}
+<div class="col-md-6">
+  <h4 class="">本店订餐数量</h4>
+  <table class="table table-bordered mt80">
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td><h1 class="color-red">${isNotSendnumber}</h1>
+            	<span class="text-muted">等待派送</span>
+            </td>
+            <td><h1 class="color-blue">${isSendnumber}</h1>
+            <span class="text-muted">正在派送</span>
+            </td>
+            <td><h1 class="color-green">${succnumber}</h1>
+            <span class="text-muted">交易成功</span>
+            </td>
+          </tr>
+       
+        </tbody>
+      </table>
+      <div class="size4  text-center mt40">您好，尊贵的店长，您可以点击<a href="@{Meal.lookOr(user_id)}">查看订单</a>，来查看您的全部订单</div>
+  </div>
+ #{/if}
+ #{else}
   <h3 class="mt80 mb40 ml30">登录奥噗</h3>
- 
     <form class="form-horizontal" role="form" action="@{SimpleUsers.authenticate}"  method="POST">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
@@ -41,5 +62,6 @@
         </div>
       </div>
     </form>
+    #{/else}
   </div>
 </div>

@@ -35,45 +35,96 @@ import models.Meal.FoodName;
 import models.qa.Tag;
 import models.users.CSSA;
 import models.users.SimpleUser;
+
 public class Meal extends Application {
-	public static void index() {
-		session.put("Meal_test", "test");
-		if (session.get("logged") == null) {
-			renderTemplate("Meal/test/index.html");
-		} else {
-			boolean isMerchants = false;
-			long user_id = Long.parseLong(session.get("logged"));
-			if (user_id == 1) {
-				isMerchants = true;
+	@Before
+	public static void isAdmin() {
+		if (session.get("logged") != null
+				&& session.get("usertype").equals("simple")) {
+			SimpleUser su = SimpleUser.findById(Long.parseLong(session
+					.get("logged")));
+			if (su.isAdmin == true) {
+				renderArgs.put("isAdmin", true);
 			}
-			renderTemplate("Meal/test/sellerInfo.html", isMerchants, user_id);
 		}
 	}
- 
+
+	public static void shopPage() {
+		List<SimpleUser> s = SimpleUser.findAll();
+		renderTemplate("Meal/test/shopPage.html", s);
+	}
+
+	public static void index(Long id) {
+		SimpleUser simpleUser = SimpleUser.findById(id);
+		if (simpleUser.isManager == true) {
+			session.put("Meal_test", simpleUser.shopName);
+		} else {
+			session.put("Meal_test", "");
+		}
+		if (session.get("logged") == null) {
+			renderTemplate("Meal/test/index.html", id);
+		} else {
+			boolean isMerchants = false;
+			int allnumber = 0;
+			int isSendnumber = 0;
+			int isNotSendnumber = 0;
+			int succnumber = 0;
+			long user_id = Long.parseLong(session.get("logged"));
+//			SimpleUser sp = SimpleUser.findById(id);
+			if (id == user_id) {
+				isMerchants = true;
+				SimpleDateFormat da = new SimpleDateFormat("yyyy-MM-dd");
+				String dt = (da.format(Calendar.getInstance().getTime()));
+				List<MealOrder> moIsend = MealOrder
+						.find("date = ? and shopName = ? and isOrSend = ? and isEffectiveOrder = ?",
+								dt, session.get("Meal_test"), "isSuccessful",
+								"isSuccess").fetch();
+				List<MealOrder> moIssuccessful = MealOrder.find(
+						"date = ? and shopName = ? and isSuccessful = ?", dt,
+						session.get("Meal_test"), "isSuccessful").fetch();
+				List<MealOrder> moIsnotSend = MealOrder
+						.find("date = ? and shopName = ? and isOrSend = ? and isEffectiveOrder = ?",
+								dt, session.get("Meal_test"), "isNot",
+								"isSuccess").fetch();
+				List<MealOrder> moisEffectiveOrder = MealOrder.find(
+						"date = ? and shopName = ? and isEffectiveOrder = ?",
+						dt, session.get("Meal_test"), "isSuccess").fetch();
+				allnumber = moisEffectiveOrder.size();
+				isSendnumber = moIsend.size();
+				isNotSendnumber = moIsnotSend.size();
+				succnumber = moIssuccessful.size();
+			}
+			renderTemplate("Meal/test/index.html", isMerchants, user_id,
+					allnumber, isSendnumber, isNotSendnumber, succnumber);
+		}
+	}
+
 	public static void inputFrom() {
-		String shopName = session.get("Meal_test");
+		String shopName = null;
+		if (session.get("Meal_test") != null) {
+			shopName = session.get("Meal_test");
+		}
 		List<FoodName> foodname = FoodName.findAll();
 		render(foodname, shopName);
 	}
+
 	public static void sellerInfo() {
-		String shopName = session.get("Meal_test");
+		String shopName = null;
+		if (session.get("Meal_test") != null) {
+			shopName = session.get("Meal_test");
+		}
 		List<FoodName> foodname = FoodName.findAll();
 		renderTemplate("Meal/test/sellerInfo.html", foodname, shopName);
 	}
 
 	public static void doOrder(String username, String userType, Long userid,
-			String shop_name, Long phone, Long QQ, String orNumber,
+			String shopName, Long phone, Long QQ, String orNumber,
 			String email, long[] foodId, String address, String meals_date,
-			String generate_date, String note, String weixin, String date,int money,
-			boolean cancelOr, boolean dlOr, boolean successful, boolean isSend,
-			int[] number) {
-//		if (foodId.equals(null)) {
-//			flash.error("至少要选择一个菜名");
-//			System.out.println("111111");
-//			inputFrom();
-//		} else 
-		
-		System.out.println("看看总价"+money);
+			String generate_date, String note, String weixin, String date,
+			int money, boolean cancelOr, boolean dlOr, boolean successful,
+			boolean isSend, int[] number, boolean effectiveOrder,
+			String isEffectiveOrder, String isSuccessful, String isOrSend,
+			int price[]) {
 		if (phone == null) {
 			flash.error("请输入电话号码!");
 			inputFrom();
@@ -85,15 +136,19 @@ public class Meal extends Application {
 			inputFrom();
 		}
 		String foodDetail = "";
-		for(int j=0;j<foodId.length;j++){
+		int allmoney = 0;
+		for (int j = 0; j < foodId.length; j++) {
 			FoodName fn = FoodName.findById(foodId[j]);
-			if(number[j]==0){
-				foodDetail = foodDetail; 
-			}else{
-				foodDetail = foodDetail + fn.dishes+"X"+number[j]+" ";	
+			if (number[j] == 0) {
+				foodDetail = foodDetail;
+			} else {
+				allmoney = allmoney + price[j] * number[j];
+				foodDetail = foodDetail + fn.dishes + "X" + number[j] + " ";
 			}
 		}
 		long user_id = Long.parseLong(session.get("logged"));
+		String shop_id = session.get("Meal_test");
+		shopName = shop_id;
 		SimpleUser simp = SimpleUser.findById(user_id);
 		String user_name = simp.name;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
@@ -107,18 +162,63 @@ public class Meal extends Application {
 		ornumber = or.size();
 		String on = Integer.toString(ornumber + 1);
 		orNumber = num + "000" + on;
-		new MealOrder(user_name, "simple", user_id, "test", phone, QQ,
-				orNumber, email, foodDetail, address, meals_date, d, note,
-				weixin, dt,money, false, false, false, false);
+		MealOrder mealOrder = new MealOrder(user_name, "simple", user_id,
+				shopName, phone, QQ, orNumber, email, foodDetail, address,
+				meals_date, d, note, weixin, dt, allmoney, false, false, false,
+				false, true, "isNot", "isNot", "isNot");
+		render(mealOrder);
+	}
+
+	public static void editOrder(Long id) {
+		String shopName = null;
+		if (session.get("Meal_test") != null) {
+			shopName = session.get("Meal_test");
+		}
+		List<FoodName> foodname = FoodName.findAll();
+		MealOrder m = MealOrder.findById(id);
+		render(foodname, shopName, m);
+	}
+
+	public static void confirm(MealOrder m, long[] foodId, int[] number,
+			int price[]) {
+		String foodDetail = "";
+		int allmoney = 0;
+		for (int j = 0; j < foodId.length; j++) {
+			FoodName fn = FoodName.findById(foodId[j]);
+			if (number[j] == 0) {
+				foodDetail = foodDetail;
+			} else {
+				allmoney = allmoney + price[j] * number[j];
+				foodDetail = foodDetail + fn.dishes + "X" + number[j] + " ";
+			}
+		}
+		MealOrder mealOrder = MealOrder.findById(m.id);
+		mealOrder.food = "";
+		mealOrder.food = foodDetail;
+		mealOrder.money = allmoney;
+		mealOrder.save();
+		renderTemplate("Meal/doOrder.html", mealOrder);
+	}
+
+	public static void orderSuccessful(Long id) {
+		String orNumber = null;
+		MealOrder mealOrder = MealOrder.findById(id);
+		mealOrder.effectiveOrder = false;
+		mealOrder.isEffectiveOrder = "isSuccess";
+		orNumber = mealOrder.orNumber;
+		mealOrder.save();
 		render(orNumber);
 	}
+
 	public static void lookOr(Long user_id) {
 		long userid = Long.parseLong(session.get("logged"));
+		SimpleUser simpleUser = SimpleUser.findById(user_id);
 		if (user_id == userid) {
-			List<MealOrder> meal = MealOrder.find(
-					"SELECT a FROM MealOrder a WHERE shop_name LIKE ?",
-					"%" + "test" + "%").fetch();
-			render(meal);
+			List<MealOrder> meal = MealOrder
+					.find("SELECT a FROM MealOrder a WHERE shopName LIKE ? order by successful asc",
+							simpleUser.shopName).fetch();
+			String shopName = simpleUser.shopName;
+			render(meal, shopName);
 		} else {
 			flash.error("用户不匹配!");
 			index();
@@ -137,6 +237,8 @@ public class Meal extends Application {
 		long user_id = Long.parseLong(session.get("logged"));
 		MealOrder mealOrder = MealOrder.findById(id);
 		mealOrder.isSend = true;
+		mealOrder.isOrSend = "";
+		mealOrder.isOrSend = "isSuccessful";
 		mealOrder.save();
 		lookOr(user_id);
 	}
@@ -152,16 +254,30 @@ public class Meal extends Application {
 	public static void doSuccessful(long id) {
 		long user_id = Long.parseLong(session.get("logged"));
 		MealOrder mealOrder = MealOrder.findById(id);
-		mealOrder.successful = true;
-		mealOrder.save();
-		lookOr(user_id);
+		System.out.println(mealOrder.isSend);
+		if (mealOrder.isSend == false) {
+			flash.error("订单还未派送不能设置为交易成功,如果需要取消订单请删除！");
+			lookOr(user_id);
+		} else {
+			mealOrder.successful = true;
+			mealOrder.isSuccessful = "";
+			mealOrder.isSuccessful = "isSuccessful";
+			mealOrder.save();
+			lookOr(user_id);
+		}
+
 	}
 
 	public static void searchOrder(String time) {
 		long user_id = Long.parseLong(session.get("logged"));
-		List<MealOrder> meal = MealOrder
-				.find("SELECT a FROM MealOrder a WHERE date LIKE  ?  order by id desc",
-						"%" + time + "%").fetch();
+		// List<MealOrder> meal = MealOrder
+		// .find("SELECT a FROM MealOrder a WHERE date LIKE  ?  order by id desc",
+		// "%" + time + "%").fetch();
+		List<MealOrder> meal = MealOrder.find("date = ? and shopName = ? ",
+				time, session.get("Meal_test")).fetch();
+
+		System.out.println(session.get("Meal_test"));
+
 		renderTemplate("Meal/lookOr.html", user_id, meal);
 	}
 }

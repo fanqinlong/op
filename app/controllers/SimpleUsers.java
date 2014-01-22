@@ -27,9 +27,11 @@ import play.libs.Files;
 import play.libs.Images;
 import play.mvc.*;
 import models.Meal.FoodName;
+import models.Meal.MealOrder;
 import models.activity.Activity;
 import models.activity.Joiner;
 import models.activity.Liker;
+import models.qa.Comments;
 import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
@@ -202,9 +204,50 @@ public class SimpleUsers extends Application {
 				flash.put("email", email);
 				login();
 			} else {
-				if (session.get("Meal_test")!=null) {
+				if (session.get("Meal_test") != null) {
 					connectSimple(user);
-					Meal.sellerInfo();
+					boolean isMerchants = false;
+					long user_id = Long.parseLong(session.get("logged"));
+					String shopname = session.get("Meal_test");
+					SimpleUser s = SimpleUser.findById(user_id);
+					if (shopname.equals(s.shopName)) {
+						isMerchants = true;
+						SimpleDateFormat da = new SimpleDateFormat("yyyy-MM-dd");
+						String dt = (da
+								.format(Calendar.getInstance().getTime()));
+						List<MealOrder> moIsend = MealOrder
+								.find("date = ? and shopName = ? and isOrSend = ? and isEffectiveOrder = ?",
+										dt, session.get("Meal_test"),
+										"isSuccessful", "isSuccess").fetch();
+						List<MealOrder> moIssuccessful = MealOrder
+								.find("date = ? and shopName = ? and isSuccessful = ?",
+										dt, session.get("Meal_test"),
+										"isSuccessful").fetch();
+						List<MealOrder> moIsnotSend = MealOrder
+								.find("date = ? and shopName = ? and isOrSend = ? and isEffectiveOrder = ?",
+										dt, session.get("Meal_test"), "isNot",
+										"isSuccess").fetch();
+						List<MealOrder> moisEffectiveOrder = MealOrder
+								.find("date = ? and shopName = ? and isEffectiveOrder = ?",
+										dt, session.get("Meal_test"),
+										"isSuccess").fetch();
+						int allnumber;
+						allnumber = moisEffectiveOrder.size();
+						int isSendnumber;
+						isSendnumber = moIsend.size();
+						int isNotSendnumber;
+						isNotSendnumber = moIsnotSend.size();
+						int succnumber;
+						succnumber = moIssuccessful.size();
+						renderTemplate("Meal/test/index.html", isMerchants,
+								user_id, allnumber, isSendnumber,
+								isNotSendnumber, succnumber);
+					} else {
+						String shopName = session.get("Meal_test");
+						List<FoodName> foodname = FoodName.findAll();
+						renderTemplate("Meal/test/sellerInfo.html", shopName,
+								foodname);
+					}
 				} else if (session.get("qusetionId") == null) {
 					connectSimple(user);
 					flash.success("欢迎回来， %s !", user.name);

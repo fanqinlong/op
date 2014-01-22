@@ -11,7 +11,7 @@ public class MealOrder extends Model {
 	public String username;
 	public Long userid;
 	public String userType;
-	public String shop_name;
+	public String  shopName;
 	public String email;
 	public String orNumber;
 	public Long QQ;
@@ -28,17 +28,20 @@ public class MealOrder extends Model {
 	public boolean dlOr;
 	public boolean successful;
 	public boolean isSend;
-
+	public boolean effectiveOrder;
+	public String isEffectiveOrder;
+	public String isSuccessful;
+	public String isOrSend;
 	public MealOrder(String username, String userType, Long userid,
-			String shop_name, Long phone, Long QQ, String orNumber,
+			String  shopName, Long phone, Long QQ, String orNumber,
 			String email, String FoodName, String address, String meals_date,
 			String generate_date, String note, String weixin,String date,int money, boolean cancelOr,
-			boolean dlOr, boolean successful,boolean isSend) {
+			boolean dlOr, boolean successful,boolean isSend,boolean effectiveOrder,String isEffectiveOrder,String isSuccessful,String isOrSend) {
 		this.username = username;
 		this.userid = userid;
 		this.userType = userType;
 		this.phone = phone;
-		this.shop_name = shop_name;
+		this.shopName = shopName;
 		this.QQ = QQ;
 		this.email = email;
 		this.orNumber = orNumber;
@@ -54,6 +57,10 @@ public class MealOrder extends Model {
 		this.dlOr = false;
 		this.successful = false;
 		this.isSend = isSend;
+		this.effectiveOrder=effectiveOrder;
+		this.isEffectiveOrder=isEffectiveOrder;
+		this.isSuccessful = isSuccessful;
+		this.isOrSend = isOrSend;
 		create();
 	}
 

@@ -9,14 +9,14 @@ import java.util.*;
 @Entity
 public class FoodName extends Model {
 	public String dishes;
-	public String price;
+	public int price;
 	public int number;
-	public String shop_name;
+	public String shopName;
 
-	public FoodName(String dishes, String price, String shop_name,int number) {
+	public FoodName(String dishes, int price, String shopName, int number) {
 		this.dishes = dishes;
 		this.price = price;
-		this.shop_name = shop_name;
+		this.shopName = shopName;
 		this.number = number;
 		create();
 	}

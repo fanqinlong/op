@@ -59,8 +59,8 @@
 		 
 		 
 		<div class="input-daterange input-group" id="datepicker" >
-    		<input type="text" class="input-sm  form-control " name="dateFrom"  style="width:127px"/>
-    		 <select type="text" class="input-sm form-control" name="timeFrom" style="width:120px" > 
+    		<input type="text" class="input-sm  form-control " name="dateFrom"  style="width:50%"/>
+    		 <select type="text" class="input-sm form-control" name="timeFrom" style="width:50%" > 
             #{list items:9..23, as:'i'}
               <option value="${i<10?'0':''}${i}:00">${i<10?'0':''}${i}:00</option>
              <option value="${i<10?'0':''}${i}:30">${i<10?'0':''}${i}:30</option>
@@ -75,8 +75,8 @@
          
     		<span class="input-group-addon">TO</span>
     	 
-    		<input type="text" class="input-sm form-control" name="dateTo" style="width:120px" />
-    		  <select  type="text" class="input-sm form-control"  name="timeTo" style="width:120px">
+    		<input type="text" class="input-sm form-control" name="dateTo" style="width:50%" />
+    		  <select  type="text" class="input-sm form-control"  name="timeTo" style="width:50%">
              #{list items:9..23, as:'i'}
               <option value="${i<10?'0':''}${i}:00">${i<10?'0':''}${i}:00</option>
              <option value="${i<10?'0':''}${i}:30">${i<10?'0':''}${i}:30</option>

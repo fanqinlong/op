@@ -248,8 +248,7 @@ table {
 
 .activity,.top-thum-a {
 	position: relative;
-	height: 165px;
-	overflow: hidden;
+ overflow: hidden;
 	font-size: 12px
 }
  
@@ -287,6 +286,7 @@ table {
 	position: absolute;
 	background: #428bca;
 	width: 100%;
+	padding:20px;
 	height: 165px;
 	z-index:9999;
  	color: #FFF;

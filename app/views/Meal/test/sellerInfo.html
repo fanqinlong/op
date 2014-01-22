@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'sellerInfo.html' /}
+
 <div class="panel panel-default nocontainer">
+#{if isMerchants}
+<a href="@{Meal.lookOr(user_id)}">查看订单</a>
+#{/if}
   <div class="panel-heading">
     <h2 class="panel-title size30">McDonald's Plaza</h2>
   </div>
@@ -27,9 +31,9 @@
         </thead>
         <tbody>
           #{list items:foodname,as:'f'}	
-          #{if f.shop_name==shopName} 
+          #{if f.shopName==shopName} 
           <tr>
-            <td   colspan="2">${f.dishes}</td>
+            <td  colspan="2">${f.dishes}</td>
             <td>$${f.price}</td>
             <td>99</td>
           </tr>
