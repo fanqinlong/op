@@ -45,8 +45,6 @@ public class SimpleUser extends Model {
 	public String selfIntro;
 	public boolean isAdmin;
 	public String signupDate; //注册时间
-	public boolean isManager;
-	public String shopName;
 
 	public SimpleUser(String email, String password, String name, String gender,String signupDate,
 			String profile) {

@@ -1,240 +1,162 @@
 /**
  * This jQuery plugin displays pagination links inside the selected elements.
- * 
- * This plugin needs at least jQuery 1.4.2
  *
  * @author Gabriel Birke (birke *at* d-scribe *dot* de)
- * @version 2.2
+ * @version 1.2
  * @param {int} maxentries Number of entries to paginate
  * @param {Object} opts Several options (see README for documentation)
  * @return {Object} jQuery Object
  */
- (function($){
-	/**
-	 * @class Class for calculating pagination values
-	 */
-	$.PaginationCalculator = function(maxentries, opts) {
-		this.maxentries = maxentries;
-		this.opts = opts;
-	};
+jQuery.fn.pagination = function(maxentries, opts){
+	opts = jQuery.extend({
+		items_per_page:10,
+		num_display_entries:10,
+		current_page:0,
+		num_edge_entries:0,
+		link_to:"#",
+		prev_text:"Prev",
+		next_text:"Next",
+		ellipse_text:"...",
+		prev_show_always:true,
+		next_show_always:true,
+		callback:function(){return false;}
+	},opts||{});
 	
-	$.extend($.PaginationCalculator.prototype, {
+	return this.each(function() {
 		/**
-		 * Calculate the maximum number of pages
-		 * @method
-		 * @returns {Number}
+		 * 计算最大分页显示数目
 		 */
-		numPages:function() {
-			return Math.ceil(this.maxentries/this.opts.items_per_page);
-		},
+		function numPages() {
+			return Math.ceil(maxentries/opts.items_per_page);
+		}	
 		/**
-		 * Calculate start and end point of pagination links depending on 
-		 * current_page and num_display_entries.
-		 * @returns {Array}
+		 * 极端分页的起始和结束点，这取决于current_page 和 num_display_entries.
+		 * @返回 {数组(Array)}
 		 */
-		getInterval:function(current_page)  {
-			var ne_half = Math.floor(this.opts.num_display_entries/2);
-			var np = this.numPages();
-			var upper_limit = np - this.opts.num_display_entries;
-			var start = current_page > ne_half ? Math.max( Math.min(current_page - ne_half, upper_limit), 0 ) : 0;
-			var end = current_page > ne_half?Math.min(current_page+ne_half + (this.opts.num_display_entries % 2), np):Math.min(this.opts.num_display_entries, np);
-			return {start:start, end:end};
+		function getInterval()  {
+			var ne_half = Math.ceil(opts.num_display_entries/2);
+			var np = numPages();
+			var upper_limit = np-opts.num_display_entries;
+			var start = current_page>ne_half?Math.max(Math.min(current_page-ne_half, upper_limit), 0):0;
+			var end = current_page>ne_half?Math.min(current_page+ne_half, np):Math.min(opts.num_display_entries, np);
+			return [start,end];
 		}
-	});
-	
-	// Initialize jQuery object container for pagination renderers
-	$.PaginationRenderers = {};
-	
-	/**
-	 * @class Default renderer for rendering pagination links
-	 */
-	$.PaginationRenderers.defaultRenderer = function(maxentries, opts) {
-		this.maxentries = maxentries;
-		this.opts = opts;
-		this.pc = new $.PaginationCalculator(maxentries, opts);
-	};
-	$.extend($.PaginationRenderers.defaultRenderer.prototype, {
+		
 		/**
-		 * Helper function for generating a single link (or a span tag if it's the current page)
-		 * @param {Number} page_id The page id for the new item
-		 * @param {Number} current_page 
-		 * @param {Object} appendopts Options for the new item: text and classes
-		 * @returns {jQuery} jQuery object containing the link
+		 * 分页链接事件处理函数
+		 * @参数 {int} page_id 为新页码
 		 */
-		createLink:function(page_id, current_page, appendopts){
-			var lnk, np = this.pc.numPages();
-			page_id = page_id<0?0:(page_id<np?page_id:np-1); // Normalize page id to sane value
-			appendopts = $.extend({text:page_id+1, classes:""}, appendopts||{});
-			if(page_id == current_page){
-				lnk = $("<span class='current'>" + appendopts.text + "</span>");
-			}
-			else
-			{
-				lnk = $("<a>" + appendopts.text + "</a>")
-					.attr('href', this.opts.link_to.replace(/__id__/,page_id));
-			}
-			if(appendopts.classes){ lnk.addClass(appendopts.classes); }
-			if(appendopts.rel){ lnk.attr('rel', appendopts.rel); }
-			lnk.data('page_id', page_id);
-			return lnk;
-		},
-		// Generate a range of numeric links 
-		appendRange:function(container, current_page, start, end, opts) {
-			var i;
-			for(i=start; i<end; i++) {
-				this.createLink(i, current_page, opts).appendTo(container);
-			}
-		},
-		getLinks:function(current_page, eventHandler) {
-			var begin, end,
-				interval = this.pc.getInterval(current_page),
-				np = this.pc.numPages(),
-				fragment = $("<div class='pagination'></div>");
-			
-			// Generate "Previous"-Link
-			if(this.opts.prev_text && (current_page > 0 || this.opts.prev_show_always)){
-				fragment.append(this.createLink(current_page-1, current_page, {text:this.opts.prev_text, classes:"prev",rel:"prev"}));
-			}
-			// Generate starting points
-			if (interval.start > 0 && this.opts.num_edge_entries > 0)
-			{
-				end = Math.min(this.opts.num_edge_entries, interval.start);
-				this.appendRange(fragment, current_page, 0, end, {classes:'sp'});
-				if(this.opts.num_edge_entries < interval.start && this.opts.ellipse_text)
-				{
-					$("<span>"+this.opts.ellipse_text+"</span>").appendTo(fragment);
+		function pageSelected(page_id, evt){
+			current_page = page_id;
+			drawLinks();
+			var continuePropagation = opts.callback(page_id, panel);
+			if (!continuePropagation) {
+				if (evt.stopPropagation) {
+					evt.stopPropagation();
+				}
+				else {
+					evt.cancelBubble = true;
 				}
 			}
-			// Generate interval links
-			this.appendRange(fragment, current_page, interval.start, interval.end);
-			// Generate ending points
-			if (interval.end < np && this.opts.num_edge_entries > 0)
-			{
-				if(np-this.opts.num_edge_entries > interval.end && this.opts.ellipse_text)
-				{
-					$("<span>"+this.opts.ellipse_text+"</span>").appendTo(fragment);
+			return continuePropagation;
+		}
+		
+		/**
+		 * 此函数将分页链接插入到容器元素中
+		 */
+		function drawLinks() {
+			panel.empty();
+			var interval = getInterval();
+			var np = numPages();
+			// 这个辅助函数返回一个处理函数调用有着正确page_id的pageSelected。
+			var getClickHandler = function(page_id) {
+				return function(evt){ return pageSelected(page_id,evt); }
+			}
+			//辅助函数用来产生一个单链接(如果不是当前页则产生span标签)
+			var appendItem = function(page_id, appendopts){
+				page_id = page_id<0?0:(page_id<np?page_id:np-1); // 规范page id值
+				appendopts = jQuery.extend({text:page_id+1, classes:""}, appendopts||{});
+				if(page_id == current_page){
+					var lnk = jQuery("<span class='current'>"+(appendopts.text)+"</span>");
+				}else{
+					var lnk = jQuery("<a>"+(appendopts.text)+"</a>")
+						.bind("click", getClickHandler(page_id))
+						.attr('href', opts.link_to.replace(/__id__/,page_id));		
 				}
-				begin = Math.max(np-this.opts.num_edge_entries, interval.end);
-				this.appendRange(fragment, current_page, begin, np, {classes:'ep'});
+				if(appendopts.classes){lnk.addClass(appendopts.classes);}
+				panel.append(lnk);
+			}
+			// 产生"Previous"-链接
+			if(opts.prev_text && (current_page > 0 || opts.prev_show_always)){
+				appendItem(current_page-1,{text:opts.prev_text, classes:"prev"});
+			}
+			// 产生起始点
+			if (interval[0] > 0 && opts.num_edge_entries > 0)
+			{
+				var end = Math.min(opts.num_edge_entries, interval[0]);
+				for(var i=0; i<end; i++) {
+					appendItem(i);
+				}
+				if(opts.num_edge_entries < interval[0] && opts.ellipse_text)
+				{
+					jQuery("<span>"+opts.ellipse_text+"</span>").appendTo(panel);
+				}
+			}
+			// 产生内部的些链接
+			for(var i=interval[0]; i<interval[1]; i++) {
+				appendItem(i);
+			}
+			// 产生结束点
+			if (interval[1] < np && opts.num_edge_entries > 0)
+			{
+				if(np-opts.num_edge_entries > interval[1]&& opts.ellipse_text)
+				{
+					jQuery("<span>"+opts.ellipse_text+"</span>").appendTo(panel);
+				}
+				var begin = Math.max(np-opts.num_edge_entries, interval[1]);
+				for(var i=begin; i<np; i++) {
+					appendItem(i);
+				}
 				
 			}
-			// Generate "Next"-Link
-			if(this.opts.next_text && (current_page < np-1 || this.opts.next_show_always)){
-				fragment.append(this.createLink(current_page+1, current_page, {text:this.opts.next_text, classes:"next",rel:"next"}));
+			// 产生 "Next"-链接
+			if(opts.next_text && (current_page < np-1 || opts.next_show_always)){
+				appendItem(current_page+1,{text:opts.next_text, classes:"next"});
 			}
-			$('a', fragment).click(eventHandler);
-			return fragment;
-		}
-	});
-	
-	// Extend jQuery
-	$.fn.pagination = function(maxentries, opts){
-		
-		// Initialize options with default values
-		opts = $.extend({
-			items_per_page:10,
-			num_display_entries:11,
-			current_page:0,
-			num_edge_entries:0,
-			link_to:"#",
-			prev_text:"Prev",
-			next_text:"Next",
-			ellipse_text:"...",
-			prev_show_always:true,
-			next_show_always:true,
-			renderer:"defaultRenderer",
-			show_if_single_page:false,
-			load_first_page:true,
-			callback:function(){return false;}
-		},opts||{});
-		
-		var containers = this,
-			renderer, links, current_page;
-		
-		/**
-		 * This is the event handling function for the pagination links. 
-		 * @param {int} page_id The new page number
-		 */
-		function paginationClickHandler(evt){
-			var links, 
-				new_current_page = $(evt.target).data('page_id'),
-				continuePropagation = selectPage(new_current_page);
-			if (!continuePropagation) {
-				evt.stopPropagation();
-			}
-			return continuePropagation;
 		}
 		
-		/**
-		 * This is a utility function for the internal event handlers. 
-		 * It sets the new current page on the pagination container objects, 
-		 * generates a new HTMl fragment for the pagination links and calls
-		 * the callback function.
-		 */
-		function selectPage(new_current_page) {
-			// update the link display of a all containers
-			containers.data('current_page', new_current_page);
-			links = renderer.getLinks(new_current_page, paginationClickHandler);
-			containers.empty();
-			links.appendTo(containers);
-			// call the callback and propagate the event if it does not return false
-			var continuePropagation = opts.callback(new_current_page, containers);
-			return continuePropagation;
-		}
-		
-		// -----------------------------------
-		// Initialize containers
-		// -----------------------------------
-		current_page = parseInt(opts.current_page, 10);
-		containers.data('current_page', current_page);
-		// Create a sane value for maxentries and items_per_page
+		//从选项中提取current_page
+		var current_page = opts.current_page;
+		//创建一个显示条数和每页显示条数值
 		maxentries = (!maxentries || maxentries < 0)?1:maxentries;
 		opts.items_per_page = (!opts.items_per_page || opts.items_per_page < 0)?1:opts.items_per_page;
-		
-		if(!$.PaginationRenderers[opts.renderer])
-		{
-			throw new ReferenceError("Pagination renderer '" + opts.renderer + "' was not found in jQuery.PaginationRenderers object.");
-		}
-		renderer = new $.PaginationRenderers[opts.renderer](maxentries, opts);
-		
-		// Attach control events to the DOM elements
-		var pc = new $.PaginationCalculator(maxentries, opts);
-		var np = pc.numPages();
-		containers.off('setPage').on('setPage', {numPages:np}, function(evt, page_id) { 
-				if(page_id >= 0 && page_id < evt.data.numPages) {
-					selectPage(page_id); return false;
-				}
-		});
-		containers.off('prevPage').on('prevPage', function(evt){
-				var current_page = $(this).data('current_page');
-				if (current_page > 0) {
-					selectPage(current_page - 1);
-				}
+		//存储DOM元素，以方便从所有的内部结构中获取
+		var panel = jQuery(this);
+		// 获得附加功能的元素
+		this.selectPage = function(page_id){ pageSelected(page_id);}
+		this.prevPage = function(){ 
+			if (current_page > 0) {
+				pageSelected(current_page - 1);
+				return true;
+			}
+			else {
 				return false;
-		});
-		containers.off('nextPage').on('nextPage', {numPages:np}, function(evt){
-				var current_page = $(this).data('current_page');
-				if(current_page < evt.data.numPages - 1) {
-					selectPage(current_page + 1);
-				}
-				return false;
-		});
-		containers.off('currentPage').on('currentPage', function(){
-				var current_page = $(this).data('current_page');
-				selectPage(current_page);
-				return false;
-		});
-		
-		// When all initialisation is done, draw the links
-		links = renderer.getLinks(current_page, paginationClickHandler);
-		containers.empty();
-		if(np > 1 || opts.show_if_single_page) {
-			links.appendTo(containers);
+			}
 		}
-		// call callback function
-		if(opts.load_first_page) {
-			opts.callback(current_page, containers);
+		this.nextPage = function(){ 
+			if(current_page < numPages()-1) {
+				pageSelected(current_page+1);
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-	}; // End of $.fn.pagination block
-	
-})(jQuery);
+		// 所有初始化完成，绘制链接
+		drawLinks();
+        // 回调函数
+        opts.callback(current_page, this);
+	});
+}
+
+

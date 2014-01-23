@@ -87,7 +87,7 @@ GET     /Airports/check/{file_path}                 Airports.check
 
 GET     /export/exportStu/{username}                      ExportStuinfo.exportStu
 GET     /ExportVoiInfo/exportVoiInfo/{username}           ExportVoiInfo.exportVoiInfo
-GET     /ExportOrder/exportOrder/{shopName}                               ExportOrder.exportOrder
+GET     /ExportOrder/exportOrder                               ExportOrder.exportOrder
 
 GET     /Airports/stuInfo/{username}                Airports.stuInfo
 GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
@@ -176,7 +176,8 @@ POST /UserSurvey/index               		           UserSurvey.index
 GET	 /Meal/test/index               		           Meal.index
 GET	 /Meal/test/inputFrom               		       Meal.inputFrom
 POST /Meal/test/doOrder               		           Meal.doOrder
-GET	 /Meal/test/lookOr/{user_id}               		   Meal.lookOr
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+GET	 /Meal/test/lookOr               		           Meal.lookOr
 POST /Meal/test/searchOrder               		       Meal.searchOrder
 GET	 /Meal/test/deleteOrder/{id}               		   Meal.deleteOrder
 GET	 /Meal/test/doSend/{id}               		       Meal.doSend
