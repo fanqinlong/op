@@ -1,5 +1,0 @@
-嗨,${user.name}, 
-
-点击  @@{SimpleUsers.confirmEduMail(user.eduMailConfirmation)} ，验证EDU邮箱。
-
-OpporLink group.

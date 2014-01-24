@@ -1,5 +1,0 @@
-嗨,${user.school.name} CSSA, 
-
-点击  @@{CSSAs.confirmRegistration(user.needConfirmation)} ，激活CSSA帐户。
-
-OpporLink group.
