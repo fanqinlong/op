@@ -1,0 +1,22 @@
+
+# 系统通知模板
+# NT_TITLE_<tmpl_id>=通知标题
+# NT_CONTENT_<tmpl_id>=通知内容
+# 
+# tmpl_id 为 Notification 模型中的模板 ID
+
+# 这是一个栗子
+NT_TITLE_test=测试通知
+NT_CONTENT_test=测试测试 <a href="%s">%s</a>
+
+NT_TITLE_system=系统通知
+NT_CONTENT_system= <a href="%s">%s</a>
+
+NT_TITLE_activity=活动通知
+NT_CONTENT_activity= %s %s %s 发布的活动：<a href="/activity/detail/%s" target="_top">%s</a>
+
+NT_TITLE_qa=问答通知
+NT_CONTENT_qa= %s %s<a href="/QuestAnsw/showQuesInfo/%s" target="_top">%s</a>
+
+NT_TITLE_charity=公益通知
+NT_CONTENT_charity= <a href="%s">%s</a>

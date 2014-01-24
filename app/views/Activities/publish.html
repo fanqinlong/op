@@ -1,0 +1,15 @@
+#{extends 'main.html' /}%{String date = new Date().format("yyyy-MM-dd")}% #{set title:'detail.html' /} 
+<img src="@{'public/images/active_step4.png'}" class="img-responsive" style="margin: 20px auto;">
+<div class="clearfix"></div>
+
+<div class="span5 offset3" style="margin-top: 110px; margin-bottom: 237px; margin-left: 320px;">
+	<img src="/public/images/ok.png" style="float: left; margin-top: -15px;">
+	<h4 style="color: #5282a5">您好，您的活动已经发布成功，祝您玩的愉快！</h4>
+
+	<h6 style="color: #e2e2e2; margin: 20px; font-size: 14px;">
+		温馨提示：您可以点击
+		<a href="@{Activities.detail(aid)}">查看</a>
+		信息
+	</h6>
+</div>
+
