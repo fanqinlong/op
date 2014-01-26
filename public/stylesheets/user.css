@@ -3,6 +3,7 @@
 html {
 	_text-overflow: ellipsis
 }
+ 
 
 ul,ol,li,dl {
 	list-style-type: none
@@ -14,6 +15,19 @@ em,i,dfn,cite,strong,small {
 
 fieldset,img,button,input,select,option {
 	vertical-align: middle
+}
+.bottom-list li a {
+	color:#AFAFAF;
+}
+.bottom-list li a:hover {
+	color:#369;
+}
+.height28{
+	height:28px;
+}
+.pt2{
+	padding-top:2px;
+	
 }
 
 .bottom-list li a {
@@ -336,7 +350,7 @@ hr {
 }
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
-	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif
+	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif;
 }
 
 .main-bottom {
@@ -1362,6 +1376,7 @@ hr {
 	border: none;
 }
 
+
 /* 导航 */
 .msg-nav-title {
 	font-size: 18px;
@@ -1615,6 +1630,7 @@ html {
 	overflow-y: scroll;
 }
 
+
 .info-wrapper {
 	float: left;
 	padding: 20px 20px 50px 20px;
@@ -1857,6 +1873,7 @@ img.profile-sm {
 .user_exit1 {
 	background-image: url(../public/images/touxiang.png);
 	background-position: center;
+
 	background-repeat: no-repeat;
 }
 
@@ -2147,3 +2164,52 @@ li {
 .well lable .btn {
 	margin-top: -6px;
 }
+
+.pagination a, .pagination span {
+  position: relative;
+float: left;
+padding: 6px 12px;
+margin-left: -1px;
+line-height: 1.428571429;
+text-decoration: none;
+background-color: #fff;
+border: 1px solid #ddd;
+}
+
+.pagination .current {
+  z-index: 2;
+color: #fff;
+cursor: default;
+font-size:14px;
+background-color: #428bca;
+border-color: #428bca;
+}
+.current.prev{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+	margin-left: 0;
+border-bottom-left-radius: 4px;
+border-top-left-radius: 4px;
+	
+	
+}
+.prev{
+	
+	border-bottom-left-radius: 4px;
+border-top-left-radius: 4px;
+}
+.next{
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+.current.next{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+
+
