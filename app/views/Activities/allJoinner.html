@@ -32,7 +32,11 @@
 			</a>
 		</p>
 		<p>
+<<<<<<< HEAD
 			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}" style="display: block;position: absolute;top: 78px;"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+=======
+			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+>>>>>>> temp
 		</p>
 		#{if isOwner}
 		#{if !joiner.isAllown}

@@ -3,7 +3,10 @@
 html {
 	_text-overflow: ellipsis
 }
+<<<<<<< HEAD
  
+=======
+>>>>>>> temp
 
 ul,ol,li,dl {
 	list-style-type: none
@@ -16,6 +19,7 @@ em,i,dfn,cite,strong,small {
 fieldset,img,button,input,select,option {
 	vertical-align: middle
 }
+<<<<<<< HEAD
 .bottom-list li a {
 	color:#AFAFAF;
 }
@@ -29,6 +33,8 @@ fieldset,img,button,input,select,option {
 	padding-top:2px;
 	
 }
+=======
+>>>>>>> temp
 
 table {
 	border-collapse: collapse;
@@ -248,7 +254,11 @@ table {
 
 .activity,.top-thum-a {
 	position: relative;
+<<<<<<< HEAD
 	 
+=======
+	height: 165px;
+>>>>>>> temp
 	overflow: hidden;
 	font-size: 12px
 }
@@ -273,12 +283,19 @@ table {
 	position: absolute;
 	background: #000;
 	opacity: .5;
+<<<<<<< HEAD
 	height: 40px;
 padding: 5px;
 	 
 	color: #FFF;
 	width: 92%;
 text-align: left;
+=======
+	height: 24px;
+	bottom: 0;
+	color: #FFF;
+	width: 100%
+>>>>>>> temp
 }
 .top-thum-a1 {
 	background: #000000 !important;
@@ -287,12 +304,18 @@ text-align: left;
 
 .activity .detail,.top-thum-a1 {
 	position: absolute;
+<<<<<<< HEAD
 	background: #000;
 opacity: 0.7;
 bottom: -200px;
 	width: 100%;
 	padding: 20px;
 	height: 250px;
+=======
+	background: #428bca;
+	width: 100%;
+	height: 165px;
+>>>>>>> temp
 	z-index:9999;
  	color: #FFF;
 	cursor: pointer
@@ -333,11 +356,26 @@ hr {
 	margin-top: 0
 }
 
+<<<<<<< HEAD
+=======
+body {
+	color: #000;
+	background: #f3f3f3;
+	font-family: "微软雅黑",Tahoma,Verdana,Arial,sans-serif
+}
+
+>>>>>>> temp
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 	font-family: "微软雅黑",Tahoma,Verdana,Arial,sans-serif
 }
 
+<<<<<<< HEAD
  
+=======
+.container-op {
+	font-size: 14px
+}
+>>>>>>> temp
 
 .main-bottom {
 	padding-top: 0;
@@ -1049,8 +1087,12 @@ blockquote small:before {
 
 .sh_head {
 	min-height: 110px;
+<<<<<<< HEAD
 	float: left;
 	position: relative;
+=======
+	float: left
+>>>>>>> temp
 }
 
 .sh_head_pic {
@@ -1358,6 +1400,14 @@ hr {
 }
 
  
+<<<<<<< HEAD
+=======
+.container-op {
+	clear: both;
+	padding: 0px;
+}
+
+>>>>>>> temp
 /* 导航 */
 .msg-nav-title {
 	font-size: 18px;
@@ -1607,7 +1657,18 @@ border-color: #ddd;}
 html {
 	overflow-y:scroll;
 }
+<<<<<<< HEAD
  
+=======
+
+.container-op {
+	clear: both;
+	border: none;
+	background-color: transparent;
+	padding: 0px;
+}
+
+>>>>>>> temp
 .info-wrapper {
 	float: left;
 	padding: 20px 20px 50px 20px;
@@ -1834,7 +1895,13 @@ img.profile-sm {
   
   margin-left: 5px;
 margin-top: -5px;}
+<<<<<<< HEAD
  
+=======
+.container-op {
+	font-size: 14px
+}
+>>>>>>> temp
 .user_exit1{
 	background-image:url(../public/images/touxiang.png);
 	background-position:center;
@@ -2059,6 +2126,7 @@ font-size:30px;}
 .avatar5 {
 	width: 128px;
 
+<<<<<<< HEAD
 }
 
 .pagination a, .pagination span {
@@ -2114,3 +2182,6 @@ border-top-left-radius: 4px;
 	margin-top:-6px;
 	
 }
+=======
+}
+>>>>>>> temp

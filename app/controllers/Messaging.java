@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.ArrayList;
@@ -284,3 +285,4 @@ public class Messaging extends Application {
 
 	private static Gson notificationJSONSerializer = new GsonBuilder().create();
 }
+ 

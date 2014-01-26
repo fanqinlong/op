@@ -35,7 +35,14 @@
 							<h4><a href="@{Activities.detail(activity.id)}"> ${activity.name} </a></h4>
 							 
 						 
+<<<<<<< HEAD
 					 
+=======
+						<p class="text-muted overflow-2">
+							 
+								${activity.intro.raw()}
+						</p>
+>>>>>>> temp
 						 
 						<ul class="list-inline text-muted font-12">
 							  <li>${activity.postAt}</li>
@@ -55,6 +62,7 @@
 	</div>
 </div>
 </div>
+<<<<<<< HEAD
 #{set 'Scripts'}
  <script type="text/javascript" src="@{'public/javascripts/jquery.pagination.js'}"></script>
  <script type="text/javascript">
@@ -106,6 +114,15 @@
 
 
  
+=======
+#{set}
+<script type="text/javascript">
+	$('#modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
+</script>
+#{/set}
+>>>>>>> temp
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 
