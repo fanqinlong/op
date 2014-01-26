@@ -5,6 +5,8 @@ import models.activity.Activity;
 import models.activity.Liker;
 import models.charity.Wel;
 import models.charity.welLiker;
+import models.index.IndexStore;
+import models.index.SolrContent;
 import models.qa.Paging;
 import models.qa.Ques;
 import models.users.CSSA;
@@ -17,18 +19,19 @@ import play.mvc.*;
 import play.mvc.Scope.Session;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
+import org.apache.solr.client.solrj.SolrServerException;
+
 
 public class Charities extends Application {
 	
 	static int Number = 5;
-	
-	
 	
     @Before
     public static void isAdmin() {
@@ -62,7 +65,6 @@ public class Charities extends Application {
                 Charities.smfabu();
             }
         }
-
         render();
     }
 
@@ -78,7 +80,6 @@ public class Charities extends Application {
         if (session.get("logged") == null) {
             Charities.pigination(1);
         }
-
         render();
     }
 
@@ -119,9 +120,8 @@ public class Charities extends Application {
 
             String path = "/public/images/upload/" + fileName;
             Files.copy(f, Play.getFile(path));
-
-            new Wel(title, content, d, path, generalize, likerCount, true,
-                fromUser);
+            Wel w = new Wel(title, content, d, path, generalize, likerCount, true, fromUser);
+            IndexStore.getInstance().addIndexWel(w);
             pigination(1);
         }
     }
@@ -152,7 +152,6 @@ public class Charities extends Application {
             validation.keep();
             params.flash();
             flash.error("说明不能为空");
-
             fabu();
         }
         else {
@@ -160,12 +159,9 @@ public class Charities extends Application {
             String extName = fileName.substring(fileName.lastIndexOf("."));
             UUID uuid = UUID.randomUUID();
             fileName = uuid.toString() + extName;
-
             String path = "/public/images/upload/" + fileName;
             Files.copy(f, Play.getFile(path));
-
-            new Wel(title, content, d, path, generalize, likerCount, false,
-                fromUser);
+            new Wel(title, content, d, path, generalize, likerCount, false, fromUser);
             renderTemplate("Charities/SmWelSave.html");
         }
     }
@@ -174,26 +170,22 @@ public class Charities extends Application {
         Wel w = Wel.findById(id);
         w.isChecked = true;
         w.save();
+        IndexStore.getInstance().addIndexWel(w);
         render(w);
     }
 
-    
-    
-   
-  
 
     public static void edit(long id, int pageNo) {
         if (session.get("logged") == null) {
             Charities.pigination(1);
         }
-
         SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
 
         if (su.isAdmin == false) {
             Charities.pigination(1);
         }
-
         Wel w = Wel.findById(id);
+        IndexStore.getInstance().updateIndexWel(w);
         render(w, pageNo);
     }
 
@@ -205,14 +197,13 @@ public class Charities extends Application {
             String extName = fileName.substring(fileName.lastIndexOf("."));
             UUID uuid = UUID.randomUUID();
             fileName = uuid.toString() + extName;
-
             String path = "/public/images/upload/" + fileName;
             Files.copy(f, Play.getFile(path));
             w.f = path;
-
             w.save();
+           IndexStore.getInstance().updateIndexWel(w);
+         
         }
-
         pigination(pageNo);
     }
 
@@ -220,6 +211,7 @@ public class Charities extends Application {
         Wel w = Wel.findById(id);
         w.views = w.views + 1;
         w.save();
+        IndexStore.getInstance().updateIndexWel(w);
         render(w);
     }
  
@@ -227,19 +219,13 @@ public class Charities extends Application {
     
     public static void pigination(int pageNo) {
         if (session.get("logged") == null) {
-            int count = Wel.find("isChecked=true order by time desc").fetch()
-                           .size();
-
-            int pageCount = ((count % Number) == 0) ? (count / Number) : ((count / Number) +
-                1);
-
+            int count = Wel.find("isChecked=true order by time desc").fetch().size();
+            int pageCount = ((count % Number) == 0) ? (count / Number) : ((count / Number) + 1);
             if (pageNo < 1) {
     			pageNo = 1;
-
     		} else if (pageNo >= pageCount && pageNo > 1) {
     			pageNo = (int) pageCount;
     		}
-
             List<Wel> we = Wel.find("isChecked=true order by time desc")
                               .from((pageNo - 1) * Number).fetch(Number);
             int[] inter = Paging.getRount(8, pageCount, pageNo);
@@ -314,10 +300,9 @@ public class Charities extends Application {
         al.save();
 
         Wel w = Wel.findById(aid);
-
         w.likerCount = w.likerCount + 1;
         w.save();
-
+        IndexStore.getInstance().updateIndexWel(w);
         if (userType.equals("cssa")) {
             CSSA cssa = CSSA.findById(userId);
 
@@ -331,7 +316,6 @@ public class Charities extends Application {
                     w, "关注了", "wel");
             tend.save();
         }
-
         flash.success("关注成功");
         pigination(pageNo);
     }

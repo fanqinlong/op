@@ -41,11 +41,12 @@
 					<li><a class="${request?.controller == 'Charities' ? 'active' : ''} " href="@{Charities.pigination(1)}">公益</a></li>
 					<li><a class="${request?.controller == 'Airports' ? 'active' : ''} " href="@{Airports.index}">接机</a></li>
 				
-				</ul>
- <!-- 
-		 	<form class="navbar-form navbar-left global-search" role="search"  >
+				</ul> 
+		 	<form class="navbar-form navbar-left global-search" action="@{IndexController.findByModel}" method="get">
 					<div class="form-group pull-left">
-						<input class="form-control" type="text" placeholder="搜索感兴趣的活动、话题或人...">
+						<input class="form-control" id="condition" name="condition" type="text" placeholder="搜索感兴趣的活动、话题或人..."/>
+						<input class="form-control"  id="currentPage" name="model" type="hidden" value="0"/>
+						<input class="form-control"  id="currentPage" name="currentPage" type="hidden" value="1"/>
 					</div>
 
 					<button type="submit" class="btn">
@@ -53,7 +54,7 @@
 					</button>
 				</form>
  
- 	  -->
+ 	 
  
  
  

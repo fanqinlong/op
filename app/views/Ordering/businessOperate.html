@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico"
+	mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 - #{get 'title' /}</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet
+'media-queries.css' /}#{stylesheet
+'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+#{stylesheet 'bootstrap-datetimepicker.min.css' /}
+</head>
+<body style="background-image: url(/public/images/background.png);"
+	class="text-center img-responsive">
+	<header class="row mr0">
+
+		<div class="col-md-12">
+			<img src="../public/images/title.png" class="img-responsive"
+				style="margin: 0px auto; max-width: 99%;" />
+		</div>
+
+
+	</header>
+	<!-- <img src="../public/images/base_top.png" class="mb-5 ml3"/>
+  -->
+	<div
+		style="background: url(../public/images/base_top.png) no-repeat; margin: 0px auto; z-index: 9999; height: 40px; background-size: 100% 100%; width: 71%">
+	</div>
+	<!--------------------------------------------------------------------------------------------------------->
+
+
+	<div class="row"
+		style="background-image: url(images/base_center.png); margin: 0px auto;">
+
+		<div class="col-md-8 col-md-offset-2 color-white">
+
+			<div class="row text-left">
+				<div class="col-md-12">
+					<h3>订单列表</h3>
+					<!--begin--------------------------------------->
+
+					<div class="mb40"
+						style="background-color: #f3f3f3; height: 36px; border: 1px solid #BDBDBD;">
+						<input type="hidden"  name="id" value="id"/>
+						<form action="@{Ordering.operate}" method="get">
+							<div class="pull-left mt5 mr20 ml5">订单状态</div>
+							<select class="pull-left mt5" style="width: 120px;" name="staus">
+								<option>全部</option>
+								<option>等待派送</option>
+								<option>正在派送</option>
+								<option>交易成功</option>
+							</select>
+							<div class="pull-left ml20 mt5 mr10">时间</div>
+							<input type="text" class="mt5 form_date"
+								style="width: 100px; float: left;" name="start"/>
+							<div class="pull-left  mt5 ">--</div>
+							<input type="text" class="mt5 form_date1" style="width: 100px; float: left;" name="end"/>
+							<input type="text"
+								class="mt5 ml40" style="width: 180px; float: left;" name="keyWord"/>
+							<button type="submit" class="pull-left ml10 mt5 mr20">搜索</button>
+						</form>
+						<button class="pull-right btn btn-info" style="margin-top: 1px;">导出Excel</button>
+
+
+					</div>
+
+
+					<!--begin--------------------------------------->
+					#{list items:orders,as:'order'}
+					<hr>
+					<p class="size4 " style="line-height: 2;">
+						<span class="text-muted">订单号 </span> <span class="color-red size3">${order.orderNumber}</span>
+						<span class="text-muted ml40">订单生成时间 </span> ${new
+						Date(order.orderTime).format('yyyy-MM-dd hh:mm:ss')} <br> <span
+							class="text-muted">姓名</span>${order.userName} <span
+							class="text-muted ml40">联系电话 </span> ${order.phone} <span
+							class="text-muted ml40">QQ </span> ${order.qq} <span
+							class="text-muted ml40">微信 </span> ${order.weixin} <span
+							class="text-muted ml40">Email </span>${order.email} <br> <span
+							class="text-muted">送餐地点 </span> ${order.location} <span
+							class="text-muted ml40">送餐时间</span> ${new
+						Date(order.time).format('yyyy-MM-dd hh:mm:ss')} <br> <span
+							class="text-muted">菜单</span> #{list items:order.dishes,as:'d'} <span
+							class="label label-warning fwn">${d.menu.dishes} $
+							${d.menu.price}</span> <span class="color-red fwb size3">X${d.amount}</span>
+						#{/list} <br> <span class="text-muted">备注</span>不要蒜
+
+					</p>
+					<div class="well well-sm size3">
+						订单状态： #{if order.status=="等待派送"} <span
+							class="fwb color-red  size3 dengdai">等待派送</span> #{/if} #{if
+						order.status=="正在派送"} <span
+							class="fwb color-yellow  size3 zhengzai">正在派送</span> #{/if} #{if
+						order.status=="交易成功"} <span class="fwb color-green  size3 jiaoyi">交易成功</span>
+						#{/if}
+						<lable class="pull-right"> #{if order.status=="等待派送"} <a
+							type="button" class="btn btn-default small-default btn1"
+							href="@{Ordering.changeStatus(order.id,'正在派送')}">标记为正在派送</a> <a
+							type="button" class="btn btn-default small-default btn2"
+							href="@{Ordering.changeStatus(order.id,'交易成功')}">标记为交易成功</a> <a
+							type="button" class="btn btn-default small-default" href="">删除</a>
+						#{/if} #{if order.status=="正在派送"}
+						<button type="button" class="btn btn-default small-default btn1"
+							disabled="disabled">标记为正在派送</button>
+						<a type="button" class="btn btn-default small-default btn2"
+							href="@{Ordering.changeStatus(order.id,'交易成功')}">标记为交易成功</a> <a
+							type="button" class="btn btn-default small-default" href="">删除</a>
+						#{/if} #{if order.status=="交易成功"}
+						<button type="button" class="btn btn-default small-default btn1"
+							disabled="disabled">标记为正在派送</button>
+						<button type="button" class="btn btn-default small-default btn1"
+							disabled="disabled">标记为交易成功</button>
+						<a type="button" class="btn btn-default small-default" href="">删除</a>
+						#{/if} </lable>
+					</div>
+					#{/list}
+
+
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+
+		</div>
+	</div>
+	<!--------------------------------------------------------------------------------------------------------->
+	<p>
+
+		<span class="cw size3">Through opporlink operation </span>
+	</p>
+	<script type="text/javascript"
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="../public/javascripts/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript"
+		src="../public/javascripts/bootstrap-datetimepicker.fr.js"></script>
+
+
+	<script type="text/javascript">
+		$('.form_date').datetimepicker({
+			language : 'fr',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			format : 'yyyy-mm-dd',
+			todayHighlight : 1,
+			startView : 2,
+			minView : 2,
+			forceParse : 0
+		});
+		$('.form_date1').datetimepicker({
+			language : 'fr',
+			weekStart : 1,
+			format : 'yyyy-mm-dd',
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			startView : 2,
+			minView : 2,
+			forceParse : 0
+		});
+	</script>
+
+</body>
+</html>

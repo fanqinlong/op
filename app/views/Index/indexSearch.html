@@ -1,0 +1,201 @@
+#{extends 'main.html' /} #{set title:'indexSearch.html' /}
+
+<script type="text/javascript">
+
+
+</script>
+ 
+<div class="row">
+	<div class="col-md-7">
+	
+			<ul class="list-inline text-muted text-center ltt" style="">
+
+			<li style=""><h4>
+					<a href="@{IndexController.findByModel(condition,0,1)}">全站 </a>
+				</h4> #{if sign=="all"} <img src="../public/images/arrow.png" style="" />
+				#{/if}</li>
+
+
+			<li style=""><h4>
+					<a href="@{IndexController.findByModel(condition,1,1)}">活动 </a>
+				</h4> #{if sign=="Activity"} <img src="../public/images/arrow.png"	style="" /> #{/if}</li>
+
+
+			<li style=""><h4>
+					<a href="@{IndexController.findByModel(condition,2,1)}">问答 </a>
+				</h4> #{if sign=="QA"} <img src="../public/images/arrow.png" style="" />
+				#{/if}</li>
+
+
+			<li style=""><h4>
+					<a href="@{IndexController.findByModel(condition,3,1)}">公益</a>
+				</h4> #{if sign=="Wel"} <img src="../public/images/arrow.png" style="" />
+				#{/if}</li>
+
+		</ul>
+	<form action="@{IndexController.findByModel}" method="GET">
+		<div class="input-group input-group-lg" style="">
+			<input type="text" class="form-control " name="condition" value="${condition}"/> 
+			<input id="currentPage" name="model" type="hidden" value="${model}"/>
+			<input id="currentPage" name="currentPage" type="hidden" value="1"/>
+			<span class="input-group-btn">
+			<button class="btn btn-primary" type="submit">
+			<span class="glyphicon glyphicon-search"></span> 搜索
+				</button>
+			</span>
+			</div>
+	</form>
+	
+		<div class="btn-group btn-group-xs pull-right bbp" style="">
+			<button type="button" class="btn btn-default">默认排序</button>
+			<button type="button" class="btn btn-default">
+				时间排序<span class="glyphicon glyphicon-arrow-down"></span>
+			</button>
+			
+			<button type="button" class="btn btn-default">
+				关注热度<span class="glyphicon glyphicon-arrow-down"></span>
+			</button>
+		</div>
+		<div class="clearfix"></div>
+		
+		 #{if contentIsEmpty}
+			 <img alt="kong" src="@{'public/images/kong.png'}" >
+			 
+		 #{/if}
+		 #{else}
+		  #{list datas,as:'data'}
+		  #{if data.type=="1"}
+			<!-- 开始 -->
+			<hr>
+			<h5 class="text-muted">
+				[活动]<a href="@{Activities.detail(data.id.substring(1))}">${data.title.raw()}</a>
+			</h5>
+			<p class=" text-muted overflow-2">${data.summary.raw()}</p>
+			<ul class="list-inline text-muted font-12">
+				<li>发起人:
+				${data.from}
+				 </li>
+				<li>${data.createDate}</li>
+				<li>参加${data.join}</li>
+				<li>关注${data.attention}</li>
+			</ul>
+			 
+		  #{/if}
+		  #{if data.type=="2"}
+			<!-- 开始 -->
+			<hr>
+			<h5 class="text-muted">
+				[问答]<a href="@{QuestAnsw.showQuesInfo(data.id.substring(1))}">${data.title.raw()}</a>
+			</h5>
+			<p class=" text-muted overflow-2">${data.summary.raw()}</p>
+			<ul class="list-inline text-muted font-12">
+				<li>发起人:${data.from}</li>
+				<li>${data.createDate}</li>
+				<li>回答${data.join}</li>
+				<li>关注${data.attention}</li>
+			</ul>
+		  #{/if}
+		  #{if data.type=="3"} 
+			<!-- 开始 -->
+			<hr>
+			<h5 class="text-muted">
+				[公益]<a href="@{Charities.welfare(data.id.substring(1))}">${data.title.raw()}</a>
+			</h5>
+			<p class=" text-muted overflow-2">${data.summary.raw()}</p>
+			<ul class="list-inline text-muted font-12">
+				<li>发起人:${data.from} </li>
+				<li>${data.createDate}</li>
+				<li>回答${data.join}</li>
+				<li>关注${data.attention}</li>
+			</ul>
+		  #{/if}
+		  #{/list}
+		  #{/else}
+			<div class="col-md-6">
+				<div class="pagination">
+				#{if pageCount == 1 || pageCount == 0}
+						<a></a>
+						#{/if}
+						#{else}
+						#{if sign=="all"}
+							<ul class="pagination" style="margin:0px;">
+							#{if currentPage==1 }
+							  <li ><a href="@{IndexController.findByModel(condition,0,1)}">&laquo;</a></li>
+							 #{/if}
+							 #{elseif currentPage>1}
+							  <li ><a href="@{IndexController.findByModel(condition,0,currentPage-1)}">&laquo;</a></li>
+							 #{/elseif}
+							#{list items:1..inter[1],as:'i'}
+							 	<li ><a class="${i==currentPage?'now_page':''}" href="@{IndexController.findByModel(condition,0,i)}">${i}</a></li>
+							 #{/list}
+							  #{if currentPage>=pageCount}
+							  <li ><a href="@{IndexController.findByModel(condition,0,pageCount)}">&raquo;</a></li>
+							  #{/if}
+							   #{elseif currentPage < pageCount}
+							   <li ><a href="@{IndexController.findByModel(condition,0,currentPage+1)}">&raquo;</a></li>
+							   #{/elseif}
+							</ul>
+						#{/if}
+						#{if sign=="Activity"}
+							<ul class="pagination" style="margin:0px;">
+							#{if currentPage==1}
+							  <li ><a href="@{IndexController.findByModel(condition,1,1)}">&laquo;</a></li>
+							 #{/if}
+							 #{elseif currentPage>1}
+							  <li ><a href="@{IndexController.findByModel(condition,1,currentPage-1)}">&laquo;</a></li>
+							 #{/elseif}
+							#{list items:1..inter[1],as:'i'}
+							 	<li ><a class="${i==currentPage?'now_page':''}" href="@{IndexController.findByModel(condition,1,i)}">${i}</a></li>
+							 #{/list}
+							  #{if currentPage>=pageCount}
+							  <li ><a href="@{IndexController.findByModel(condition,1,pageCount)}">&raquo;</a></li>
+							  #{/if}
+							   #{elseif currentPage < pageCount}
+							   <li ><a href="@{IndexController.findByModel(condition,1,currentPage+1)}">&raquo;</a></li>
+							   #{/elseif}
+							</ul>
+						#{/if}
+						#{if sign=="QA"}
+							<ul class="pagination" style="margin:0px;">
+							#{if currentPage==1}
+							  <li ><a href="@{IndexController.findByModel(condition,2,1)}">&laquo;</a></li>
+							 #{/if}
+							 #{elseif currentPage>1}
+							  <li ><a href="@{IndexController.findByModel(condition,2,currentPage-1)}">&laquo;</a></li>
+							 #{/elseif}
+							#{list items:1..inter[1],as:'i'}
+							 	<li ><a class="${i==currentPage?'now_page':''}" href="@{IndexController.findByModel(condition,2,i)}">${i}</a></li>
+							 #{/list}
+							  #{if currentPage>=pageCount}
+							  <li ><a href="@{IndexController.findByModel(condition,2,pageCount)}">&raquo;</a></li>
+							  #{/if}
+							   #{elseif currentPage < pageCount}
+							   <li ><a href="@{IndexController.findByModel(condition,2,currentPage+1)}">&raquo;</a></li>
+							   #{/elseif}
+							</ul>
+						#{/if}
+						#{if sign=="Wel"}
+							<ul class="pagination" style="margin:0px;">
+							#{if currentPage==1}
+							  <li ><a href="@{IndexController.findByModel(condition,3,1)}">&laquo;</a></li>
+							 #{/if}
+							 #{elseif currentPage>1}
+							  <li ><a href="@{IndexController.findByModel(condition,3,currentPage-1)}">&laquo;</a></li>
+							 #{/elseif}
+							#{list items:1..inter[1],as:'i'}
+							 	<li ><a class="${i==currentPage?'now_page':''}" href="@{IndexController.findByModel(condition,3,i)}">${i}</a></li>
+							 #{/list}
+							  #{if currentPage>=pageCount}
+							  <li ><a href="@{IndexController.findByModel(condition,3,pageCount)}">&raquo;</a></li>
+							  #{/if}
+							   #{elseif currentPage < pageCount}
+							   <li ><a href="@{IndexController.findByModel(condition,3,currentPage+1)}">&raquo;</a></li>
+							   #{/elseif}
+							</ul>
+						#{/if}
+						#{/else}
+		       </div>
+			</div>
+	</div>
+
+</div>

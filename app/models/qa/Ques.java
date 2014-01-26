@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
+import models.index.IndexStore;
+
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -44,6 +46,7 @@ public class Ques extends Model {
 		this.focusNum = focusNum;
 		this.selfIntro =selfIntro;
 		create();
+		IndexStore.getInstance().addIndexQues(this);
 	}
 
 	public static Ques findByTitle(String title) {

@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import models.index.IndexStore;
 import models.qa.Paging;
 import notifiers.Trend;
 import play.data.validation.Required;
@@ -18,6 +19,7 @@ import models.qa.ChildComment;
 import models.qa.Comments;
 import models.qa.FocusQues;
 import models.qa.Ques;
+import models.qa.Question;
 import models.qa.QuestionArticle;
 import models.qa.Tag;
 import models.users.CSSA;
@@ -96,9 +98,9 @@ public class QuestAnsw extends Application {
 		} else {
 			CSSA cssa = CSSA.findById(userid);
 			Ques q = Ques.find("order by id desc").first();
-			Trend tend = new Trend(Utils.getNowTime(), null, cssa, null, null,
+			Trend trend = new Trend(Utils.getNowTime(), null, cssa, null, null,
 					q, "发布了", "addques", null);
-			tend.save();
+			trend.save();
 		}
 		render();
 	}
@@ -431,6 +433,7 @@ public class QuestAnsw extends Application {
 		System.out.println(Tag);
 		System.out.println(q.label);
 		q.save();
+		IndexStore.getInstance().addIndexQues(q);
 		if(Tag==null){
 			flash.error("至少要选择一个标签!");
 			editQues(eQues.id);
@@ -469,6 +472,8 @@ public class QuestAnsw extends Application {
 		QuesTitle = ques.title;
 		ques.focusNum = ques.focusNum + 1;
 		ques.save();
+		IndexStore.getInstance().updateIndexQues(ques);
+		
 		flash.success("关注成功");
 		new FocusQues(fquserType, fquserid, fquserprofile, id, QuesTitle);
 		/**
@@ -761,6 +766,7 @@ public class QuestAnsw extends Application {
 			new ChildComment(cUserid, cUserName, cUserType, quesid, comments,
 					userId, userName, userType);
 		}
+		IndexStore.getInstance().updateIndexQues((Ques)Ques.findById(quesid));
 		render();
 	}
 
@@ -819,7 +825,7 @@ public class QuestAnsw extends Application {
 		List<Comments> topUser = Comments.find("order by praiseNum desc")
 				.fetch(5);
 		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		int [] inter = Paging.getRount(8, (int) pageCount, currentPage);
 		render(t, qArticles, pageCount, contentIsEmpty, topQues, topUser, flag,
 				sign, currentPage, inter);
 	}
@@ -869,7 +875,7 @@ public class QuestAnsw extends Application {
 		List<Comments> topUser = Comments.find("order by praiseNum desc")
 				.fetch(5);
 		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		int [] inter = Paging.getRount(8, (int) pageCount, currentPage);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
 				contentIsEmpty, topUser, topQues, sign, quesSortFlag, ques,
 				inter, currentPage);
@@ -928,7 +934,7 @@ public class QuestAnsw extends Application {
 		List<Comments> topUser = Comments.find("order by praiseNum desc")
 				.fetch(5);
 		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		int [] inter = Paging.getRount(8, (int) pageCount, currentPage);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
 				contentIsEmpty, topUser, topQues, sign, shoolSortFlag,
 				myschool, inter, currentPage);
@@ -993,7 +999,7 @@ public class QuestAnsw extends Application {
 		List<Comments> topUser = Comments.find("order by praiseNum desc")
 				.fetch(5);
 		List<Ques> topQues = Ques.find("order by focusNum desc").fetch(5);
-		int[] inter = Paging.getRount(8, (int) pageCount, currentPage);
+		int [] inter = Paging.getRount(8, (int) pageCount, currentPage);
 		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
 				contentIsEmpty, topUser, topQues, tagid, tagname, sortFlag,
 				sign, inter, currentPage);

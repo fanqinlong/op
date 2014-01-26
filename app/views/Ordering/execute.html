@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico"
+	mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 - #{get 'title' /}</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+
+
+
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet
+'media-queries.css' /}#{stylesheet
+'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+#{stylesheet 'bootstrap-datetimepicker.min.css' /}
+</head>
+<body style="background-image: url(/public/images/background.png);"
+	class="text-center img-responsive">
+	<header class="col-md-12  clearfix">
+		<img src="../public/images/title.png" class="img-responsive" />
+	</header>
+	<img src="../public/images/base_top.png" class="mb-5 ml3" />
+	<!--------------------------------------------------------------------------------------------------------->
+
+
+	<div class="row" style="background-image: url(); margin: 0px auto;">
+		<div class="col-md-8 col-md-offset-2 color-white">
+			<form class="form-horizontal" role="form" method="POST" action="@{Ordering.produce}">
+				<div class=" row">
+					<div class="col-md-6">
+						<h4 class="color1">订餐服务流程</h4>
+						<h5 class="ml30 mt20 mb20">请选择菜品</h5>
+						<div class="table-responsive">
+							<table class="table table-bordered ml30">
+								<thead class="table-top">
+									<tr>
+										<th colspan="2">今日供应</th>
+										<th>价格</th>
+										<th>数量/规格</th>
+									</tr>
+								</thead>
+								<tbody>
+									#{list items:menus,as:'menu'}
+									<tr>
+										<td colspan="2">${menu.dishes}
+										<input type="hidden" name="restaurantId" value="${menu.restaurant.id}"/>
+										<input type="hidden" name="menuId" value="${menu.id}"/></td>
+										<td><input type="text" id="price${menu.id}"
+											value="${menu.price}" disabled
+											style="border: 0px; background-color: white; width: 40px;" /></td>
+										<td style="argin-left: 10px;"><input type="button"
+											id="${menu.id}btnsub" value="-" onclick="sub(this.id)" /> <input
+											type="text" name="number" id="txt${menu.id}" value="0"
+											onfocus="fun_background(this.id)"
+											onblur="fun_onblur(this.id)"
+											onchange="fun_onchange1(this.id)"
+											onclick="fun_onchange(this.id)"
+											style="width: 40px; background-color: #e2e2e2;" /> <input
+											type="button" id="${menu.id}btnadd" value="+"
+											onclick="add(this.id)" /></td>
+									</tr>
+									#{/list}
+
+								</tbody>
+								<thead class="table-top" style="background-color: #FFFFFF;">
+									<tr>
+										<th colspan="4">订单总额:<span style="color: red;"><input
+												type="text" id="total" name="money" value="0"
+												style="border: 0px; background-color: white; font-size: 14px; color: red; font-weight: bold; width: 40px;" /></span></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-2 control-label">备注</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="3" name="remark"
+									placeholder="是否有忌口，或其他要求"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5 col-md-offset-1">
+						<h5 class="mt40 mb20">联系方式</h5>
+						<div class="form-group">
+							<label class="col-sm-3 control-label fwn">姓名</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="userName" value="${flash.userName}">
+								#{if flash.error.equals("请输入姓名")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label fwn">电话</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="phone" value="${flash.phone}">
+								#{if flash.error.equals("请输入电话号/输入错误")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label fwn">微信</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="weixin" value="${flash.weixin}">
+								#{if flash.error.equals("请输入微信号")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label fwn">邮箱</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="email" value="${flash.email}">
+								#{if flash.error.equals("请输入邮箱")||flash.error.equals("邮箱格式不合法")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label fwn">qq</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="qq" value="${flash.qq}">
+								#{if flash.error.equals("请输入QQ/QQ不合法")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+
+						<div class="form-group mt40">
+							<label class="col-sm-3 control-label">取餐时间</label>
+							<div class="col-sm-6">
+								<input type="text" readonly class="form_datetime form-control"
+									name="time" value="${flash.time}">
+								#{if flash.error.equals("请选择时间")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">取餐地点</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="location" value="${flash.location}">
+								#{if flash.error.equals("请选择送餐地点")}
+									<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+
+
+						<button type="submit" class="btn btn-primary btn-lg mb20">下一步</button>
+
+					</div>
+				</div>
+
+
+			</form>
+
+		</div>
+	</div>
+	<!--------------------------------------------------------------------------------------------------------->
+
+	<p>
+
+		<span class="cw size3">Through opporlink operation </span>
+	</p>
+
+	#{get 'Scripts'}
+	<script type="text/javascript"
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+	#{script 'bootstrap-datetimepicker.js' /} #{script
+	'bootstrap-datetimepicker.fr.js' /}
+
+
+	<script type="text/javascript">
+		$('.form_datetime').datetimepicker({
+			//language:  'fr',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			startView : 2,
+			forceParse : 0,
+			showMeridian : 1
+		});
+		var total = 0;
+		var old = 0;
+		var flag = 0;
+		function fun_background(data) {
+			$("#" + data).css("background-color", "#fff");
+			old = parseInt($("#" + data).val());
+		}
+
+		function fun_onblur(data) {
+
+			var now = parseInt($("#" + data).val());
+
+			if (isNaN(now)) {
+				now = 0;
+			}
+			if (isNaN(old)) {
+				old = 0;
+			}
+			if (now != old) {
+				if (now <= 0) {
+					now = 0;
+				}
+				data = data.replace("txt", "price");
+				var price = $("#" + data).val();
+				total += (now - old) * price;
+			}
+			$("#total").val(total);
+			if (parseInt($("#" + data).val()) == 0) {
+				$("#" + data).css("background-color", "#e2e2e2");
+			}
+
+		}
+
+		function fun_onchange(data) {
+
+			var i = parseInt($("#" + data).val());
+			$("#" + data).keyup(
+					function() {
+						$("#" + data).val(
+								$("#" + data).val().replace(/[^\d]/g, ''));
+						var j = 1
+						if ($("#" + data).val() == ""
+								|| $("#" + data).val() == null
+								|| $("#" + data).val() == "-") {
+							j = 0;
+						}
+						var i = parseInt($("#" + data).val());
+						if (isNaN(i) && j == 1) {
+							$("#" + data).val(0);
+							$("#" + data).css("background-color", "#e2e2e2");
+						}
+						if (typeof (i) == "number") {
+							if (i >= 1) {
+								$("#" + data).css("background-color", "#fff");
+							} else if (i < 0) {
+								alert("亲人，请受我一拜！！！");
+								$("#" + data).val(0);
+								$("#" + data)
+										.css("background-color", "#e2e2e2");
+							} else if (i == 0) {
+								$("#" + data)
+										.css("background-color", "#e2e2e2");
+							}
+						}
+
+					});
+
+		}
+
+		function fun_onchange1(data) {
+
+			$("#" + data).blur(function() {
+				var i = parseInt($("#" + data).val());
+				if (isNaN(i)) {
+					$("#" + data).val(0);
+					$("#" + data).css("background-color", "#e2e2e2");
+				}
+				if (parseInt($("#" + data).val()) < 1) {
+
+					$("#" + data).val(0);
+					$("#" + data).css("background-color", "#e2e2e2");
+				} else {
+					$("#" + data).val(parseInt($("#" + data).val()));
+					$("#" + data).css({
+						"background-color" : "#fff",
+						"color" : "#69c"
+					});
+				}
+			});
+			$("#" + data).change(function() {
+				if (parseInt($("#" + data).val()) < 1) {
+
+					$("#" + data).val(0);
+					$("#" + data).css("background-color", "#e2e2e2");
+				} else {
+					$("#" + data).css({
+						"background-color" : "#fff",
+						"color" : "#69c"
+					});
+				}
+			});
+		}
+
+		function add(data) {
+
+			var i = parseInt(data);
+			var result = parseInt($("#txt" + i).val()) + 1;
+
+			if (result <= 0) {
+				result = 0;
+			} else if (result > 0) {
+
+				$("#txt" + i).css({
+					"background-color" : "#fff",
+					"color" : "#69c"
+				});
+			}
+
+			total += parseInt($("#price" + i).val());
+			$("#total").val(total);
+			$("#txt" + i).val(result);
+
+		}
+
+		function sub(data) {
+			var i = parseInt(data);
+			var result = parseInt($("#txt" + i).val()) - 1;
+			if (parseInt($("#txt" + i).val()) >= 1) {
+				flag = 1;
+				$("#txt" + i).addClass("test");
+			} else if ($("#txt" + i).val() == 0) {
+				flag = 0;
+			}
+			if (result < 1) {
+				$("#txt" + i).css("background-color", "#e2e2e2");
+				result = 0;
+			} else if (result > 0) {
+
+				$("#txt" + i).css({
+					"background-color" : "#fff",
+					"color" : "#69c"
+				});
+			}
+			if (result >= 0 && $("#txt" + i).hasClass("test")) {
+				total -= parseInt($("#price" + i).val());
+			}
+			if (flag == 1) {
+				$("#txt" + i).removeClass("test")
+			}
+			$("#total").val(total);
+			$("#txt" + i).val(result);
+
+		}
+		
+	
+		
+	</script>
+	
+	#{/get}
+</body>
+</html>

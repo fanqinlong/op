@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import models.index.IndexStore;
+
 import play.db.jpa.Model;
 @Entity
 public class Wel extends Model {

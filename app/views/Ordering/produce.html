@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico" mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 - #{get 'title' /}</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'user.css' /}  #{stylesheet 'op-theme.css' /}   #{stylesheet 'media-queries.css' /}#{stylesheet 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+</head>
+<body  style="background-image:url(/public/images/background.png);" class="text-center img-responsive">
+<header class="col-md-12  clearfix"> <img src="../public/images/title.png" class="img-responsive"/> </header>
+ <img src="../public/images/base_top.png" class="mb-5 ml3"/>
+<!--------------------------------------------------------------------------------------------------------->
+
+
+<div class="row" style="margin: 0px auto;">
+	<div class="col-md-8 col-md-offset-2 color-white">
+
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 size4 text-center">
+				<h3 class="color1">您的订单已生成，请确认订单信息</h3>
+				<h4 class="color1 mt10 mb10">
+					请牢记您的订单编号 : <span class="color-red size1">${order.orderNumber}</span>
+				</h4>
+				<div class="panel panel-default size4">
+					<div class="panel-body text-left">
+						<div>
+							<span class="text-muted">姓名：</span>${order.userName} <span
+								class="text-muted ml20">联系电话：</span>${order.phone}<span
+								class="text-muted ml20">QQ：</span>${order.qq}<span
+								class="text-muted ml20">微信：</span>${order.weixin} <span
+								class="text-muted ml20">E-mail：</span>${order.email}
+						</div>
+						<div class="mt30">
+							<span class="text-muted">送餐地点：</span>${order.location}<span
+								class="text-muted ml20">送餐时间：</span>${new Date(order.time).format('yyyy-MM-dd hh:mm:ss')}
+						</div>
+						<div class="mt30">
+							<span class="text-muted">菜单：</span>
+							#{list items:order.dishes,as:'d'}
+							<lable class="mr20"> ${d.menu.dishes} ${d.menu.price}<span class="color-red fwb">X ${d.number}</span>
+							</lable>
+							#{/list}
+							
+						</div>
+						<div class="mt30">
+							<span class="text-muted">备注：</span>
+							${order.remark}
+						</div>
+					</div>
+					<div class="panel-footer text-right fwb size3">
+						订单总额： <span class="color-red fwb size3">$${totalPrice}</span>
+					</div>
+				</div>
+				<p class="mt80 mb40">
+					<a type="button" class="btn btn-default btn-lg"  href="@{Ordering.execute(order.restaurantId)}">重置信息</a>
+					<a type="button" class="btn btn-primary btn-lg ml40" href="@{Ordering.submit(order.id)}">确认提交</a>
+
+				</p>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!--------------------------------------------------------------------------------------------------------->
+  <p>
+   
+   <span class="cw size3">Through opporlink operation
+   </span>
+   </p> 
+ 
+</body>
+</html>
+

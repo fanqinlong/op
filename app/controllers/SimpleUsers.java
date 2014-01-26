@@ -30,6 +30,7 @@ import models.Meal.FoodName;
 import models.activity.Activity;
 import models.activity.Joiner;
 import models.activity.Liker;
+import models.ordering.Restaurant;
 import models.qa.Ques;
 import models.users.CSSA;
 import models.users.SimpleUser;
@@ -191,8 +192,19 @@ public class SimpleUsers extends Application {
 		if (cssa == null) {
 			SimpleUser user = (SimpleUser) SimpleUser.findByEmail(email);
 			if (user == null) {
-				flash.error("邮箱不存在。");
-				login();
+				Restaurant restaurant = Restaurant.findByEmail(email);
+				if(restaurant==null){
+					flash.error("邮箱不存在。");
+					login();
+				}else if(!restaurant.checkPassword(password)){
+					flash.error("密码错误。");
+					login();
+				}else{
+					session.put("usertype", "restaurant");
+					session.put("signed", restaurant.id);
+					Ordering.view(restaurant.id);
+				}
+				
 			} else if (!user.checkPassword(password)) {
 				flash.error("密码错误。");
 				flash.put("email", email);
@@ -201,21 +213,7 @@ public class SimpleUsers extends Application {
 				flash.put("notconfirmed", user.needConfirmation);
 				flash.put("email", email);
 				login();
-			} else {
-				if (session.get("Meal_test")!=null) {
-					connectSimple(user);
-					Meal.sellerInfo();
-				} else if (session.get("qusetionId") == null) {
-					connectSimple(user);
-					flash.success("欢迎回来， %s !", user.name);
-					infoCenter();
-				} else {
-					connectSimple(user);
-					QuestAnsw.showQuesInfo(Integer.parseInt(session
-							.get("qusetionId")));
-					infoCenter();
-				}
-			}
+			} 
 		} else if (!cssa.checkPassword(password)) {
 			flash.error("CSSA密码错误！");
 			flash.put("email", email);

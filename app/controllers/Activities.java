@@ -27,6 +27,7 @@ import models.activity.Period;
 import models.activity.Scope;
 import models.activity.Time;
 import models.activity.Type;
+import models.index.IndexStore;
 import models.users.CSSA;
 import models.users.SimpleUser;
 
@@ -159,6 +160,7 @@ public class Activities extends Application {
 		a.type = t;
 		a.scope = s;
 		a.save();
+		
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		long days = (dateTo.getTime() - dateFrom.getTime()) / (24 * 60 * 60 * 1000);
@@ -203,6 +205,7 @@ public class Activities extends Application {
 		Activity a = Activity.findById(aid);
 		a.isPublished = true;
 		a.save();
+		IndexStore.getInstance().addIndexActivity(a);
 		session.remove("aid");
 		render(aid);
 	}
@@ -393,7 +396,7 @@ public class Activities extends Application {
 
 		Trend t = new Trend(Utils.getNowTime(), l.likerSU, l.likerCSSA, l.activity.publisherSU, l.activity.publisherCSSA, a, "关注了", "activity");
 		t.save();
-
+		IndexStore.getInstance().updateIndexActivity(a);
 		detail(aid);
 	}
 
@@ -436,6 +439,7 @@ public class Activities extends Application {
 			}
 
 			flash.success("您申请参加成功，请静候审核结果。");
+			IndexStore.getInstance().updateIndexActivity((Activity)Activity.findById(aid));
 			detail(aid);
 		}
 	}

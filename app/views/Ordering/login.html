@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico"
+	mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 - #{get 'title' /}</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet
+'media-queries.css' /}#{stylesheet
+'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+</head>
+<body style="background-image: url(/public/images/background.png);"
+	class="text-center img-responsive">
+	<header class="row mr0">
+
+		<div class="col-md-12">
+			<img src="../public/images/title.png" class="img-responsive"
+				style="margin: 0px auto; max-width: 99%;" />
+		</div>
+
+
+	</header>
+	<!-- <img src="../public/images/base_top.png" class="mb-5 ml3"/>
+  -->
+	<div
+		style="background: url(../public/images/base_top.png) no-repeat; margin: 0px auto; z-index: 9999; height: 40px; background-size: 100% 100%; width: 71.2%">
+	</div>
+	<!--------------------------------------------------------------------------------------------------------->
+
+
+	<div class="row"
+		style="background-image: url(images/base_center.png); margin: 0px auto;">
+		<div class="col-md-8 col-md-offset-2" style="padding-left: 13px;">
+			<div class="row color-white">
+				<div class="col-md-6">
+					<h4>订餐服务流程</h4>
+					<img src="public/images/step1.png" class="mt40 mb40" />
+					<div class="panel panel-warning">
+						<div class="panel-heading text-center">温馨提示，您需要登录进行继续操作→</div>
+
+					</div>
+
+					<!--<button type="button" class="btn btn-primary btn-lg btn-block"></button>-->
+
+				</div>
+				<div class="col-md-6">
+					<h3 class="mt80 mb40 ml30 text-left">登录奥噗</h3>
+					<form class="form-horizontal" role="form" action="@{Ordering.login}" method="POST">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
+							<div class="col-sm-6">
+								<input type="email" class="form-control" id="inputEmail3"
+									placeholder="Email" name="email">
+								#{if flash.error=="邮箱不存在。"}
+								<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" id="inputPassword3"
+									placeholder="Password" name="password">
+								#{if flash.error=="密码错误。"}
+								<span class="color-red pull-left">${flash.error}</span>
+								#{/if}
+							</div>
+						</div>
+
+						<div class="col-md-6 col-md-offset-2 pl0">
+							<span class="pull-left">还没有账号？</span> <a href="/simple/signup">
+								<span class="pull-right">快速注册</span>
+							</a>
+
+						</div>
+
+
+
+
+						<div class="form-group ">
+							<div class="col-sm-offset-2 col-sm-6">
+								<button type="submit"
+									class="btn btn-primary btn-lg btn-block mt40">登录并进行下一步</button>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--------------------------------------------------------------------------------------------------------->
+
+	<p>
+
+		<span class="cw size3">Through opporlink operation </span>
+	</p>
+
+</body>
+</html>

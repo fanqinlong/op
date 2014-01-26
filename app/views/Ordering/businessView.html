@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico"
+	mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 - #{get 'title' /}</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet
+'media-queries.css' /}#{stylesheet
+'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+</head>
+<body style="background-image: url(/public/images/background.png);"
+	class="text-center img-responsive">
+	<header class="col-md-12  clearfix">
+		<img src="../public/images/title.png" class="img-responsive" />
+	</header>
+	<img src="../public/images/base_top.png" class="mb-5 ml3" />
+	<!--------------------------------------------------------------------------------------------------------->
+
+
+	<div class="row" style="margin: 0px auto;">
+		<div class="col-md-8 col-md-offset-2 color-white">
+
+			<div class="row">
+				<div class="col-md-6">
+
+					<h4>订餐服务流程</h4>
+					<img src="public/images/step1.png" class="mt40 mb40" />
+
+					<!--<button type="button" class="btn btn-primary btn-lg btn-block"></button>-->
+				</div>
+				<div class="col-md-6">
+					<h4 class="">本店订餐数量</h4>
+					<table class="table table-bordered mt80">
+						<thead>
+
+						</thead>
+						<tbody>
+							<tr>
+
+								<td><h1 class="color-red">${wait}</h1> <span class="text-muted">等待派送</span>
+								</td>
+								<td><h1 class="color-blue">${doing}</h1> <span class="text-muted">正在派送</span>
+								</td>
+								<td><h1 class="color-green">${done}</h1> <span
+									class="text-muted">交易成功</span></td>
+							</tr>
+
+						</tbody>
+					</table>
+
+					<div class="size4  text-center mt40">
+						您好，尊贵的店长，您可以点击<a href="@{Ordering.operate(id)}">查看订单</a>，来查看您的全部订单
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--------------------------------------------------------------------------------------------------------->
+
+	<p>
+
+		<span class="cw size3">Through opporlink operation </span>
+	</p>
+
+</body>
+</html>

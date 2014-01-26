@@ -65,14 +65,14 @@ public class Application extends Controller {
     		String userType = session.get("usertype");
     		long userid = Long.parseLong(session.get("logged"));
     		
-    		String userprofile;
-    		String username;
+    		String userprofile = "";
+    		String username = "";
     		if(userType.equals("simple")){
     			SimpleUser sip = SimpleUser.findById(userid);
     			userprofile = sip.profile;
     			username = sip.name;
     			isSimpleUser = true;
-    		}else{
+    		}else if(userType.equals("cssa")){
     			CSSA cssa = CSSA.findById(userid);
     			userprofile = cssa.profile;
     			username=cssa.school.name;

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<link rel="icon" href="/public/images/favicon.ico"
+	mce_href="/public/images/favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title>奥噗 -预览订餐#{get 'title' /}</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+#{stylesheet 'user.css' /} #{stylesheet 'op-theme.css' /} #{stylesheet
+'media-queries.css' /}#{stylesheet
+'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
+</head>
+<body style="background-image: url(/public/images/background.png);"
+	class="text-center img-responsive">
+	<header class="col-md-12  clearfix">
+		<img src="../public/images/title.png" class="img-responsive" />
+	</header>
+	<img src="../public/images/base_top.png" class="mb-5 ml3" />
+	<!--------------------------------------------------------------------------------------------------------->
+
+
+	<div class="row" style="background-image: url(); margin: 0px auto;">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="color-white row">
+				<div class="col-md-5">
+					<h2 class="size30">${res.rName}</h2>
+					<img src="public/images/mc.png" class="img-responsive" />
+					<dl class="dl-horizontal text-left">
+						<dt class="width70 mb20 fwn text-muted">商家地址：</dt>
+						<dd class="ml70">${res.address}</dd>
+						<dt class="width70 mb20 fwn text-muted">联系电话：</dt>
+						<dd class="ml70">${res.phone}</dd>
+						<dt class="width70 fwn text-muted">商家介绍：</dt>
+						<dd class="ml70">
+							${res.introduct}</dd>
+					</dl>
+				</div>
+				<div class="col-md-6 col-md-offset-1">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead class="table-top">
+								<tr>
+									<th colspan="2">今日供应</th>
+									<th>价格</th>
+									<th>数量/规格</th>
+								</tr>
+							</thead>
+							<tbody>
+							#{list items:menus,as:'menu'}
+								<tr>
+									<td colspan="2">${menu.dishes}</td>
+									<td>${menu.price}</td>
+									<td>${menu.standard}</td>
+								</tr>
+							#{/list}
+								
+							</tbody>
+						</table>
+					</div>
+					<a  class="btn btn-primary btn-lg mt80" href="@{Ordering.execute(res.id)}">马上订餐</a>
+					 <a data-toggle="modal" data-target="#myModa3" class="btn btn-default btn-lg mt80">查看订单流程</a>
+      </div>
+    </div>
+</div>
+ </div>
+<!--------------------------------------------------------------------------------------------------------->
+ 
+   <p>
+   
+   <span class="cw size3">Through opporlink operation
+   </span>
+   </p> 
+  <div class="modal fade" id="myModa3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body" class="text-center">
+      <h4 class="mt0 text-left">订餐流程</h4>
+				<img src="../public/images/step1.png" class="img-responsive" style="margin:auto;">
+			 
+				
+      </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

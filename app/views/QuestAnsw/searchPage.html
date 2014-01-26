@@ -274,12 +274,9 @@ $('#modal').on('hidden', function() {
 									 #{elseif currentPage>1}
 									  <li ><a href="@{QuestAnsw.searchPage(flag,currentPage-1,10)}">&laquo;</a></li>
 									 #{/elseif}
-									 %{for(int i=inter[0];i<=inter[1];i++){}%
+									#{list items:1..inter[1],as:'i'}
 									 	<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchPage(flag,i,10)}">${i}</a></li>
-									 %{}}%
-									 <!--  #{list items:1..pageCount,as:'page'}
-									  	<li ><a href="@{QuestAnsw.searchPage(flag,page,10)}">${page}</a></li>
-									  #{/list} -->
+									 #{/list}
 									  #{if currentPage>=pageCount}
 									  <li ><a href="@{QuestAnsw.searchPage(flag,pageCount,10)}">&raquo;</a></li>
 									  #{/if}
@@ -296,9 +293,9 @@ $('#modal').on('hidden', function() {
 									#{elseif currentPage>1}
 									 <li ><a href="@{QuestAnsw.searchTag(sortFlag,tagname,currentPage-1,10)}">&laquo;</a></li>
 									#{/elseif}
-									%{for(int i=inter[0];i<=inter[1];i++){}%
+									#{list items:1..inter[1],as:'i'}
 									<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchTag(sortFlag,tagname,i,10)}">${i}</a></li>
-									%{}}%
+									#{/list}
 									#{if currentPage>=pageCount}
 									<li ><a href="@{QuestAnsw.searchTag(sortFlag,tagname,pageCount,10)}">&raquo;</a></li>
 									#{/if}
@@ -315,9 +312,9 @@ $('#modal').on('hidden', function() {
 									#{elseif currentPage>1}
 									<li ><a href="@{QuestAnsw.searchQues(quesSortFlag,ques,currentPage-1,10)}">&laquo;</a></li>
 									#{/elseif}
-									%{for(int i=inter[0];i<=inter[1];i++){}%
+									#{list items:1..inter[1],as:'i'}
 									<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchQues(quesSortFlag,ques,i,10)}">${i}</a></li>
-									%{}}%
+									#{/list}
 									#{if currentPage>=pageCount}
 									<li ><a href="@{QuestAnsw.searchQues(quesSortFlag,ques,pageCount,10)}">&raquo;</a></li>
 									#{/if}
@@ -334,9 +331,9 @@ $('#modal').on('hidden', function() {
 									#{elseif currentPage>1}
 									<li ><a href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,currentPage-1,10)}">&laquo;</a></li>
 									#{/elseif}
-									%{for(int i=inter[0];i<=inter[1];i++){}%
+									#{list items:1..inter[1],as:'i'}
 									<li ><a class="${i==currentPage?'now_page':''}" href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,i,10)}">${i}</a></li>
-									%{}}%
+									#{/list}
 									#{if currentPage>=pageCount}
 									<li ><a href="@{QuestAnsw.searchSchool(shoolSortFlag,myschool,pageCount,10)}">&raquo;</a></li>
 									#{/if}

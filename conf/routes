@@ -189,6 +189,23 @@ GET 				/contact                                            Info.contact
 GET 				/jobs                                               Info.jobs
 
 
+#Ordering
+GET  /ordering/preview										Ordering.preview
+GET  /ordering/preview/{id}									Ordering.preview
+GET  /ordering/execute/{id}									Ordering.execute
+POST  /ordering/produce										Ordering.produce
+GET	 /ordering/submit/{id}									Ordering.submit
+
+GET	 /business/view/{id}									Ordering.view
+
+GET	 /business/operate/{id}									Ordering.operate
+GET	 /business/view/{id}/{staus}/{keyWord}/{start}/{end}	Ordering.operate
+
+GET  /business/login										Ordering.preLogin
+POST /business/login										Ordering.login
+
+
+
 #Messaging
 GET 			/msg                                                    Messaging.index
 GET 			/msg/mail                                               Messaging.mail
@@ -205,6 +222,11 @@ GET 			/msg/ajax/outbox                                        Messaging.fetchOu
 GET 			/msg/ajax/notifications                                 Messaging.fetchNotifications
 GET 			/msg/ajax/announcements                                 Messaging.fetchAnnouncements
 
+#Index
+GET				/index/ReconstructorIndex								IndexController.updateReconstructorIndex
+
+GET				/index/model											IndexController.findByModel
+GET				/index/model/{condition}/{model}/{currentPage}			IndexController.findByModel
 
 # Ignore favicon requests
 GET 			/favicon.ico 											404
