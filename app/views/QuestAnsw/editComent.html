@@ -1,0 +1,163 @@
+#{extends 'main.html' /}
+#{set title:'editComent.html' /}
+#{set 'Styles'}
+ 
+<script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
+#{/}
+	<script language="javascript" type="text/javascript">
+		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+		function showPraise(){
+		}
+	</script>
+<div class="col-md-8">
+		 <div>
+	#{list items:fQ,as:'findListQues'}
+				<ul style="padding-bottom:5px; padding-left:0px;"  >
+					<li  class="qatitle">	
+						<span  style="font-size:20px; color:#000000;" class="ql">${findListQues.title}</span>
+						#{if isSimple}
+							#{if UserQues}
+								<a  class="btn btn-link linkf"  href="@{QuestAnsw.editQues(findListQues.id)}">
+						 	 	<i class="icon-edit"></i>编辑</a>
+							#{/if}
+						#{/if}
+						#{elseif isCSSA}
+							#{if CssaQues}
+								<a  class="btn btn-link linkf"   href="@{QuestAnsw.editQues(findListQues.id)}">
+						 	 	<i class="icon-edit"></i>编辑</a>
+						 	 #{/if}
+						#{/elseif}
+						 #{else}
+						 	<span><span>
+						 #{/else}
+					</li>
+					<li class="qatitle">
+							<span class="label label-primary" style="background-color:#62a3d2;">${findListQues.label}</span>
+					</li>
+					#{if findListQues.usertype == "cssa"}
+					<li class="qatitle">
+						<a href="@{CSSAs.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
+						<span class="qatitlea linkf ql">
+						 
+						</a>
+						<div class="qatitlea linkf ql" style=" margin-top:-16px;padding-left:0px;">${findListQues.username},${findListQues.selfIntro}</div>
+
+					</li>
+					#{/if}
+					#{else}
+						<li class="qatitle">
+						<a href="@{SimpleUsers.preview(findListQues.userid)}" data-target="#modal" data-toggle="modal">
+						<span class="qatitlea linkf ql">
+						</a>
+						<div class="qatitlea linkf ql" style=" margin-top:-16px;padding-left:0px;">${findListQues.username}
+						${findListQues.selfIntro}
+						</div>
+
+					</li>
+					#{/else}
+					<li class="qatitle" style="padding-bottom:25px;">
+						<div class="qatitlea linkf sinfc"  >
+						${findListQues.content.raw()}
+						</div>
+					</li>
+					<li class="qatitle text-muted"   style="border-top:1px solid #dddddd;  border-bottom:1px solid #dddddd; padding-bottom:15px;">
+						<span style="font-weight:bold;">${findListQues.answerNum}</span>个回答
+					</li>
+			 	</ul>
+			 	#{/list}
+		  </div>
+  			
+	  		<div style="margin-left:40px;padding-bottom:50px; width:600px;">
+
+			 	<li class="qatitle" style="padding-bottom:15px; padding-top:8px; color:#336699">
+			  		${username} ,回答问题
+			 	</li>
+			 	<form id="comments" action="@{QuestAnsw.editComSuccessful}" method="post">
+				 	<input class="hide"  id="quesid" name="c.id" value="${findCom.id}" />
+			 		<textarea rows="5" style="width:570px;" id="area1" name="c.comment">${findCom.comment}</textarea>
+				 	<input type="submit" id="submitbutton" value="发布回答" class="btn btn-primary"  
+				 	style="width:80px;" />
+			 	</form>
+			</div>
+</div>
+
+
+
+
+
+<div class="col-md-3 col-md-offset-1">
+   #{list items:fQ,as:'fidid'}
+	<div class="details">
+	#{if isSimple}
+		#{if UserFocusQues}
+			<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}" class="btn btn-success"  style="background-color: #ffffff;color: #333333; title="取消Link后，您将不能收到此问答的最新动态。">
+				<i class=" icon-link"></i>Cancel Link !
+			</a>
+		#{/if}
+		#{else}
+			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
+				<i class=" icon-link"></i> Link !
+			</a>
+		#{/else}
+	#{/if}
+	#{elseif isCSSA}
+		#{if CSSAFocusQues}
+		<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}"  class="btn btn-success"  style="background-color: #ffffff;color: #333333; title="取消Link后，您将不能收到此问答的最新动态。">
+				<i class=" icon-link"></i>Cancel Link !</a>
+		#{/if}
+		#{else}
+			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
+				<i class=" icon-link"></i> Link !</a>
+		#{/else}
+	#{/elseif}
+	#{else}
+		<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
+				<i class=" icon-link"></i> Link !</a>
+	#{/else}
+	
+	</div>
+	<label class="op-17">
+		<span class="op-18">
+			<a href="@{QuestAnsw.allFollowers(fidid.id)}">${fidid.focusNum}</a>
+		<span>
+		<span class="op-13">人已Link</span>
+		</span></span>
+	</label>
+	#{/list}
+	 <div style="height: 80px;overflow: hidden;">
+	  #{list items:FQ,as:'fidid'}
+	  #{if fidid == "cssa"}
+	  	<a href="@{CSSAs.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
+	  	<img  src=${fidid.userprofile} class="op2-right2" style="width:32px;"></a>
+	  #{/if}
+	  #{else}
+	 		<a href="@{SimpleUsers.preview(fidid.userid)}" data-target="#modal" data-toggle="modal">
+	 		<img  src=${fidid.userprofile} class="op2-right2" style="width:32px;margin:5px;"></a>
+	 			 
+	  #{/else}
+	 	
+	  #{/list}
+	 </div> 
+	    <hr>
+				    <h4 style="padding-bottom:10px;margin-top:0px;">相关问题</h4>
+				    #{list items : relatedQues,as:'rq'}
+				    <p style="margin-bottom:0px;">
+				   		 <a href="@{QuestAnsw.showQuesInfo(rq.id)}" style="font-size:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:100%;display:block;">${rq.title}</a>
+				   		 
+				    </p>
+				    <p>
+				    	<span class="text-muted">${rq.answerNum}个回答</span>
+				    </p>
+				    #{/list}
+				     
+</div>
+<div style=" clear:both;"></div>	
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+#{set 'Scripts'}
+<script type="text/javascript">
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+});
+</script>
+#{/set}
+	

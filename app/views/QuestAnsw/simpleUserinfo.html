@@ -1,0 +1,112 @@
+#{extends 'main.html' /}
+#{set title:'simpUserInfo.html' /}
+
+
+<link href="../../public/stylesheets/user.css" rel="stylesheet" media="screen">
+
+<div class="row">
+	<div class=" col-md-2">
+		<a >
+			<img class="img-thumbnail profile-lg" src="${user.profile}">
+		</a>
+
+	</div>
+	<div class="col-md-8">
+		<h3>
+			${user.name}
+		</h3>
+		<h6>
+			<span>
+				#{if user.age}
+					<span class="text-primary"> ${user.age} </span>
+					 岁，
+				 #{/if}
+			    
+			    #{if user.birthday}
+			    	#{if user.dispBirthday}
+					生日是<span class="text-primary"> ${user.birthday} </span>
+					#{/if}
+				 #{/if}
+			    
+			    #{if user.hometown}
+			    	 来自 <span class="text-primary"> ${user.hometown} </span>, 
+			    #{/if} 
+			    
+			    #{if user.homeNow}
+			    	现居住<span class="text-primary"> ${user.homeNow} </span>, 
+			    #{/if} 
+			    
+			    #{if user.school}
+			     <span> 学校 </span>
+			    	 <span class="text-primary"> ${user.school} </span> ,
+			    #{/if} 
+			    
+			    #{if user.major}
+			     <span>专业 </span>
+			    	 <span class="text-primary"> ${user.major} </span> ,
+			    #{/if} 
+			    
+			    #{if user.admissionTime}
+			     <span>入学时间 </span>
+			    	 <span class="text-primary"> ${user.admissionTime} </span> ,
+			    #{/if} 
+			    
+			    #{if user.qq}
+			    	#{if user.dispQQ}
+			    	
+			     <span>QQ </span>
+			    	 <span class="text-primary"> ${user.qq} </span> ,
+			    	 #{/ if}
+			    #{/if} 
+			    
+			    #{if user.ralationship}
+			    	<span> 感情状况 </span> 
+			    	<span class="text-primary"> ${user.ralationship} </span> , 
+			    #{/if} 
+			    
+			    #{if user.contract} 
+			    	#{if user.dispContract}
+			    	<span> 手机号 </span> 
+			    	<span class="text-primary"> ${user.contract} </span>
+			    	#{/if} 
+			    #{/if}
+			    
+			</span>
+		</h6>
+	</div>
+</div>
+
+<div class="row mg-top-3">
+	
+	<div class="col-md-8">
+
+
+		<div class="bs-docs-example XX" id="activity">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active">
+					<a href="#home" data-toggle="tab">他的问答信息:</a>
+				</li>
+				<li>
+					<a href="#profile" data-toggle="tab">他的活动信息:</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="home">
+					#{list items:UQues,as:'q'}
+						<li style="list-style:none; margin-top:10px;">
+							<lable><a href="@{QuestAnsw.showQuesInfo(q.id)}">${q.title}</a></lable>
+						</li>
+					#{/list}	
+				</div>
+				
+				<div class="tab-pane fade" id="profile">
+						
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<div class="float-1"></div>
+

@@ -1,0 +1,45 @@
+#{extends 'main.html' /}
+#{set title:'sellerInfo.html' /}
+<div class="panel panel-default nocontainer">
+  <div class="panel-heading">
+    <h2 class="panel-title size30">McDonald's Plaza</h2>
+  </div>
+  <div class="panel-body row">
+    <div class="col-md-4"> <img src="public/images/mc.png" class="img-responsive"  />
+      <dl class="dl-horizontal">
+        <dt class="width70 mb20 fwn text-muted">商家地址：</dt>
+        <dd class="ml70">经三路农科路金城国际广场A座1706</dd>
+        <dt class="width70 mb20 fwn text-muted">联系电话：</dt>
+        <dd class="ml70">13223922222</dd>
+        <dt class="width70 fwn text-muted">商家介绍：</dt>
+        <dd class="ml70"> 水平排列的描述列表将会截断左侧太长的短语。在较窄的视口（viewport）内，列表将变为默认堆叠排列的布局方式。水平排列的描述列表将会截断左侧太长的短语。在较窄的视口（viewport）内，列表将变为默认堆叠排列的布局方式。水平排列的描述列表将会截断左侧太长的短语。在较窄的视口（viewport）内，列表将变为默认堆叠排列的布局方式</dd>
+      </dl>
+    </div>
+    <div class="col-md-8">
+	<div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-top">
+          <tr>
+            <th   colspan="2">今日供应</th>
+            <th>价格</th>
+            <th>数量/规格</th>
+          </tr>
+        </thead>
+        <tbody>
+          #{list items:foodname,as:'f'}	
+          #{if f.shop_name==shopName} 
+          <tr>
+            <td   colspan="2">${f.dishes}</td>
+            <td>$${f.price}</td>
+            <td>99</td>
+          </tr>
+          #{/if}
+          #{/list}
+        </tbody>
+      </table>
+	  </div>
+	  <a type="button"href="@{Meal.inputFrom}" class="btn btn-primary btn-lg mt80">马上订餐</a>
+    </div>
+  </div>
+</div>
+ 

@@ -1,0 +1,216 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET / Application.index
+
+
+
+#SimpleUsers Registration/Authentication
+GET    				/simple/signup                                           SimpleUsers.signup
+POST        		/simple/signup                                           SimpleUsers.register
+GET                 /simple/login                                            SimpleUsers.login
+POST        		/simple/login                                            SimpleUsers.authenticate
+POST        		/simple/logins                                            SimpleUsers.logins
+GET                	/simple/logout                                           SimpleUsers.logout
+GET                	/simple/signup/{uuid}                                    SimpleUsers.confirmRegistration
+GET                	/simple/confirmation/{uuid}                              SimpleUsers.resendConfirmation
+GET                	/simple/show/{id}                                        SimpleUsers.show
+GET               	/simple/changepassword                                   SimpleUsers.changePassword
+POST       			/simple/changepassword                                   SimpleUsers.doChangePassword
+#GET                /simple/updateprofile/{id}                               SimpleUsers.updateProfile
+POST        		/simple/updateprofile                                    SimpleUsers.doUpdateProfile
+GET                	/simple/changeemail/{id}                                 SimpleUsers.changeEmail
+POST       			/simple/changeemail                                      SimpleUsers.dochangeEmail
+GET                 /simple/forgetpassword                                   SimpleUsers.forgetPassword
+POST        		/simple/forgetpassword                                   SimpleUsers.doForgetPassword
+GET                	/simple/resetpassword/{uuid}                             SimpleUsers.resetPasswordConfirmation
+POST        		/simple/resetpassword                                    SimpleUsers.doResetPassword
+GET                	/simple/changeprofile/{id}                               SimpleUsers.changeProfile
+POST        		/simple/changeprofile                                    SimpleUsers.doChangeProfile
+GET                	/simple/infocenter                                       SimpleUsers.infoCenter
+
+GET					/simple/edumail									 		 SimpleUsers.eduMail
+POST				/simple/edumail											 SimpleUsers.authEduMail
+GET					/simple/authedumail/{uuid}								 SimpleUsers.confirmEduMail
+GET					/simple/homepage/{userid}/{actiontype}					 SimpleUsers.homePage
+GET					/simple/preview/{userid}								 SimpleUsers.preview
+GET					/simple/detail/{id}							             SimpleUsers.detail
+GET					/simple/userQues/{id}							         SimpleUsers.userQues
+
+#CSSAs Registration/Authentication
+GET                 /cssa/signup                                             CSSAs.signup
+POST      			/cssa/signup                                             CSSAs.register
+GET                 /cssa/login                                              CSSAs.login
+POST        		/cssa/login                                              CSSAs.authenticate
+GET                	/cssa/logout                                             CSSAs.logout
+GET                	/cssa/signup/{uuid}                                      CSSAs.confirmRegistration
+GET                	/cssa/confirmation/{uuid}                                CSSAs.resendConfirmation
+GET                	/cssa/show/{id}                                          CSSAs.show
+GET               	/cssa/changepassword                                	 CSSAs.changePassword
+POST        		/cssa/changepassword                                     CSSAs.doChangePassword
+GET                	/cssa/updateprofile                                 	 CSSAs.updateProfile
+POST        		/cssa/updateprofile                                      CSSAs.doUpdateProfile
+GET                	/cssa/changeemail                                  		 CSSAs.changeEmail
+POST        		/cssa/changeemail                                        CSSAs.dochangeEmail
+GET                	/cssa/forgetpassword                                     CSSAs.forgetPassword
+POST        		/cssa/forgetpassword                                     CSSAs.doForgetPassword
+GET                	/cssa/resetpassword/{uuid}                               CSSAs.resetPasswordConfirmation
+POST        		/cssa/resetpassword                                      CSSAs.doResetPassword
+GET                	/cssa/changeprofile                                		 CSSAs.changeProfile
+POST        		/cssa/changeprofile										 CSSAs.doChangeProfile
+GET                	/cssa/infocenter		                                  CSSAs.infoCenter
+GET                	/cssa/myactivity                                         CSSAs.myActivity
+GET					/cssa/homepage/{userid}								     CSSAs.homePage
+GET					/cssa/preview/{userid}								     CSSAs.preview
+GET					/cssa/detail/{id}							             CSSAs.detail
+GET					/cssa/userQues/{id}							             CSSAs.userQues
+
+GET  				/cssa/question                              			 CSSAs.cssaQues
+
+
+
+
+#Airport
+GET                 /airport                                                  Airports.index
+GET                 /airport/stuinfo/{id}                                     Airports.addStuInfo
+POST        		/airport/stuinfo/{schoolId}                               Airports.doAddStuInfo
+GET                 /airport/volinfo/{id}                                     Airports.addVolInfo
+POST        		/airport/volinfo/{schoolId}                               Airports.doAddVolInfo
+GET                	/airport/export                                           Airports.exportStu
+
+
+GET     /Airports/check/{file_path}                 Airports.check
+
+
+
+GET     /export/exportStu/{username}                      ExportStuinfo.exportStu
+GET     /ExportVoiInfo/exportVoiInfo/{username}           ExportVoiInfo.exportVoiInfo
+GET     /ExportOrder/exportOrder                               ExportOrder.exportOrder
+
+GET     /Airports/stuInfo/{username}                Airports.stuInfo
+GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
+
+
+#Pickup
+GET                	/pickup                                                 Pickup.index
+GET         		/pickup/pickupIndex 									Pickup.pickupIndex
+GET         		/pickup/studentinfo         							Pickup.registerStudentInfo
+GET                	/pickup/volunteerinfo                                   Pickup.registerVolunteerInfo
+GET         		/pickup/showUserInfor 									Pickup.showUserInfor
+GET         		/pickup/userInfo 										Pickup.userInfo
+GET         		/pickup/stuAddSuccess 									Pickup.stuAddSuccess
+POST         		/pickup/stuAddSuccess 									Pickup.presentStudentInfo
+GET         		/pickup/disStuDetail/{id}								Pickup.disStuDetail
+GET         		/pickup/changePuUser/{id} 								Pickup.changePuUser
+GET         		/pickup/updateUserInfo 									Pickup.updateUserInfo
+GET         		/pickup/changePuStudents/{id} 							Pickup.changePuStudents
+ 
+POST         		/pickup/updateUserInfo 									Pickup.updateUserInfo
+POST         		/pickup/updateStuSuccess								Pickup.updateStuSuccess
+
+#Activities
+GET                	/activity                                                Activities.index
+GET                	/activity/create                                         Activities.create
+POST        		/activity/next	                                           Activities.next
+POST        		/activity/post                                           Activities.post
+GET                	/activity/detail/{id}                                    Activities.detail
+GET                	/activity/filtertype/{name}                              Activities.filterType
+GET                	/activity/filterPeriod/{days}                        	 Activities.filterPeroid
+GET               	/activity/filterPeriodWeekend                        	 Activities.filterPeroidWeekend
+GET                	/activity/filterScope/{scope}                        	 Activities.filterScope
+POST        		/activity/filterZip                                 	 Activities.filterZip
+GET         		/activity/pagination/{page}                              Activities.getMore
+POST        	 	/activity/pagination/{page}                              Activities.getMore
+GET                	/activity/userthumb/{id}                                 Activities.userThumb
+GET                	/activity/allJoinner/{aid}                               Activities.allJoinner
+POST        		/activity/join                                           Activities.join
+GET                	/activity/like/{aid}                                     Activities.like
+GET					/activity/comment										 Activities.comment
+
+
+#Charity
+
+ 
+GET					/charity/smindex										Charities.smindex
+GET 				/charity/fabu                                           Charities.fabu
+GET 				/charity/smfabu                                         Charities.smfabu
+POST 				/charity/{pageNo}                                       Charities.pigination
+GET 				/charity/fabu                                           Charities.fabu
+POST        		/charity/add                 							Charities.pigination 
+GET					/charity/Pass/{id}										Charities.pass
+GET         		/charity/welfare/{id}                                   Charities.welfare
+GET        		 	/charity/edit/{id}/{pageNo}                             Charities.edit
+GET                	/charity/del/{id}/{pageNo}                              Charities.pigination
+GET                	/charity/{pageNo}                                      Charities.pigination
+GET					/charity/like/{aid}/{pageNo}							Charities.like
+ 
+
+#Question and answer
+POST /QuestAnsw/QuesIndex                              QuestAnsw.dispAddQues
+GET	 /QuestAnsw/dispAddQues               		       QuestAnsw.comments
+GET  /QuestAnsw/showQuesInfo/{id}                      QuestAnsw.showQuesInfo
+GET	 /QuestAnsw/{pageNum}		                       QuestAnsw.Quespaging
+GET  /QuestAnsw/deleteQues/{id}                        QuestAnsw.deleteQues
+GET  /QuestAnsw/editQues/{id}                          QuestAnsw.editQues
+POST /QuestAnsw/editSuccessful						   QuestAnsw.editSuccessful
+GET  /QuestAnsw/editComent/{comentUserid}/{comentUsertype}/{quesid}		   QuestAnsw.editComent
+POST /QuestAnsw/editComSuccessful                   QuestAnsw.editComSuccessful
+GET  /QuestAnsw/cancelFqcusQues/{quesid}		       QuestAnsw.cancelFqcusQues
+GET  /QuestAnswtAgree/{id}/{quesid}	               QuestAnsw.notAgree
+GET  /QuestAnswangeComent/{comentUserid}/{comentUsertype} QuestAnsw.changeComent
+GET  /QuestAnsw/fcousOnQuestion/{id}                   QuestAnsw.fcousOnQuestion
+POST /QuestAnsw/addComent                              QuestAnsw.addComent
+GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
+GET  /QuestAnsw/searchSchool                              QuestAnsw.searchSchool 
+GET  /QuestAnsw/showUserInfor/{usertype}/{userid}      QuestAnsw.showUserInfor 
+GET  /QuestAnsw/simpleUserinfo                         QuestAnsw.simpleUserinfo
+GET  /QuestAnsw/cssaInfo                               QuestAnsw.cssaInfo
+GET  /QuestAnsw/allFollowers/{id}                      QuestAnsw.allFollowers
+GET  /QuestAnsw/orderbyAnswerNumber                    QuestAnsw.orderbyAnswerNumber
+POST /UserSurvey/index               		           UserSurvey.index
+
+
+#Meal
+GET	 /Meal/test/index               		           Meal.index
+GET	 /Meal/test/inputFrom               		       Meal.inputFrom
+POST /Meal/test/doOrder               		           Meal.doOrder
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+GET	 /Meal/test/lookOr               		           Meal.lookOr
+POST /Meal/test/searchOrder               		       Meal.searchOrder
+GET	 /Meal/test/deleteOrder/{id}               		   Meal.deleteOrder
+GET	 /Meal/test/doSend/{id}               		       Meal.doSend
+GET	 /Meal/test/doSuccessful/{id}               	   Meal.doSuccessful
+POST /simple/authenticate               	         SimpleUsers.authenticate
+#Info and Jobs
+GET 				/about    					                        Info.about
+GET 				/contact                                            Info.contact
+GET 				/jobs                                               Info.jobs
+
+
+#Messaging
+GET 			/msg                                                    Messaging.index
+GET 			/msg/mail                                               Messaging.mail
+GET 			/msg/compose/{userType}/{userID}                        Messaging.compose
+GET 			/msg/notification                                       Messaging.notification
+
+POST 			/msg/sendMail                                           Messaging.sendMail
+POST			/msg/markRead											Messaging.markRead
+POST			/msg/trashMail											Messaging.trashMail
+POST      		/msg/deleteNotification                  				Messaging.deleteNotification
+
+GET 			/msg/ajax/inbox                                         Messaging.fetchInbox
+GET 			/msg/ajax/outbox                                        Messaging.fetchOutbox
+GET 			/msg/ajax/notifications                                 Messaging.fetchNotifications
+GET 			/msg/ajax/announcements                                 Messaging.fetchAnnouncements
+
+
+# Ignore favicon requests
+GET 			/favicon.ico 											404
+ 
+# Map static resources from the /app/public folder to the /public path
+GET 			/public/ 												staticDir:public
+
+# Catch all
+* 				/{controller}/{action} 									{controller}.{action}

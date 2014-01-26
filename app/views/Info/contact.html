@@ -1,0 +1,29 @@
+#{extends 'main.html' /} 
+<!-- 左侧导航 -->
+<div class="info-left-nav">
+	<ul class="info-nav">
+		<a href="@{Info.about}"><li>关于奥噗</li></a>
+		<a href="@{Info.contact}"><li class="selected">联系我们</li></a>
+		<a href="@{Info.jobs}"><li>加入奥噗</li></a>
+	</ul>
+</div>
+
+<!-- 内容 -->
+<div class="info-wrapper">
+	<p class="sub-title">Opporlink 奥噗</p>
+	
+	<div class="contact-wrapper">
+		<div class="contact-cell">
+			<a href="mailto:contract@opporlink.com"><img src="/public/images/about/contact_mail.png"/></a>
+			<p>邮件发送至<br/>contact@opporlink.com</p>
+		</div>
+		<div class="contact-cell">
+			<img src="/public/images/about/contact_weixin.png"/>
+			<p>微信公共平台<br/>开发中...</p>
+		</div>
+		<div class="contact-cell">
+			<a href="http://weibo.com/u/3630148044" target="_blank" ><img src="/public/images/about/contact_weibo.png"/></a>
+			<p>关注新浪微博<br/>奥噗</p>
+		</div>
+	</div>
+</div>

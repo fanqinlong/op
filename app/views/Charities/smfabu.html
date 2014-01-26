@@ -1,0 +1,89 @@
+#{extends 'main.html' /} #{set title:'index.html'/}
+
+ 
+
+<!--正文部分-->
+  <div>
+  	  <div class="col-sm-offset-1 col-sm-10">
+				<h3>发布公益性文章</h3>
+		 </div>
+		 
+			
+		<form action="@{Charities.SmWelSave}" method="post" id="index" role="form" enctype="multipart/form-data"  class="form-horizontal">
+			 
+		 
+			<div class="form-group">
+			    <label class="col-sm-2 control-label">文章标题</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" name="title"  value="${flash.title}" placeholder="请输入文章标题,20字以内......"  maxlenth="20">
+			    </div>
+			  </div>
+			
+			<div class="form-group">
+			    <label class="col-sm-2 control-label">文章来自于</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control" name="fromUser" value="${flash.fromUser}"  placeholder="请输入作者姓名......" maxlenth="20">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+				 <label class="col-sm-2 control-label">封面图片</label>
+		  <div class="col-sm-10">
+				<input type="file" name="f"   
+					onchange="previewImage(this)" />
+				<div id="preview">
+					<img id="imghead" name="f1">
+				</div>
+		</div>
+			<div class="form-group">
+			    <label class="col-sm-2 control-label">公益说明</label>
+			    <div class="col-sm-6">
+			      <input type="text" class="form-control"placeholder="140字以内......"
+					name="generalize" value="${flash.generalize}"  maxlength="140">
+			    </div>
+			  </div>
+
+
+
+ 			<div class="form-group">
+				 <label class="col-sm-2 control-label">文章内容</label>
+				  <div class="col-sm-6">
+				   <textarea cols="50" id="area1" style="width:550px;" rows="10" name="content" value="${flash.content}" > </textarea>
+		
+		 		 </div>
+			</div>
+			
+			
+ 	 <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+      <button type="submit" class="btn btn-primary btn-lg">发布</button>
+    </div>
+  </div>
+			 
+		</form>
+	 
+</div>
+</div>
+	 
+ 
+<!--这里是底部-->
+
+
+
+#{set 'Scripts'}
+<script type="text/javascript" src="@{'/public/javascripts/nicEdit.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/pic.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/key.js'}"></script>
+ <script type="text/javascript">
+//<![CDATA[
+  bkLib.onDomLoaded(function() {
+        new nicEditor().panelInstance('area1');
+        
+  });
+  //]]>
+  </script>
+ 
+					 
+					#{/set}
+</body>
+</html>
