@@ -130,39 +130,6 @@ public class Meal extends Application {
 		long user_id = Long.parseLong(session.get("logged"));
 		MealOrder mealOrder = MealOrder.findById(id);
 		mealOrder.dlOr = true;
-		mealOrder.save();
-		lookOr(user_id);
 	}
 
-	public static void doSend(long id) {
-		long user_id = Long.parseLong(session.get("logged"));
-		MealOrder mealOrder = MealOrder.findById(id);
-		mealOrder.isSend = true;
-		mealOrder.save();
-		lookOr(user_id);
-	}
-
-	public static void doCancel(long id) {
-		long user_id = Long.parseLong(session.get("logged"));
-		MealOrder mealOrder = MealOrder.findById(id);
-		mealOrder.cancelOr = true;
-		mealOrder.save();
-		lookOr(user_id);
-	}
-
-	public static void doSuccessful(long id) {
-		long user_id = Long.parseLong(session.get("logged"));
-		MealOrder mealOrder = MealOrder.findById(id);
-		mealOrder.successful = true;
-		mealOrder.save();
-		lookOr(user_id);
-	}
-
-	public static void searchOrder(String time) {
-		long user_id = Long.parseLong(session.get("logged"));
-		List<MealOrder> meal = MealOrder
-				.find("SELECT a FROM MealOrder a WHERE date LIKE  ?  order by id desc",
-						"%" + time + "%").fetch();
-		renderTemplate("Meal/lookOr.html", user_id, meal);
-	}
 }

@@ -1,146 +1,168 @@
-#{extends 'main.html' /}
-#{set title:'QuesIndex.html'/}
-<script type="text/javascript" src="@{'public/javascripts/allunivlist.js'}"></script>
- 
+#{extends 'main.html' /} #{set title:'QuesIndex.html'/}
+<script type="text/javascript"
+	src="@{'public/javascripts/allunivlist.js'}"></script>
+
 <script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
- 
+
 <script language="javascript" type="text/javascript">
- 	    var school = "";
-		$(function (){
-			$.each(allUnivList,function (j,m){		
-				if(j==0){
-					$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
-				}else if(j==7){
-					$("#gj").append("<a href='javascript:void(0);' onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");
-				}
-			});
+	var school = "";
+	$(function() {
+		$.each(allUnivList, function(j, m) {
+			if (j == 0) {
+				$("#gj").append(
+						"<a href='javascript:void(0);' onclick='getSheng(" + j
+								+ ",\"" + m.name + "\")'>" + m.name + "</a>");
+			} else if (j == 7) {
+				$("#gj").append(
+						"<a href='javascript:void(0);' onclick='getSheng(" + j
+								+ ",\"" + m.name + "\")'>" + m.name + "</a>");
+			}
 		});
-		//获得每个国家的省份
-		function getSheng(aid,name){
+	});
+	//获得每个国家的省份
+	function getSheng(aid, name) {
 		school = name;
-			$("#sheng").show();
-			$("#list").html('');
-			$("#sheng").html('');
-			if (allUnivList[aid].provs.length == 0){
-				$("#sheng").append("很抱歉！暂时没有数据（只提供了中国和美国的学校信息)");
-			}
-			else
-			{
-				$.each(allUnivList[aid].provs,function (j,m){				
-					$("#sheng").append("<a href='javascript:void(0);' style='margin: 10px;' onclick='getSchool("+aid+","+j+",\""+m.name+"\")'>"+m.name+"</a>");
-				});
-			}
-		}
-		//获得每个省份的学校
-		function  getSchool(gid,pid,name){
-		school = school.substring(0,2);
-		school += " - "+name;
-		$("#list").show();
-			$("#list").html('');
-			$.each(allUnivList[gid].provs[pid].univs,function (k,l){
-				$("#list").append("<a style='width:270px;display:block;float:left; margin:10px;'>"+l.name+"</a>");
+		$("#sheng").show();
+		$("#list").html('');
+		$("#sheng").html('');
+		if (allUnivList[aid].provs.length == 0) {
+			$("#sheng").append("很抱歉！暂时没有数据（只提供了中国和美国的学校信息)");
+		} else {
+			$.each(allUnivList[aid].provs, function(j, m) {
+				$("#sheng").append(
+						"<a href='javascript:void(0);' style='margin: 10px;' onclick='getSchool("
+								+ aid + "," + j + ",\"" + m.name + "\")'>"
+								+ m.name + "</a>");
 			});
-			$("#list").append("<br style='clear:both;' />");
-				
-		}
-		$("#list a").live("click",function (){
-			$("#gj").hide();
-			$("#list").hide();
-			$("#sheng").hide();
-			school += " - "+$(this).text();
-			$("#txtSc").val(school);
-		});
-		$("#txtSc").live("click",function (){
-			$("#gj").show();
-			$("#list").hide();
-			$("#sheng").hide();
-		});
-		
-	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
-	
-	function showSchool(){
-	if($("#chooseSchool").hasClass("hidden")){
-		$("#chooseSchool").removeClass("hidden");
-		}else{
-		$("#chooseSchool").addClass("hidden");
 		}
 	}
-	
+	//获得每个省份的学校
+	function getSchool(gid, pid, name) {
+		school = school.substring(0, 2);
+		school += " - " + name;
+		$("#list").show();
+		$("#list").html('');
+		$.each(allUnivList[gid].provs[pid].univs, function(k, l) {
+			$("#list").append(
+					"<a style='width:270px;display:block;float:left; margin:10px;'>"
+							+ l.name + "</a>");
+		});
+		$("#list").append("<br style='clear:both;' />");
+
+	}
+	$("#list a").live("click", function() {
+		$("#gj").hide();
+		$("#list").hide();
+		$("#sheng").hide();
+		school += " - " + $(this).text();
+		$("#txtSc").val(school);
+	});
+	$("#txtSc").live("click", function() {
+		$("#gj").show();
+		$("#list").hide();
+		$("#sheng").hide();
+	});
+
+	bkLib.onDomLoaded(function() {
+		nicEditors.allTextAreas()
+	});
+
+	function showSchool() {
+		if ($("#chooseSchool").hasClass("hidden")) {
+			$("#chooseSchool").removeClass("hidden");
+		} else {
+			$("#chooseSchool").addClass("hidden");
+		}
+	}
 </script>
 
 
-<div style="width:800px; border-right:1px solid #f4f4f4;">
-		<div style="width:735px;">
-			<p class="lead" style="padding-left:30px; padding-top:20px;">提问</p>
+<div style="width: 800px; border-right: 1px solid #f4f4f4;">
+	<div style="width: 735px;">
+		<p class="lead" style="padding-left: 30px; padding-top: 20px;">提问</p>
+	</div>
+	<form class="form-horizontal" id="QuesIndex"
+		action="@{QuestAnsw.dispAddQues}" method="post"
+		accept-charset="${_response_encoding}">
+		<div class="form-group">
+			<label for="name" class="col-md-2 control-label"><span
+				style="color: #FF0000;"> * </span>标题</label>
+			<div class="col-md-3 qaw">
+				<input type="text" name="title" value="${flash.title}"
+					placeholder="请输入文章标题......" class="form-control ">
+			</div>
+			<span class="col-md-3">#{error 'name' /}</span>
 		</div>
-	<form class="form-horizontal"  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"  accept-charset="${_response_encoding}">
-<div class="form-group">
-	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>标题</label>
-	<div class="col-md-3 qaw">
-		<input type="text" name="title" value="${flash.title}"  placeholder="请输入文章标题......" class="form-control " >
-	</div>
-	 <span class="col-md-3">#{error 'name' /}</span>
-</div>
-		
-		
-<div class="form-group">
-	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>问题说明</label>
-	<div class="col-md-3 qaw">
-		<textarea id="area1" name="content" value="${flash.content}"  style="width:550px;" rows="10"  ></textarea>
-	</div>
-	 <span class="col-md-3">#{error 'name' /}</span>
-</div>
-		
-<div class="form-group">
-	<label for="name" class="col-md-2 control-label">选择学校</label>
-	<div class="col-md-3 qaw">
-	
-	<label class="checkbox-inline btn btn-default" style=" margin-left:0px;border-radius:17px;">
-			<input style="float:none;margin-left:0px;margin-top:-1px; " id="checkschool" type="checkbox"  onClick="showSchool()">选择学校
-	</label>
-	<lable>
-		问题如果和学校有关,请点击选择学校
-	</lable>
-		<div style="width:560px; overflow:hidden;padding-top:10px;" id="chooseSchool" class="hidden">
-			<input type="text" id="txtSc" readonly 
-			style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; cursor:auto; background-color:#FFFFFF;" 
-			name="school" value="${flash.school}" placeholder="请选择学校" />
-			<div id="gj" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
-			<div id="sheng" style="width:550px; word-break:break-all; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
-			<div id="list" style="width:550px; border:1px #cccccc solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
+
+
+		<div class="form-group">
+			<label for="name" class="col-md-2 control-label"><span
+				style="color: #FF0000;"> * </span>问题说明</label>
+			<div class="col-md-3 qaw">
+				<textarea id="area1" name="content"
+					style="width: 550px;" rows="10">${flash.content}</textarea>
+			</div>
+			<span class="col-md-3">#{error 'name' /}</span>
 		</div>
-	</div>
-	 <span class="col-md-3">#{error 'name' /}</span>
-</div>	
-	
-<div class="form-group">
-	<label for="name" class="col-md-2 control-label"><span style="color: #FF0000;"> * </span>选择标签</label>
-	<div class="col-md-3 qaw">
-		 <div class="controls " style="width:560px;" id="ulname">
-			#{list items:t,as:'tag'}	 
-				<label class="checkbox-inline btn btn-default" style=" margin-left:0px; margin-top:5px;border-radius:17px;">
-		  			<input style="float:none;margin-left:0px;margin-top:-1px; " type="checkbox" name="Tag" id="Tag" value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
+
+		<div class="form-group">
+			<label for="name" class="col-md-2 control-label">选择学校</label>
+			<div class="col-md-3 qaw">
+
+				<label class="checkbox-inline btn btn-default"
+					style="margin-left: 0px; border-radius: 17px;"> <input
+					style="float: none; margin-left: 0px; margin-top: -1px;"
+					id="checkschool" type="checkbox" onClick="showSchool()">选择学校
 				</label>
-			#{/list}
-		  </div>
-	</div>
-</div>
-<div class="form-group">
-	<label for="name" class="col-md-2 control-label"></label>
-	<div class="col-md-3 qaw">
-		<div class="controls" style="color:#e2e2e2; margin-bottom:0px; margin-top:5px;">
-		  			<span>标签越精细，越容易让专业人士看到你的问题</span>
-		 </div>
-	</div>
-</div>
+				<lable> 问题如果和学校有关,请点击选择学校 </lable>
+				<div style="width: 560px; overflow: hidden; padding-top: 10px;"
+					id="chooseSchool" class="hidden">
+					<input type="text" id="txtSc" readonly
+						style="width: 550px; border: 1px #cccccc solid; padding: 10px; overflow: hidden; cursor: auto; background-color: #FFFFFF;"
+						name="school" value="${flash.school}" placeholder="请选择学校" />
+					<div id="gj"
+						style="width: 550px; border: 1px #cccccc solid; padding: 10px; overflow: hidden; line-height: 25px; display: none;"></div>
+					<div id="sheng"
+						style="width: 550px; word-break: break-all; border: 1px #cccccc solid; padding: 10px; overflow: hidden; line-height: 25px; display: none;"></div>
+					<div id="list"
+						style="width: 550px; border: 1px #cccccc solid; padding: 10px; overflow: hidden; line-height: 25px; display: none; height: 300px; overflow-y: auto;"></div>
+				</div>
+			</div>
+			<span class="col-md-3">#{error 'name' /}</span>
+		</div>
 
-<div class="form-group">
-	<div class="col-md-offset-2 col-md-3" style="width:30%;">
-		<input type="submit" class="btn btn-primary bt1" value="提交">
-		<input type="reset"  class="btn btn-default bt1" value="重置">
-	</div>
-</div>	
+		<div class="form-group">
+			<label for="name" class="col-md-2 control-label"><span
+				style="color: #FF0000;"> * </span>选择标签</label>
+			<div class="col-md-3 qaw">
+				<div class="controls " style="width: 560px;" id="ulname">
+					#{list items:t,as:'tag'} <label
+						class="checkbox-inline btn btn-default"
+						style="margin-left: 0px; margin-top: 5px; border-radius: 17px;">
+						<input style="float: none; margin-left: 0px; margin-top: -1px;"
+						type="checkbox" name="Tag" id="Tag" value="${tag.tagName}"
+						${flash.Tag=="tag.id"?"checked":""}  > ${tag.tagName}
+					</label> #{/list}
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-md-2 control-label"></label>
+			<div class="col-md-3 qaw">
+				<div class="controls"
+					style="color: #e2e2e2; margin-bottom: 0px; margin-top: 5px;">
+					<span>标签越精细，越容易让专业人士看到你的问题</span>
+				</div>
+			</div>
+		</div>
 
-</form>
-	<div style=" clear:both;"></div>
-</div>	
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-3" style="width: 30%;">
+				<input type="submit" class="btn btn-primary bt1" value="提交">
+				<input type="reset" class="btn btn-default bt1" value="重置">
+			</div>
+		</div>
+
+	</form>
+	<div style="clear: both;"></div>
+</div>

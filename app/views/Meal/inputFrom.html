@@ -103,15 +103,23 @@
   </div>
 </form>
 
-
 #{set 'Scripts'} 
+
 #{script 'bootstrap-datetimepicker.js' /}
 #{script 'bootstrap-datetimepicker.fr.js' /}
 
  
 <script type="text/javascript">
- $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
- 
+$('.form_datetime').datetimepicker({
+    //language:  'fr',
+    weekStart: 1,
+    todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	forceParse: 0,
+    showMeridian: 1
+});
  var total = 0;
 var old = 0;
 var flag = 0;

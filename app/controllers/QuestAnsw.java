@@ -59,17 +59,26 @@ public class QuestAnsw extends Application {
 			userprofile = cssa.profile;
 			userselfIntro = cssa.selfIntro;
 		}
+		String string;
+		
+		string=content.replace("<br>", "");
+		string=string.replace("</div>", "");
+		string=string.replace("<div>", "");
+		string=string.replace("&nbsp;", "");
+		string=string.replace(" ", "");
 		if (title.equals("")) {
 			validation.keep();
 			params.flash();
 			flash.error("错误:请输入标题名");
 			QuesIndex();
-		} else if (content.equals("")) {
+		} 
+		if ("".equals(string)) {
 			validation.keep();
 			params.flash();
 			flash.error("错误:请输入内容");
 			QuesIndex();
-		} else if (Tag == null) {
+		}
+		if(Tag == null) {
 			validation.keep();
 			params.flash();
 			flash.error("错误:至少选择一个标签");
