@@ -16,7 +16,6 @@
 		<div class="">
 			#{if activities.isEmpty()}您还未发布任何活动，
 			<a href="@{Activities.create}">发布一个</a>
-<<<<<<< HEAD
 			#{/if} #{else} 
        
          <div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span></div>
@@ -26,10 +25,6 @@
        
        #{list items:activities,as:'activity'}
        <div class="trend row result">
-=======
-			。#{/if} #{else} #{list items:activities,as:'activity'}
-			<div class=" trend row">
->>>>>>> temp
 
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
@@ -50,12 +45,6 @@
 					</h4>
 
 
-<<<<<<< HEAD
-					 
-=======
-					<p class="text-muted overflow-2">${activity.intro.raw()}</p>
->>>>>>> temp
-
 					<ul class="list-inline text-muted font-12">
 						<li>${activity.postAt}</li>
 						<li>
@@ -71,19 +60,14 @@
 				</div>
 
 			</div>
-<<<<<<< HEAD
 			  #{/list}
         </div>  
        <div id="Pagination" class="pagination"><!-- 这里显示分页--></div>  
          #{/else}
-=======
-			#{/list} #{/else}
->>>>>>> temp
 		</div>
 	</div>
 </div>
 </div>
-<<<<<<< HEAD
 #{set 'Scripts'}
  <script type="text/javascript" src="@{'public/javascripts/jquery.pagination.js'}"></script>
  <script type="text/javascript">
@@ -130,16 +114,6 @@
  </script>
  #{/set}
 
-
-=======
-#{set}
-<script type="text/javascript">
-	$('#modal').on('hidden', function() {
-		$(this).removeData('modal');
-	});
-</script>
-#{/set}
->>>>>>> temp
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 

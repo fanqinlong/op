@@ -15,7 +15,6 @@
 		</ul>
 		<div class="">
 		#{if activities.isEmpty()}您还未参加任何活动，<a href="@{Activities.index}">去看看</a>。#{/if}#{else}
-<<<<<<< HEAD
 		
 		<div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span></div>
        
@@ -25,11 +24,6 @@
 		#{list items:activities,as:'a'}
 		
 		<div class="result trend row">
-=======
-		#{list items:activities,as:'a'}
-		
-		<div class=" trend row">
->>>>>>> temp
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
 						<img src="${user.profile}" />
@@ -39,16 +33,6 @@
 					<h5 style="margin-top:0px;" class="text-muted">我参加了活动：
 					</h5>
 		 	<h4><a href="@{Activities.detail(a.activity.id)}"> ${a.activity.name} </a></h4>
-<<<<<<< HEAD
-	 
-=======
-		 <p class="text-muted overflow-2">
-							 
-								${a.activity.intro.raw()}
-						</p>
-						
-				 
->>>>>>> temp
 						<ul class="list-inline text-muted font-12">
 							  <li>${a.joinedAt} </li>
 							<li><a href="@{Activities.allJoinner(a.activity.id)}">参加(${a.activity.joiner.size()})  </a></li>
@@ -57,7 +41,6 @@
 							<li> 浏览(  ${a.activity.views})</li>
 							<li class="text-danger">${a.isAllown?"已":"暂未"}通过审核。</li>
 							
-<<<<<<< HEAD
 							   </ul>  
            </div>
          </div>
@@ -117,20 +100,3 @@
  </script>
  #{/set}
 
- 
-=======
-							</ul>		
-						
-						
-			 
-			
- 
-		</div>
-		</div>
-		#{/list}
-		#{/else}
-		
-		</div>
-	</div>
-</div>
->>>>>>> temp

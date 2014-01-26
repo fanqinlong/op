@@ -18,23 +18,16 @@
 		</ul>
 		<div class="">
 		#{if activities.isEmpty()}您还未关注任何活动，<a href="@{Activities.index}">去看看</a>。#{/if}#{else}
-<<<<<<< HEAD
 		
 		<div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span></div>
        
          <div id="hiddenresult" style="display: none;">
-=======
->>>>>>> temp
 		#{list items:activities,as:'a'}
 		
 		
 		
 		
-<<<<<<< HEAD
 		<div class=" trend row result">
-=======
-		<div class=" trend row">
->>>>>>> temp
 			
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
@@ -47,15 +40,6 @@
 			 
 			
 				<h4><a href="@{Activities.detail(a.activity.id)}"> ${a.activity.name} </a></h4>
-				
-<<<<<<< HEAD
-			 s
-=======
-				<p class="text-muted overflow-2">
-							 
-								${a.activity.intro.raw()}
-						</p>
->>>>>>> temp
 					<ul class="list-inline text-muted font-12">
 							  <li>${a.likedAt} </li>
 							<li><a href="@{Activities.allJoinner(a.activity.id)}">参加(${a.activity.joiner.size()})  </a></li>
@@ -70,17 +54,13 @@
 			</div>
 			</div>
 		#{/list}
-<<<<<<< HEAD
 		 </div>  
        <div id="Pagination" class="pagination"><!-- 这里显示分页--></div>  
         <div class="clearfix"></div>
-=======
->>>>>>> temp
 		#{/else}
 		
 		</div>
 	</div>
-<<<<<<< HEAD
 </div>
 #{set 'Scripts'}
  <script type="text/javascript" src="@{'public/javascripts/jquery.pagination.js'}"></script>
@@ -128,6 +108,3 @@
  </script>
  #{/set}
 
-=======
-</div>
->>>>>>> temp

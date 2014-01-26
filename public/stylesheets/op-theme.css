@@ -1,16 +1,7 @@
-<<<<<<< HEAD
-
-body {
-	color: #000;
-	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif;
-	background: #f3f3f3;
-=======
-<<<<<<< HEAD
 body {
 	color: #000;
 	background: #f3f3f3;
 	font-family: "微软雅黑", Tahoma, Verdana, Arial, sans-serif;
->>>>>>> temp
 	
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
@@ -18,11 +9,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 }
 .container-op{
 	font-size:14px;
-<<<<<<< HEAD
-  
-=======
-	 
->>>>>>> temp
 }
 .width70{
 width:70px;}
@@ -59,7 +45,6 @@ hr{
 	color: #FFF;
 }
 
-<<<<<<< HEAD
 .cw{
 	
 	color:white;
@@ -71,8 +56,6 @@ hr{
 	margin-top:-12px;
 	
 }
-=======
->>>>>>> temp
 .navbar-op-footer .navbar-text {
 	margin: 10px 15px 8px 15px;
 }
@@ -309,20 +292,15 @@ list-style:none;
 .bottom30{bottom:30px;}
 .bottom35{bottom:35px;}
 .bottom40{bottom:40px;}
-<<<<<<< HEAD
 .fwb{
 	font-weight: bold;
 }
-=======
-
->>>>>>> temp
 .oh{overflow: hidden;}
 .pa{position: absolute}
 .pr{position: relative}
 .dn{display: none}
 .db{display: block}
 .di{display:inline;}
-<<<<<<< HEAD
 .width100{width:100%}
 .color-blue{
 	
@@ -335,32 +313,6 @@ list-style:none;
 	background:white !important;
 }
 
-=======
-.fwb{
-	font-weight: bold;
-}
-.label-warning{
-	
-	-webkit-border-radius: 12px 11px 11px 12px/12px;
-	-moz-border-radius: 12px 11px 11px 12px/12px;
-	border-radius: 12px 11px 11px 12px/12px;
-	background-color: #E0E7FD;;
-	color: #369;
-	
-}
-
-.color-yellow{
-	color:yellow;
-}
-.color-green{
-	color:green;
-}
-
-.small-default{
-	padding: 2px 12px;
-}
-.width100{width:100%}
->>>>>>> temp
 .pagination {
 display: inline;
 padding-left: 0;
@@ -482,10 +434,6 @@ background-color: #3BE71A;
 .fwn{
 	font-weight: normal;
 }
-<<<<<<< HEAD
- 
-=======
-=======
 body {
 	color: #000;
 	background: #f3f3f3;

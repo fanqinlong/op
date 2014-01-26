@@ -7,17 +7,14 @@
 		</ul>
 	
 		<div class=" mg-top-5">
-<<<<<<< HEAD
+ 
 		
 		 <div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span></div>
        
        <div id="hiddenresult" style="display:none;">
 			#{list items:trends,as:'trend'}
 			<div class=" trend row result">
-=======
-			#{list items:trends,as:'trend'}
-			<div class=" trend row">
->>>>>>> temp
+ 
 				#{if trend.type.equals("activity")}
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
@@ -34,21 +31,11 @@
 							<h4><a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a></h4>
 							 
 						 
-<<<<<<< HEAD
 						 
 						 
 						<ul class="list-inline text-muted font-12">
 						<!-- - -->
-=======
-						<p class="text-muted overflow-2">
-							 
-								${trend.a.intro.raw()}
-						</p>
-						 
-						<ul class="list-inline text-muted font-12">
-						<!-- -- -->
->>>>>>> temp
-						
+ 
 							  <li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
 							
 							
@@ -72,15 +59,7 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-<<<<<<< HEAD
-				 
-=======
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
-						 
->>>>>>> temp
+ 
 			<ul class="list-inline text-muted font-12" >
 							 
 							<li>${trend.time}</li>
@@ -102,14 +81,7 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-<<<<<<< HEAD
-			 
-=======
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
->>>>>>> temp
+ 
 						 
 			<ul class="list-inline text-muted font-12">
 							 
@@ -134,15 +106,7 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}发布了一条问答</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-<<<<<<< HEAD
-				 
-=======
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
-						 
->>>>>>> temp
+ 
 			<ul class="list-inline text-muted font-12" >
 							 
 							<li>${trend.time}</li>
@@ -163,14 +127,7 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}赞了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} </h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-<<<<<<< HEAD
-				 
-=======
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
->>>>>>> temp
+ 
 						 
 			<ul class="list-inline text-muted font-12">
 							 
@@ -196,15 +153,7 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">你关注了公益活动</h5>
 			<h4><a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a></h4>
-<<<<<<< HEAD
-				 
-=======
-				<p class="text-muted overflow-2" style="">
-					 	 
-							${trend.w.content.raw()} 
-						</p>
-						 
->>>>>>> temp
+ 
 			<ul class="list-inline text-muted font-12">
 							 
 							<li>${trend.time}</li>
@@ -215,16 +164,10 @@
 			</div>
 					
 		</div>
-<<<<<<< HEAD
-=======
-				
-				
->>>>>>> temp
-					 
+ 
 				#{/elseif}
 		</div>
 		#{/list}
-<<<<<<< HEAD
 	 </div>  
        <div id="Pagination" class="pagination"><!-- 这里显示分页--></div>  
         <div class="clearfix"></div>
@@ -277,10 +220,4 @@
   
  </script>
  #{/set}
-=======
-	</div>
-
-</div>
-</div>
->>>>>>> temp
 
