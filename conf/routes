@@ -176,8 +176,7 @@ POST /UserSurvey/index               		           UserSurvey.index
 GET	 /Meal/test/index               		           Meal.index
 GET	 /Meal/test/inputFrom               		       Meal.inputFrom
 POST /Meal/test/doOrder               		           Meal.doOrder
-GET	 /Meal/test/lookOr               		           Meal.lookOr
-GET	 /Meal/test/lookOr               		           Meal.lookOr
+GET	 /Meal/test/lookOr/{user_id}               		           Meal.lookOr
 POST /Meal/test/searchOrder               		       Meal.searchOrder
 GET	 /Meal/test/deleteOrder/{id}               		   Meal.deleteOrder
 GET	 /Meal/test/doSend/{id}               		       Meal.doSend

@@ -32,7 +32,8 @@
 			</a>
 		</p>
 		<p>
-			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}" style="display: block;position: absolute;top: 78px;"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
+ 
 		</p>
 		#{if isOwner}
 		#{if !joiner.isAllown}
@@ -64,7 +65,9 @@
 		<p>
 			#{if joiner.joiner.eduMail!=null &&joiner.joiner.eduMailConfirmation==null} <img alt="" src="@{'public/images/edu.png'}"> #{/if} #{if joiner.joiner.gender!=null && joiner.joiner.gender.equals("女")} <img src="@{'/public/images/active_detailed_gender-proportion_female.png'}" class="male"> #{/if} #{elseif joiner.joiner.gender!=null} <img src="@{'/public/images/active_detailed_gender-proportion_male.png'}" class="male"> #{/elseif} <span class="sh_name">${joiner.joiner.name}</span>
 		</p>
+	
 		#{if isOwner}
+			<p>${joiner.contract}</p>
 		#{if !joiner.isAllown}
 		<p>
 			<a href="@{Activities.allownJoiner(joiner.id)}" class="btn btn-success ">允许参加</a>

@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE HTML>
+﻿﻿﻿﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -12,8 +12,8 @@
 	  #{stylesheet 'user.css' /}
 	 #{stylesheet 'op-theme.css' /}
 
- 
-<body>
+ </head>
+<body class="color-white">
 	 
  	
 	 
@@ -107,21 +107,13 @@
 			<a  class="size4 btn-infocenter btn-sm"  href="@{SimpleUsers.infoCenter()}"><img alt="" src="@{'public/images/login_1.png'}" class="mg-top-04 mg-right-02">个人中心</a>
 			</p><p class="mg-top-2"> <a  class="size4 btn-infocenter btn-sm " href="@{SimpleUsers.logout}"><img alt="" src="@{'public/images/login_2.png'}" class="mg-top-04 mg-right-02">退出登录</a></p></div> 
 			 #{/if} #{elseif isCssa}
-			<div  class="login1 col-md-2  col-md-offset-1  " >
-			<div  class="user_exit text-center img-w-128 user_exit1" > 
-				 	
-					<img alt="" src="@{'public/images/touxiang.png'}" style="position:absolute;">
+			<ul  class="user_exit" align="center">
+				<li>
 					<img src="${userprofile}" class="img-circle"  >
 					<p class="size4 mg-top-1">你好，${username}</p>
-				</div>
-			<div class="user_exit_infocenter text-center"  >
-			<p>
-			<a  class="size4 btn-infocenter btn-sm"  href="@{CSSAs.infoCenter()}"><img alt="" src="@{'public/images/login_1.png'}" class="mg-top-04 mg-right-02">个人中心</a>
-			</p><p class="mg-top-2"> <a  class="size4 btn-infocenter btn-sm " href="@{CSSAs.logout}"><img alt="" src="@{'public/images/login_2.png'}" class="mg-top-04 mg-right-02">退出登录</a></p></div> 	
-			
-			
-			
-			 #{/elseif} #{/else}
+				</li>
+			</ul>
+			<div  class="user_exit_infocenter text-center"><a type="button" class="btn btn-default btn-sm" href="@{CSSAs.infoCenter()}">个人中心</a> <a type="button" class="btn btn-default btn-sm" href="@{CSSAs.logout}">退出登录</a></div> #{/elseif} #{/else}
 		</div>
 	</div>
  </div>
@@ -134,7 +126,7 @@
 			
 			<div class="row">
 				#{list items:activities,as:'a'}
-				<div class="col-xs-6 col-sm-4 col-md-2 activity" style="padding-right: 0px;" >
+				<div class="col-xs-6 col-sm-4 col-md-2 activity pr0" >
 
 					<div class="poster">
 						<a href="@{Activities.detail(a.id)}" target="_blank"> <img alt=""  src="${a.poster}" class="img-responsive ">
@@ -142,7 +134,10 @@
 					</div>
 					<div class="titles text-center">${a.name}</div>
 					<div class="detail " onclick="window.location.href='/activity/detail/${a.id}'">
+					
 						<p>
+						${a.name}
+						<br>
 							<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
 						</p>
 						<p>${a.summary.raw()}</p>
@@ -205,18 +200,19 @@
 			</div>
 		</div>
 	 </div>
-	<footer class="navbar-op-footer  col-md-12 ">
-		<div class="container col-md-offset-4" >
-		
-			<ul class="nav navbar-nav">
-				<li><a href="@{Info.about}" class="list3 pull-left" >&copy; opporlink&nbsp; 奥噗</a></li>
-				<li><a href="@{Info.contact}" class="list3 pull-left">联系我们</a></li>
-				<li><a href="@{Info.jobs}" class="list3 pull-left">加入奥噗</a></li>
-				<li><a href="http://weibo.com/u/3630148044" target="view_window" class="list3 pull-left"> <img src="/public/images/share_weibo.png"   class="list-3"/></a> </li>
-				 		</ul>
+<hr class="mt40 container">
+	
+	<footer class="col-md-12 height28">
+	 
+			<ul class="list-inline text-center bottom-list pt2">
+				<li><a  href="@{Info.about}">&copy; opporlink&nbsp; 奥噗</a></li>
+				<li><a href="@{Info.contact}">联系我们</a></li>
+				<li><a href="@{Info.jobs}">加入奥噗</a></li>
+				<li><a href="http://weibo.com/u/3630148044" target="view_window" class="list3"> <img src="/public/images/share_weibo.png"   class="list-3"/></a> </li>
+			</ul>
 		
 		 
-		</div>
+	 
 	</footer>
  
 
@@ -243,10 +239,11 @@
 		}, function() {
 			$(this).children().last().clearQueue();
 			$(this).children().last().stop(true, true).animate({
-				top : '165'
+				top : '190'
 			});
 
 		});
 	</script>
 </body>
+
 </html>

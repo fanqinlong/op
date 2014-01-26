@@ -18,6 +18,7 @@ public class Joiner extends Model {
 	@ManyToOne
 	public SimpleUser joiner;
 	
+	public String contract;
 	public String selfIntro;
 	public boolean isAllown;
 	@Required

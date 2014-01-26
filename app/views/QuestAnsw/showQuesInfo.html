@@ -3,7 +3,7 @@
 #{set 'Styles'}
  
 <script type="text/javascript" src="@{'public/javascripts/nicEdit.js'}"></script>
-#{/}
+#{/set}
 	<script language="javascript" type="text/javascript">
 		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 		function showPraise(){
@@ -188,12 +188,14 @@
 	#{if isSimple}
 		#{if UserFocusQues}
 			<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}" class="btn btn-default"  style="background-color: #ffffff;color: #333333;">
+
 			<a href="@{QuestAnsw.cancelFqcusQues(fidid.id)}" class="btn btn-default"  style="background-color: #ffffff;color: #333333; title="取消Link后，您将不能收到此问答的最新动态。">
 				<i class=" icon-link"></i>Cancel Link !
 			</a>
 		#{/if}
 		#{else}
 			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-info"  title="Link后，您将收到此问答最新的动态。">
+
 			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
 				<i class=" icon-link"></i> Link !
 			</a>
@@ -206,12 +208,14 @@
 		#{/if}
 		#{else}
 			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-info"  title="Link后，您将收到此问答最新的动态。">
+
 			<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
 				<i class=" icon-link"></i> Link !</a>
 		#{/else}
 	#{/elseif}
 	#{else}
 		<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-info"  title="Link后，您将收到此问答最新的动态。">
+
 		<a href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" class="btn btn-success"  title="Link后，您将收到此问答最新的动态。">
 				<i class=" icon-link"></i> Link !</a>
 	#{/else}

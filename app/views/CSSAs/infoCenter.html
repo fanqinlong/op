@@ -9,8 +9,12 @@
 		</ul>
 	
 		<div class=" mg-top-5">
+		
+		<div id="Searchresult"><span class="glyphicon glyphicon-refresh"></span></div>
+       
+       <div id="hiddenresult" style="display:none;">
 			#{list items:trends,as:'trend'}
-			<div class=" trend row">
+			<div class=" trend row result">
 				#{if trend.type.equals("activity")}
 				<div class="col-md-1 profile ">
 					<a class="img-border img-w-5">
@@ -22,9 +26,6 @@
 					${trend.action}活动：
 					</h5>
 							<h4><a href="@{Activities.detail(trend.a.id)}" target="_blank"> ${trend.a.name}</a></h4>
-						<p class="text-muted overflow-2">
-								${trend.a.intro.raw()}
-						</p>
 						<ul class="list-inline text-muted font-12">
 							<li>发起人:<a href="">${trend.relationCSSA==null?trend.relationSU?.name:(trend.relationCSSA?.school?.name+"CSSA")} </a></li>
 							<li>${trend.a.time.first().date}</li>
@@ -43,11 +44,6 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
-						 
 			<ul class="list-inline text-muted font-12" >
 							 
 							<li>${trend.time}</li>
@@ -69,11 +65,6 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}回答了问题</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
-						 
 			<ul class="list-inline text-muted font-12">
 							 
 							<li>${trend.time}</li>
@@ -97,10 +88,6 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}发布了一条问答</h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
 						 
 			<ul class="list-inline text-muted font-12" >
 							 
@@ -122,11 +109,6 @@
 			<div class="activity col-md-11 text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">${trend.orderCSSA==null?trend.orderSU.name:(trend.orderCSSA.school.name+"CSSA")}赞了 ${trend.relationCSSA==null?trend.relationSU.name:(trend.relationCSSA.school.name+" CSSA")} </h5>
 			<h4><a href="@{QuestAnsw.showQuesInfo(trend.q.id)}">${trend.q.title}</a></h4>
-				<p class="text-muted overflow-2">
-					 	 
-							${trend.q.content.raw()}
-						</p>
-						 
 			<ul class="list-inline text-muted font-12">
 							 
 							<li>${trend.time}</li>
@@ -151,11 +133,6 @@
 			<div class="activity col-md-11  text-muted">
 				<h5 style="margin-top:0px;" class="text-muted">你关注了公益活动</h5>
 			<h4><a href="@{Charities.welfare(trend.w.id)}">${trend.w.title}</a></h4>
-				<p class="text-muted overflow-2" style="">
-					 	 
-							${trend.w.content.raw()} 
-						</p>
-						 
 			<ul class="list-inline text-muted font-12">
 							 
 							<li>${trend.time}</li>
@@ -172,7 +149,59 @@
 				#{/elseif}
 		</div>
 		#{/list}
+		  </div>  
+       <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>  
+        <div class="clearfix"></div>
 	</div>
 
 </div>
 </div>
+#{set 'Scripts'}
+ <script type="text/javascript" src="@{'public/javascripts/jquery.pagination.js'}"></script>
+ <script type="text/javascript">
+ 
+   
+   function initPagination() {
+    
+     var num_entries = $("#hiddenresult div.result").length;
+     // 创建分页
+   
+     if($("#hiddenresult div.result").length<=10){
+       $("#Pagination").hide();
+       
+     }
+   
+     $("#Pagination").pagination(num_entries, {
+       num_edge_entries: 2, //边缘页数
+       prev_text:"«",
+       next_text:"»",
+       num_display_entries: 4, //主体页数
+       callback: pageselectCallback,
+        
+     });
+    }
+    
+   function pageselectCallback(page_index, jq){
+       $('#Searchresult').empty();
+       var items_per_page = 10;
+           var max_elem = Math.min((page_index+1) * items_per_page, $("#hiddenresult div.result").length);
+          
+           
+           // Iterate through a selection of the content and build an HTML string
+           for(var i=page_index*items_per_page;i<max_elem;i++)
+           {
+             var new_content = $("#hiddenresult div.result:eq("+i+")").clone();
+             $('#Searchresult').append(new_content);
+           }
+           
+           
+     return false;
+   }
+    $(document).ready(function(){      
+      initPagination();
+      });
+ 
+  
+ 
+ </script>
+ #{/set}
