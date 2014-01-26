@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+﻿﻿﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -134,7 +134,10 @@
 					</div>
 					<div class="titles text-center">${a.name}</div>
 					<div class="detail " onclick="window.location.href='/activity/detail/${a.id}'">
+					
 						<p>
+						${a.name}
+						<br>
 							<em>${a.publisherCSSA==null?a.publisherSU.name:(a.publisherCSSA.school.name+"CSSA")}:</em>
 						</p>
 						<p>${a.summary.raw()}</p>
@@ -236,10 +239,11 @@
 		}, function() {
 			$(this).children().last().clearQueue();
 			$(this).children().last().stop(true, true).animate({
-				top : '165'
+				top : '190'
 			});
 
 		});
 	</script>
 </body>
+
 </html>
