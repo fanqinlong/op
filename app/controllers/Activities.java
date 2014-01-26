@@ -397,7 +397,13 @@ public class Activities extends Application {
 		detail(aid);
 	}
 
-	public static void join(long aid, String selfIntro) {
+	public static void join(@Required long aid, @Required String selfIntro,@Required String contract) {
+		 if (validation.hasErrors()) {
+				validation.keep();
+				params.flash();
+				flash.error("申请出现错误，请重新申请。");
+				detail(aid);
+			}
 		ArrayList<String> notification = new ArrayList();
 		Joiner j = new Joiner();
 		if (Utils.getUserType().equals("cssa")) {
@@ -412,6 +418,7 @@ public class Activities extends Application {
 			j.activity = Activity.findById(aid);
 			j.joiner = SimpleUser.findById(Utils.getUserId());
 			j.selfIntro = selfIntro;
+			j.contract = contract;
 			j.isAllown = false;
 			j.joinedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
 			j.save();

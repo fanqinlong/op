@@ -73,7 +73,6 @@ public class Meal extends Application {
 //			inputFrom();
 //		} else 
 		
-		System.out.println("看看总价"+money);
 		if (phone == null) {
 			flash.error("请输入电话号码!");
 			inputFrom();
@@ -114,10 +113,12 @@ public class Meal extends Application {
 	}
 	public static void lookOr(Long user_id) {
 		long userid = Long.parseLong(session.get("logged"));
+		System.out.print(userid+"333"+user_id);
 		if (user_id == userid) {
 			List<MealOrder> meal = MealOrder.find(
 					"SELECT a FROM MealOrder a WHERE shop_name LIKE ?",
 					"%" + "test" + "%").fetch();
+			System.out.print(meal);
 			render(meal);
 		} else {
 			flash.error("用户不匹配!");
