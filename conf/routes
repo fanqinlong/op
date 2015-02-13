@@ -198,7 +198,9 @@ GET	 /ordering/submit/{id}									Ordering.submit
 GET	 /business/view/{id}									Ordering.view
 
 GET	 /business/operate/{id}									Ordering.operate
-GET	 /business/view/{id}/{staus}/{keyWord}/{start}/{end}	Ordering.operate
+GET	 /business/operate/{id}/{st}/{start}/{end}/{keyWord}	Ordering.operate
+GET	 /business/export/{id}									Ordering.exportOrders
+
 
 GET  /business/login										Ordering.preLogin
 POST /business/login										Ordering.login

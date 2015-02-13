@@ -39,8 +39,9 @@
 						</div>
 						<div class="mt30">
 							<span class="text-muted">菜单：</span>
-							#{list items:order.dishes,as:'d'}
-							<lable class="mr20"> ${d.menu.dishes} ${d.menu.price}<span class="color-red fwb">X ${d.number}</span>
+							#{list items:dishes,as:'d'}
+							<lable class="mr20"> ${d.menu.dishes} $
+							${d.menu.price}<span class="color-red fwb">X ${d.amount}</span>
 							</lable>
 							#{/list}
 							

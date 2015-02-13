@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
@@ -33,7 +34,7 @@ public class Orders extends Model{
 	public boolean isSubmit;
 	public String remark;
 	
-	@OneToMany(mappedBy="orders", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="orders", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	public List<Dishes> dishes;
 	
 	//餐厅ID ，如果餐厅多的话，以便用来区分是哪家餐厅的订单

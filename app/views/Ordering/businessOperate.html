@@ -13,6 +13,8 @@
 'media-queries.css' /}#{stylesheet
 'font-awesome/css/font-awesome.min.css' /} #{get 'Styles' /}
 #{stylesheet 'bootstrap-datetimepicker.min.css' /}
+
+
 </head>
 <body style="background-image: url(/public/images/background.png);"
 	class="text-center img-responsive">
@@ -45,25 +47,23 @@
 
 					<div class="mb40"
 						style="background-color: #f3f3f3; height: 36px; border: 1px solid #BDBDBD;">
-						<input type="hidden"  name="id" value="id"/>
-						<form action="@{Ordering.operate}" method="get">
+						<form action="@{Ordering.operate(id,st,start,end,keyWord)}" method="get">
+							<input type="hidden"  name="id" value="${id}"/>
 							<div class="pull-left mt5 mr20 ml5">订单状态</div>
-							<select class="pull-left mt5" style="width: 120px;" name="staus">
-								<option>全部</option>
-								<option>等待派送</option>
-								<option>正在派送</option>
-								<option>交易成功</option>
+							<select name="st" class="pull-left mt5" style="width: 120px;">
+								<option value="1" >全部</option>
+								<option value="2">等待派送</option>
+								<option value="3">正在派送</option>
+								<option value="4">交易成功</option>
 							</select>
 							<div class="pull-left ml20 mt5 mr10">时间</div>
-							<input type="text" class="mt5 form_date"
-								style="width: 100px; float: left;" name="start"/>
+							<input type="text" class="mt5 form_date" style="width: 100px; float: left;" name="start" value="${start}"/>
 							<div class="pull-left  mt5 ">--</div>
-							<input type="text" class="mt5 form_date1" style="width: 100px; float: left;" name="end"/>
-							<input type="text"
-								class="mt5 ml40" style="width: 180px; float: left;" name="keyWord"/>
+							<input type="text" class="mt5 form_date1" style="width: 100px; float: left;" name="end" value="${end}"/>
+							<input type="text" class="mt5 ml40" style="width: 180px; float: left;" name="keyWord" value="${keyWord}"/>
 							<button type="submit" class="pull-left ml10 mt5 mr20">搜索</button>
 						</form>
-						<button class="pull-right btn btn-info" style="margin-top: 1px;">导出Excel</button>
+						<a class="pull-right btn btn-info" style="margin-top: 1px;" href="@{Ordering.exportOrders(id)}">导出Excel</a>
 
 
 					</div>
@@ -102,19 +102,19 @@
 							href="@{Ordering.changeStatus(order.id,'正在派送')}">标记为正在派送</a> <a
 							type="button" class="btn btn-default small-default btn2"
 							href="@{Ordering.changeStatus(order.id,'交易成功')}">标记为交易成功</a> <a
-							type="button" class="btn btn-default small-default" href="">删除</a>
+							type="button" class="btn btn-default small-default" href="@{Ordering.delete(order.id,st,start,end,keyWord)}">删除</a>
 						#{/if} #{if order.status=="正在派送"}
 						<button type="button" class="btn btn-default small-default btn1"
 							disabled="disabled">标记为正在派送</button>
 						<a type="button" class="btn btn-default small-default btn2"
 							href="@{Ordering.changeStatus(order.id,'交易成功')}">标记为交易成功</a> <a
-							type="button" class="btn btn-default small-default" href="">删除</a>
+							type="button" class="btn btn-default small-default" href="@{Ordering.delete(order.id,st,start,end,keyWord)}">删除</a>
 						#{/if} #{if order.status=="交易成功"}
 						<button type="button" class="btn btn-default small-default btn1"
 							disabled="disabled">标记为正在派送</button>
 						<button type="button" class="btn btn-default small-default btn1"
 							disabled="disabled">标记为交易成功</button>
-						<a type="button" class="btn btn-default small-default" href="">删除</a>
+						<a type="button" class="btn btn-default small-default" href="@{Ordering.delete(order.id,st,start,end,keyWord)}">删除</a>
 						#{/if} </lable>
 					</div>
 					#{/list}
@@ -164,6 +164,7 @@
 			minView : 2,
 			forceParse : 0
 		});
+
 	</script>
 
 </body>

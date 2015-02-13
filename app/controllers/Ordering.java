@@ -11,7 +11,9 @@ import java.util.Random;
 
 import play.data.validation.Email;
 import play.data.validation.Required;
+import play.modules.excel.RenderExcel;
 
+import models.airport.StuInfo;
 import models.ordering.Dishes;
 import models.ordering.Menu;
 import models.ordering.Orders;
@@ -59,7 +61,7 @@ public class Ordering extends Application{
 		Restaurant res = Restaurant.findById(id);
 		List<Menu> menus =  Menu.find("SELECT m FROM Menu m WHERE m.restaurant.id = ?", res.id).fetch();
 		
-		renderTemplate("Ordering/preview.html",res,menus);
+		render(res,menus);
 	}
 	
 	/**
@@ -68,7 +70,7 @@ public class Ordering extends Application{
 	 */
 	public static void execute(long id){
 		List<Menu> menus =  Menu.find("SELECT m FROM Menu m WHERE m.restaurant.id = ?", id).fetch();
-		renderTemplate("Ordering/execute.html",menus);
+		render(menus);
 	}
 	/**
 	 * 用户点餐的所有操作
@@ -147,28 +149,28 @@ public class Ordering extends Application{
 		}
 		String orderNum = date+sb;//订单号
 		float totalPrice=0;
-		long timeStamp = time.getTime();
-		long orderTime = System.currentTimeMillis();
-		Orders order = new Orders(totalPrice, orderNum, userName, email, qq, phone, weixin, timeStamp, orderTime,location, "未完成", restaurantId,false,false,remark);
-		
-		
+		Orders order = null;
+		List<Dishes> dishes = new ArrayList<Dishes>();
 		if(number.length==0){
 			validation.keep();
 			params.flash();
 			flash.error("请至少选择一种菜品");
 			execute(restaurantId);
 		}else{
+			long timeStamp = time.getTime();
+			long orderTime = System.currentTimeMillis();
+			order = new Orders(totalPrice, orderNum, userName, email, qq, phone, weixin, timeStamp, orderTime,location, "未完成", restaurantId,false,false,remark);
+			
 			for(int i=0;i<number.length;i++){
 				if(number[i]!=0){
 					Menu m  = Menu.findById(menuId[i]);
-					 new Dishes(m,number[i],order);
+					totalPrice+=number[i]*m.price;
+					dishes.add( new Dishes(m,number[i],order));
 				}
 			}
 		}
-		//过滤掉等于0的菜
-	
-		//判断是否选菜，如果没有选，不让提交到下一步
-		renderTemplate("Ordering/produce.html",totalPrice, order);
+		
+		renderTemplate("Ordering/produce.html",totalPrice, order,dishes);
 	}
 	/**
 	 * 用户生成订单提交
@@ -200,45 +202,55 @@ public class Ordering extends Application{
 	 * 订单显示操作
 	 * @param id
 	 */
-	public static void operate(long id,String staus,String keyWord,String start,String end){
+	public static void operate(long id,String st,String start,String end,String keyWord){
 		if(session.get("signed")==null){
 			preLogin();
 		}else{
 			String condition="";//sql语句的条件
-			
-			if(staus!=null){
-				if(staus.equals("全部")){
-					condition+="";
-				}else{
-					condition+=" and o.staus = '"+staus+"' ";
-				}
-			}
-			if(keyWord!=null){
-				condition+=" and o.orderNumber = '"+keyWord+"' ";
-				
+			if(st==null){
+				condition+="";
+			}else if(Integer.parseInt(st)==1){
+				condition+="";
+			}else if(Integer.parseInt(st)==2){
+				st="等待派送";
+				condition+=" and o.status = '"+st+"' ";
+			}else if(Integer.parseInt(st)==3){
+				st="正在派送";
+				condition+=" and o.status = '"+st+"' ";
+			}else if(Integer.parseInt(st)==4){
+				st="交易成功";
+				condition+=" and o.status = '"+st+"' ";
 			}
 		
 			long startTemp = 0;
 			long endTemp = 0;
 			try {
 				SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-				if(start!=null){
+				if(!(start== null || start.length() <= 0)){
 					startTemp = formatDate.parse(start).getTime();
 					condition+=" and  o.orderTime >='"+startTemp+"' ";
 				}
-				if(end!=null){
+				if(!(end== null || end.length() <= 0)){
 					endTemp = formatDate.parse(end).getTime();
 					condition+=" and  o.orderTime<= '"+endTemp+"' ";
+				}
+				
+
+				if(!(keyWord== null || keyWord.length() <= 0)){
+					condition+=" and ( o.orderNumber like '"+"%"+keyWord+"%"+"' or  o.userName like '"+"%"+keyWord+"%"
+							+"'  or  o.email like '"+"%"+keyWord+"%"+"'   or  o.location like '"+"%"+keyWord+"%"
+							+"'   or  o.phone like '"+"%"+keyWord+"%"+"'   or  o.qq like '"+"%"+keyWord+"%"
+							+"'   or  o.weixin like '"+"%"+keyWord+"%"+"' )";
+					
 				}
 				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			//搜索这家餐厅的订单，并且订单是提交过的，并且是没有被删除的
-			List<Orders> orders = Orders.find("SELECT o FROM Orders o WHERE o.restaurantId = ? and o.isSubmit = ? and o.isDelete = ?"+condition, id,true,false).fetch();
-			renderTemplate("Ordering/businessOperate.html",orders,staus,keyWord,start,end,id);
+			List<Orders> orders = Orders.find("SELECT o FROM Orders o WHERE o.restaurantId = '"+id+"' and o.isSubmit = '"+1+"' and o.isDelete = '"+0+"' "+condition).fetch();
+			renderTemplate("Ordering/businessOperate.html",orders,st,keyWord,start,end,id);
 		}
 	}
 	/**
@@ -246,14 +258,14 @@ public class Ordering extends Application{
 	 * @param id
 	 * @param staus
 	 */
-	public static void changeStatus(long id,String staus,String keyWord,String start,String end){
+	public static void changeStatus(long id,String status,String keyWord,String start,String end){
 		if(session.get("signed")==null){
 			preLogin();
 		}else{
 			Orders order = Orders.findById(id);
-			order.status = staus;
+			order.status = status;
 			order.save();
-			operate(order.restaurantId,staus,keyWord,start,end);
+			operate(order.restaurantId,status,keyWord,start,end);
 		}
 	}
 	/**
@@ -261,16 +273,28 @@ public class Ordering extends Application{
 	 * true为已经被删除，在回收站中可以看到
 	 * @param id
 	 */
-	public static void delete(long id,String staus,String keyWord,String start,String end){
+	public static void delete(long id,String status,String keyWord,String start,String end){
 		if(session.get("signed")==null){
 			preLogin();
 		}else{
 			Orders order = Orders.findById(id);
 			order.isDelete = true;
 			order.save();
-			operate(order.restaurantId,staus,keyWord,start,end);
+			operate(order.restaurantId,status,keyWord,start,end);
 		}
 	}
-	
-	
+	/**
+	 * 到处excel表格
+	 * @param id 餐厅ID
+	 */
+	public static void exportOrders(long id) {
+		request.format = "xlsx";
+		List<Orders> orders = Orders.find(
+				"SELECT o FROM Orders o WHERE o.restaurantId = ? and o.isSubmit = ? and o.isDelete = ?",
+				id ,true, false).fetch();
+		Restaurant restaurant = Restaurant.findById(id);
+		String __FILE_NAME__ = restaurant.rName + "_餐厅订单信息.xlsx";	
+		renderArgs.put(RenderExcel.RA_ASYNC, true);
+		render(__FILE_NAME__, orders);
+	}
 }
